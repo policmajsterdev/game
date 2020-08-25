@@ -13,7 +13,8 @@ z pistoletu, rozwiązywanie testów, łamigłówki logiczne, przeszukiwanie ekra
 W grze nie zabraknie też wątku edukacyjnego, choć to pewnie zostanie ograniczone w takim stopniu, by nie zniechęcić gracza zapamiętywaniem policyjnych przepisów.
 
 Od zawsze chciałem stworzyć grę, a że teraz mam okazję to.. tworzę 🙂
+
 Programowania uczę się od niedawna. 
-Zainteresowałem się tym przy okazji poszukiwania, jak zautomatyzować to, co na codzień wykonuję w swojej pracy
-a pracuję przy dużych zbiorach danych ;-) 
+Uwielbiam gry i pracę na dużych zbiorach danych :)
+
 Pozdrawiam.
