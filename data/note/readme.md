@@ -1,0 +1,1 @@
+Folder podrzędny (grafiki notatnika)
