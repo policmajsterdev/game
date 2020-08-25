@@ -1,7 +1,6 @@
 # Policmajster
 
-Policmajster to gra, którą piszę w języku programowania Python.
-Będzie w pełni darmowa, dostępna na platformę PC.
+Policmajster to gra, którą piszę w języku programowania Python, z wykorzystaniem biblioteki pygame.
 
 Gra będzie z gatunku tekstowych oraz click&point tj. wskaż i kliknij
 z (mam nadzieję) dość wciągającą i ciekawą fabułą, osadzoną w czasie rzeczywistym z opisami i zdjęciami miejsc, które możesz zwiedzić realnie.
