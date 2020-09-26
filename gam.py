@@ -701,6 +701,9 @@ def start():
         pisak.pisz("wers1", "Podaj imię. Zatwierdź        a następnie naciśnij 'Dalej'", 330, 600, white)
         pisak.pisz("wers2", imieGracza, 620, 150, white)
         
+        for i, litera in enumerate(nazwa_gracza):
+          pisak.pisz("wers2", litera, 620 + i * 12, 150, white)
+        
         cofnijx = screen.blit(cofnij, (560, 640))
 
         events = pygame.event.get()
