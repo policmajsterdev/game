@@ -591,7 +591,7 @@ def wejsciedogry():
             if mouse[0] == 1:
                 click = True
                 if click:
-                    loadingSound.play()
+                    loadingSoundDEV.play()
                     start()
 
         try:
@@ -990,6 +990,7 @@ def objasnienie():
             screen.blit(pressKariera1, (1100, 570))
             if click:
                 pygame.mixer.music.stop()
+                loadingSoundDEV.play()
                 scena1()
 
         pisak.pisz("wers", "[ AKTA OSOBOWE ]", 30, 120, white)
