@@ -3709,13 +3709,14 @@ def scena21():
         pisak.pisz("wers1", "Z prawdziwych nabojów!", 30, 180, white)
         pisak.pisz("wers2", "Czujesz stresik.. ", 30, 210, white)
         pisak.pisz("wers3", "Prowadzący zajęcia policjant tłumaczy zasady strzelania:", 30, 240, white)
-        pisak.pisz("wers4", "1.Macie 50 naboi!", 30, 270, dyellow)
-        pisak.pisz("wers5", "2.Celujecie w sam środek!", 30, 300, dyellow)
+        pisak.pisz("wers4", "1.Macie 25 naboi!", 30, 270, dyellow)
+        pisak.pisz("wers5", "2.Celujecie przyrządami celowniczymi! (nie kursorem!)", 30, 300, blue)
         pisak.pisz("wers6", ".. i zaliczacie zajęcia", 30, 330, dyellow)
         pisak.pisz("wers7", "Wchodzisz na pozycję do strzelania i ładujesz pełny magazynek", 30, 360, white)
-        pisak.pisz("wers7", "Wkładasz okulary ochronne i słuchawki wygłuszające. Słyszysz stłumiony głos"
+        pisak.pisz("wers8", "Wkładasz okulary ochronne i słuchawki wygłuszające. Słyszysz stłumiony głos"
                             " prowadzącego:", 30, 390, white)
-        pisak.pisz("wers7", "- Przygotować się do strzelania!", 30, 420, white)
+        pisak.pisz("wers9", "- Przygotować się do strzelania!", 30, 420, white)
+        pisak.pisz("wers10", "* Za bardzo dobre wyniki, możesz zyskać cenne przedmioty", 30, 450, dyellow)
 
         pygame.display.update()
         mainClock.tick()
@@ -3727,7 +3728,7 @@ def strzelnicaScena1():
     ox_move = 1
     oy_move = 1
     punkty = 0
-    naboje = 50
+    naboje = 25
     startx = 500
     delta = 0.0
     global blob_color, skrawek1, wynikp99
@@ -3748,7 +3749,7 @@ def strzelnicaScena1():
             tablica_wynikow.append(wynikp99)
             strzelnica1wyniki()
 
-        if punkty > 400:
+        if punkty > 200:
             skrawek1 = "skrawek"
 
         screen.blit(tabelaIMG, (5, 600))
@@ -3777,7 +3778,7 @@ def strzelnicaScena1():
         result2 = tarcza2_mask.overlap(blob_mask, offset)
         result1 = tarcza1_mask.overlap(blob_mask, offset)
 
-        delta += mainClock.tick() / 1000.0
+        delta += mainClock.tick(40) / 600.0
         while delta > 1 / 10.0:
             delta -= 1 / 10.0
             if result:
@@ -6132,13 +6133,14 @@ def scena33():
         pisak.pisz("wers1", "Znowu z prawdziwych nabojów!", 30, 180, white)
         pisak.pisz("wers2", "Czujesz lekki stresik.", 30, 210, white)
         pisak.pisz("wers3", "Prowadzący zajęcia policjant, tłumaczy zasady strzelania:", 30, 240, white)
-        pisak.pisz("wers4", "1.Macie 50 naboi!", 30, 270, dyellow)
-        pisak.pisz("wers5", "2.Celujecie w sam środek!", 30, 300, dyellow)
+        pisak.pisz("wers4", "1.Macie 25 naboi!", 30, 270, dyellow)
+        pisak.pisz("wers5", "2.Celujecie przyrządami celowniczymi! (nie kursorem!)", 30, 300, blue)
         pisak.pisz("wers6", ".. i zaliczacie zajęcia", 30, 330, dyellow)
         pisak.pisz("wers7", "Wchodzisz na pozycję do strzelania i ładujesz pełny magazynek", 30, 360, white)
-        pisak.pisz("wers7", "Wkładasz okulary ochronne i słuchawki wygłuszające. Słyszysz stłumiony głos prowadzącego:",
+        pisak.pisz("wers8", "Wkładasz okulary ochronne i słuchawki wygłuszające. Słyszysz stłumiony głos prowadzącego:",
                    30, 390, white)
-        pisak.pisz("wers7", "- Przygotować się do strzelania!", 30, 420, white)
+        pisak.pisz("wers9", "- Przygotować się do strzelania!", 30, 420, white)
+        pisak.pisz("wers10", "* Za bardzo dobre wyniki, możesz zyskać cenne przedmioty", 30, 450, dyellow)
 
         pygame.display.update()
         mainClock.tick()
@@ -6152,7 +6154,7 @@ def strzelnica_mossberg():
     ox_move = 1
     oy_move = 1
     punkty = 0
-    naboje = 50
+    naboje = 25
     startx = 500
     delta = 0.0
     global blob_color, wynikmb
@@ -6202,7 +6204,7 @@ def strzelnica_mossberg():
         result2 = tarcza2_mask.overlap(blob_mask, offset)
         result1 = tarcza1_mask.overlap(blob_mask, offset)
 
-        delta += mainClock.tick() / 1000.0
+        delta += mainClock.tick(40) / 600.0
         while delta > 1 / 10.0:
             delta -= 1 / 10.0
             if result:
