@@ -647,29 +647,30 @@ def kontynuacja_gry():
         if dalejx.collidepoint((mx, my)):
             screen.blit(save_start1, (1100, 570))
             if click:
-              save_file = open("data\\save\\save.txt", "r")
-              imie_save = save_file.readline()
-              imieGracza = imie_save.replace("\n", "")
-              legitymowanie_save = save_file.readline()
-              legitymowanie = legitymowanie_save.replace("\n", "")
-              ruchdrogowy_save = save_file.readline()
-              ruchdrogowy = ruchdrogowy_save.replace("\n", "")
-              pendrive1_save = save_file.readline()
-              pendrive1 = pendrive1_save.replace("\n", "")
-              skrawek1_save = save_file.readline()
-              skrawek1 = skrawek1_save.replace("\n", "")
-              quest_tomek_1_save = save_file.readline()
-              quest_tomek_1 = quest_tomek_1_save.replace("\n", "")
-              ocenaSTR_save = save_file.readline()
-              ocenaSTR = ocenaSTR_save.replace("\n", "")
-              ocena_ruchSTR_save = save_file.readline()
-              ocena_ruchSTR = ocena_ruchSTR_save.replace("\n", "")
-              wynikp99_save = save_file.readline()
-              wynikp99 = wynikp99_save.replace("\n", "")
-              save_file.close()
-              pygame.mixer.music.stop()
-              loadingSoundDEV.play()
-              scenaProg3()
+                save_file = open("data\\save\\save.txt", "r")
+                imie_save = save_file.readline()
+                imieGracza = imie_save.replace("\n", "")
+                legitymowanie_save = save_file.readline()
+                legitymowanie = legitymowanie_save.replace("\n", "")
+                ruchdrogowy_save = save_file.readline()
+                ruchdrogowy = ruchdrogowy_save.replace("\n", "")
+                pendrive1_save = save_file.readline()
+                pendrive1 = pendrive1_save.replace("\n", "")
+                skrawek1_save = save_file.readline()
+                skrawek1 = skrawek1_save.replace("\n", "")
+                quest_tomek_1_save = save_file.readline()
+                quest_tomek_1 = quest_tomek_1_save.replace("\n", "")
+                ocenaSTR_save = save_file.readline()
+                ocenaSTR = ocenaSTR_save.replace("\n", "")
+                ocena_ruchSTR_save = save_file.readline()
+                ocena_ruchSTR = ocena_ruchSTR_save.replace("\n", "")
+                wynikp99_save = save_file.readline()
+                wynikp99 = wynikp99_save.replace("\n", "")
+                save_file.close()
+                pygame.mixer.music.stop()
+                loadingSoundDEV.play()
+                scenaProg3()
+
 
         czas_pliku = time.ctime(os.path.getctime("data\\save\\save.txt"))
 
@@ -696,14 +697,12 @@ def start():
         screen.fill(black)
         screen.blit(maszyna_bg, (0, 0))
         screen.blit(key_enter1, (565, 570))
-        
 
         pisak.pisz("wers1", "Podaj imię. Zatwierdź        a następnie naciśnij 'Dalej'", 330, 600, white)
-        pisak.pisz("wers2", imieGracza, 620, 150, white)
-        
+
         for i, litera in enumerate(nazwa_gracza):
-          pisak.pisz("wers2", litera, 620 + i * 12, 150, white)
-        
+            pisak.pisz("wers2", litera, 620 + i * 12, 150, white)
+
         cofnijx = screen.blit(cofnij, (560, 640))
 
         events = pygame.event.get()
@@ -1853,8 +1852,14 @@ def egzamin_leg():
 
         pisak.pisz("wers", "Czemu służy legitymowanie?", 450, 100, red)
         pisak.pisz("wers1", "Żeby potwierdzić tożsamość osoby", 450, 130, white)
+        if odp1 == "a":
+            pisak.pisz("wers1", "Żeby potwierdzić tożsamość osoby", 450, 130, dyellow)
         pisak.pisz("wers2", "Żeby wykazać, że coś robię na służbie", 450, 190, white)
+        if odp1 == "b":
+            pisak.pisz("wers2", "Żeby wykazać, że coś robię na służbie", 450, 190, dyellow)
         pisak.pisz("wers3", "Legitymowanie jest zbędne, służy statystyce", 450, 250, white)
+        if odp1 == "c":
+            pisak.pisz("wers3", "Legitymowanie jest zbędne, służy statystyce", 450, 250, dyellow)
 
         events = pygame.event.get()
         mx, my = pygame.mouse.get_pos()
@@ -1874,7 +1879,7 @@ def egzamin_leg():
         if a_nopress.collidepoint((mx, my)):
             screen.blit(key_a1, (338, 115))
             if click:
-                pen.play()          
+                pen.play()
                 odp1 = "a"
 
         b_nopress = screen.blit(key_b, (338, 175))
@@ -1915,8 +1920,14 @@ def egzamin_leg2():
 
         pisak.pisz("wers", "Przy legitymowaniu warto zachować..", 450, 100, red)
         pisak.pisz("wers1", "Kółko bezpieczeństwa", 450, 130, white)
+        if odp2 == "a":
+            pisak.pisz("wers1", "Kółko bezpieczeństwa", 450, 130, dyellow)
         pisak.pisz("wers2", "Trójkąt bezpieczeństwa", 450, 190, white)
+        if odp2 == "b":
+            pisak.pisz("wers2", "Trójkąt bezpieczeństwa", 450, 190, dyellow)
         pisak.pisz("wers3", "pół litra na czarną godzinę", 450, 250, white)
+        if odp2 == "c":
+            pisak.pisz("wers3", "pół litra na czarną godzinę", 450, 250, dyellow)
 
         events = pygame.event.get()
         mx, my = pygame.mouse.get_pos()
@@ -1977,8 +1988,14 @@ def egzamin_leg3():
 
         pisak.pisz("wers", "Podstawą prawną legitymowania jest:", 450, 100, red)
         pisak.pisz("wers1", "Moje widzi mi się", 450, 130, white)
+        if odp3 == "a":
+            pisak.pisz("wers1", "Moje widzi mi się", 450, 130, dyellow)
         pisak.pisz("wers2", "art. 515 Ustawy o broni i amunicji", 450, 190, white)
+        if odp3 == "b":
+            pisak.pisz("wers2", "art. 515 Ustawy o broni i amunicji", 450, 190, dyellow)
         pisak.pisz("wers3", "art. 15 Ustawy o Policji", 450, 250, white)
+        if odp3 == "c":
+            pisak.pisz("wers3", "art. 15 Ustawy o Policji", 450, 250, dyellow)
 
         events = pygame.event.get()
         mx, my = pygame.mouse.get_pos()
@@ -2039,8 +2056,14 @@ def egzamin_leg4():
         screen.blit(egzaminFoto, (200, 0))
         pisak.pisz("wers", "W przypadku odmowy okazania dokumentu tożsamości, ma zastasowanie:", 450, 100, red)
         pisak.pisz("wers1", "art.65 par. 2 Kodeksu Wykroczeń", 450, 130, white)
+        if odp4 == "a":
+            pisak.pisz("wers1", "art.65 par. 2 Kodeksu Wykroczeń", 450, 130, dyellow)
         pisak.pisz("wers2", "Pałka służbowa", 450, 190, white)
+        if odp4 == "b":
+            pisak.pisz("wers2", "Pałka służbowa", 450, 190, dyellow)
         pisak.pisz("wers3", "art. 15 Ustawy o Policji", 450, 250, white)
+        if odp4 == "c":
+            pisak.pisz("wers3", "art. 15 Ustawy o Policji", 450, 250, dyellow)
 
         events = pygame.event.get()
         mx, my = pygame.mouse.get_pos()
@@ -3710,9 +3733,9 @@ def scena21():
         pisak.pisz("wers1", "Z prawdziwych nabojów!", 30, 180, white)
         pisak.pisz("wers2", "Czujesz stresik.. ", 30, 210, white)
         pisak.pisz("wers3", "Prowadzący zajęcia policjant tłumaczy zasady strzelania:", 30, 240, white)
-        pisak.pisz("wers4", "1.Macie 25 naboi!", 30, 270, dyellow)
+        pisak.pisz("wers4", "1.Macie 25 naboi!", 30, 270, white)
         pisak.pisz("wers5", "2.Celujecie przyrządami celowniczymi! (nie kursorem!)", 30, 300, blue)
-        pisak.pisz("wers6", ".. i zaliczacie zajęcia", 30, 330, dyellow)
+        pisak.pisz("wers6", ".. i zaliczacie zajęcia", 30, 330, white)
         pisak.pisz("wers7", "Wchodzisz na pozycję do strzelania i ładujesz pełny magazynek", 30, 360, white)
         pisak.pisz("wers8", "Wkładasz okulary ochronne i słuchawki wygłuszające. Słyszysz stłumiony głos"
                             " prowadzącego:", 30, 390, white)
@@ -4039,8 +4062,14 @@ def egzamin_ruch():
 
         pisak.pisz("wers", "Podstawowa zasada ruchu to..?", 450, 100, red)
         pisak.pisz("wers1", "Ruch prawostronny", 450, 130, white)
+        if odp1_ruch == "a":
+            pisak.pisz("wers1", "Ruch prawostronny", 450, 130, dyellow)
         pisak.pisz("wers2", "Unikanie kolizji", 450, 190, white)
+        if odp1_ruch == "b":
+            pisak.pisz("wers2", "Unikanie kolizji", 450, 190, dyellow)
         pisak.pisz("wers3", "Jazda na podwójnym gazie", 450, 250, white)
+        if odp1_ruch == "c":
+            pisak.pisz("wers3", "Jazda na podwójnym gazie", 450, 250, dyellow)
 
         events = pygame.event.get()
         mx, my = pygame.mouse.get_pos()
@@ -4103,8 +4132,14 @@ def egzamin_ruch2():
 
         pisak.pisz("wers", "W jakim dokumencie w Polsce, określono zasady ruchu drogowego?", 450, 100, red)
         pisak.pisz("wers1", "w Ustawie 'Prawo o ruchu drogowym'", 450, 130, white)
+        if odp2_ruch == "a":
+            pisak.pisz("wers1", "w Ustawie 'Prawo o ruchu drogowym'", 450, 130, dyellow)
         pisak.pisz("wers2", "w tygodniku 'AutoSzrot'", 450, 190, white)
+        if odp2_ruch == "b":
+            pisak.pisz("wers2", "w tygodniku 'AutoSzrot'", 450, 190, dyellow)
         pisak.pisz("wers3", "w Konstytucji RP", 450, 250, white)
+        if odp2_ruch == "c":
+            pisak.pisz("wers3", "w Konstytucji RP", 450, 250, dyellow)
 
         events = pygame.event.get()
         mx, my = pygame.mouse.get_pos()
@@ -4163,8 +4198,14 @@ def egzamin_ruch3():
         screen.blit(egzaminFoto, (200, 0))
         pisak.pisz("wers", "Z jaką prędkością można jechać w strefie zamieszkania?", 450, 100, red)
         pisak.pisz("wers1", "20 km\\h", 450, 130, white)
+        if odp3_ruch == "a":
+            pisak.pisz("wers1", "20 km\\h", 450, 130, dyellow)
         pisak.pisz("wers2", "30 km\\h", 450, 190, white)
+        if odp3_ruch == "b":
+            pisak.pisz("wers2", "30 km\\h", 450, 190, dyellow)
         pisak.pisz("wers3", "8 km\\h", 450, 250, white)
+        if odp3_ruch == "c":
+            pisak.pisz("wers3", "8 km\\h", 450, 250, dyellow)
         events = pygame.event.get()
         mx, my = pygame.mouse.get_pos()
 
@@ -4223,8 +4264,14 @@ def egzamin_ruch4():
         screen.blit(egzaminFoto, (200, 0))
         pisak.pisz("wers", "Podstawowa klasyfikacja pojazdów to:", 450, 100, red)
         pisak.pisz("wers1", "Silnikowe i łańcuchowe", 450, 130, white)
+        if odp4_ruch == "a":
+            pisak.pisz("wers1", "Silnikowe i łańcuchowe", 450, 130, dyellow)
         pisak.pisz("wers2", "Mechaniczne i niemechaniczne", 450, 190, white)
+        if odp4_ruch == "b":
+            pisak.pisz("wers2", "Mechaniczne i niemechaniczne", 450, 190, dyellow)
         pisak.pisz("wers3", "Osobowe i dostawcze", 450, 250, white)
+        if odp4_ruch == "c":
+            pisak.pisz("wers3", "Osobowe i dostawcze", 450, 250, dyellow)
 
         events = pygame.event.get()
         mx, my = pygame.mouse.get_pos()
@@ -4977,7 +5024,6 @@ def scena_torba():
             if click:
                 loadingSound.play()
                 scena27()
-        pisak.pisz("wers1", "*4 przedmioty*", 20, 20, dyellow)
 
         if inicjalyX.collidepoint((mx, my)):
             screen.blit(inicjaly1, (880, 120))
@@ -5358,8 +5404,14 @@ def egzamin_wykr():
         screen.blit(egzaminFoto, (200, 0))
         pisak.pisz("wers", "Kodeks wykroczeń to..?", 450, 100, red)
         pisak.pisz("wers1", "Rozporządzenie", 450, 130, white)
+        if odp1_wykr == "a":
+            pisak.pisz("wers1", "Rozporządzenie", 450, 130, dyellow)
         pisak.pisz("wers2", "Ustawa", 450, 190, white)
+        if odp1_wykr == "b":
+            pisak.pisz("wers2", "Ustawa", 450, 190, dyellow)
         pisak.pisz("wers3", "Tygodnik policyjny", 450, 250, white)
+        if odp1_wykr == "c":
+            pisak.pisz("wers3", "Tygodnik policyjny", 450, 250, dyellow)
 
         events = pygame.event.get()
         mx, my = pygame.mouse.get_pos()
@@ -5419,8 +5471,14 @@ def egzamin_wykr2():
         screen.blit(egzaminFoto, (200, 0))
         pisak.pisz("wers", "Wykroczenie można popełnić..", 450, 100, red)
         pisak.pisz("wers1", "Tylko umyślnie", 450, 130, white)
+        if odp2_wykr == "a":
+            pisak.pisz("wers1", "Tylko umyślnie", 450, 130, dyellow)
         pisak.pisz("wers2", "Tylko nieumyślnie", 450, 190, white)
+        if odp2_wykr == "b":
+            pisak.pisz("wers2", "Tylko nieumyślnie", 450, 190, dyellow)
         pisak.pisz("wers3", "Umyślnie i nieumyślnie", 450, 250, white)
+        if odp2_wykr == "c":
+            pisak.pisz("wers3", "Umyślnie i nieumyślnie", 450, 250, dyellow)
 
         events = pygame.event.get()
         mx, my = pygame.mouse.get_pos()
@@ -5480,8 +5538,14 @@ def egzamin_wykr3():
         screen.blit(egzaminFoto, (200, 0))
         pisak.pisz("wers", "Odpowiada za usiłowanie ten kto..", 450, 100, red)
         pisak.pisz("wers1", "Zmierza do popełniania czynu, który nie następuje", 450, 130, white)
+        if odp3_wykr == "a":
+            pisak.pisz("wers1", "Zmierza do popełniania czynu, który nie następuje", 450, 130, dyellow)
         pisak.pisz("wers2", "Myśli o popełnieniu czynu", 450, 190, white)
+        if odp3_wykr == "b":
+            pisak.pisz("wers2", "Myśli o popełnieniu czynu", 450, 190, dyellow)
         pisak.pisz("wers3", "Śni mu się jak popełnia przestępstwo", 450, 250, white)
+        if odp3_wykr == "c":
+            pisak.pisz("wers3", "Śni mu się jak popełnia przestępstwo", 450, 250, dyellow)
 
         events = pygame.event.get()
         mx, my = pygame.mouse.get_pos()
@@ -5541,8 +5605,14 @@ def egzamin_wykr4():
         screen.blit(egzaminFoto, (200, 0))
         pisak.pisz("wers", "Nakłanianie innej osoby do popełniania czynu to..", 450, 100, red)
         pisak.pisz("wers1", "Pomocnictwo", 450, 130, white)
+        if odp4_wykr == "a":
+            pisak.pisz("wers1", "Pomocnictwo", 450, 130, dyellow)
         pisak.pisz("wers2", "Zachęcanie", 450, 190, white)
+        if odp4_wykr == "b":
+            pisak.pisz("wers2", "Zachęcanie", 450, 190, dyellow)
         pisak.pisz("wers3", "Podżeganie", 450, 250, white)
+        if odp4_wykr == "c":
+            pisak.pisz("wers3", "Podżeganie", 450, 250, dyellow)
 
         events = pygame.event.get()
         mx, my = pygame.mouse.get_pos()
@@ -6440,21 +6510,19 @@ def scena34():
                            " na weekend.", 20, 120, white)
         pisak.pisz("wers1", "Odprowadziłeś(-aś) Tomka, Iwonę i Ankę pod szlaban. Wracając spotkałeś(-aś) dowócę"
                             " kompanii i ", 20, 150, white)
-        pisak.pisz("wers2", "ustaliłeś(-aś), że służbę masz jutro, a dokładniej to 12 godzinną służbę z soboty"
-                            " na niedzielę.", 20, 180, white)
+        pisak.pisz("wers2", "ustaliłeś(-aś), że służbę masz dzisiaj w nocy, a dokładniej to 12 godzinną..", 20, 180, white)
         pisak.pisz("wers3", "Służba ma polegać, na patrolu a właściwie to obchodzie całego kompleksu szkoły.",
                    20, 210, white)
         pisak.pisz("wers4", "Takie służby są w parach, ale dowódca nie wiedział z kim będziesz mieć służbę."
-                            " Dowiesz się jutro.", 20, 240, white)
-        pisak.pisz("wers5", "W sumie to masz bardzo dużo czasu do jutrzejszej służby tylko, że nie wiesz co "
-                            "z tym czasem robić.", 20, 270, white)
+                            " Dowiesz się na odprawie.", 20, 240, white)
+        pisak.pisz("wers5", "Nie wiesz co robić z czasem..", 20, 270, white)
         pisak.pisz("wers6", "Z racji tego, że nie wracasz dziś do domu, postanawiasz iść na stołówkę i zjeść obiad.",
                    20, 300, white)
         pisak.pisz("wers7", "Na stołówce było kilkanaście osób. Jedząc sobie spokojnie usłyszałeś(-aś), że w weekendy ",
                    20, 330, white)
         pisak.pisz("wers8", "w całej szkole panuje luz - można przemieszczać się samemu(-ej) i korzystać z"
                             " jej dobrodziejstw.", 20, 360, white)
-        pisak.pisz("wers9", "Jest basen, biblioteka, kantyna, sala do ćwiczeń. Warto to zwiedzić!",
+        pisak.pisz("wers9", "Jest basen, biblioteka, kantyna, sala do ćwiczeń. Warto to zobaczyć!",
                    20, 390, white)
 
         kompleksX = screen.blit(kompleks, (623, 212))
@@ -6464,193 +6532,6 @@ def scena34():
         pygame.display.update()
         mainClock.tick()
 
-# Plan_szkoły
-
-
-def plan_szkoly():
-    running = True
-    while running:
-        click = False
-
-        screen.fill(black)
-        screen.blit(planBG, (0, 0))
-        dalej = screen.blit(pressDalej, (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
-
-        mx, my = pygame.mouse.get_pos()
-
-        events = pygame.event.get()
-        for event in events:
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    click = True
-
-        if dalej.collidepoint((mx, my)):
-            screen.blit(pressDalej1, (1100, 640))
-            if click:
-                loadingSound.play()
-                scena35()
-
-        if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
-            if click:
-                loadingSound.play()
-                notatnik()
-
-        if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
-            if click:
-                loadingSound.play()
-                equip()
-
-        if indeksOcen.collidepoint((mx, my)):
-            screen.blit(indeks1, (900, 570))
-            if click:
-                loadingSound.play()
-                wykazOcen()
-
-        pisak.pisz("wers", "Kliknij na budynek, by zwiedzić wybrane miejsce!", 350, 650, dyellow)
-
-        stolowkax = screen.blit(stolowka, (468, 86))
-        if stolowkax.collidepoint((mx, my)):
-            screen.blit(stolowka1, (468, 86))
-            if click:
-                loadingSound.play()
-                stolowka_budynek()
-
-        bibliotekax = screen.blit(biblioteka, (513, 254))
-        if bibliotekax.collidepoint((mx, my)):
-            screen.blit(biblioteka1, (513, 254))
-            if click:
-                loadingSound.play()
-                biblioteka_budynek()
-
-        sala_rdx = screen.blit(sala_rd, (458, 185))
-        if sala_rdx.collidepoint((mx, my)):
-            screen.blit(sala_rd1, (458, 185))
-            if click:
-                loadingSound.play()
-                symulator_budynek()
-
-        hiltonx = screen.blit(hilton, (457, 361))
-        if hiltonx.collidepoint((mx, my)):
-            screen.blit(hilton1, (457, 361))
-            if click:
-                loadingSound.play()
-                hilton_budynek()
-
-        akademik_x = screen.blit(akademik2, (379, 45))
-        if akademik_x.collidepoint((mx, my)):
-            screen.blit(akademik21, (379, 45))
-            if click:
-                loadingSound.play()
-                akademik_budynek_2()
-
-        akademik1X = screen.blit(akademik_1, (313, 71))
-        if akademik1X.collidepoint((mx, my)):
-            screen.blit(akademik_11, (313, 71))
-            if click:
-                loadingSound.play()
-                akademik_budynek_1()
-
-        karatex = screen.blit(karate, (318, 291))
-        if karatex.collidepoint((mx, my)):
-            screen.blit(karate1, (318, 291))
-            if click:
-                loadingSound.play()
-                karate_budynek()
-
-        akademik3X = screen.blit(akademik3, (569, 83))
-        if akademik3X.collidepoint((mx, my)):
-            screen.blit(akademik31, (569, 83))
-            if click:
-                loadingSound.play()
-                akademik_budynek_3()
-
-        budynekx = screen.blit(budynek, (324, 438))
-        if budynekx.collidepoint((mx, my)):
-            screen.blit(budynek1, (324, 438))
-            if click:
-                loadingSound.play()
-                dziekanat_budynek()
-
-        odprawyx = screen.blit(odprawy, (378, 447))
-        if odprawyx.collidepoint((mx, my)):
-            screen.blit(odprawy1, (378, 447))
-            if click:
-                loadingSound.play()
-                kinowa_budynek()
-
-        salawfx = screen.blit(salawf, (607, 171))
-        if salawfx.collidepoint((mx, my)):
-            screen.blit(salawf1, (607, 171))
-            if click:
-                loadingSound.play()
-                salawf_budynek()
-
-        cyberx = screen.blit(cyber, (666, 311))
-        if cyberx.collidepoint((mx, my)):
-            screen.blit(cyber1, (666, 311))
-            if click:
-                loadingSound.play()
-                pcab_budynek()
-
-        pifpaf_x = screen.blit(pifpaf, (725, 163))
-        if pifpaf_x.collidepoint((mx, my)):
-            screen.blit(pifpaf1, (725, 163))
-            if click:
-                loadingSound.play()
-                strzelnica_budynek()
-
-        palarniax = screen.blit(palarnia, (735, 269))
-        if palarniax.collidepoint((mx, my)):
-            screen.blit(palarnia1, (735, 269))
-            if click:
-                loadingSound.play()
-                palarnia_budynek()
-
-        kantynax = screen.blit(kantyna, (511, 383))
-        if kantynax.collidepoint((mx, my)):
-            screen.blit(kantyna1, (511, 383))
-            if click:
-                loadingSound.play()
-                kantyna_budynek()
-
-        silkasx = screen.blit(silkas, (613, 405))
-        if silkasx.collidepoint((mx, my)):
-            screen.blit(silkas_1, (613, 405))
-            if click:
-                loadingSound.play()
-                silownia_budynek()
-
-        budowlax = screen.blit(budowla, (753, 418))
-        if budowlax.collidepoint((mx, my)):
-            screen.blit(budowla1, (753, 418))
-            if click:
-                loadingSound.play()
-                budowla_budynek()
-
-        tajwanx = screen.blit(tajwan, (840, 442))
-        if tajwanx.collidepoint((mx, my)):
-            screen.blit(tajwan1, (840, 442))
-            if click:
-                loadingSound.play()
-                tajwan_budynek()
-
-        sztabx = screen.blit(sztab, (367, 511))
-        if sztabx.collidepoint((mx, my)):
-            screen.blit(sztab1, (367, 511))
-            if click:
-                loadingSound.play()
-                sztab_budynek()
-
-        pygame.display.update()
-        mainClock.tick()
 
 
 # Sala Kinowa
@@ -6700,6 +6581,7 @@ def kinowa_budynek():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                kinowa_budynek_pkt = 1
                 loadingSound.play()
                 running = False
 
@@ -6714,6 +6596,7 @@ def kinowa_budynek():
 
         pygame.display.update()
         mainClock.tick()
+    return kinowa_budynek_pkt
 
 
 # Sala Dziekanat
@@ -6763,6 +6646,7 @@ def dziekanat_budynek():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                dziekanat_budynek_pkt = 1
                 loadingSound.play()
                 running = False
 
@@ -6771,6 +6655,7 @@ def dziekanat_budynek():
 
         pygame.display.update()
         mainClock.tick()
+    return dziekanat_budynek_pkt
 
 
 # Sala Tajwan
@@ -6820,6 +6705,7 @@ def tajwan_budynek():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                tajwan_budynek_pkt = 1
                 loadingSound.play()
                 running = False
 
@@ -6837,6 +6723,7 @@ def tajwan_budynek():
 
         pygame.display.update()
         mainClock.tick()
+    return tajwan_budynek_pkt
 
 
 # Sala Budowla
@@ -6886,6 +6773,7 @@ def budowla_budynek():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                budowla_budynek_pkt = 1
                 loadingSound.play()
                 running = False
 
@@ -6909,6 +6797,7 @@ def budowla_budynek():
 
         pygame.display.update()
         mainClock.tick()
+    return budowla_budynek_pkt
 
 
 # Sala Palarnia
@@ -6958,6 +6847,7 @@ def palarnia_budynek():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                palarnia_budynek_pkt = 1
                 loadingSound.play()
                 running = False
 
@@ -6969,6 +6859,7 @@ def palarnia_budynek():
 
         pygame.display.update()
         mainClock.tick()
+    return palarnia_budynek_pkt
 
 
 # Sala Biblioteka
@@ -7020,6 +6911,7 @@ def biblioteka_budynek():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                biblioteka_budynek_pkt = 1
                 stolowkaOGG.stop()
                 siren.play(-1)
                 loadingSound.play()
@@ -7035,6 +6927,7 @@ def biblioteka_budynek():
 
         pygame.display.update()
         mainClock.tick()
+    return biblioteka_budynek_pkt
 
 
 # Sala Kantyna
@@ -7084,6 +6977,7 @@ def kantyna_budynek():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                kantyna_budynek_pkt = 1
                 loadingSound.play()
                 running = False
 
@@ -7092,6 +6986,7 @@ def kantyna_budynek():
 
         pygame.display.update()
         mainClock.tick()
+    return kantyna_budynek_pkt
 
 
 # Sala Symulator
@@ -7141,6 +7036,7 @@ def symulator_budynek():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                symulator_budynek_pkt = 1
                 loadingSound.play()
                 running = False
 
@@ -7167,6 +7063,7 @@ def symulator_budynek():
 
         pygame.display.update()
         mainClock.tick()
+    return symulator_budynek_pkt
 
 
 # Sala siłownia
@@ -7218,6 +7115,7 @@ def silownia_budynek():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                silownia_budynek_pkt = 1
                 silowniaOGG.stop()
                 siren.play(-1)
                 loadingSound.play()
@@ -7230,6 +7128,7 @@ def silownia_budynek():
 
         pygame.display.update()
         mainClock.tick()
+    return silownia_budynek_pkt
 
 
 # Sala karate
@@ -7279,6 +7178,7 @@ def karate_budynek():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                karate_budynek_pkt = 1
                 loadingSound.play()
                 running = False
 
@@ -7296,6 +7196,7 @@ def karate_budynek():
 
         pygame.display.update()
         mainClock.tick()
+    return karate_budynek_pkt
 
 
 # Hilton
@@ -7345,6 +7246,7 @@ def hilton_budynek():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                hilton_budynek_pkt = 1
                 loadingSound.play()
                 running = False
 
@@ -7366,6 +7268,7 @@ def hilton_budynek():
 
         pygame.display.update()
         mainClock.tick()
+    return hilton_budynek_pkt
 
 
 # PCAB
@@ -7417,6 +7320,7 @@ def pcab_budynek():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                pcab_budynek_pkt = 1
                 stolowkaOGG.stop()
                 siren.play(-1)
                 loadingSound.play()
@@ -7435,6 +7339,7 @@ def pcab_budynek():
 
         pygame.display.update()
         mainClock.tick()
+    return pcab_budynek_pkt
 
 
 # Strzelnica budynek
@@ -7486,6 +7391,7 @@ def strzelnica_budynek():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                strzelnica_budynek_pkt = 1
                 stolowkaOGG.stop()
                 siren.play(-1)
                 loadingSound.play()
@@ -7505,6 +7411,7 @@ def strzelnica_budynek():
 
         pygame.display.update()
         mainClock.tick()
+    return strzelnica_budynek_pkt
 
 
 # Sala WF
@@ -7556,6 +7463,7 @@ def salawf_budynek():
         if cofnijX.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                salawf_budynek_pkt=1
                 salawfOGG.stop()
                 siren.play(-1)
                 loadingSound.play()
@@ -7582,6 +7490,7 @@ def salawf_budynek():
 
         pygame.display.update()
         mainClock.tick()
+    return salawf_budynek_pkt
 
 
 # Akademik I
@@ -7631,6 +7540,7 @@ def akademik_budynek_1():
         if cofnijX.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                akademik_budynek_1_pkt = 1
                 loadingSound.play()
                 running = False
 
@@ -7640,6 +7550,7 @@ def akademik_budynek_1():
 
         pygame.display.update()
         mainClock.tick()
+    return akademik_budynek_1_pkt
 
 # Akademik II
 
@@ -7688,6 +7599,7 @@ def akademik_budynek_2():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                akademik_budynek_2_pkt = 1
                 loadingSound.play()
                 running = False
 
@@ -7697,6 +7609,8 @@ def akademik_budynek_2():
 
         pygame.display.update()
         mainClock.tick()
+
+    return akademik_budynek_2_pkt
 
 # Akademik III
 
@@ -7745,6 +7659,7 @@ def akademik_budynek_3():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                akademik_budynek_3_pkt = 1
                 loadingSound.play()
                 running = False
 
@@ -7763,6 +7678,7 @@ def akademik_budynek_3():
 
         pygame.display.update()
         mainClock.tick()
+    return akademik_budynek_3_pkt
 
 # Sztab
 
@@ -7811,6 +7727,7 @@ def sztab_budynek():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                sztab_budynek_pkt = 1
                 loadingSound.play()
                 running = False
 
@@ -7842,6 +7759,8 @@ def sztab_budynek():
 
         pygame.display.update()
         mainClock.tick()
+
+    return sztab_budynek_pkt
 
 # Stołówka
 
@@ -7892,6 +7811,7 @@ def stolowka_budynek():
         if cofnijx.collidepoint((mx, my)):
             screen.blit(cofnij1, (560, 640))
             if click:
+                stolowka_budynek_pkt = 1
                 stolowkaOGG.stop()
                 siren.play(-1)
                 loadingSound.play()
@@ -7915,6 +7835,212 @@ def stolowka_budynek():
         pygame.display.update()
         mainClock.tick()
 
+    return stolowka_budynek_pkt
+
+
+# Plan_szkoły
+
+
+def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_pkt=0, akademik_budynek_2_pkt=0,
+                akademik_budynek_1_pkt=0, salawf_budynek_pkt=0, strzelnica_budynek_pkt=0, pcab_budynek_pkt=0,
+                hilton_budynek_pkt=0, karate_budynek_pkt=0, silownia_budynek_pkt=0, symulator_budynek_pkt=0,
+                kantyna_budynek_pkt=0, biblioteka_budynek_pkt=0, palarnia_budynek_pkt=0, budowla_budynek_pkt=0,
+                tajwan_budynek_pkt=0, dziekanat_budynek_pkt=0, kinowa_budynek_pkt=0):
+    running = True
+    while running:
+        click = False
+
+        screen.fill(black)
+        screen.blit(planBG, (0, 0))
+        dalej = screen.blit(pressDalej, (1100, 640))
+        notka = screen.blit(notatnikA, (20, 570))
+        tornister = screen.blit(plecak, (200, 570))
+        indeksOcen = screen.blit(indeks, (900, 570))
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        if dalej.collidepoint((mx, my)):
+            screen.blit(pressDalej1, (1100, 640))
+            if click:
+                loadingSound.play()
+                scena35()
+
+        if notka.collidepoint((mx, my)):
+            screen.blit(notatnikB, (20, 570))
+            if click:
+                loadingSound.play()
+                notatnik()
+
+        if tornister.collidepoint((mx, my)):
+            screen.blit(plecak1, (200, 570))
+            if click:
+                loadingSound.play()
+                equip()
+
+        if indeksOcen.collidepoint((mx, my)):
+            screen.blit(indeks1, (900, 570))
+            if click:
+                loadingSound.play()
+                wykazOcen()
+
+        odwiedzone = stolowka_budynek_pkt + sztab_budynek_pkt + akademik_budynek_3_pkt + akademik_budynek_2_pkt + \
+                     akademik_budynek_1_pkt + salawf_budynek_pkt + strzelnica_budynek_pkt + pcab_budynek_pkt + \
+                     hilton_budynek_pkt + karate_budynek_pkt + silownia_budynek_pkt + symulator_budynek_pkt + \
+                     kantyna_budynek_pkt + biblioteka_budynek_pkt + palarnia_budynek_pkt + budowla_budynek_pkt + \
+                     tajwan_budynek_pkt + dziekanat_budynek_pkt + kinowa_budynek_pkt
+        odwiedzone_str = str(odwiedzone)
+        pisak.pisz("wers", "Kliknij na budynek, by zwiedzić wybrane miejsce!", 350, 650, dyellow)
+        if odwiedzone == 18:
+            pisak.pisz("wers2", "Odwiedzone miejsca", 50, 50, green)
+        else:
+            pisak.pisz("wers2", "Odwiedzone miejsca", 50, 50, dyellow)
+        pisak.pisz("wers3", "/18", 160, 70, dyellow)
+        pisak.pisz("wers4", odwiedzone_str, 140, 70, dyellow)
+
+        stolowkax = screen.blit(stolowka, (468, 86))
+        if stolowkax.collidepoint((mx, my)):
+            screen.blit(stolowka1, (468, 86))
+            if click:
+                loadingSound.play()
+                stolowka_budynek_pkt = stolowka_budynek()
+
+        bibliotekax = screen.blit(biblioteka, (513, 254))
+        if bibliotekax.collidepoint((mx, my)):
+            screen.blit(biblioteka1, (513, 254))
+            if click:
+                loadingSound.play()
+                biblioteka_budynek_pkt = biblioteka_budynek()
+
+        sala_rdx = screen.blit(sala_rd, (458, 185))
+        if sala_rdx.collidepoint((mx, my)):
+            screen.blit(sala_rd1, (458, 185))
+            if click:
+                loadingSound.play()
+                symulator_budynek_pkt = symulator_budynek()
+
+        hiltonx = screen.blit(hilton, (457, 361))
+        if hiltonx.collidepoint((mx, my)):
+            screen.blit(hilton1, (457, 361))
+            if click:
+                loadingSound.play()
+                hilton_budynek_pkt = hilton_budynek()
+
+        akademik_x = screen.blit(akademik2, (379, 45))
+        if akademik_x.collidepoint((mx, my)):
+            screen.blit(akademik21, (379, 45))
+            if click:
+                loadingSound.play()
+                akademik_budynek_2_pkt = akademik_budynek_2()
+
+        akademik1X = screen.blit(akademik_1, (313, 71))
+        if akademik1X.collidepoint((mx, my)):
+            screen.blit(akademik_11, (313, 71))
+            if click:
+                loadingSound.play()
+                akademik_budynek_1_pkt = akademik_budynek_1()
+
+        karatex = screen.blit(karate, (318, 291))
+        if karatex.collidepoint((mx, my)):
+            screen.blit(karate1, (318, 291))
+            if click:
+                loadingSound.play()
+                karate_budynek_pkt = karate_budynek()
+
+        akademik3X = screen.blit(akademik3, (569, 83))
+        if akademik3X.collidepoint((mx, my)):
+            screen.blit(akademik31, (569, 83))
+            if click:
+                loadingSound.play()
+                akademik_budynek_3_pkt = akademik_budynek_3()
+
+        budynekx = screen.blit(budynek, (324, 438))
+        if budynekx.collidepoint((mx, my)):
+            screen.blit(budynek1, (324, 438))
+            if click:
+                loadingSound.play()
+                dziekanat_budynek_pkt = dziekanat_budynek()
+
+        odprawyx = screen.blit(odprawy, (378, 447))
+        if odprawyx.collidepoint((mx, my)):
+            screen.blit(odprawy1, (378, 447))
+            if click:
+                loadingSound.play()
+                kinowa_budynek_pkt = kinowa_budynek()
+
+        salawfx = screen.blit(salawf, (607, 171))
+        if salawfx.collidepoint((mx, my)):
+            screen.blit(salawf1, (607, 171))
+            if click:
+                loadingSound.play()
+                salawf_budynek_pkt = salawf_budynek()
+
+        cyberx = screen.blit(cyber, (666, 311))
+        if cyberx.collidepoint((mx, my)):
+            screen.blit(cyber1, (666, 311))
+            if click:
+                loadingSound.play()
+                pcab_budynek_pkt = pcab_budynek()
+
+        pifpaf_x = screen.blit(pifpaf, (725, 163))
+        if pifpaf_x.collidepoint((mx, my)):
+            screen.blit(pifpaf1, (725, 163))
+            if click:
+                loadingSound.play()
+                strzelnica_budynek_pkt = strzelnica_budynek()
+
+        palarniax = screen.blit(palarnia, (735, 269))
+        if palarniax.collidepoint((mx, my)):
+            screen.blit(palarnia1, (735, 269))
+            if click:
+                loadingSound.play()
+                palarnia_budynek_pkt = palarnia_budynek()
+
+        kantynax = screen.blit(kantyna, (511, 383))
+        if kantynax.collidepoint((mx, my)):
+            screen.blit(kantyna1, (511, 383))
+            if click:
+                loadingSound.play()
+                kantyna_budynek_pkt = kantyna_budynek()
+
+        silkasx = screen.blit(silkas, (613, 405))
+        if silkasx.collidepoint((mx, my)):
+            screen.blit(silkas_1, (613, 405))
+            if click:
+                loadingSound.play()
+                silownia_budynek_pkt = silownia_budynek()
+
+        budowlax = screen.blit(budowla, (753, 418))
+        if budowlax.collidepoint((mx, my)):
+            screen.blit(budowla1, (753, 418))
+            if click:
+                loadingSound.play()
+                budowla_budynek_pkt = budowla_budynek()
+
+        tajwanx = screen.blit(tajwan, (840, 442))
+        if tajwanx.collidepoint((mx, my)):
+            screen.blit(tajwan1, (840, 442))
+            if click:
+                loadingSound.play()
+                tajwan_budynek_pkt = tajwan_budynek()
+
+        sztabx = screen.blit(sztab, (367, 511))
+        if sztabx.collidepoint((mx, my)):
+            screen.blit(sztab1, (367, 511))
+            if click:
+                loadingSound.play()
+                sztab_budynek_pkt = sztab_budynek()
+
+        pygame.display.update()
+        mainClock.tick()
 
 # Scena35
 
@@ -8244,6 +8370,7 @@ def wykazOcen():
         mainClock.tick()
 
 intro_dev()
+
 
 
 
