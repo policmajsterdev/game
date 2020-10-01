@@ -56,6 +56,8 @@ stolowkaOGG = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\stolowka.w
 salawfOGG = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\salawf.wav"))
 klik = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\klik.wav"))
 pen = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\pen.wav"))
+scream_girl = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\scream.wav"))
+ricochet = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\ricochet.wav"))
 
 # Tekst
 myFont = pygame.font.SysFont("monospace", 18)
@@ -390,6 +392,21 @@ podpis4 = pygame.image.load(os.path.join(filepath, "data\\indeks\\podpis4.png"))
 # Strzelnica
 gun = pygame.image.load(os.path.join(filepath, "data\\tarcze\\gun.png")).convert_alpha()
 gun2 = pygame.image.load(os.path.join(filepath, "data\\tarcze\\gun1.png")).convert_alpha()
+efe = [pygame.image.load(os.path.join(filepath, "data\\tarcze\\efe.png")).convert_alpha(),
+       pygame.image.load(os.path.join(filepath, "data\\tarcze\\efe1.png")).convert_alpha(),
+       pygame.image.load(os.path.join(filepath, "data\\tarcze\\efe2.png")).convert_alpha(),
+       pygame.image.load(os.path.join(filepath, "data\\tarcze\\efe3.png")).convert_alpha(),
+       pygame.image.load(os.path.join(filepath, "data\\tarcze\\efe4.png")).convert_alpha(),
+       pygame.image.load(os.path.join(filepath, "data\\tarcze\\efe5.png")).convert_alpha(),
+       pygame.image.load(os.path.join(filepath, "data\\tarcze\\efe6.png")).convert_alpha()]
+francuzIMG = pygame.image.load(os.path.join(filepath, "data\\tarcze\\francuz.png")).convert_alpha()
+francuz_mask = pygame.mask.from_surface(francuzIMG)
+francuz1IMG = pygame.image.load(os.path.join(filepath, "data\\tarcze\\francuz1.png")).convert_alpha()
+francuz1_mask = pygame.mask.from_surface(francuz1IMG)
+tifaIMG = pygame.image.load(os.path.join(filepath, "data\\tarcze\\tifa.png")).convert_alpha()
+tifa_mask = pygame.mask.from_surface(tifaIMG)
+blood_IMG = pygame.image.load(os.path.join(filepath, "data\\tarcze\\blood.png")).convert_alpha()
+blood_mask = pygame.mask.from_surface(blood_IMG)
 tarczaIMG = pygame.image.load(os.path.join(filepath, "data\\tarcze\\tarcza1.png")).convert_alpha()
 tarcza_mask = pygame.mask.from_surface(tarczaIMG)
 tarcza_rect = tarczaIMG.get_rect()
@@ -6205,7 +6222,7 @@ def scena33():
         pisak.pisz("wers2", "Czujesz lekki stresik.", 30, 210, white)
         pisak.pisz("wers3", "Prowadzący zajęcia policjant, tłumaczy zasady strzelania:", 30, 240, white)
         pisak.pisz("wers4", "1.Macie 25 naboi!", 30, 270, dyellow)
-        pisak.pisz("wers5", "2.Celujecie przyrządami celowniczymi! (nie kursorem!)", 30, 300, blue)
+        pisak.pisz("wers5", "2.Celujecie w bandytów!", 30, 300, dyellow)
         pisak.pisz("wers6", ".. i zaliczacie zajęcia", 30, 330, dyellow)
         pisak.pisz("wers7", "Wchodzisz na pozycję do strzelania i ładujesz pełny magazynek", 30, 360, white)
         pisak.pisz("wers8", "Wkładasz okulary ochronne i słuchawki wygłuszające. Słyszysz stłumiony głos prowadzącego:",
@@ -6220,13 +6237,11 @@ def scena33():
 
 
 def strzelnica_mossberg():
-    ox = 600 - tarcza_rect.center[0]
-    oy = 200 - tarcza_rect.center[1]
-    ox_move = 1
-    oy_move = 1
+    postac = 1
+    ox = 400
+    oy = 200
     punkty = 0
-    naboje = 25
-    startx = 500
+    naboje = 50
     delta = 0.0
     global blob_color, wynikmb
     while True:
@@ -6239,7 +6254,6 @@ def strzelnica_mossberg():
                 if event.button == 1:
                     click = True
 
-        losowa = random.randrange(-150, 150)
         punktyStr = str(punkty)
         nabojeStr = str(naboje)
         wynikmb = punktyStr
@@ -6250,145 +6264,101 @@ def strzelnica_mossberg():
             strzelnica2wyniki()
 
         screen.blit(tabelaIMG, (5, 600))
-
         mx, my = pygame.mouse.get_pos()
-        ox += ox_move * 1
-        oy += oy_move * 2
-
-        if ox <= startx:
-            ox_move = random.randint(1, 2)
-        elif ox >= 600:
-            ox_move = random.randint(-2, -1)
-            oy_move = 1
-        elif oy >= 300:
-            oy_move = -1
-
         offset = (mx - ox, my - oy)
-        result = tarcza_mask.overlap(blob_mask, offset)
-        result9 = tarcza9_mask.overlap(blob_mask, offset)
-        result8 = tarcza8_mask.overlap(blob_mask, offset)
-        result7 = tarcza7_mask.overlap(blob_mask, offset)
-        result6 = tarcza6_mask.overlap(blob_mask, offset)
-        result5 = tarcza5_mask.overlap(blob_mask, offset)
-        result4 = tarcza4_mask.overlap(blob_mask, offset)
-        result3 = tarcza3_mask.overlap(blob_mask, offset)
-        result2 = tarcza2_mask.overlap(blob_mask, offset)
-        result1 = tarcza1_mask.overlap(blob_mask, offset)
+        result = francuz_mask.overlap(blob_mask, offset)
+        result1 = tifa_mask.overlap(blob_mask, offset)
 
-        delta += mainClock.tick(40) / 600.0
-        while delta > 1 / 10.0:
-            delta -= 1 / 10.0
-            if result:
-                blob_color = orange_blob
-                if event.type == MOUSEBUTTONDOWN:
-                    if event.button == 1:
-                        click = True
-                        if click:
-                            punkty += 10
-                            naboje -= 1
-                            shotgun.play()
-                            ox += losowa
-            else:
-                blob_color = green_blob
+        losowa = random.randint(200, 500)
+        if ox < 10 or ox > 1000:
+            ox = 200
+        if oy < 10 or oy > 500:
+            oy = 300
+        poswiata = 55
+        poswiata_y = 150
+        delta += mainClock.tick(26) / 1000.0
+        if delta > 1.5 / 1.0:
+            if postac == 1:
+                screen.blit(francuzIMG, (ox, oy))
+                if delta > 2.99 / 1.0:
+                    shot.play()
+                    punkty -= 5
+                    naboje -=1
+                    screen.blit(blood_IMG, (ox - 400, oy - 200))
+                if result:
+                    blob_color = orange_blob
+                    if event.type == MOUSEBUTTONDOWN:
+                        if event.button == 1:
+                            click = True
+                            if click:
+                                if losowa > 440:
+                                    ricochet.play()
+                                delta = 0.0
+                                punkty += 10
+                                naboje -= 1
+                                shotgun.play()
+                                ox += losowa
+                                oy += losowa - 100
+                                postac = random.randint(1, 3)
+                                for i in range(len(efe)):
+                                    screen.blit(efe[i], (mx - poswiata, my - poswiata_y))
+                else:
+                    blob_color = green_blob
+            elif postac == 2:
+                screen.blit(francuz1IMG, (ox, oy))
+                if delta > 2.99 / 1.0:
+                    shot.play()
+                    punkty -= 5
+                    naboje -=1
+                    screen.blit(blood_IMG, (ox - 400, oy - 200))
+                if result:
+                    blob_color = orange_blob
+                    if event.type == MOUSEBUTTONDOWN:
+                        if event.button == 1:
+                            click = True
+                            if click:
+                                if losowa > 440:
+                                    ricochet.play()
+                                delta = 0.0
+                                punkty += 10
+                                naboje -= 1
+                                shotgun.play()
+                                ox += losowa
+                                oy += losowa - 100
+                                postac = random.randint(1, 3)
+                                for i in range(len(efe)):
+                                    screen.blit(efe[i], (mx - poswiata, my - poswiata_y))
+                else:
+                    blob_color = green_blob
+            elif postac == 3:
+                screen.blit(tifaIMG, (ox, oy))
+                if delta > 2.99 / 1.0:
+                    delta = 0.0
+                    postac = random.randint(1, 3)
+                if result1:
+                    blob_color = orange_blob
+                    if event.type == MOUSEBUTTONDOWN:
+                        if event.button == 1:
+                            click = True
+                            if click:
+                                if losowa > 440:
+                                    ricochet.play()
+                                delta = 0.0
+                                punkty -= 10
+                                naboje -= 2
+                                shotgun.play()
+                                ox += losowa
+                                oy += losowa - 100
+                                postac = random.randint(1, 3)
+                                scream_girl.play()
+                                for i in range(len(efe)):
+                                    screen.blit(efe[i], (mx - poswiata, my - poswiata_y))
+                else:
+                    blob_color = green_blob
+                    
+        while delta > 3 / 1.0:
+            delta -= 3 / 1.0
 
-            if result9:
-                blob_color = orange_blob
-                if event.type == MOUSEBUTTONDOWN:
-                    if event.button == 1:
-                        click = True
-                        if click:
-                            punkty += 9
-                            naboje -= 1
-                            shotgun.play()
-                            ox += losowa
-            if result8:
-                blob_color = orange_blob
-                if event.type == MOUSEBUTTONDOWN:
-                    if event.button == 1:
-                        click = True
-                        if click:
-                            punkty += 8
-                            naboje -= 1
-                            shotgun.play()
-                            ox += losowa
-            if result7:
-                blob_color = orange_blob
-                if event.type == MOUSEBUTTONDOWN:
-                    if event.button == 1:
-                        click = True
-                        if click:
-                            punkty += 7
-                            naboje -= 1
-                            shotgun.play()
-                            ox += losowa
-            if result6:
-                blob_color = orange_blob
-                if event.type == MOUSEBUTTONDOWN:
-                    if event.button == 1:
-                        click = True
-                        if click:
-                            punkty += 6
-                            naboje -= 1
-                            shotgun.play()
-                            ox += losowa
-            if result5:
-                blob_color = orange_blob
-                if event.type == MOUSEBUTTONDOWN:
-                    click = True
-                    if click:
-                        punkty += 5
-                        naboje -= 1
-                        shotgun.play()
-                        ox += losowa
-
-            if result4:
-                blob_color = orange_blob
-                if event.type == MOUSEBUTTONDOWN:
-                    click = True
-                    if click:
-                        punkty += 4
-                        naboje -= 1
-                        shotgun.play()
-                        ox += losowa
-            if result3:
-                blob_color = orange_blob
-                if event.type == MOUSEBUTTONDOWN:
-                    click = True
-                    if click:
-                        punkty += 3
-                        naboje -= 1
-                        shotgun.play()
-                        ox += losowa
-            if result2:
-                blob_color = orange_blob
-                if event.type == MOUSEBUTTONDOWN:
-                    click = True
-                    if click:
-                        punkty += 2
-                        naboje -= 1
-                        shotgun.play()
-                        ox += losowa
-            if result1:
-                blob_color = orange_blob
-                if event.type == MOUSEBUTTONDOWN:
-                    click = True
-                    if click:
-                        punkty += 1
-                        naboje -= 1
-                        shotgun.play()
-                        ox += losowa
-
-        screen.blit(tarczaIMG, (ox, oy))
-        screen.blit(tarcza1IMG, (ox, oy))
-        screen.blit(tarcza2IMG, (ox, oy))
-        screen.blit(tarcza3IMG, (ox, oy))
-        screen.blit(tarcza4IMG, (ox, oy))
-        screen.blit(tarcza5IMG, (ox, oy))
-        screen.blit(tarcza6IMG, (ox, oy))
-        screen.blit(tarcza7IMG, (ox, oy))
-        screen.blit(tarcza8IMG, (ox, oy))
-        screen.blit(tarcza9IMG, (ox, oy))
-        screen.blit(tarcza0IMG, (ox, oy))
         screen.blit(blob_color, (mx, my))
         screen.blit(gun2, (mx, my))
 
@@ -8370,7 +8340,3 @@ def wykazOcen():
         mainClock.tick()
 
 intro_dev()
-
-
-
-
