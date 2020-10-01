@@ -58,6 +58,7 @@ klik = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\klik.wav"))
 pen = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\pen.wav"))
 scream_girl = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\scream.wav"))
 ricochet = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\ricochet.wav"))
+rain_wav = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\rain.wav"))
 
 # Tekst
 myFont = pygame.font.SysFont("monospace", 18)
@@ -150,6 +151,7 @@ bgankieta = pygame.image.load(os.path.join(filepath, "data\\sceny\\ankieta.png")
 mundur = pygame.image.load(os.path.join(filepath, "data\\pics\\czarnuch.png"))
 licencja = pygame.image.load(os.path.join(filepath, "data\\pics\\licencjaGimp.png"))
 oko = pygame.image.load(os.path.join(filepath, "data\\pics\\oko.png")).convert_alpha()
+rain = pygame.image.load(os.path.join(filepath, "data\\pics\\rain.png")).convert_alpha()
 
 # Grafiki scen
 wspol = pygame.image.load(os.path.join(filepath, "data\\sceny\\wspol.png"))
@@ -6355,7 +6357,7 @@ def strzelnica_mossberg():
                                     screen.blit(efe[i], (mx - poswiata, my - poswiata_y))
                 else:
                     blob_color = green_blob
-                    
+
         while delta > 3 / 1.0:
             delta -= 3 / 1.0
 
@@ -6456,6 +6458,8 @@ def scena34():
             screen.blit(pressDalej1, (1100, 640))
             if click:
                 loadingSound.play()
+                siren.stop()
+                rain_wav.play(-1)
                 plan_szkoly()
 
         if notka.collidepoint((mx, my)):
@@ -6836,7 +6840,7 @@ def palarnia_budynek():
 
 
 def biblioteka_budynek():
-    siren.stop()
+    rain_wav.stop()
     stolowkaOGG.play(-1)
     running = True
     while running:
@@ -6883,7 +6887,7 @@ def biblioteka_budynek():
             if click:
                 biblioteka_budynek_pkt = 1
                 stolowkaOGG.stop()
-                siren.play(-1)
+                rain_wav.play(-1)
                 loadingSound.play()
                 running = False
 
@@ -7040,7 +7044,7 @@ def symulator_budynek():
 
 
 def silownia_budynek():
-    siren.stop()
+    rain_wav.stop()
     silowniaOGG.play(-1)
     running = True
     while running:
@@ -7087,7 +7091,7 @@ def silownia_budynek():
             if click:
                 silownia_budynek_pkt = 1
                 silowniaOGG.stop()
-                siren.play(-1)
+                rain_wav.play(-1)
                 loadingSound.play()
                 running = False
 
@@ -7245,7 +7249,7 @@ def hilton_budynek():
 
 
 def pcab_budynek():
-    siren.stop()
+    rain_wav.stop()
     stolowkaOGG.play(-1)
     running = True
     while running:
@@ -7292,7 +7296,7 @@ def pcab_budynek():
             if click:
                 pcab_budynek_pkt = 1
                 stolowkaOGG.stop()
-                siren.play(-1)
+                rain_wav.play(-1)
                 loadingSound.play()
                 running = False
 
@@ -7316,7 +7320,7 @@ def pcab_budynek():
 
 
 def strzelnica_budynek():
-    siren.stop()
+    rain_wav.stop()
     stolowkaOGG.play(-1)
     running = True
     while running:
@@ -7363,7 +7367,7 @@ def strzelnica_budynek():
             if click:
                 strzelnica_budynek_pkt = 1
                 stolowkaOGG.stop()
-                siren.play(-1)
+                rain_wav.play(-1)
                 loadingSound.play()
                 running = False
 
@@ -7388,7 +7392,7 @@ def strzelnica_budynek():
 
 
 def salawf_budynek():
-    siren.stop()
+    rain_wav.stop()
     salawfOGG.play(-1)
     running = True
     while running:
@@ -7435,7 +7439,7 @@ def salawf_budynek():
             if click:
                 salawf_budynek_pkt=1
                 salawfOGG.stop()
-                siren.play(-1)
+                rain_wav.play(-1)
                 loadingSound.play()
                 running = False
 
@@ -7736,7 +7740,7 @@ def sztab_budynek():
 
 
 def stolowka_budynek():
-    siren.stop()
+    rain_wav.stop()
     stolowkaOGG.play(-1)
     running = True
     while running:
@@ -7783,7 +7787,7 @@ def stolowka_budynek():
             if click:
                 stolowka_budynek_pkt = 1
                 stolowkaOGG.stop()
-                siren.play(-1)
+                rain_wav.play(-1)
                 loadingSound.play()
                 running = False
 
@@ -7822,10 +7826,12 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
 
         screen.fill(black)
         screen.blit(planBG, (0, 0))
+        screen.blit(rain, (0, 0))
         dalej = screen.blit(pressDalej, (1100, 640))
         notka = screen.blit(notatnikA, (20, 570))
         tornister = screen.blit(plecak, (200, 570))
         indeksOcen = screen.blit(indeks, (900, 570))
+        screen.blit(rain, (0, 0))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -8008,7 +8014,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
             if click:
                 loadingSound.play()
                 sztab_budynek_pkt = sztab_budynek()
-
+        screen.blit(rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
 
@@ -8016,7 +8022,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
 
 
 def scena35():
-    siren.stop()
+    rain_wav.stop()
     progOGG.play(-1)
     running = True
     while running:
@@ -8046,6 +8052,7 @@ def scena35():
             if click:
                 loadingSound.play()
                 progOGG.stop()
+                rain_wav.play(-1)
                 plan_szkoly()
 
         if notka.collidepoint((mx, my)):
@@ -8071,7 +8078,7 @@ def scena35():
             if click:
                 loadingSound.play()
                 progOGG.stop()
-                siren.play(-1)
+                rain_wav.play(-1)
                 running = False
 
 
@@ -8340,3 +8347,8 @@ def wykazOcen():
         mainClock.tick()
 
 intro_dev()
+
+
+
+
+
