@@ -7976,9 +7976,9 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
                 loadingSound.play()
                 kinowa_budynek_pkt = kinowa_budynek()
 
-        salawfx = screen.blit(salawf, (607, 171))
+        salawfx = screen.blit(salawf, (608, 167))
         if salawfx.collidepoint((mx, my)):
-            screen.blit(salawf1, (607, 171))
+            screen.blit(salawf1, (608, 167))
             if click:
                 loadingSound.play()
                 salawf_budynek_pkt = salawf_budynek()
@@ -7990,16 +7990,16 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
                 loadingSound.play()
                 pcab_budynek_pkt = pcab_budynek()
 
-        pifpaf_x = screen.blit(pifpaf, (725, 163))
+        pifpaf_x = screen.blit(pifpaf, (725, 161))
         if pifpaf_x.collidepoint((mx, my)):
-            screen.blit(pifpaf1, (725, 163))
+            screen.blit(pifpaf1, (725, 161))
             if click:
                 loadingSound.play()
                 strzelnica_budynek_pkt = strzelnica_budynek()
 
-        palarniax = screen.blit(palarnia, (735, 269))
+        palarniax = screen.blit(palarnia, (735, 266))
         if palarniax.collidepoint((mx, my)):
-            screen.blit(palarnia1, (735, 269))
+            screen.blit(palarnia1, (735, 266))
             if click:
                 loadingSound.play()
                 palarnia_budynek_pkt = palarnia_budynek()
