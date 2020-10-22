@@ -8,6 +8,7 @@ from pygame import mixer
 #import pkg_resources.py2_warn
 from pygame.locals import *
 import pisak
+import graph
 
 pygame.init()
 pygame.mixer.pre_init(44100, 16, 2, 4096)
@@ -64,213 +65,211 @@ beep = [pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\beep1.wav")),
         pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\beep3.wav"))]
 pin_open = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\pin_open.wav"))
 pin_closed = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\pin_closed.wav"))
+door_close = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\closed_door.wav"))
+door_open = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\open_door.wav"))
 
 # Tekst
 myFont = pygame.font.SysFont("monospace", 18)
 
-# Grafiki okna tytułowego
-bg = pygame.image.load(os.path.join(filepath, "data\\pics\\intro.png"))
-kajdanki = pygame.image.load(os.path.join(filepath, "data\\pics\\kajdanki.png"))
-kajdanki1 = pygame.image.load(os.path.join(filepath, "data\\pics\\kajdanki1.png"))
-pistol = pygame.image.load(os.path.join(filepath, "data\\pics\\bron.png"))
-pistol1 = pygame.image.load(os.path.join(filepath, "data\\pics\\bron1.png"))
-nakladka_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\nakladka.png")).convert_alpha()
-
 # Nawigacja
-pressKariera = pygame.image.load(os.path.join(filepath, "data\\navi\\kariera.png"))
-pressKariera1 = pygame.image.load(os.path.join(filepath, "data\\navi\\kariera1.png"))
-pressEnter = pygame.image.load(os.path.join(filepath, "data\\navi\\enter.png"))
-pressEnter1 = pygame.image.load(os.path.join(filepath, "data\\navi\\enter1.png"))
-pressOption = pygame.image.load(os.path.join(filepath, "data\\navi\\info.png"))
-pressOption1 = pygame.image.load(os.path.join(filepath, "data\\navi\\info1x.png"))
-cofnij = pygame.image.load(os.path.join(filepath, "data\\navi\\cofnij.png"))
-cofnij1 = pygame.image.load(os.path.join(filepath, "data\\navi\\cofnij1.png"))
-pressDalej = pygame.image.load(os.path.join(filepath, "data\\navi\\dalej.png"))
-pressDalej1 = pygame.image.load(os.path.join(filepath, "data\\navi\\dalej1.png"))
-silowniaN = pygame.image.load(os.path.join(filepath, "data\\navi\\silownia.png"))
-silowniaN1 = pygame.image.load(os.path.join(filepath, "data\\navi\\silownia1.png"))
-spacerNAV = pygame.image.load(os.path.join(filepath, "data\\navi\\spacer.png"))
-spacerNAV1 = pygame.image.load(os.path.join(filepath, "data\\navi\\spacer1.png"))
-tak = pygame.image.load(os.path.join(filepath, "data\\navi\\tak.png"))
-tak1 = pygame.image.load(os.path.join(filepath, "data\\navi\\tak1.png"))
-nie = pygame.image.load(os.path.join(filepath, "data\\navi\\nie.png"))
-nie1 = pygame.image.load(os.path.join(filepath, "data\\navi\\nie1.png"))
-cela_nav = pygame.image.load(os.path.join(filepath, "data\\navi\\cela.png"))
-cela1_nav = pygame.image.load(os.path.join(filepath, "data\\navi\\cela1.png"))
-miasto = pygame.image.load(os.path.join(filepath, "data\\navi\\miasto.png"))
-miasto1 = pygame.image.load(os.path.join(filepath, "data\\navi\\miasto1.png"))
-zapisz = pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz.png"))
-zapisz1 = pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz1.png"))
-zapisano = pygame.image.load(os.path.join(filepath, "data\\navi\\zapisano.png"))
+press_Kariera = [pygame.image.load(os.path.join(filepath, "data\\navi\\kariera.png")).convert(),
+                 pygame.image.load(os.path.join(filepath, "data\\navi\\kariera1.png")).convert()]
+press_Enter = [pygame.image.load(os.path.join(filepath, "data\\navi\\enter.png")).convert(),
+               pygame.image.load(os.path.join(filepath, "data\\navi\\enter1.png")).convert()]
+press_Option = [pygame.image.load(os.path.join(filepath, "data\\navi\\info.png")).convert(),
+                pygame.image.load(os.path.join(filepath, "data\\navi\\info1x.png")).convert()]
+cofnij = pygame.image.load(os.path.join(filepath, "data\\navi\\cofnij.png")).convert()
+cofnij1 = pygame.image.load(os.path.join(filepath, "data\\navi\\cofnij1.png")).convert()
+pressDalej = pygame.image.load(os.path.join(filepath, "data\\navi\\dalej.png")).convert()
+pressDalej1 = pygame.image.load(os.path.join(filepath, "data\\navi\\dalej1.png")).convert()
+silowniaN = pygame.image.load(os.path.join(filepath, "data\\navi\\silownia.png")).convert()
+silowniaN1 = pygame.image.load(os.path.join(filepath, "data\\navi\\silownia1.png")).convert()
+spacerNAV = pygame.image.load(os.path.join(filepath, "data\\navi\\spacer.png")).convert()
+spacerNAV1 = pygame.image.load(os.path.join(filepath, "data\\navi\\spacer1.png")).convert()
+tak = pygame.image.load(os.path.join(filepath, "data\\navi\\tak.png")).convert()
+tak1 = pygame.image.load(os.path.join(filepath, "data\\navi\\tak1.png")).convert()
+nie = pygame.image.load(os.path.join(filepath, "data\\navi\\nie.png")).convert()
+nie1 = pygame.image.load(os.path.join(filepath, "data\\navi\\nie1.png")).convert()
+cela_nav = pygame.image.load(os.path.join(filepath, "data\\navi\\cela.png")).convert()
+cela1_nav = pygame.image.load(os.path.join(filepath, "data\\navi\\cela1.png")).convert()
+miasto = pygame.image.load(os.path.join(filepath, "data\\navi\\miasto.png")).convert()
+miasto1 = pygame.image.load(os.path.join(filepath, "data\\navi\\miasto1.png")).convert()
+zapisz = pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz.png")).convert()
+zapisz1 = pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz1.png")).convert()
+zapisano = pygame.image.load(os.path.join(filepath, "data\\navi\\zapisano.png")).convert()
 zapis = ""
-kontynuacja = pygame.image.load(os.path.join(filepath, "data\\navi\\plusz.png"))
-kontynuacja1 = pygame.image.load(os.path.join(filepath, "data\\navi\\plusz1.png"))
-save_start = pygame.image.load(os.path.join(filepath, "data\\navi\\continue.png"))
-save_start1 = pygame.image.load(os.path.join(filepath, "data\\navi\\continue1.png"))
-ide = pygame.image.load(os.path.join(filepath, "data\\navi\\ide.png"))
-ide1 = pygame.image.load(os.path.join(filepath, "data\\navi\\ide1.png"))
-stolowka = pygame.image.load(os.path.join(filepath, "data\\navi\\stolowka.png"))
-stolowka1 = pygame.image.load(os.path.join(filepath, "data\\navi\\stolowka1.png"))
-biblioteka = pygame.image.load(os.path.join(filepath, "data\\navi\\biblioteka.png"))
-biblioteka1 = pygame.image.load(os.path.join(filepath, "data\\navi\\biblioteka1.png"))
-sala_rd = pygame.image.load(os.path.join(filepath, "data\\navi\\sala_rd.png"))
-sala_rd1 = pygame.image.load(os.path.join(filepath, "data\\navi\\sala_rd1.png"))
-hilton = pygame.image.load(os.path.join(filepath, "data\\navi\\hilton.png"))
-hilton1 = pygame.image.load(os.path.join(filepath, "data\\navi\\hilton1.png"))
-akademik2 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik2.png"))
-akademik21 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik21.png"))
-akademik_1 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik1.png"))
-akademik_11 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik11.png"))
-karate = pygame.image.load(os.path.join(filepath, "data\\navi\\karate.png"))
-karate1 = pygame.image.load(os.path.join(filepath, "data\\navi\\karate1.png"))
-akademik3 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik3.png"))
-akademik31 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik31.png"))
-budynek = pygame.image.load(os.path.join(filepath, "data\\navi\\budynek.png"))
-budynek1 = pygame.image.load(os.path.join(filepath, "data\\navi\\budynek1.png"))
-odprawy = pygame.image.load(os.path.join(filepath, "data\\navi\\odprawy.png"))
-odprawy1 = pygame.image.load(os.path.join(filepath, "data\\navi\\odprawy1.png"))
-salawf = pygame.image.load(os.path.join(filepath, "data\\navi\\salawf.png"))
-salawf1 = pygame.image.load(os.path.join(filepath, "data\\navi\\salawf1.png"))
-cyber = pygame.image.load(os.path.join(filepath, "data\\navi\\cyber.png"))
-cyber1 = pygame.image.load(os.path.join(filepath, "data\\navi\\cyber1.png"))
-pifpaf = pygame.image.load(os.path.join(filepath, "data\\navi\\pifpaf.png"))
-pifpaf1 = pygame.image.load(os.path.join(filepath, "data\\navi\\pifpaf1.png"))
-palarnia = pygame.image.load(os.path.join(filepath, "data\\navi\\palarnia.png"))
-palarnia1 = pygame.image.load(os.path.join(filepath, "data\\navi\\palarnia1.png"))
-kantyna = pygame.image.load(os.path.join(filepath, "data\\navi\\kantyna.png"))
-kantyna1 = pygame.image.load(os.path.join(filepath, "data\\navi\\kantyna1.png"))
-silkas = pygame.image.load(os.path.join(filepath, "data\\navi\\silka.png"))
-silkas_1 = pygame.image.load(os.path.join(filepath, "data\\navi\\silka1.png"))
-budowla = pygame.image.load(os.path.join(filepath, "data\\navi\\budowla.png"))
-budowla1 = pygame.image.load(os.path.join(filepath, "data\\navi\\budowla1.png"))
-tajwan = pygame.image.load(os.path.join(filepath, "data\\navi\\tajwan.png"))
-tajwan1 = pygame.image.load(os.path.join(filepath, "data\\navi\\tajwan1.png"))
-sztab = pygame.image.load(os.path.join(filepath, "data\\navi\\sztab.png"))
-sztab1 = pygame.image.load(os.path.join(filepath, "data\\navi\\sztab1.png"))
-rozp = pygame.image.load(os.path.join(filepath, "data\\navi\\rozp.png"))
-rozp1 = pygame.image.load(os.path.join(filepath, "data\\navi\\rozp1.png"))
-alarm_pin = pygame.image.load(os.path.join(filepath, "data\\navi\\alarm_pin1.png"))
-alarm_pin_1 = pygame.image.load(os.path.join(filepath, "data\\navi\\alarm_pin.png"))
+kontynuacja = pygame.image.load(os.path.join(filepath, "data\\navi\\plusz.png")).convert()
+kontynuacja1 = pygame.image.load(os.path.join(filepath, "data\\navi\\plusz1.png")).convert()
+save_start = pygame.image.load(os.path.join(filepath, "data\\navi\\continue.png")).convert()
+save_start1 = pygame.image.load(os.path.join(filepath, "data\\navi\\continue1.png")).convert()
+ide = pygame.image.load(os.path.join(filepath, "data\\navi\\ide.png")).convert()
+ide1 = pygame.image.load(os.path.join(filepath, "data\\navi\\ide1.png")).convert()
+stolowka = pygame.image.load(os.path.join(filepath, "data\\navi\\stolowka.png")).convert()
+stolowka1 = pygame.image.load(os.path.join(filepath, "data\\navi\\stolowka1.png")).convert()
+biblioteka = pygame.image.load(os.path.join(filepath, "data\\navi\\biblioteka.png")).convert()
+biblioteka1 = pygame.image.load(os.path.join(filepath, "data\\navi\\biblioteka1.png")).convert()
+sala_rd = pygame.image.load(os.path.join(filepath, "data\\navi\\sala_rd.png")).convert()
+sala_rd1 = pygame.image.load(os.path.join(filepath, "data\\navi\\sala_rd1.png")).convert()
+hilton = pygame.image.load(os.path.join(filepath, "data\\navi\\hilton.png")).convert()
+hilton1 = pygame.image.load(os.path.join(filepath, "data\\navi\\hilton1.png")).convert()
+akademik2 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik2.png")).convert()
+akademik21 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik21.png")).convert()
+akademik_1 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik1.png")).convert()
+akademik_11 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik11.png")).convert()
+karate = pygame.image.load(os.path.join(filepath, "data\\navi\\karate.png")).convert()
+karate1 = pygame.image.load(os.path.join(filepath, "data\\navi\\karate1.png")).convert()
+akademik3 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik3.png")).convert()
+akademik31 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik31.png")).convert()
+budynek = pygame.image.load(os.path.join(filepath, "data\\navi\\budynek.png")).convert()
+budynek1 = pygame.image.load(os.path.join(filepath, "data\\navi\\budynek1.png")).convert()
+odprawy = pygame.image.load(os.path.join(filepath, "data\\navi\\odprawy.png")).convert()
+odprawy1 = pygame.image.load(os.path.join(filepath, "data\\navi\\odprawy1.png")).convert()
+salawf = pygame.image.load(os.path.join(filepath, "data\\navi\\salawf.png")).convert()
+salawf1 = pygame.image.load(os.path.join(filepath, "data\\navi\\salawf1.png")).convert()
+cyber = pygame.image.load(os.path.join(filepath, "data\\navi\\cyber.png")).convert()
+cyber1 = pygame.image.load(os.path.join(filepath, "data\\navi\\cyber1.png")).convert()
+pifpaf = pygame.image.load(os.path.join(filepath, "data\\navi\\pifpaf.png")).convert()
+pifpaf1 = pygame.image.load(os.path.join(filepath, "data\\navi\\pifpaf1.png")).convert()
+palarnia = pygame.image.load(os.path.join(filepath, "data\\navi\\palarnia.png")).convert()
+palarnia1 = pygame.image.load(os.path.join(filepath, "data\\navi\\palarnia1.png")).convert()
+kantyna = pygame.image.load(os.path.join(filepath, "data\\navi\\kantyna.png")).convert()
+kantyna1 = pygame.image.load(os.path.join(filepath, "data\\navi\\kantyna1.png")).convert()
+silkas = pygame.image.load(os.path.join(filepath, "data\\navi\\silka.png")).convert()
+silkas_1 = pygame.image.load(os.path.join(filepath, "data\\navi\\silka1.png")).convert()
+budowla = pygame.image.load(os.path.join(filepath, "data\\navi\\budowla.png")).convert()
+budowla1 = pygame.image.load(os.path.join(filepath, "data\\navi\\budowla1.png")).convert()
+tajwan = pygame.image.load(os.path.join(filepath, "data\\navi\\tajwan.png")).convert()
+tajwan1 = pygame.image.load(os.path.join(filepath, "data\\navi\\tajwan1.png")).convert()
+sztab = pygame.image.load(os.path.join(filepath, "data\\navi\\sztab.png")).convert()
+sztab1 = pygame.image.load(os.path.join(filepath, "data\\navi\\sztab1.png")).convert()
+rozp = pygame.image.load(os.path.join(filepath, "data\\navi\\rozp.png")).convert()
+rozp1 = pygame.image.load(os.path.join(filepath, "data\\navi\\rozp1.png")).convert()
+alarm_pin = pygame.image.load(os.path.join(filepath, "data\\navi\\alarm_pin1.png")).convert()
+alarm_pin_1 = pygame.image.load(os.path.join(filepath, "data\\navi\\alarm_pin.png")).convert()
 
 # Dodatkowe grafiki
-odznaka = pygame.image.load(os.path.join(filepath, "data\\pics\\odznaka.png"))
-bgopcje = pygame.image.load(os.path.join(filepath, "data\\sceny\\bgopcje.png"))
-bgankieta = pygame.image.load(os.path.join(filepath, "data\\sceny\\ankieta.png"))
-mundur = pygame.image.load(os.path.join(filepath, "data\\pics\\czarnuch.png"))
-licencja = pygame.image.load(os.path.join(filepath, "data\\pics\\licencjaGimp.png"))
+odznaka = pygame.image.load(os.path.join(filepath, "data\\pics\\odznaka.png")).convert()
+bgopcje = pygame.image.load(os.path.join(filepath, "data\\sceny\\bgopcje.png")).convert()
+bgankieta = pygame.image.load(os.path.join(filepath, "data\\sceny\\ankieta.png")).convert()
+mundur = pygame.image.load(os.path.join(filepath, "data\\pics\\czarnuch.png")).convert()
+licencja = pygame.image.load(os.path.join(filepath, "data\\pics\\licencjaGimp.png")).convert()
 oko = pygame.image.load(os.path.join(filepath, "data\\pics\\oko.png")).convert_alpha()
 palec = pygame.image.load(os.path.join(filepath, "data\\pics\\palec.png")).convert_alpha()
 but = pygame.image.load(os.path.join(filepath, "data\\pics\\podeszwa.png")).convert_alpha()
 rain = pygame.image.load(os.path.join(filepath, "data\\pics\\rain.png")).convert_alpha()
 latarka = pygame.image.load(os.path.join(filepath, "data\\pics\\latarka.png")).convert_alpha()
-latarka_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\latarka1.png"))
-latarka_2 = pygame.image.load(os.path.join(filepath, "data\\pics\\latarka2.png"))
-latarka_ON = pygame.image.load(os.path.join(filepath, "data\\pics\\latarkaON.png"))
-nozyk = pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk.png"))
-nozyk_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk1.png"))
-nozyk_2 = pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk2.png"))
-fajki = pygame.image.load(os.path.join(filepath, "data\\pics\\fajki.png"))
-fajki_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\fajki1.png"))
-fajki_2 = pygame.image.load(os.path.join(filepath, "data\\pics\\fajki2.png"))
+latarka_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\latarka1.png")).convert()
+latarka_2 = pygame.image.load(os.path.join(filepath, "data\\pics\\latarka2.png")).convert()
+latarka_ON = pygame.image.load(os.path.join(filepath, "data\\pics\\latarkaON.png")).convert()
+nozyk = pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk.png")).convert()
+nozyk_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk1.png")).convert()
+nozyk_2 = pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk2.png")).convert()
+fajki = pygame.image.load(os.path.join(filepath, "data\\pics\\fajki.png")).convert()
+fajki_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\fajki1.png")).convert()
+fajki_2 = pygame.image.load(os.path.join(filepath, "data\\pics\\fajki2.png")).convert()
 
 # Grafiki scen
-wspol = pygame.image.load(os.path.join(filepath, "data\\sceny\\wspol.png"))
-wspol2 = pygame.image.load(os.path.join(filepath, "data\\sceny\\wspol2.png"))
-pokoj = pygame.image.load(os.path.join(filepath, "data\\sceny\\pokoj.png"))
-strzelnica = pygame.image.load(os.path.join(filepath, "data\\sceny\\strzelnica.png"))
-silka = pygame.image.load(os.path.join(filepath, "data\\sceny\\silownia.png"))
-prog = pygame.image.load(os.path.join(filepath, "data\\sceny\\prog.png"))
-plecakIN = pygame.image.load(os.path.join(filepath, "data\\sceny\\plecak.png"))
-egzaminFoto = pygame.image.load(os.path.join(filepath, "data\\sceny\\egzamin.png"))
-indeksBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\indeksWykaz.png"))
-barBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\bar.png"))
-pokojnocBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\pokojnoc.png"))
-odprawaBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\odprawa.png"))
-korytarzBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\korytarz.png"))
-korytarzNOC = pygame.image.load(os.path.join(filepath, "data\\sceny\\korytarzSciana.png"))
-korytarzDZIEN = pygame.image.load(os.path.join(filepath, "data\\sceny\\korytarzSciana2.png"))
-napisPolicja = pygame.image.load(os.path.join(filepath, "data\\pics\\napisPolicja.png"))
-napisPolicja1 = pygame.image.load(os.path.join(filepath, "data\\pics\\napisPolicja1.png"))
-szczytno_nocBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\szczytnonoc.png"))
-strzelnica_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\strzelnica1.png"))
-strzelnica1 = pygame.image.load(os.path.join(filepath, "data\\sceny\\strzelnica2.png"))
-strzelnica2 = pygame.image.load(os.path.join(filepath, "data\\sceny\\strzelnica3.png"))
-tabelaIMG = pygame.image.load(os.path.join(filepath, "data\\pics\\tabelawynikow.png"))
-wynikiBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\wykazstrzelan.jpg"))
-torbaBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\torba_Tomka.png"))
-drogaBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\droga.png"))
-planBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\planszkoly.png"))
-stolowkaBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\stolowka.png"))
-akademikBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\akademik.png"))
-sztabBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\sztabBG.png"))
-salawfBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\salawf.png"))
-pcab_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\pcab.png"))
-hilton_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\hilton.png"))
-karate_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\salakarate.png"))
-kantyna_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\kantyna.png"))
-biblioteka_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\biblioteka.png"))
-palarnia_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\palarnia.png"))
-tajwan_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\tajwan.png"))
-maszyna_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\maszyna.png"))
-pokoj_noc_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\pokoj_noc.png"))
-magazyn_brama_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\magazyn_brama.png"))
-brama_kod_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\brama_kod_bg.png"))
-falklandy_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_bg.png"))
+wspol = pygame.image.load(os.path.join(filepath, "data\\sceny\\wspol.png")).convert()
+wspol2 = pygame.image.load(os.path.join(filepath, "data\\sceny\\wspol2.png")).convert()
+pokoj = pygame.image.load(os.path.join(filepath, "data\\sceny\\pokoj.png")).convert()
+strzelnica = pygame.image.load(os.path.join(filepath, "data\\sceny\\strzelnica.png")).convert()
+silka = pygame.image.load(os.path.join(filepath, "data\\sceny\\silownia.png")).convert()
+prog = pygame.image.load(os.path.join(filepath, "data\\sceny\\prog.png")).convert()
+plecakIN = pygame.image.load(os.path.join(filepath, "data\\sceny\\plecak.png")).convert()
+egzaminFoto = pygame.image.load(os.path.join(filepath, "data\\sceny\\egzamin.png")).convert()
+indeksBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\indeksWykaz.png")).convert()
+barBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\bar.png")).convert()
+pokojnocBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\pokojnoc.png")).convert()
+odprawaBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\odprawa.png")).convert()
+korytarzBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\korytarz.png")).convert()
+korytarzNOC = pygame.image.load(os.path.join(filepath, "data\\sceny\\korytarzSciana.png")).convert()
+korytarzDZIEN = pygame.image.load(os.path.join(filepath, "data\\sceny\\korytarzSciana2.png")).convert()
+napisPolicja = pygame.image.load(os.path.join(filepath, "data\\pics\\napisPolicja.png")).convert()
+napisPolicja1 = pygame.image.load(os.path.join(filepath, "data\\pics\\napisPolicja1.png")).convert()
+szczytno_nocBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\szczytnonoc.png")).convert()
+strzelnica_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\strzelnica1.png")).convert()
+strzelnica1 = pygame.image.load(os.path.join(filepath, "data\\sceny\\strzelnica2.png")).convert()
+strzelnica2 = pygame.image.load(os.path.join(filepath, "data\\sceny\\strzelnica3.png")).convert()
+tabelaIMG = pygame.image.load(os.path.join(filepath, "data\\pics\\tabelawynikow.png")).convert()
+wynikiBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\wykazstrzelan.jpg")).convert()
+torbaBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\torba_Tomka.png")).convert()
+drogaBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\droga.png")).convert()
+planBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\planszkoly.png")).convert()
+stolowkaBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\stolowka.png")).convert()
+akademikBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\akademik.png")).convert()
+sztabBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\sztabBG.png")).convert()
+salawfBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\salawf.png")).convert()
+pcab_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\pcab.png")).convert()
+hilton_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\hilton.png")).convert()
+karate_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\salakarate.png")).convert()
+kantyna_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\kantyna.png")).convert()
+biblioteka_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\biblioteka.png")).convert()
+palarnia_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\palarnia.png")).convert()
+tajwan_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\tajwan.png")).convert()
+maszyna_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\maszyna.png")).convert()
+pokoj_noc_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\pokoj_noc.png")).convert()
+magazyn_brama_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\magazyn_brama.png")).convert()
+brama_kod_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\brama_kod_bg.png")).convert()
+falklandy_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_bg.png")).convert()
+sektor_falklandy_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_sektor_bg.png")).convert()
+sektor_falklandy_X_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_sektor_X_bg.png")).convert()
+sektor_falklandy_drzwi_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_drzwi_bg.png")).convert()
+sektor_falklandy_klodka_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_klodka_bg.png")).convert()
 
 # Pojęcia + zdjęcia
-czarnuch = pygame.image.load(os.path.join(filepath, "data\\pojecia\\czarnuch.png"))
-czarnuch1 = pygame.image.load(os.path.join(filepath, "data\\pics\\czarnuch.png"))
-p99 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\p99.png"))
-p991 = pygame.image.load(os.path.join(filepath, "data\\pics\\p99.png"))
-kulkamocy = pygame.image.load(os.path.join(filepath, "data\\pojecia\\kulkamocy.png"))
-kulkamocy1 = pygame.image.load(os.path.join(filepath, "data\\pics\\kulkamocy.png"))
-cela = pygame.image.load(os.path.join(filepath, "data\\pojecia\\cela.png"))
-cela1 = pygame.image.load(os.path.join(filepath, "data\\pics\\cela1.png"))
-akademik = pygame.image.load(os.path.join(filepath, "data\\pojecia\\akademik.png"))
-akademik1 = pygame.image.load(os.path.join(filepath, "data\\pics\\akademik.png"))
-wodka = pygame.image.load(os.path.join(filepath, "data\\pojecia\\wodka.png"))
-wodka1 = pygame.image.load(os.path.join(filepath, "data\\pics\\wodka.png"))
-plan = pygame.image.load(os.path.join(filepath, "data\\pojecia\\korytarz.png"))
-plan1 = pygame.image.load(os.path.join(filepath, "data\\pics\\korytarz.png"))
-falklandy = pygame.image.load(os.path.join(filepath, "data\\pojecia\\falklandy.png"))
-falklandy1 = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy.png"))
-staryObraz = pygame.image.load(os.path.join(filepath, "data\\pojecia\\staryObraz.png"))
-staryObraz1 = pygame.image.load(os.path.join(filepath, "data\\pics\\obrazKobieta.png"))
-nowyObraz = pygame.image.load(os.path.join(filepath, "data\\pojecia\\nowyObraz.png"))
-nowyObraz1 = pygame.image.load(os.path.join(filepath, "data\\pics\\obrazAuto.png"))
-bimber = pygame.image.load(os.path.join(filepath, "data\\pojecia\\bimber.png"))
-bimber1 = pygame.image.load(os.path.join(filepath, "data\\pics\\bimber.png"))
-cywilki = pygame.image.load(os.path.join(filepath, "data\\pojecia\\cywilki.png"))
-cywilki1 = pygame.image.load(os.path.join(filepath, "data\\pics\\cywilki.png"))
-ogorkow = pygame.image.load(os.path.join(filepath, "data\\pojecia\\ogorkow.png"))
-ogorkow1 = pygame.image.load(os.path.join(filepath, "data\\pics\\ogorek.png"))
-inicjaly = pygame.image.load(os.path.join(filepath, "data\\pojecia\\inicjaly.png"))
-inicjaly1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\inicjaly1.png"))
-naszywka = pygame.image.load(os.path.join(filepath, "data\\pojecia\\naszywkabut.png"))
-naszywka1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\naszywkabut1.png"))
-ksiazka = pygame.image.load(os.path.join(filepath, "data\\pojecia\\ksiazka.png"))
-ksiazka1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\ksiazka1.png"))
-kniga = pygame.image.load(os.path.join(filepath, "data\\pojecia\\kniga.png"))
-kniga1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\kniga1.png"))
-kompleks = pygame.image.load(os.path.join(filepath, "data\\pojecia\\kompleks.png"))
-kompleks1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\kompleks1.png"))
-nasucho = pygame.image.load(os.path.join(filepath, "data\\pojecia\\nasucho.png"))
-nasucho1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\nasucho1.png"))
-wejsc = pygame.image.load(os.path.join(filepath, "data\\pojecia\\wejsc.png"))
+czarnuch = pygame.image.load(os.path.join(filepath, "data\\pojecia\\czarnuch.png")).convert()
+czarnuch1 = pygame.image.load(os.path.join(filepath, "data\\pics\\czarnuch.png")).convert()
+p99 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\p99.png")).convert()
+p991 = pygame.image.load(os.path.join(filepath, "data\\pics\\p99.png")).convert()
+kulkamocy = pygame.image.load(os.path.join(filepath, "data\\pojecia\\kulkamocy.png")).convert()
+kulkamocy1 = pygame.image.load(os.path.join(filepath, "data\\pics\\kulkamocy.png")).convert()
+cela = pygame.image.load(os.path.join(filepath, "data\\pojecia\\cela.png")).convert()
+cela1 = pygame.image.load(os.path.join(filepath, "data\\pics\\cela1.png")).convert()
+akademik = pygame.image.load(os.path.join(filepath, "data\\pojecia\\akademik.png")).convert()
+akademik1 = pygame.image.load(os.path.join(filepath, "data\\pics\\akademik.png")).convert()
+wodka = pygame.image.load(os.path.join(filepath, "data\\pojecia\\wodka.png")).convert()
+wodka1 = pygame.image.load(os.path.join(filepath, "data\\pics\\wodka.png")).convert()
+plan = pygame.image.load(os.path.join(filepath, "data\\pojecia\\korytarz.png")).convert()
+plan1 = pygame.image.load(os.path.join(filepath, "data\\pics\\korytarz.png")).convert()
+falklandy = pygame.image.load(os.path.join(filepath, "data\\pojecia\\falklandy.png")).convert()
+falklandy1 = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy.png")).convert()
+staryObraz = pygame.image.load(os.path.join(filepath, "data\\pojecia\\staryObraz.png")).convert()
+staryObraz1 = pygame.image.load(os.path.join(filepath, "data\\pics\\obrazKobieta.png")).convert()
+nowyObraz = pygame.image.load(os.path.join(filepath, "data\\pojecia\\nowyObraz.png")).convert()
+nowyObraz1 = pygame.image.load(os.path.join(filepath, "data\\pics\\obrazAuto.png")).convert()
+bimber = pygame.image.load(os.path.join(filepath, "data\\pojecia\\bimber.png")).convert()
+bimber1 = pygame.image.load(os.path.join(filepath, "data\\pics\\bimber.png")).convert()
+cywilki = pygame.image.load(os.path.join(filepath, "data\\pojecia\\cywilki.png")).convert()
+cywilki1 = pygame.image.load(os.path.join(filepath, "data\\pics\\cywilki.png")).convert()
+ogorkow = pygame.image.load(os.path.join(filepath, "data\\pojecia\\ogorkow.png")).convert()
+ogorkow1 = pygame.image.load(os.path.join(filepath, "data\\pics\\ogorek.png")).convert()
+inicjaly = pygame.image.load(os.path.join(filepath, "data\\pojecia\\inicjaly.png")).convert()
+inicjaly1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\inicjaly1.png")).convert()
+naszywka = pygame.image.load(os.path.join(filepath, "data\\pojecia\\naszywkabut.png")).convert()
+naszywka1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\naszywkabut1.png")).convert()
+ksiazka = pygame.image.load(os.path.join(filepath, "data\\pojecia\\ksiazka.png")).convert()
+ksiazka1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\ksiazka1.png")).convert()
+kniga = pygame.image.load(os.path.join(filepath, "data\\pojecia\\kniga.png")).convert()
+kniga1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\kniga1.png")).convert()
+kompleks = pygame.image.load(os.path.join(filepath, "data\\pojecia\\kompleks.png")).convert()
+kompleks1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\kompleks1.png")).convert()
+nasucho = pygame.image.load(os.path.join(filepath, "data\\pojecia\\nasucho.png")).convert()
+nasucho1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\nasucho1.png")).convert()
+wejsc = pygame.image.load(os.path.join(filepath, "data\\pojecia\\wejsc.png")).convert()
 wejsc_1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\wejsc1.png")).convert_alpha()
 
 # Grafiki notatnika
-notatnikA = pygame.image.load(os.path.join(filepath, "data\\navi\\notatnik.png"))
-notatnikB = pygame.image.load(os.path.join(filepath, "data\\navi\\notatnik1.png"))
-notatniczek = pygame.image.load(os.path.join(filepath, "data\\sceny\\notatniczek.png"))
-notatnikPistol = pygame.image.load(os.path.join(filepath, "data\\note\\notatkiPistol.png"))
-zapiski = pygame.image.load(os.path.join(filepath, "data\\note\\note1.png"))
-notatnikLegit = pygame.image.load(os.path.join(filepath, "data\\note\\notatkiLegit.png"))
-zapiskiLegit = pygame.image.load(os.path.join(filepath, "data\\note\\noteLegit.png"))
-notatnikRuch = pygame.image.load(os.path.join(filepath, "data\\note\\notatkiRuch.png"))
-zapiskiRuch = pygame.image.load(os.path.join(filepath, "data\\note\\noteRuch.png"))
-notatnikWykr = pygame.image.load(os.path.join(filepath, "data\\note\\notatkiWykroczenia.png"))
-zapiskiWykr = pygame.image.load(os.path.join(filepath, "data\\note\\noteWykr.png"))
+notatnikA = pygame.image.load(os.path.join(filepath, "data\\navi\\notatnik.png")).convert()
+notatnikB = pygame.image.load(os.path.join(filepath, "data\\navi\\notatnik1.png")).convert()
+notatniczek = pygame.image.load(os.path.join(filepath, "data\\sceny\\notatniczek.png")).convert()
+notatnikPistol = pygame.image.load(os.path.join(filepath, "data\\note\\notatkiPistol.png")).convert()
+zapiski = pygame.image.load(os.path.join(filepath, "data\\note\\note1.png")).convert()
+notatnikLegit = pygame.image.load(os.path.join(filepath, "data\\note\\notatkiLegit.png")).convert()
+zapiskiLegit = pygame.image.load(os.path.join(filepath, "data\\note\\noteLegit.png")).convert()
+notatnikRuch = pygame.image.load(os.path.join(filepath, "data\\note\\notatkiRuch.png")).convert()
+zapiskiRuch = pygame.image.load(os.path.join(filepath, "data\\note\\noteRuch.png")).convert()
+notatnikWykr = pygame.image.load(os.path.join(filepath, "data\\note\\notatkiWykroczenia.png")).convert()
+zapiskiWykr = pygame.image.load(os.path.join(filepath, "data\\note\\noteWykr.png")).convert()
 
 # Zawartość notatnika
 legitymowanie = ""
@@ -282,6 +281,7 @@ pendrive1 = ""
 skrawek1 = ""
 item = ""
 kod_pin = ""
+klucz_quest = ""
 
 # Quest TOMEK
 quest_tomek_1 = ""  # personel #rozmowa
@@ -289,12 +289,12 @@ quest_tomek_torba = ""  # torebunia
 quest_tomek_cela = ""  # cela
 
 # Grafiki plecaka
-plecak = pygame.image.load(os.path.join(filepath, "data\\navi\\plecak.png"))
-plecak1 = pygame.image.load(os.path.join(filepath, "data\\navi\\plecak1.png"))
-pendrive = pygame.image.load(os.path.join(filepath, "data\\plecak\\usb.png"))
-pendriveOpis = pygame.image.load(os.path.join(filepath, "data\\pics\\usbTomka.png"))
-skrawek = pygame.image.load(os.path.join(filepath, "data\\plecak\\skrawek.png"))
-skrawekOpis = pygame.image.load(os.path.join(filepath, "data\\plecak\\skrawekOpis.png"))
+plecak = pygame.image.load(os.path.join(filepath, "data\\navi\\plecak.png")).convert()
+plecak1 = pygame.image.load(os.path.join(filepath, "data\\navi\\plecak1.png")).convert()
+pendrive = pygame.image.load(os.path.join(filepath, "data\\plecak\\usb.png")).convert()
+pendriveOpis = pygame.image.load(os.path.join(filepath, "data\\pics\\usbTomka.png")).convert()
+skrawek = pygame.image.load(os.path.join(filepath, "data\\plecak\\skrawek.png")).convert()
+skrawekOpis = pygame.image.load(os.path.join(filepath, "data\\plecak\\skrawekOpis.png")).convert()
 kod_pin_img = pygame.image.load(os.path.join(filepath, "data\\pics\\kod_pin.png")).convert_alpha()
 kod_pin_opis = pygame.image.load(os.path.join(filepath, "data\\plecak\\kod_pin_opis.png")).convert_alpha()
 
@@ -329,68 +329,43 @@ pin_enter = pygame.image.load(os.path.join(filepath, "data\\navi\\pin_enter.png"
 pin_enter_press = pygame.image.load(os.path.join(filepath, "data\\navi\\pin_enter_press.png")).convert_alpha()
 
 # Grafiki indeksu
-indeks = pygame.image.load(os.path.join(filepath, "data\\navi\\indeks.png"))
-indeks1 = pygame.image.load(os.path.join(filepath, "data\\navi\\indeks1.png"))
+indeks = pygame.image.load(os.path.join(filepath, "data\\navi\\indeks.png")).convert()
+indeks1 = pygame.image.load(os.path.join(filepath, "data\\navi\\indeks1.png")).convert()
 
 # Ikona gry
 icon = pygame.image.load(os.path.join(filepath, "data\\pics\\icon.png"))
 pygame.display.set_icon(icon)
 
-# Animacja logo
-animatedLogo = [pygame.image.load(os.path.join(filepath, "data\\logo\\logo.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo1.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo2.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo3.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo4.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo5.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo6.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo7.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo8.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo9.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo10.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo11.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo12.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo13.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo14.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo15.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo16.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo17.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo18.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo19.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo20.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo21.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo22.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo23.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo24.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo25.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo26.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo27.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo28.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo29.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo30.png"))]
-
 # Intro
-intro = pygame.image.load(os.path.join(filepath, "data\\introDev\\1x.png"))
-# Intro kafle
-kafel = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel.png")).convert_alpha()
-kafel1 = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel1.png")).convert_alpha()
-kafel2 = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel2.png")).convert_alpha()
-kafel2x = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel2x.png")).convert_alpha()
-kafel3 = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel3.png")).convert_alpha()
-kafel3x = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel3x.png")).convert_alpha()
-kafel4 = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel4.png")).convert_alpha()
-kafel4x = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel4x.png")).convert_alpha()
-kafel5 = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel5.png")).convert_alpha()
-kafel5x = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel5x.png")).convert_alpha()
-kafel6 = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel6.png")).convert_alpha()
-kafel6x = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel6x.png")).convert_alpha()
-kafel7 = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel7.png")).convert_alpha()
-kafel7x = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel7x.png")).convert_alpha()
-kafel8 = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel8.png")).convert_alpha()
-kafel8x = pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel8x.png")).convert_alpha()
+intro = pygame.image.load(os.path.join(filepath, "data\\introDev\\1x.png")).convert()
 
+# Lokacje i grafiki Falklandów
+reca = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\reca.png")).convert_alpha()
+reca_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\reca1.png")).convert_alpha()
+recb = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recb.png")).convert_alpha()
+recb_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recb1.png")).convert_alpha()
+recc = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recc.png")).convert_alpha()
+recc_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recc1.png")).convert_alpha()
+recd = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recd.png")).convert_alpha()
+recd_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recd1.png")).convert_alpha()
+rece = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\rece.png")).convert_alpha()
+rece_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\rece1.png")).convert_alpha()
+recf = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recf.png")).convert_alpha()
+recf_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recf1.png")).convert_alpha()
+recg = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recg.png")).convert_alpha()
+recg_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recg1.png")).convert_alpha()
+rech = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\rech.png")).convert_alpha()
+rech_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\rech1.png")).convert_alpha()
+reci = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\reci.png")).convert_alpha()
+reci_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\reci1.png")).convert_alpha()
+klucz = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\klucz.png")).convert_alpha()
+stary_klucz = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\stary_klucz.png")).convert_alpha()
+falklandy_drzwi = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\drzwi.png")).convert_alpha()
+falklandy_drzwi_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\drzwi1.png")).convert_alpha()
+falklandy_klodka = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\klodka.png")).convert_alpha(),
+                    pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\klodka1.png")).convert_alpha()]
 # Stopnie służbowe
-post = pygame.image.load(os.path.join(filepath, "data\\stopnie\\post.png"))
+post = pygame.image.load(os.path.join(filepath, "data\\stopnie\\post.png")).convert()
 
 # Kolory
 blue = (0, 0, 255)
@@ -432,24 +407,24 @@ wynikp99 = ""
 wynikmb = ""
 
 # CYFRY do egzaminów------------------------------------------------------
-cyfra5 = pygame.image.load(os.path.join(filepath, "data\\pics\\cyfra5.png"))
-cyfra4 = pygame.image.load(os.path.join(filepath, "data\\pics\\cyfra4.png"))
-cyfra3 = pygame.image.load(os.path.join(filepath, "data\\pics\\cyfra3.png"))
-cyfra2 = pygame.image.load(os.path.join(filepath, "data\\pics\\cyfra2.png"))
-cyfra1 = pygame.image.load(os.path.join(filepath, "data\\pics\\cyfra1.png"))
+cyfra5 = pygame.image.load(os.path.join(filepath, "data\\pics\\cyfra5.png")).convert()
+cyfra4 = pygame.image.load(os.path.join(filepath, "data\\pics\\cyfra4.png")).convert()
+cyfra3 = pygame.image.load(os.path.join(filepath, "data\\pics\\cyfra3.png")).convert()
+cyfra2 = pygame.image.load(os.path.join(filepath, "data\\pics\\cyfra2.png")).convert()
+cyfra1 = pygame.image.load(os.path.join(filepath, "data\\pics\\cyfra1.png")).convert()
 
 # CYFRY do indeksu---------------------------------------------------------
-cyfraIndex1 = pygame.image.load(os.path.join(filepath, "data\\indeks\\1.png"))
-cyfraIndex2 = pygame.image.load(os.path.join(filepath, "data\\indeks\\2.png"))
-cyfraIndex3 = pygame.image.load(os.path.join(filepath, "data\\indeks\\3.png"))
-cyfraIndex4 = pygame.image.load(os.path.join(filepath, "data\\indeks\\4.png"))
-cyfraIndex5 = pygame.image.load(os.path.join(filepath, "data\\indeks\\5.png"))
+cyfraIndex1 = pygame.image.load(os.path.join(filepath, "data\\indeks\\1.png")).convert()
+cyfraIndex2 = pygame.image.load(os.path.join(filepath, "data\\indeks\\2.png")).convert()
+cyfraIndex3 = pygame.image.load(os.path.join(filepath, "data\\indeks\\3.png")).convert()
+cyfraIndex4 = pygame.image.load(os.path.join(filepath, "data\\indeks\\4.png")).convert()
+cyfraIndex5 = pygame.image.load(os.path.join(filepath, "data\\indeks\\5.png")).convert()
 
 # Podpisy w indeksie-----------------
-podpis1 = pygame.image.load(os.path.join(filepath, "data\\indeks\\podpis1.png"))
-podpis2 = pygame.image.load(os.path.join(filepath, "data\\indeks\\podpis2.png"))
-podpis3 = pygame.image.load(os.path.join(filepath, "data\\indeks\\podpis3.png"))
-podpis4 = pygame.image.load(os.path.join(filepath, "data\\indeks\\podpis4.png"))
+podpis1 = pygame.image.load(os.path.join(filepath, "data\\indeks\\podpis1.png")).convert()
+podpis2 = pygame.image.load(os.path.join(filepath, "data\\indeks\\podpis2.png")).convert()
+podpis3 = pygame.image.load(os.path.join(filepath, "data\\indeks\\podpis3.png")).convert()
+podpis4 = pygame.image.load(os.path.join(filepath, "data\\indeks\\podpis4.png")).convert()
 
 # Strzelnica
 gun = pygame.image.load(os.path.join(filepath, "data\\tarcze\\gun.png")).convert_alpha()
@@ -572,7 +547,6 @@ key_m1 = pygame.image.load(os.path.join(filepath, "data\\keyboard\\m1.png")).con
 
 
 
-
 def intro_dev():
     pygame.mixer.music.play(-1)
     while True:
@@ -586,35 +560,35 @@ def intro_dev():
         screen.fill(black)
         screen.blit(intro, (0, 0))
         pisak.pisz("wers1", "Kliknij by kontynuować..", 1000, 650, white)
-        kaf1 = screen.blit(kafel, (507, 453))
-        kaf2 = screen.blit(kafel2, (630, 382))
-        kaf3 = screen.blit(kafel3, (644, 124))
-        kaf4 = screen.blit(kafel4, (440, 218))
-        kaf5 = screen.blit(kafel5, (762, 265))
-        kaf6 = screen.blit(kafel6, (479, 116))
-        kaf7 = screen.blit(kafel7, (868, 391))
-        kaf8 = screen.blit(kafel8, (640, 44))
-        if kaf1.collidepoint((mx, my)):
-            screen.blit(kafel1, (507, 453))
-        if kaf2.collidepoint((mx, my)):
-            screen.blit(kafel2x, (630, 382))
-        if kaf3.collidepoint((mx, my)):
-            screen.blit(kafel3x, (644, 124))
-        if kaf4.collidepoint((mx, my)):
-            screen.blit(kafel4x, (440, 218))
-        if kaf5.collidepoint((mx, my)):
-            screen.blit(kafel5x, (762, 265))
-        if kaf6.collidepoint((mx, my)):
-            screen.blit(kafel6x, (479, 116))
-        if kaf7.collidepoint((mx, my)):
-            screen.blit(kafel7x, (868, 391))
+        kaf_1 = screen.blit(graph.kafel[0], (507, 453))
+        kaf_2 = screen.blit(graph.kafel_2[0], (630, 382))
+        kaf_3 = screen.blit(graph.kafel_3[0], (644, 124))
+        kaf_4 = screen.blit(graph.kafel_4[0], (440, 218))
+        kaf_5 = screen.blit(graph.kafel_5[0], (762, 265))
+        kaf_6 = screen.blit(graph.kafel_6[0], (479, 116))
+        kaf_7 = screen.blit(graph.kafel_7[0], (868, 391))
+        kaf_8 = screen.blit(graph.kafel_8[0], (640, 44))
+        if kaf_1.collidepoint((mx, my)):
+            screen.blit(graph.kafel[1], (507, 453))
+        if kaf_2.collidepoint((mx, my)):
+            screen.blit(graph.kafel_2[1], (630, 382))
+        if kaf_3.collidepoint((mx, my)):
+            screen.blit(graph.kafel_3[1], (644, 124))
+        if kaf_4.collidepoint((mx, my)):
+            screen.blit(graph.kafel_4[1], (440, 218))
+        if kaf_5.collidepoint((mx, my)):
+            screen.blit(graph.kafel_5[1], (762, 265))
+        if kaf_6.collidepoint((mx, my)):
+            screen.blit(graph.kafel_6[1], (479, 116))
+        if kaf_7.collidepoint((mx, my)):
+            screen.blit(graph.kafel_7[1], (868, 391))
             if mouse[0] == 1:
                 click = True
                 if click:
                     loadingSound.play()
                     wejsciedogry()
-        if kaf8.collidepoint((mx, my)):
-            screen.blit(kafel8x, (640, 44))
+        if kaf_8.collidepoint((mx, my)):
+            screen.blit(graph.kafel_8[1], (640, 44))
         pygame.display.update()
         mainClock.tick()
 
@@ -623,7 +597,7 @@ def intro_dev():
 
 def wejsciedogry():
     bg_x = 0
-    bg_x2 = bg.get_width()
+    bg_x2 = graph.bg.get_width()
     starter = 0
     while True:
         click = False
@@ -635,31 +609,31 @@ def wejsciedogry():
 
         bg_x -= 1
         bg_x2 -= 1
-        if bg_x < bg.get_width() * -1:
-            bg_x = bg.get_width()
-        if bg_x2 < bg.get_width() * -1:
-            bg_x = bg.get_width()
+        if bg_x < graph.bg.get_width() * -1:
+            bg_x = graph.bg.get_width()
+        if bg_x2 < graph.bg.get_width() * -1:
+            bg_x = graph.bg.get_width()
                 
         screen.fill(black)
-        screen.blit(bg, (bg_x, 0))
-        screen.blit(bg, (bg_x2, 0))
+        screen.blit(graph.bg, (bg_x, 0))
+        screen.blit(graph.bg, (bg_x2, 0))
         if starter != 29:
-            screen.blit(animatedLogo[starter], (490, 430))
+            screen.blit(graph.animatedLogo[starter], (490, 430))
             starter += 1
             if starter == 29:
                 starter = 0
                 
-        button = screen.blit(pressEnter, (450, 570))
-        button1 = screen.blit(pressOption, (680, 570))
-        screen.blit(kajdanki, (900, 500))
-        screen.blit(pistol, (0, 500))
-        screen.blit(nakladka_bg, (0, 0))
+        button = screen.blit(press_Enter[0], (450, 570))
+        button_x = screen.blit(press_Option[0], (680, 570))
+        screen.blit(graph.kajdanki[0], (900, 500))
+        screen.blit(graph.pistol[0], (0, 500))
+        screen.blit(graph.nakladka_bg, (0, 0))
 
         mx, my = pygame.mouse.get_pos()
 
-        if button1.collidepoint((mx, my)):
-            screen.blit(pressOption1, (680, 570))
-            screen.blit(kajdanki1, (900, 500))
+        if button_x.collidepoint((mx, my)):
+            screen.blit(press_Option[1], (680, 570))
+            screen.blit(graph.kajdanki[1], (900, 500))
             if mouse[0] == 1:
                 click = True
                 if click:
@@ -667,8 +641,8 @@ def wejsciedogry():
                     info()
 
         if button.collidepoint((mx, my)):
-            screen.blit(pressEnter1, (450, 570))
-            screen.blit(pistol1, (0, 500))
+            screen.blit(press_Enter[1], (450, 570))
+            screen.blit(graph.pistol[1], (0, 500))
             if mouse[0] == 1:
                 click = True
                 if click:
@@ -1046,7 +1020,7 @@ def objasnienie():
         screen.fill(black)
         screen.blit(bgankieta, (200, 0))
         cofnijx = screen.blit(cofnij, (560, 640))
-        dalej = screen.blit(pressKariera, (1100, 570))
+        dalej = screen.blit(press_Kariera[0], (1100, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -1066,7 +1040,7 @@ def objasnienie():
                 break
 
         if dalej.collidepoint((mx, my)):
-            screen.blit(pressKariera1, (1100, 570))
+            screen.blit(press_Kariera[1], (1100, 570))
             if click:
                 pygame.mixer.music.stop()
                 loadingSoundDEV.play()
@@ -6744,7 +6718,7 @@ def scena36():
                    "  - to jest 5 -cyfrowy KOD PIN do wejścia na teren magazynów, rozejść się!! ", 20,
                    540, white)
         pygame.display.update()
-        mainClock.tick(60)
+        mainClock.tick()
 
 
 # Scena Brama Magazyn
@@ -6981,7 +6955,7 @@ def scena_brama_kod_pin():
 # Scena Falklandy Mapa
 
 
-def falklandy_mapa():
+def falklandy_mapa(sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, sektor_e=0):
     pygame.mouse.set_visible(False)
     running = True
     while running:
@@ -6993,6 +6967,15 @@ def falklandy_mapa():
         notka = screen.blit(notatnikA, (20, 570))
         tornister = screen.blit(plecak, (200, 570))
         indeksOcen = screen.blit(indeks, (900, 570))
+        reca_x = screen.blit(reca, (352, 318))
+        recb_x = screen.blit(recb, (400, 144))
+        recc_x = screen.blit(recc, (602, 59))
+        recd_x = screen.blit(recd, (717, 54))
+        rece_x = screen.blit(rece, (717, 214))
+        recf_x = screen.blit(recf, (717, 318))
+        recg_x = screen.blit(recg, (602, 214))
+        rech_x = screen.blit(rech, (524, 318))
+        reci_x = screen.blit(reci, (524, 418))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -7030,8 +7013,551 @@ def falklandy_mapa():
                 loadingSound.play()
                 wykazOcen()
 
+        odwiedzone = sektor_a + sektor_b + sektor_c + sektor_d + sektor_h + sektor_e
+
+        odwiedzone_str = str(odwiedzone)
+        if odwiedzone == 9:
+            pisak.pisz("wers2", "Sprawdzone sektory", 50, 50, green)
+        else:
+            pisak.pisz("wers2", "Sprawdzone sektory", 50, 50, dyellow)
+        pisak.pisz("wers3", "/9", 160, 70, dyellow)
+        pisak.pisz("wers4", odwiedzone_str, 140, 70, dyellow)
+
+        if reca_x.collidepoint((mx, my)):
+            screen.blit(reca_1, (352, 318))
+            if click:
+                loadingSound.play()
+                sektor_a = falklandy_sektor_a()
+
+        if recb_x.collidepoint((mx, my)):
+            screen.blit(recb_1, (400, 144))
+            if click:
+                loadingSound.play()
+                sektor_b = falklandy_sektor_b()
+
+        if recc_x.collidepoint((mx, my)):
+            screen.blit(recc_1, (602, 59))
+            if click:
+                loadingSound.play()
+                sektor_c = falklandy_sektor_c()
+
+        if recd_x.collidepoint((mx, my)):
+            screen.blit(recd_1, (717, 54))
+            if click:
+                loadingSound.play()
+                sektor_d = falklandy_sektor_d()
+
+        if rece_x.collidepoint((mx, my)):
+            screen.blit(rece_1, (717, 214))
+            if click:
+                loadingSound.play()
+                sektor_e = falklandy_sektor_e()
+
+        if recf_x.collidepoint((mx, my)):
+            screen.blit(recf_1, (717, 318))
+
+        if recg_x.collidepoint((mx, my)):
+            screen.blit(recg_1, (602, 214))
+
+        if rech_x.collidepoint((mx, my)):
+            screen.blit(rech_1, (524, 318))
+            if click:
+                loadingSound.play()
+                sektor_h = falklandy_sektor_h()
+
+        if reci_x.collidepoint((mx, my)):
+            screen.blit(reci_1, (524, 418))
+
+        pisak.pisz("wers", "Kliknij w sektor, by zwiedzić wybrane miejsce!", 350, 650, dyellow)
 
         screen.blit(but, (mx, my))
+        screen.blit(rain, (0, 0))
+        pygame.display.update()
+        mainClock.tick()
+
+
+# Falklandy Sektor A
+
+
+def falklandy_sektor_a():
+    pygame.mouse.set_visible(False)
+    running = True
+    while running:
+        click = False
+
+        screen.fill(black)
+        screen.blit(sektor_falklandy_bg, (0, 0))
+        notka = screen.blit(notatnikA, (20, 570))
+        cofnijx = screen.blit(cofnij, (560, 640))
+        tornister = screen.blit(plecak, (200, 570))
+        indeksOcen = screen.blit(indeks, (900, 570))
+
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        if notka.collidepoint((mx, my)):
+            screen.blit(notatnikB, (20, 570))
+            if click:
+                loadingSound.play()
+                notatnik()
+
+        if tornister.collidepoint((mx, my)):
+            screen.blit(plecak1, (200, 570))
+            if click:
+                loadingSound.play()
+                equip()
+
+        if indeksOcen.collidepoint((mx, my)):
+            screen.blit(indeks1, (900, 570))
+            if click:
+                loadingSound.play()
+                wykazOcen()
+
+        if cofnijx.collidepoint((mx, my)):
+            screen.blit(cofnij1, (560, 640))
+            if click:
+                sektor_a = 1
+                loadingSound.play()
+                running = False
+
+
+        pisak.pisz("wers", "Brama - zamknięta.", 20, 90, white)
+        pisak.pisz("wers1", "Ogrodzenie - bez uszkodzeń.", 20, 120, white)
+        pisak.pisz("wers2", "To miejsce zostało sprawdzone..", 20, 150, white)
+
+        screen.blit(but, (mx, my))
+        screen.blit(rain, (0, 0))
+        pygame.display.update()
+        mainClock.tick()
+    return sektor_a
+
+
+# Falklandy Sektor B
+
+
+def falklandy_sektor_b():
+    pygame.mouse.set_visible(False)
+    running = True
+    while running:
+        click = False
+
+        screen.fill(black)
+        screen.blit(sektor_falklandy_bg, (0, 0))
+        notka = screen.blit(notatnikA, (20, 570))
+        cofnijx = screen.blit(cofnij, (560, 640))
+        tornister = screen.blit(plecak, (200, 570))
+        indeksOcen = screen.blit(indeks, (900, 570))
+
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        if notka.collidepoint((mx, my)):
+            screen.blit(notatnikB, (20, 570))
+            if click:
+                loadingSound.play()
+                notatnik()
+
+        if tornister.collidepoint((mx, my)):
+            screen.blit(plecak1, (200, 570))
+            if click:
+                loadingSound.play()
+                equip()
+
+        if indeksOcen.collidepoint((mx, my)):
+            screen.blit(indeks1, (900, 570))
+            if click:
+                loadingSound.play()
+                wykazOcen()
+
+        if cofnijx.collidepoint((mx, my)):
+            screen.blit(cofnij1, (560, 640))
+            if click:
+                sektor_b = 1
+                loadingSound.play()
+                running = False
+
+
+        pisak.pisz("wers", "Ogrodzenie, jeśli zardzewiałą siatkę można nazwać ogrodzeniem - bez uszkodzeń.", 20, 90, white)
+        pisak.pisz("wers1", "Ogólnie to pusto tutaj, ciekawe czy cały plac wygląda tak samo..", 20, 120, white)
+        pisak.pisz("wers2", "To miejsce zostało sprawdzone..", 20, 150, white)
+
+        screen.blit(but, (mx, my))
+        screen.blit(rain, (0, 0))
+        pygame.display.update()
+        mainClock.tick()
+    return sektor_b
+
+
+# Falklandy Sektor C
+
+
+def falklandy_sektor_c():
+    pygame.mouse.set_visible(False)
+    running = True
+    while running:
+        click = False
+
+        screen.fill(black)
+        screen.blit(sektor_falklandy_bg, (0, 0))
+        notka = screen.blit(notatnikA, (20, 570))
+        cofnijx = screen.blit(cofnij, (560, 640))
+        tornister = screen.blit(plecak, (200, 570))
+        indeksOcen = screen.blit(indeks, (900, 570))
+
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        if notka.collidepoint((mx, my)):
+            screen.blit(notatnikB, (20, 570))
+            if click:
+                loadingSound.play()
+                notatnik()
+
+        if tornister.collidepoint((mx, my)):
+            screen.blit(plecak1, (200, 570))
+            if click:
+                loadingSound.play()
+                equip()
+
+        if indeksOcen.collidepoint((mx, my)):
+            screen.blit(indeks1, (900, 570))
+            if click:
+                loadingSound.play()
+                wykazOcen()
+
+        if cofnijx.collidepoint((mx, my)):
+            screen.blit(cofnij1, (560, 640))
+            if click:
+                sektor_c = 1
+                loadingSound.play()
+                running = False
+
+
+        pisak.pisz("wers", "Ogrodzenie - bez uszkodzeń.", 20, 90, white)
+        pisak.pisz("wers1", "Na ziemi walają się odłamki skruszonego mokrego betonu - Ten plac musi być bardzo stary - myślisz.", 20, 120, white)
+        pisak.pisz("wers2", "Jest ciemno i co chwilę potykasz się o drobne kawałki złomu i kamieni.", 20, 150, white)
+        pisak.pisz("wers3", "Tu jest wporządku - sprawdzone.", 20, 180, white)
+
+        screen.blit(but, (mx, my))
+        screen.blit(rain, (0, 0))
+        pygame.display.update()
+        mainClock.tick()
+    return sektor_c
+
+
+# Falklandy Sektor D
+
+
+def falklandy_sektor_d():
+    pygame.mouse.set_visible(False)
+    running = True
+    global klucz_quest
+    while running:
+        click = False
+
+        screen.fill(black)
+        screen.blit(sektor_falklandy_X_bg, (0, 0))
+        notka = screen.blit(notatnikA, (20, 570))
+        cofnijx = screen.blit(cofnij, (560, 640))
+        tornister = screen.blit(plecak, (200, 570))
+        indeksOcen = screen.blit(indeks, (900, 570))
+        klucz_x = screen.blit(klucz, (421, 245))
+
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        if notka.collidepoint((mx, my)):
+            screen.blit(notatnikB, (20, 570))
+            if click:
+                loadingSound.play()
+                notatnik()
+
+        if tornister.collidepoint((mx, my)):
+            screen.blit(plecak1, (200, 570))
+            if click:
+                loadingSound.play()
+                equip()
+
+        if indeksOcen.collidepoint((mx, my)):
+            screen.blit(indeks1, (900, 570))
+            if click:
+                loadingSound.play()
+                wykazOcen()
+
+        if klucz_x.collidepoint((mx, my)):
+            screen.blit(stary_klucz, (221, 245))
+            if click:
+                klucz_quest = "kluczyk"
+
+        if cofnijx.collidepoint((mx, my)):
+            screen.blit(cofnij1, (560, 640))
+            if click:
+                sektor_d = 1
+                loadingSound.play()
+                running = False
+
+        if klucz_quest != "kluczyk":
+            pisak.pisz("wers", "Jakieś dziwne miejsce, jakby coś miało być budowane lub.. niszczone.", 20, 90, white)
+            pisak.pisz("wers1", "Pełno tu starych przedmiotów, jakieś łopaty, skórzane wytarte rękawice, no.. prawie śmietnik.", 20, 120, white)
+            pisak.pisz("wers2", "Spoglądasz na ogrodzenie.. - jest nienaruszone.", 20, 150, white)
+            pisak.pisz("wers3", "W sumie masz sporo wolnego czasu, może wśród tych staroci znajdziesz coś ciekawego.", 20, 180, white)
+        if klucz_quest == "kluczyk":
+            pisak.pisz("wers3", "To szukanie już Cię nudziło ale w końcu znalazłeś coś ciekawego.", 20, 90, dyellow)
+            pisak.pisz("wers3", "Albo tym kluczem coś otworzysz albo.. zostanie na pamiątkę po służbie na Falklandach.", 20, 120, dyellow)
+
+        screen.blit(oko, (mx, my))
+        screen.blit(rain, (0, 0))
+        pygame.display.update()
+        mainClock.tick()
+    return sektor_d
+
+
+# Falklandy Sektor E
+
+
+def falklandy_sektor_e():
+    pygame.mouse.set_visible(False)
+    running = True
+    while running:
+        click = False
+
+        screen.fill(black)
+        screen.blit(sektor_falklandy_bg, (0, 0))
+        notka = screen.blit(notatnikA, (20, 570))
+        cofnijx = screen.blit(cofnij, (560, 640))
+        tornister = screen.blit(plecak, (200, 570))
+        indeksOcen = screen.blit(indeks, (900, 570))
+
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        if notka.collidepoint((mx, my)):
+            screen.blit(notatnikB, (20, 570))
+            if click:
+                loadingSound.play()
+                notatnik()
+
+        if tornister.collidepoint((mx, my)):
+            screen.blit(plecak1, (200, 570))
+            if click:
+                loadingSound.play()
+                equip()
+
+        if indeksOcen.collidepoint((mx, my)):
+            screen.blit(indeks1, (900, 570))
+            if click:
+                loadingSound.play()
+                wykazOcen()
+
+        if cofnijx.collidepoint((mx, my)):
+            screen.blit(cofnij1, (560, 640))
+            if click:
+                sektor_e = 1
+                loadingSound.play()
+                running = False
+
+
+        pisak.pisz("wers", "Ogrodzenie - bez uszkodzeń.", 20, 90, white)
+        pisak.pisz("wers1", "Ponownie zastanawiasz się nad sensem sprawdzania tego miejsca.. pustki.. ciemno.. cicho..", 20, 120, white)
+        pisak.pisz("wers2", "No.. prawie cicho. Słychać tylko padający deszcz, spływający po rynnie magazynu.", 20, 150, white)
+        pisak.pisz("wers3", "'Dyżury w tym miejscu są bez sensu' - powtarzasz sobie co kilka kroków.", 20, 180, white)
+        pisak.pisz("wers4", "'Najgorsze, że mogłem(-am) być w domu a wypadła akurat na mnie ta cholerna służba!'", 20, 210, white)
+        pisak.pisz("wers5", "'Gdyby chociaż nie padało..'", 20, 240, white)
+
+        screen.blit(but, (mx, my))
+        screen.blit(rain, (0, 0))
+        pygame.display.update()
+        mainClock.tick()
+    return sektor_e
+
+
+# Falklandy Sektor H (drzwi)
+
+
+def falklandy_sektor_h():
+    pygame.mouse.set_visible(False)
+    running = True
+    while running:
+        click = False
+
+        screen.fill(black)
+        screen.blit(sektor_falklandy_drzwi_bg, (0, 0))
+        notka = screen.blit(notatnikA, (20, 570))
+        cofnijx = screen.blit(cofnij, (560, 640))
+        tornister = screen.blit(plecak, (200, 570))
+        indeksOcen = screen.blit(indeks, (900, 570))
+        drzwi_x = screen.blit(falklandy_drzwi, (630, 160))
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        if notka.collidepoint((mx, my)):
+            screen.blit(notatnikB, (20, 570))
+            if click:
+                loadingSound.play()
+                notatnik()
+
+        if tornister.collidepoint((mx, my)):
+            screen.blit(plecak1, (200, 570))
+            if click:
+                loadingSound.play()
+                equip()
+
+        if indeksOcen.collidepoint((mx, my)):
+            screen.blit(indeks1, (900, 570))
+            if click:
+                loadingSound.play()
+                wykazOcen()
+
+        if drzwi_x.collidepoint((mx, my)):
+            screen.blit(falklandy_drzwi_1, (630, 160))
+            if click:
+                loadingSound.play()
+                falklandy_sektor_h_klodka()
+
+        if cofnijx.collidepoint((mx, my)):
+            screen.blit(cofnij1, (560, 640))
+            if click:
+                sektor_h = 1
+                loadingSound.play()
+                running = False
+
+
+        pisak.pisz("wers", "Obchodzisz cały budynek dookoła ale nic nie znajdujesz..", 20, 60, white)
+        pisak.pisz("wers1", "Podchodzisz od frontu do zardzewiałych drzwi - zamknięte.", 20, 90, white)
+        pisak.pisz("wers3", "Przypomina Ci się historia z przedwojennym szpitalem.", 20, 120, white)
+        pisak.pisz("wers4", "Korci Cię by wejść do środka..", 20, 150, white)
+
+        screen.blit(palec, (mx, my))
+        screen.blit(rain, (0, 0))
+        pygame.display.update()
+        mainClock.tick()
+    return sektor_h
+
+
+# Falklandy Sektor H Kłódka
+
+
+def falklandy_sektor_h_klodka():
+    pygame.mouse.set_visible(False)
+    running = True
+    while running:
+        click = False
+
+        screen.fill(black)
+        screen.blit(sektor_falklandy_klodka_bg, (0, 0))
+        notka = screen.blit(notatnikA, (20, 570))
+        cofnijx = screen.blit(cofnij, (560, 640))
+        tornister = screen.blit(plecak, (200, 570))
+        indeksOcen = screen.blit(indeks, (900, 570))
+        klodka_x = screen.blit(falklandy_klodka[0], (480, 207))
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        if notka.collidepoint((mx, my)):
+            screen.blit(notatnikB, (20, 570))
+            if click:
+                loadingSound.play()
+                notatnik()
+
+        if tornister.collidepoint((mx, my)):
+            screen.blit(plecak1, (200, 570))
+            if click:
+                loadingSound.play()
+                equip()
+
+        if indeksOcen.collidepoint((mx, my)):
+            screen.blit(indeks1, (900, 570))
+            if click:
+                loadingSound.play()
+                wykazOcen()
+
+        if klodka_x.collidepoint((mx, my)):
+            screen.blit(falklandy_klodka[1], (480, 207))
+            if click:
+                if klucz_quest != "kluczyk":
+                    door_close.play()
+                    pass
+                elif klucz_quest == "kluczyk":
+                    door_open.play()
+                    pass
+
+        if cofnijx.collidepoint((mx, my)):
+            screen.blit(cofnij1, (560, 640))
+            if click:
+                loadingSound.play()
+                running = False
+
+        pisak.pisz("wers2", "Na drzwiach wisi jakaś bardzo stara kłódka.", 20, 60, white)
+        pisak.pisz("wers1", "Nie będziesz się włamywać.. no przecież.. ale zajrzeć na chwilkę można by było.", 20, 90, white)
+        if klucz_quest != "kluczyk":
+            pisak.pisz("wers3", "Hmm.. Czym ją otworzyć?", 20, 120, white)
+        elif klucz_quest == "kluczyk":
+            pisak.pisz("wers3", "Hmm.. Czy mój znaleziony klucz ją otworzy?", 20, 120, white)
+
+        screen.blit(palec, (mx, my))
         screen.blit(rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
@@ -8803,6 +9329,11 @@ def equip():
                 zawartosc_plecaka.append(kod_pin)
         except ValueError:
             pass
+        try:
+            if klucz_quest == "kluczyk":
+                zawartosc_plecaka.append(klucz_quest)
+        except ValueError:
+            pass
         poz_item = 0
         poz_opis = 0
         try:
@@ -8835,6 +9366,10 @@ def equip():
                     ere = screen.blit(kod_pin_img, (20 + poz_item, 40))
                     if ere.collidepoint((mx, my)):
                         screen.blit(kod_pin_opis, (70 + poz_opis, 130))
+                    poz_item += 170
+                    poz_opis += 90
+                elif i == "kluczyk":
+                    ere = screen.blit(stary_klucz, (20 + poz_item, 40))
                     poz_item += 170
                     poz_opis += 90
         except:
@@ -8923,9 +9458,3 @@ def wykazOcen():
         mainClock.tick()
 
 intro_dev()
-
-
-
-
-
-
