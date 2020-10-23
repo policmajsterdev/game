@@ -8,7 +8,8 @@ pygame.mixer.init()
 filepath = os.path.dirname(__file__)
 
 # Grafiki okna tytułowego
-
+icon = pygame.image.load(os.path.join(filepath, "data\\pics\\icon.png"))
+intro = pygame.image.load(os.path.join(filepath, "data\\introDev\\1x.png")).convert()
 bg = pygame.image.load(os.path.join(filepath, "data\\pics\\intro.png")).convert()
 kajdanki = [pygame.image.load(os.path.join(filepath, "data\\pics\\kajdanki.png")).convert(),
             pygame.image.load(os.path.join(filepath, "data\\pics\\kajdanki1.png")).convert()]
@@ -37,7 +38,7 @@ kafel_8 = [pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel8.png"
 
 # Animacja logo
 
-animatedLogo = [pygame.image.load(os.path.join(filepath, "data\\logo\\logo.png")),
+animated_Logo = [pygame.image.load(os.path.join(filepath, "data\\logo\\logo.png")),
                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo1.png")),
                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo2.png")),
                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo3.png")),
@@ -68,3 +69,16 @@ animatedLogo = [pygame.image.load(os.path.join(filepath, "data\\logo\\logo.png")
                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo28.png")),
                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo29.png")),
                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo30.png"))]
+
+# Nawigacja
+
+press_Kariera = [pygame.image.load(os.path.join(filepath, "data\\navi\\kariera.png")).convert(),
+                 pygame.image.load(os.path.join(filepath, "data\\navi\\kariera1.png")).convert()]
+press_Enter = [pygame.image.load(os.path.join(filepath, "data\\navi\\enter.png")).convert(),
+               pygame.image.load(os.path.join(filepath, "data\\navi\\enter1.png")).convert()]
+press_Option = [pygame.image.load(os.path.join(filepath, "data\\navi\\info.png")).convert(),
+                pygame.image.load(os.path.join(filepath, "data\\navi\\info1x.png")).convert()]
+cofnij = [pygame.image.load(os.path.join(filepath, "data\\navi\\cofnij.png")).convert(),
+          pygame.image.load(os.path.join(filepath, "data\\navi\\cofnij1.png")).convert()]
+press_Dalej = [pygame.image.load(os.path.join(filepath, "data\\navi\\dalej.png")).convert(),
+               pygame.image.load(os.path.join(filepath, "data\\navi\\dalej1.png")).convert()]
