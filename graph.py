@@ -82,3 +82,24 @@ cofnij = [pygame.image.load(os.path.join(filepath, "data\\navi\\cofnij.png")).co
           pygame.image.load(os.path.join(filepath, "data\\navi\\cofnij1.png")).convert()]
 press_Dalej = [pygame.image.load(os.path.join(filepath, "data\\navi\\dalej.png")).convert(),
                pygame.image.load(os.path.join(filepath, "data\\navi\\dalej1.png")).convert()]
+silownia_N = [pygame.image.load(os.path.join(filepath, "data\\navi\\silownia.png")).convert(),
+              pygame.image.load(os.path.join(filepath, "data\\navi\\silownia1.png")).convert()]
+spacer_N = [pygame.image.load(os.path.join(filepath, "data\\navi\\spacer.png")).convert(),
+            pygame.image.load(os.path.join(filepath, "data\\navi\\spacer1.png")).convert()]
+tak = [pygame.image.load(os.path.join(filepath, "data\\navi\\tak.png")).convert(),
+       pygame.image.load(os.path.join(filepath, "data\\navi\\tak1.png")).convert()]
+nie = [pygame.image.load(os.path.join(filepath, "data\\navi\\nie.png")).convert(),
+       pygame.image.load(os.path.join(filepath, "data\\navi\\nie1.png")).convert()]
+cela_nav = [pygame.image.load(os.path.join(filepath, "data\\navi\\cela.png")).convert(),
+            pygame.image.load(os.path.join(filepath, "data\\navi\\cela1.png")).convert()]
+miasto = [pygame.image.load(os.path.join(filepath, "data\\navi\\miasto.png")).convert(),
+          pygame.image.load(os.path.join(filepath, "data\\navi\\miasto1.png")).convert()]
+zapisz = [pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz.png")).convert(),
+          pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz1.png")).convert()]
+zapisano = pygame.image.load(os.path.join(filepath, "data\\navi\\zapisano.png")).convert()
+kontynuacja = [pygame.image.load(os.path.join(filepath, "data\\navi\\plusz.png")).convert(),
+               pygame.image.load(os.path.join(filepath, "data\\navi\\plusz1.png")).convert()]
+save_start = [pygame.image.load(os.path.join(filepath, "data\\navi\\continue.png")).convert(),
+              pygame.image.load(os.path.join(filepath, "data\\navi\\continue1.png")).convert()]
+ide = [pygame.image.load(os.path.join(filepath, "data\\navi\\ide.png")).convert(),
+       pygame.image.load(os.path.join(filepath, "data\\navi\\ide1.png")).convert()]
