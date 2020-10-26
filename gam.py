@@ -23,7 +23,10 @@ screen = pygame.display.set_mode((1280, 720))
 # Nazwa_okna_gry
 pygame.display.set_caption("Policmajster: Początek")
 
-# Panel głośności
+# Ikona_gry
+pygame.display.set_icon(graph.icon)
+
+# Panel_głośności
 volPanel = pygame.image.load(os.path.join(filepath, "data\\pics\\volPanel.png"))
 volPanel0 = pygame.image.load(os.path.join(filepath, "data\\pics\\volPanel0.png"))
 volPanel2 = pygame.image.load(os.path.join(filepath, "data\\pics\\volPanel2.png"))
@@ -74,175 +77,6 @@ myFont = pygame.font.SysFont("monospace", 18)
 # Save
 zapis = ""
 
-
-
-stolowka = pygame.image.load(os.path.join(filepath, "data\\navi\\stolowka.png")).convert()
-stolowka1 = pygame.image.load(os.path.join(filepath, "data\\navi\\stolowka1.png")).convert()
-biblioteka = pygame.image.load(os.path.join(filepath, "data\\navi\\biblioteka.png")).convert()
-biblioteka1 = pygame.image.load(os.path.join(filepath, "data\\navi\\biblioteka1.png")).convert()
-sala_rd = pygame.image.load(os.path.join(filepath, "data\\navi\\sala_rd.png")).convert()
-sala_rd1 = pygame.image.load(os.path.join(filepath, "data\\navi\\sala_rd1.png")).convert()
-hilton = pygame.image.load(os.path.join(filepath, "data\\navi\\hilton.png")).convert()
-hilton1 = pygame.image.load(os.path.join(filepath, "data\\navi\\hilton1.png")).convert()
-akademik2 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik2.png")).convert()
-akademik21 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik21.png")).convert()
-akademik_1 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik1.png")).convert()
-akademik_11 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik11.png")).convert()
-karate = pygame.image.load(os.path.join(filepath, "data\\navi\\karate.png")).convert()
-karate1 = pygame.image.load(os.path.join(filepath, "data\\navi\\karate1.png")).convert()
-akademik3 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik3.png")).convert()
-akademik31 = pygame.image.load(os.path.join(filepath, "data\\navi\\akademik31.png")).convert()
-budynek = pygame.image.load(os.path.join(filepath, "data\\navi\\budynek.png")).convert()
-budynek1 = pygame.image.load(os.path.join(filepath, "data\\navi\\budynek1.png")).convert()
-odprawy = pygame.image.load(os.path.join(filepath, "data\\navi\\odprawy.png")).convert()
-odprawy1 = pygame.image.load(os.path.join(filepath, "data\\navi\\odprawy1.png")).convert()
-salawf = pygame.image.load(os.path.join(filepath, "data\\navi\\salawf.png")).convert()
-salawf1 = pygame.image.load(os.path.join(filepath, "data\\navi\\salawf1.png")).convert()
-cyber = pygame.image.load(os.path.join(filepath, "data\\navi\\cyber.png")).convert()
-cyber1 = pygame.image.load(os.path.join(filepath, "data\\navi\\cyber1.png")).convert()
-pifpaf = pygame.image.load(os.path.join(filepath, "data\\navi\\pifpaf.png")).convert()
-pifpaf1 = pygame.image.load(os.path.join(filepath, "data\\navi\\pifpaf1.png")).convert()
-palarnia = pygame.image.load(os.path.join(filepath, "data\\navi\\palarnia.png")).convert()
-palarnia1 = pygame.image.load(os.path.join(filepath, "data\\navi\\palarnia1.png")).convert()
-kantyna = pygame.image.load(os.path.join(filepath, "data\\navi\\kantyna.png")).convert()
-kantyna1 = pygame.image.load(os.path.join(filepath, "data\\navi\\kantyna1.png")).convert()
-silkas = pygame.image.load(os.path.join(filepath, "data\\navi\\silka.png")).convert()
-silkas_1 = pygame.image.load(os.path.join(filepath, "data\\navi\\silka1.png")).convert()
-budowla = pygame.image.load(os.path.join(filepath, "data\\navi\\budowla.png")).convert()
-budowla1 = pygame.image.load(os.path.join(filepath, "data\\navi\\budowla1.png")).convert()
-tajwan = pygame.image.load(os.path.join(filepath, "data\\navi\\tajwan.png")).convert()
-tajwan1 = pygame.image.load(os.path.join(filepath, "data\\navi\\tajwan1.png")).convert()
-sztab = pygame.image.load(os.path.join(filepath, "data\\navi\\sztab.png")).convert()
-sztab1 = pygame.image.load(os.path.join(filepath, "data\\navi\\sztab1.png")).convert()
-rozp = pygame.image.load(os.path.join(filepath, "data\\navi\\rozp.png")).convert()
-rozp1 = pygame.image.load(os.path.join(filepath, "data\\navi\\rozp1.png")).convert()
-alarm_pin = pygame.image.load(os.path.join(filepath, "data\\navi\\alarm_pin1.png")).convert()
-alarm_pin_1 = pygame.image.load(os.path.join(filepath, "data\\navi\\alarm_pin.png")).convert()
-
-# Dodatkowe grafiki
-odznaka = pygame.image.load(os.path.join(filepath, "data\\pics\\odznaka.png")).convert()
-bgopcje = pygame.image.load(os.path.join(filepath, "data\\sceny\\bgopcje.png")).convert()
-bgankieta = pygame.image.load(os.path.join(filepath, "data\\sceny\\ankieta.png")).convert()
-mundur = pygame.image.load(os.path.join(filepath, "data\\pics\\czarnuch.png")).convert()
-licencja = pygame.image.load(os.path.join(filepath, "data\\pics\\licencjaGimp.png"))
-oko = pygame.image.load(os.path.join(filepath, "data\\pics\\oko.png")).convert_alpha()
-palec = pygame.image.load(os.path.join(filepath, "data\\pics\\palec.png")).convert_alpha()
-but = pygame.image.load(os.path.join(filepath, "data\\pics\\podeszwa.png")).convert_alpha()
-rain = pygame.image.load(os.path.join(filepath, "data\\pics\\rain.png")).convert_alpha()
-latarka = pygame.image.load(os.path.join(filepath, "data\\pics\\latarka.png")).convert_alpha()
-latarka_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\latarka1.png")).convert()
-latarka_2 = pygame.image.load(os.path.join(filepath, "data\\pics\\latarka2.png")).convert()
-latarka_ON = pygame.image.load(os.path.join(filepath, "data\\pics\\latarkaON.png")).convert()
-nozyk = pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk.png")).convert()
-nozyk_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk1.png")).convert()
-nozyk_2 = pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk2.png")).convert()
-fajki = pygame.image.load(os.path.join(filepath, "data\\pics\\fajki.png")).convert()
-fajki_1 = pygame.image.load(os.path.join(filepath, "data\\pics\\fajki1.png")).convert()
-fajki_2 = pygame.image.load(os.path.join(filepath, "data\\pics\\fajki2.png")).convert()
-
-# Grafiki scen
-wspol = pygame.image.load(os.path.join(filepath, "data\\sceny\\wspol.png")).convert()
-wspol2 = pygame.image.load(os.path.join(filepath, "data\\sceny\\wspol2.png")).convert()
-pokoj = pygame.image.load(os.path.join(filepath, "data\\sceny\\pokoj.png")).convert()
-strzelnica = pygame.image.load(os.path.join(filepath, "data\\sceny\\strzelnica.png")).convert()
-silka = pygame.image.load(os.path.join(filepath, "data\\sceny\\silownia.png")).convert()
-prog = pygame.image.load(os.path.join(filepath, "data\\sceny\\prog.png")).convert()
-plecakIN = pygame.image.load(os.path.join(filepath, "data\\sceny\\plecak.png")).convert()
-egzaminFoto = pygame.image.load(os.path.join(filepath, "data\\sceny\\egzamin.png")).convert()
-indeksBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\indeksWykaz.png")).convert()
-barBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\bar.png")).convert()
-pokojnocBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\pokojnoc.png")).convert()
-odprawaBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\odprawa.png")).convert()
-korytarzBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\korytarz.png")).convert()
-korytarzNOC = pygame.image.load(os.path.join(filepath, "data\\sceny\\korytarzSciana.png")).convert()
-korytarzDZIEN = pygame.image.load(os.path.join(filepath, "data\\sceny\\korytarzSciana2.png")).convert()
-napisPolicja = pygame.image.load(os.path.join(filepath, "data\\pics\\napisPolicja.png")).convert()
-napisPolicja1 = pygame.image.load(os.path.join(filepath, "data\\pics\\napisPolicja1.png")).convert()
-szczytno_nocBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\szczytnonoc.png")).convert()
-strzelnica_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\strzelnica1.png")).convert()
-strzelnica1 = pygame.image.load(os.path.join(filepath, "data\\sceny\\strzelnica2.png")).convert()
-strzelnica2 = pygame.image.load(os.path.join(filepath, "data\\sceny\\strzelnica3.png")).convert()
-tabelaIMG = pygame.image.load(os.path.join(filepath, "data\\pics\\tabelawynikow.png")).convert()
-wynikiBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\wykazstrzelan.jpg")).convert()
-torbaBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\torba_Tomka.png")).convert()
-drogaBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\droga.png")).convert()
-planBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\planszkoly.png")).convert()
-stolowkaBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\stolowka.png")).convert()
-akademikBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\akademik.png")).convert()
-sztabBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\sztabBG.png")).convert()
-salawfBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\salawf.png")).convert()
-pcab_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\pcab.png")).convert()
-hilton_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\hilton.png")).convert()
-karate_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\salakarate.png")).convert()
-kantyna_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\kantyna.png")).convert()
-biblioteka_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\biblioteka.png")).convert()
-palarnia_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\palarnia.png")).convert()
-tajwan_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\tajwan.png")).convert()
-maszyna_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\maszyna.png")).convert()
-pokoj_noc_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\pokoj_noc.png")).convert()
-magazyn_brama_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\magazyn_brama.png")).convert()
-brama_kod_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\brama_kod_bg.png")).convert()
-falklandy_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_bg.png")).convert()
-sektor_falklandy_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_sektor_bg.png")).convert()
-sektor_falklandy_X_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_sektor_X_bg.png")).convert()
-sektor_falklandy_drzwi_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_drzwi_bg.png")).convert()
-sektor_falklandy_klodka_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_klodka_bg.png")).convert()
-
-# Pojęcia + zdjęcia
-czarnuch = pygame.image.load(os.path.join(filepath, "data\\pojecia\\czarnuch.png")).convert()
-czarnuch1 = pygame.image.load(os.path.join(filepath, "data\\pics\\czarnuch.png")).convert()
-p99 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\p99.png")).convert()
-p991 = pygame.image.load(os.path.join(filepath, "data\\pics\\p99.png")).convert()
-kulkamocy = pygame.image.load(os.path.join(filepath, "data\\pojecia\\kulkamocy.png")).convert()
-kulkamocy1 = pygame.image.load(os.path.join(filepath, "data\\pics\\kulkamocy.png")).convert()
-cela = pygame.image.load(os.path.join(filepath, "data\\pojecia\\cela.png")).convert()
-cela1 = pygame.image.load(os.path.join(filepath, "data\\pics\\cela1.png")).convert()
-akademik = pygame.image.load(os.path.join(filepath, "data\\pojecia\\akademik.png")).convert()
-akademik1 = pygame.image.load(os.path.join(filepath, "data\\pics\\akademik.png")).convert()
-wodka = pygame.image.load(os.path.join(filepath, "data\\pojecia\\wodka.png")).convert()
-wodka1 = pygame.image.load(os.path.join(filepath, "data\\pics\\wodka.png")).convert()
-plan = pygame.image.load(os.path.join(filepath, "data\\pojecia\\korytarz.png")).convert()
-plan1 = pygame.image.load(os.path.join(filepath, "data\\pics\\korytarz.png")).convert()
-falklandy = pygame.image.load(os.path.join(filepath, "data\\pojecia\\falklandy.png")).convert()
-falklandy1 = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy.png")).convert()
-staryObraz = pygame.image.load(os.path.join(filepath, "data\\pojecia\\staryObraz.png")).convert()
-staryObraz1 = pygame.image.load(os.path.join(filepath, "data\\pics\\obrazKobieta.png")).convert()
-nowyObraz = pygame.image.load(os.path.join(filepath, "data\\pojecia\\nowyObraz.png")).convert()
-nowyObraz1 = pygame.image.load(os.path.join(filepath, "data\\pics\\obrazAuto.png")).convert()
-bimber = pygame.image.load(os.path.join(filepath, "data\\pojecia\\bimber.png")).convert()
-bimber1 = pygame.image.load(os.path.join(filepath, "data\\pics\\bimber.png")).convert()
-cywilki = pygame.image.load(os.path.join(filepath, "data\\pojecia\\cywilki.png")).convert()
-cywilki1 = pygame.image.load(os.path.join(filepath, "data\\pics\\cywilki.png")).convert()
-ogorkow = pygame.image.load(os.path.join(filepath, "data\\pojecia\\ogorkow.png")).convert()
-ogorkow1 = pygame.image.load(os.path.join(filepath, "data\\pics\\ogorek.png")).convert()
-inicjaly = pygame.image.load(os.path.join(filepath, "data\\pojecia\\inicjaly.png")).convert()
-inicjaly1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\inicjaly1.png")).convert()
-naszywka = pygame.image.load(os.path.join(filepath, "data\\pojecia\\naszywkabut.png")).convert()
-naszywka1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\naszywkabut1.png")).convert()
-ksiazka = pygame.image.load(os.path.join(filepath, "data\\pojecia\\ksiazka.png")).convert()
-ksiazka1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\ksiazka1.png")).convert()
-kniga = pygame.image.load(os.path.join(filepath, "data\\pojecia\\kniga.png")).convert()
-kniga1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\kniga1.png")).convert()
-kompleks = pygame.image.load(os.path.join(filepath, "data\\pojecia\\kompleks.png")).convert()
-kompleks1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\kompleks1.png")).convert()
-nasucho = pygame.image.load(os.path.join(filepath, "data\\pojecia\\nasucho.png")).convert()
-nasucho1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\nasucho1.png")).convert()
-wejsc = pygame.image.load(os.path.join(filepath, "data\\pojecia\\wejsc.png")).convert()
-wejsc_1 = pygame.image.load(os.path.join(filepath, "data\\pojecia\\wejsc1.png")).convert_alpha()
-
-# Grafiki notatnika
-notatnikA = pygame.image.load(os.path.join(filepath, "data\\navi\\notatnik.png")).convert()
-notatnikB = pygame.image.load(os.path.join(filepath, "data\\navi\\notatnik1.png")).convert()
-notatniczek = pygame.image.load(os.path.join(filepath, "data\\sceny\\notatniczek.png")).convert()
-notatnikPistol = pygame.image.load(os.path.join(filepath, "data\\note\\notatkiPistol.png")).convert()
-zapiski = pygame.image.load(os.path.join(filepath, "data\\note\\note1.png")).convert()
-notatnikLegit = pygame.image.load(os.path.join(filepath, "data\\note\\notatkiLegit.png")).convert()
-zapiskiLegit = pygame.image.load(os.path.join(filepath, "data\\note\\noteLegit.png")).convert()
-notatnikRuch = pygame.image.load(os.path.join(filepath, "data\\note\\notatkiRuch.png")).convert()
-zapiskiRuch = pygame.image.load(os.path.join(filepath, "data\\note\\noteRuch.png")).convert()
-notatnikWykr = pygame.image.load(os.path.join(filepath, "data\\note\\notatkiWykroczenia.png")).convert()
-zapiskiWykr = pygame.image.load(os.path.join(filepath, "data\\note\\noteWykr.png")).convert()
-
 # Zawartość notatnika
 legitymowanie = ""
 ruchdrogowy = ""
@@ -260,52 +94,11 @@ quest_tomek_1 = ""  # personel #rozmowa
 quest_tomek_torba = ""  # torebunia
 quest_tomek_cela = ""  # cela
 
-# Grafiki plecaka
-plecak = pygame.image.load(os.path.join(filepath, "data\\navi\\plecak.png")).convert()
-plecak1 = pygame.image.load(os.path.join(filepath, "data\\navi\\plecak1.png")).convert()
-pendrive = pygame.image.load(os.path.join(filepath, "data\\plecak\\usb.png")).convert()
-pendriveOpis = pygame.image.load(os.path.join(filepath, "data\\pics\\usbTomka.png")).convert()
-skrawek = pygame.image.load(os.path.join(filepath, "data\\plecak\\skrawek.png")).convert()
-skrawekOpis = pygame.image.load(os.path.join(filepath, "data\\plecak\\skrawekOpis.png")).convert()
-kod_pin_img = pygame.image.load(os.path.join(filepath, "data\\pics\\kod_pin.png")).convert_alpha()
-kod_pin_opis = pygame.image.load(os.path.join(filepath, "data\\plecak\\kod_pin_opis.png")).convert_alpha()
 
-# Grafiki alarmu
-pin_1 = pygame.image.load(os.path.join(filepath, "data\\navi\\pin1.png")).convert_alpha()
-pin_1_press = pygame.image.load(os.path.join(filepath, "data\\navi\\pin1_press.png")).convert_alpha()
-pin_2 = pygame.image.load(os.path.join(filepath, "data\\navi\\pin2.png")).convert_alpha()
-pin_2_press = pygame.image.load(os.path.join(filepath, "data\\navi\\pin2_press.png")).convert_alpha()
-pin_3 = pygame.image.load(os.path.join(filepath, "data\\navi\\pin3.png")).convert_alpha()
-pin_3_press = pygame.image.load(os.path.join(filepath, "data\\navi\\pin3_press.png")).convert_alpha()
-pin_cancel = pygame.image.load(os.path.join(filepath, "data\\navi\\pin_cancel.png")).convert_alpha()
-pin_cancel_press = pygame.image.load(os.path.join(filepath, "data\\navi\\pin_cancel_press.png")).convert_alpha()
-pin_4 = pygame.image.load(os.path.join(filepath, "data\\navi\\pin4.png")).convert_alpha()
-pin_4_press = pygame.image.load(os.path.join(filepath, "data\\navi\\pin4_press.png")).convert_alpha()
-pin_5 = pygame.image.load(os.path.join(filepath, "data\\navi\\pin5.png")).convert_alpha()
-pin_5_press = pygame.image.load(os.path.join(filepath, "data\\navi\\pin5_press.png")).convert_alpha()
-pin_6 = pygame.image.load(os.path.join(filepath, "data\\navi\\pin6.png")).convert_alpha()
-pin_6_press = pygame.image.load(os.path.join(filepath, "data\\navi\\pin6_press.png")).convert_alpha()
-pin_clear = pygame.image.load(os.path.join(filepath, "data\\navi\\pin_clear.png")).convert_alpha()
-pin_clear_press = pygame.image.load(os.path.join(filepath, "data\\navi\\pin_clear_press.png")).convert_alpha()
-pin_7 = pygame.image.load(os.path.join(filepath, "data\\navi\\pin7.png")).convert_alpha()
-pin_7_press = pygame.image.load(os.path.join(filepath, "data\\navi\\pin7_press.png")).convert_alpha()
-pin_8 = pygame.image.load(os.path.join(filepath, "data\\navi\\pin8.png")).convert_alpha()
-pin_8_press = pygame.image.load(os.path.join(filepath, "data\\navi\\pin8_press.png")).convert_alpha()
-pin_9 = pygame.image.load(os.path.join(filepath, "data\\navi\\pin9.png")).convert_alpha()
-pin_9_press = pygame.image.load(os.path.join(filepath, "data\\navi\\pin9_press.png")).convert_alpha()
-pin_help = pygame.image.load(os.path.join(filepath, "data\\navi\\pin_help.png")).convert_alpha()
-pin_help_press = pygame.image.load(os.path.join(filepath, "data\\navi\\pin_help_press.png")).convert_alpha()
-pin_0 = pygame.image.load(os.path.join(filepath, "data\\navi\\pin0.png")).convert_alpha()
-pin_0_press = pygame.image.load(os.path.join(filepath, "data\\navi\\pin0_press.png")).convert_alpha()
-pin_enter = pygame.image.load(os.path.join(filepath, "data\\navi\\pin_enter.png")).convert_alpha()
-pin_enter_press = pygame.image.load(os.path.join(filepath, "data\\navi\\pin_enter_press.png")).convert_alpha()
 
 # Grafiki indeksu
 indeks = pygame.image.load(os.path.join(filepath, "data\\navi\\indeks.png")).convert()
 indeks1 = pygame.image.load(os.path.join(filepath, "data\\navi\\indeks1.png")).convert()
-
-# Ikona gry
-pygame.display.set_icon(graph.icon)
 
 # Lokacje i grafiki Falklandów
 reca = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\reca.png")).convert_alpha()
@@ -645,7 +438,7 @@ def kontynuacja_gry():
         click = False
 
         screen.fill(black)
-        screen.blit(bgankieta, (200, 0))
+        screen.blit(graph.bgankieta, (200, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         dalejx = screen.blit(graph.save_start[0], (1100, 570))
 
@@ -699,7 +492,7 @@ def kontynuacja_gry():
         pisak.pisz("wers2", "Posiadasz już zapis gry.", 30, 120, dyellow)
         pisak.pisz("wers4", "Data utworzenia: ", 30, 150, dyellow)
         pisak.pisz("wers3", czas_pliku, 230, 150, white)
-        screen.blit(odznaka, (40, 490))
+        screen.blit(graph.odznaka, (40, 490))
 
         pygame.display.update()
         mainClock.tick()
@@ -715,7 +508,7 @@ def start():
         click = False
         
         screen.fill(black)
-        screen.blit(maszyna_bg, (0, 0))
+        screen.blit(graph.maszyna_bg, (0, 0))
         screen.blit(key_enter1, (565, 570))
 
         pisak.pisz("wers1", "Podaj imię. Zatwierdź        a następnie naciśnij 'Dalej'", 330, 600, white)
@@ -984,7 +777,7 @@ def objasnienie():
         click = False
 
         screen.fill(black)
-        screen.blit(bgankieta, (200, 0))
+        screen.blit(graph.bgankieta, (200, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         dalej = screen.blit(graph.press_Kariera[0], (1100, 570))
 
@@ -1025,7 +818,7 @@ def objasnienie():
         pisak.pisz("wers8", "NUMER ODZNAKI : 997187", 30, 460, white)
         pisak.pisz("wers9", "**Posterunkowy(-a)! Jeśli jesteś gotowy(-a) na szkolenie, naciśnij 'Kariera'**",
                    260, 500, dyellow)
-        screen.blit(odznaka, (40, 490))
+        screen.blit(graph.odznaka, (40, 490))
         
         pygame.display.update()
         mainClock.tick()
@@ -1040,7 +833,7 @@ def scena1():
         click = False
         
         screen.fill(black)
-        screen.blit(wspol, (0, 0))
+        screen.blit(graph.wspol, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -1086,14 +879,14 @@ def scena1():
         pisak.pisz("wers12", "**Możesz najechać myszką na słowa na niebieskim tle i podejrzeć co się tam"
                              " kryje.", 30, 580, dyellow)
 
-        akademik_poj = screen.blit(akademik, (510, 177))
-        mundurx = screen.blit(czarnuch, (885, 212))
+        akademik_poj = screen.blit(graph.akademik[0], (510, 177))
+        mundurx = screen.blit(graph.czarnuch[0], (885, 212))
 
         if mundurx.collidepoint((mx, my)):
-            screen.blit(czarnuch1, (895, 230))
+            screen.blit(graph.czarnuch[1], (895, 230))
 
         if akademik_poj.collidepoint((mx, my)):
-            screen.blit(akademik1, (500, 195))
+            screen.blit(graph.akademik[1], (500, 195))
 
         pygame.display.update()
         mainClock.tick()
@@ -1107,7 +900,7 @@ def scena2():
         click = False
         
         screen.fill(black)
-        screen.blit(wspol, (0, 0))
+        screen.blit(graph.wspol, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -1164,7 +957,7 @@ def scena3():
         click = False
         
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -1225,9 +1018,9 @@ def scena4():
         click = False
         
         screen.fill(black)
-        screen.blit(strzelnica, (0, 0))
+        screen.blit(graph.strzelnica, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -1246,7 +1039,7 @@ def scena4():
                 loadingSound.play()
                 scena5()
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
@@ -1279,10 +1072,10 @@ def scena4():
                              " 2'C a musieliście ", 30, 510, white)
         pisak.pisz("wers13", "biegać po podwórku kilka okrążeń.. Ale to nic, może ciut schudnę? :)", 30, 540, white)
 
-        spluwa = screen.blit(p99, (819, 211))
+        spluwa = screen.blit(graph.p99[0], (819, 211))
 
         if spluwa.collidepoint((mx, my)):
-            screen.blit(p991, (820, 238))
+            screen.blit(graph.p99[1], (820, 238))
 
         pygame.display.update()
         mainClock.tick(60)
@@ -1296,7 +1089,7 @@ def scena5():
         click = False
         
         screen.fill(black)
-        screen.blit(wspol, (0, 0))
+        screen.blit(graph.wspol, (0, 0))
         button_nie = screen.blit(graph.nie[0], (470, 600))
         button_tak = screen.blit(graph.tak[0], (660, 600))
 
@@ -1347,10 +1140,10 @@ def scena5():
                              " odłogiem w pokoju.", 20, 480, white)
         pisak.pisz("wers12", "--> Idziesz z Tomkiem na siłownię ?", 20, 530, dyellow)
 
-        kulka = screen.blit(kulkamocy, (700, 298))
+        kulka = screen.blit(graph.kulkamocy[0], (700, 298))
 
         if kulka.collidepoint((mx, my)):
-            screen.blit(kulkamocy1, (800, 320))
+            screen.blit(graph.kulkamocy[1], (800, 320))
 
         pygame.display.update()
         mainClock.tick(60)
@@ -1369,7 +1162,7 @@ def silownia():
         pendrive1 = "testyTomka"
 
         screen.fill(black)
-        screen.blit(silka, (0, 0))
+        screen.blit(graph.silka, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -1433,10 +1226,10 @@ def scena_prog():
         click = False
 
         screen.fill(black)
-        screen.blit(prog, (0, 0))
+        screen.blit(graph.prog, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -1456,13 +1249,13 @@ def scena_prog():
                 scena6()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -1494,11 +1287,11 @@ def scena6():
         legitymowanie = "legitymowanie"
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         button_nie = screen.blit(graph.nie[0], (470, 600))
         button_tak = screen.blit(graph.tak[0], (660, 600))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -1524,13 +1317,13 @@ def scena6():
                 silownia1()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -1564,7 +1357,7 @@ def silownia1():
         click = False
 
         screen.fill(black)
-        screen.blit(silka, (0, 0))
+        screen.blit(graph.silka, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -1604,10 +1397,10 @@ def scena7():
         click = False
 
         screen.fill(black)
-        screen.blit(wspol, (0, 0))
+        screen.blit(graph.wspol, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         # pozycja myszy-------
         mx, my = pygame.mouse.get_pos()
         # --------------------
@@ -1626,13 +1419,13 @@ def scena7():
                 loadingSound.play()
                 scena8()
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -1672,10 +1465,10 @@ def scena8():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -1694,13 +1487,13 @@ def scena8():
                 loadingSound.play()
                 scena9()
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -1741,10 +1534,10 @@ def scena9():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -1763,13 +1556,13 @@ def scena9():
                 loadingSound.play()
                 scena10()
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -1811,10 +1604,10 @@ def scena10():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -1834,13 +1627,13 @@ def scena10():
                 egzamin_leg()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -1868,7 +1661,7 @@ def egzamin_leg():
         click = False
 
         screen.fill(black)
-        screen.blit(egzaminFoto, (200, 0))
+        screen.blit(graph.egzaminFoto, (200, 0))
 
         pisak.pisz("wers", "Czemu służy legitymowanie?", 450, 100, red)
         pisak.pisz("wers1", "Żeby potwierdzić tożsamość osoby", 450, 130, white)
@@ -1936,7 +1729,7 @@ def egzamin_leg2():
         click = False
 
         screen.fill(black)
-        screen.blit(egzaminFoto, (200, 0))
+        screen.blit(graph.egzaminFoto, (200, 0))
 
         pisak.pisz("wers", "Przy legitymowaniu warto zachować..", 450, 100, red)
         pisak.pisz("wers1", "Kółko bezpieczeństwa", 450, 130, white)
@@ -2004,7 +1797,7 @@ def egzamin_leg3():
         click = False
 
         screen.fill(black)
-        screen.blit(egzaminFoto, (200, 0))
+        screen.blit(graph.egzaminFoto, (200, 0))
 
         pisak.pisz("wers", "Podstawą prawną legitymowania jest:", 450, 100, red)
         pisak.pisz("wers1", "Moje widzi mi się", 450, 130, white)
@@ -2073,7 +1866,7 @@ def egzamin_leg4():
         click = False
 
         screen.fill(black)
-        screen.blit(egzaminFoto, (200, 0))
+        screen.blit(graph.egzaminFoto, (200, 0))
         pisak.pisz("wers", "W przypadku odmowy okazania dokumentu tożsamości, ma zastasowanie:", 450, 100, red)
         pisak.pisz("wers1", "art.65 par. 2 Kodeksu Wykroczeń", 450, 130, white)
         if odp4 == "a":
@@ -2139,10 +1932,10 @@ def wyniki_leg():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -2163,13 +1956,13 @@ def wyniki_leg():
                 scena_prog1()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -2235,10 +2028,10 @@ def scena_prog1():
         click = False
 
         screen.fill(black)
-        screen.blit(prog, (0, 0))
+        screen.blit(graph.prog, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -2260,13 +2053,13 @@ def scena_prog1():
                 scena11()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -2294,11 +2087,11 @@ def scena11():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         button_nie = screen.blit(graph.nie[0], (470, 600))
         button_tak = screen.blit(graph.tak[0], (660, 600))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -2326,13 +2119,13 @@ def scena11():
                 bar()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -2355,10 +2148,10 @@ def scena11():
         pisak.pisz("wers5", "Podobno przy szkole jest jakiś bar, który nazywa się - 'CELA'.", 20, 300, white)
         pisak.pisz("wers6", "--> Idziesz na piwo?", 520, 530, dyellow)
 
-        cela_bar = screen.blit(cela, (627, 302))
+        cela_bar = screen.blit(graph.cela[0], (627, 302))
 
         if cela_bar.collidepoint((mx, my)):
-            screen.blit(cela1, (630, 320))
+            screen.blit(graph.cela[1], (630, 320))
 
         pygame.display.update()
         mainClock.tick()
@@ -2373,7 +2166,7 @@ def bar():
         click = False
 
         screen.fill(black)
-        screen.blit(barBG, (0, 0))
+        screen.blit(graph.barBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -2429,7 +2222,7 @@ def bar1():
         click = False
 
         screen.fill(black)
-        screen.blit(barBG, (0, 0))
+        screen.blit(graph.barBG, (0, 0))
         button_nie = screen.blit(graph.nie[0], (470, 600))
         button_tak = screen.blit(graph.tak[0], (660, 600))
 
@@ -2475,9 +2268,9 @@ def bar1():
         pisak.pisz("wers9", "Tomka gdzieś wcieło, postaliście jeszcze 10 minut ale nigdzie go nie ma.", 20, 420, white)
         pisak.pisz("wers10", "--> Zostajesz jeszcze chwilę?", 20, 550, dyellow)
 
-        wodka_poj = screen.blit(wodka, (880, 210))
+        wodka_poj = screen.blit(graph.wodka[0], (880, 210))
         if wodka_poj.collidepoint((mx, my)):
-            screen.blit(wodka1, (1000, 210))
+            screen.blit(graph.wodka[1], (1000, 210))
 
         pygame.display.update()
         mainClock.tick(60)
@@ -2494,7 +2287,7 @@ def bar2():
         quest_tomek_1 = "personel"
 
         screen.fill(black)
-        screen.blit(barBG, (0, 0))
+        screen.blit(graph.barBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -2552,7 +2345,7 @@ def scena_bar_iwona():
         click = False
 
         screen.fill(black)
-        screen.blit(pokojnocBG, (0, 0))
+        screen.blit(graph.pokojnocBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -2613,12 +2406,12 @@ def scena12():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
-        wejsc_x = screen.blit(wejsc, (1109, 212))
+        wejsc_x = screen.blit(graph.wejsc[0], (1109, 212))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -2638,13 +2431,13 @@ def scena12():
                 scena13()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -2674,7 +2467,7 @@ def scena12():
         pisak.pisz("wers8", "** Reszta dnia minęła spokojnie - psychicznie przygotowujesz się do swojej pierwszej"
                             " odprawy.", 20, 390, white)
         if wejsc_x.collidepoint((mx, my)):
-            screen.blit(wejsc_1, (809, 238))
+            screen.blit(graph.wejsc[1], (809, 238))
         pygame.display.update()
         mainClock.tick(60)
 
@@ -2687,10 +2480,10 @@ def scena13():
         click = False
 
         screen.fill(black)
-        screen.blit(odprawaBG, (0, 0))
+        screen.blit(graph.odprawaBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -2711,13 +2504,13 @@ def scena13():
                 scena14()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -2768,10 +2561,10 @@ def scena14():
         click = False
 
         screen.fill(black)
-        screen.blit(korytarzBG, (0, 0))
+        screen.blit(graph.korytarzBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -2792,13 +2585,13 @@ def scena14():
                 scena15()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -2834,10 +2627,10 @@ def scena14():
         pisak.pisz("wers11", "Idziesz w kierunku tego miejsca, zobaczyć czy obok są pokoje kursantów, jakaś sala, "
                              "czy jakieś inne pomieszczenia.", 20, 480, white)
 
-        plan_poj = screen.blit(plan, (776, 236))
+        plan_poj = screen.blit(graph.plan[0], (776, 236))
 
         if plan_poj.collidepoint((mx, my)):
-            screen.blit(plan1, (600, 255))
+            screen.blit(graph.plan[1], (600, 255))
 
         pygame.display.update()
         mainClock.tick(60)
@@ -2851,10 +2644,10 @@ def scena15():
         click = False
 
         screen.fill(black)
-        screen.blit(korytarzBG, (0, 0))
+        screen.blit(graph.korytarzBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -2875,13 +2668,13 @@ def scena15():
                 scena_sciana()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -2921,9 +2714,9 @@ def scena15():
         pisak.pisz("wers13", "Przyjrzysz się temu bliżej jak będziesz miał(-a) tam służbę.. ** Wracasz do "
                              "kanciapy dyżurnego.", 20, 540, white)
 
-        falklandy_poj = screen.blit(falklandy, (875, 446))
+        falklandy_poj = screen.blit(graph.falklandy[0], (875, 446))
         if falklandy_poj.collidepoint((mx, my)):
-            screen.blit(falklandy1, (500, 200))
+            screen.blit(graph.falklandy[1], (500, 200))
 
         pygame.display.update()
         mainClock.tick()
@@ -2937,10 +2730,10 @@ def scena_sciana():
         click = False
 
         screen.fill(black)
-        screen.blit(korytarzNOC, (0, 0))
+        screen.blit(graph.korytarzNOC, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -2961,13 +2754,13 @@ def scena_sciana():
                 scena_prog2()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -2982,11 +2775,11 @@ def scena_sciana():
         pisak.pisz("wers", "Ta kobieta jest jakaś.. ", 20, 150, white)
         pisak.pisz("wers1", "Obserwujesz jeszcze chwilę i wracasz do siebie. ", 20, 210, white)
 
-        obraz_stary = screen.blit(staryObraz, (334, 273))
+        obraz_stary = screen.blit(graph.staryObraz[0], (334, 273))
         if obraz_stary.collidepoint((mx, my)):
-            screen.blit(staryObraz1, (450, 50))
+            screen.blit(graph.staryObraz[1], (450, 50))
 
-        screen.blit(oko, (mx, my))
+        screen.blit(graph.oko, (mx, my))
         pygame.display.update()
         mainClock.tick()
 
@@ -3001,12 +2794,12 @@ def scena_prog2():
         click = False
 
         screen.fill(black)
-        screen.blit(prog, (0, 0))
+        screen.blit(graph.prog, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
-        napis_policja_x = screen.blit(napisPolicja, (640, 190))
+        napis_policja_x = screen.blit(graph.napisPolicja, (640, 190))
 
         # pozycja myszy-------
         mx, my = pygame.mouse.get_pos()
@@ -3029,13 +2822,13 @@ def scena_prog2():
                 scena16()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -3047,13 +2840,13 @@ def scena_prog2():
                 wykazOcen()
 
         if napis_policja_x.collidepoint((mx, my)):
-            screen.blit(napisPolicja1, (640, 250))
+            screen.blit(graph.napisPolicja1, (640, 250))
 
         pisak.pisz("wers", "Jeśli napotkasz scenę, w której przy kursorze wyświetla się lupa - taki jak teraz",
                    20, 490, dyellow)
         pisak.pisz("wers1", "Bacznie obserwuj i poszukuj ciekawych przedmiotów na ekranie.",
                    20, 520, dyellow)
-        screen.blit(oko, (mx, my))
+        screen.blit(graph.oko, (mx, my))
         pygame.display.update()
         mainClock.tick()
 
@@ -3070,10 +2863,10 @@ def scena16():
         ruchdrogowy = "ruchdrogowy"
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         # pozycja myszy-------
@@ -3096,13 +2889,13 @@ def scena16():
                 scena17()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -3142,9 +2935,9 @@ def scena16():
         pisak.pisz("wers14", "- No nic ciekawego, zrobiłem(-am) ten nocny obchód po akademiku i wróciłem(-am) "
                              "do kanciapy", 20, 540, white)
 
-        cywilkix = screen.blit(cywilki, (557, 388))
+        cywilkix = screen.blit(graph.cywilki[0], (557, 388))
         if cywilkix.collidepoint((mx, my)):
-            screen.blit(cywilki1, (557, 428))
+            screen.blit(graph.cywilki[1], (557, 428))
 
         pygame.display.update()
         mainClock.tick()
@@ -3158,10 +2951,10 @@ def scena17():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         # pozycja myszy-------
@@ -3184,13 +2977,13 @@ def scena17():
                 scena18()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -3243,10 +3036,10 @@ def scena18():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         # pozycja myszy-------
@@ -3269,13 +3062,13 @@ def scena18():
                 scena19()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -3318,9 +3111,9 @@ def scena19():
         click = False
 
         screen.fill(black)
-        screen.blit(wspol2, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        screen.blit(graph.wspol2, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         wybor1 = screen.blit(graph.silownia_N[0], (470, 600))
@@ -3352,13 +3145,13 @@ def scena19():
                 spacer()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -3384,9 +3177,9 @@ def scena19():
         pisak.pisz("wers7", "Jakaś część Ciebie mówi 'Rusz dupę!'", 20, 330, white)
         pisak.pisz("wers8", "--> Gdzie idziesz?", 520, 530, dyellow)
 
-        bimberx = screen.blit(bimber, (878, 180))
+        bimberx = screen.blit(graph.bimber[0], (878, 180))
         if bimberx.collidepoint((mx, my)):
-            screen.blit(bimber1, (878, 208))
+            screen.blit(graph.bimber[1], (878, 208))
 
         pygame.display.update()
         mainClock.tick()
@@ -3405,9 +3198,9 @@ def silownia2():
         quest_tomek_1 = "rozmowa"
 
         screen.fill(black)
-        screen.blit(silka, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        screen.blit(graph.silka, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
@@ -3423,13 +3216,13 @@ def silownia2():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -3484,9 +3277,9 @@ def spacer():
         click = False
 
         screen.fill(black)
-        screen.blit(szczytno_nocBG, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        screen.blit(graph.szczytno_nocBG, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
@@ -3502,13 +3295,13 @@ def spacer():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -3551,9 +3344,9 @@ def spacer():
                    20, 420, white)
         pisak.pisz("wers12", "Okolica wydaje Ci się nawet urocza. Cisza, spokój.. ", 20, 450, white)
 
-        ogorkowx = screen.blit(ogorkow, (577, 177))
+        ogorkowx = screen.blit(graph.ogorkow[0], (577, 177))
         if ogorkowx.collidepoint((mx, my)):
-            screen.blit(ogorkow1, (577, 210))
+            screen.blit(graph.ogorkow[1], (577, 210))
 
         pygame.display.update()
         mainClock.tick()
@@ -3567,9 +3360,9 @@ def spacer1():
         click = False
 
         screen.fill(black)
-        screen.blit(szczytno_nocBG, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        screen.blit(graph.szczytno_nocBG, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
@@ -3585,13 +3378,13 @@ def spacer1():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -3652,9 +3445,9 @@ def scena20():
         click = False
 
         screen.fill(black)
-        screen.blit(pokojnocBG, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        screen.blit(graph.pokojnocBG, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
@@ -3670,13 +3463,13 @@ def scena20():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -3709,9 +3502,9 @@ def scena21():
         click = False
 
         screen.fill(black)
-        screen.blit(strzelnica1, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        screen.blit(graph.strzelnica1, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
@@ -3727,13 +3520,13 @@ def scena21():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -3791,7 +3584,7 @@ def strzelnica_scena_1():
         naboje_str = str(naboje)
         wynikp99 = punkty_str
 
-        screen.blit(strzelnica1, (0, 0))
+        screen.blit(graph.strzelnica1, (0, 0))
         if naboje <= 0:
             pygame.mouse.set_visible(True)
             tablica_wynikow.append(wynikp99)
@@ -3800,7 +3593,7 @@ def strzelnica_scena_1():
         if punkty > 200:
             skrawek1 = "skrawek"
 
-        screen.blit(tabelaIMG, (5, 600))
+        screen.blit(graph.tabelaIMG, (5, 600))
 
         mx, my = pygame.mouse.get_pos()
         ox += ox_move * 1
@@ -3958,9 +3751,9 @@ def strzelnica1wyniki():
         click = False
 
         screen.fill(black)
-        screen.blit(wynikiBG, (260, 10))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        screen.blit(graph.wynikiBG, (260, 10))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
@@ -3976,13 +3769,13 @@ def strzelnica1wyniki():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -4014,9 +3807,9 @@ def scena22():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        screen.blit(graph.pokoj, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
@@ -4032,13 +3825,13 @@ def scena22():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -4082,7 +3875,7 @@ def egzamin_ruch():
         click = False
 
         screen.fill(black)
-        screen.blit(egzaminFoto, (200, 0))
+        screen.blit(graph.egzaminFoto, (200, 0))
 
         pisak.pisz("wers", "Podstawowa zasada ruchu to..?", 450, 100, red)
         pisak.pisz("wers1", "Ruch prawostronny", 450, 130, white)
@@ -4151,7 +3944,7 @@ def egzamin_ruch2():
         click = False
 
         screen.fill(black)
-        screen.blit(egzaminFoto, (200, 0))
+        screen.blit(graph.egzaminFoto, (200, 0))
 
         pisak.pisz("wers", "W jakim dokumencie w Polsce, określono zasady ruchu drogowego?", 450, 100, red)
         pisak.pisz("wers1", "w Ustawie 'Prawo o ruchu drogowym'", 450, 130, white)
@@ -4218,7 +4011,7 @@ def egzamin_ruch3():
         global odp3_ruch
         click = False
         screen.fill(black)
-        screen.blit(egzaminFoto, (200, 0))
+        screen.blit(graph.egzaminFoto, (200, 0))
         pisak.pisz("wers", "Z jaką prędkością można jechać w strefie zamieszkania?", 450, 100, red)
         pisak.pisz("wers1", "20 km\\h", 450, 130, white)
         if odp3_ruch == "a":
@@ -4284,7 +4077,7 @@ def egzamin_ruch4():
         global odp4_ruch
         click = False
         screen.fill(black)
-        screen.blit(egzaminFoto, (200, 0))
+        screen.blit(graph.egzaminFoto, (200, 0))
         pisak.pisz("wers", "Podstawowa klasyfikacja pojazdów to:", 450, 100, red)
         pisak.pisz("wers1", "Silnikowe i łańcuchowe", 450, 130, white)
         if odp4_ruch == "a":
@@ -4351,11 +4144,11 @@ def wyniki_ruch():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -4382,13 +4175,13 @@ def wyniki_ruch():
                 wykazOcen()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -4455,11 +4248,11 @@ def scena23():
         click = False
 
         screen.fill(black)
-        screen.blit(pokojnocBG, (0, 0))
+        screen.blit(graph.pokojnocBG, (0, 0))
         button_nie = screen.blit(graph.cela_nav[0], (470, 600))
         button_tak = screen.blit(graph.miasto[0], (660, 600))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -4484,13 +4277,13 @@ def scena23():
                 scena_miasto()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -4524,7 +4317,7 @@ def scena_cela():
         click = False
 
         screen.fill(black)
-        screen.blit(barBG, (0, 0))
+        screen.blit(graph.barBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -4577,7 +4370,7 @@ def scena_cela2():
         click = False
 
         screen.fill(black)
-        screen.blit(barBG, (0, 0))
+        screen.blit(graph.barBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -4636,9 +4429,9 @@ def scena_miasto():
         click = False
 
         screen.fill(black)
-        screen.blit(szczytno_nocBG, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        screen.blit(graph.szczytno_nocBG, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
@@ -4654,13 +4447,13 @@ def scena_miasto():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -4713,10 +4506,10 @@ def scena24():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -4737,13 +4530,13 @@ def scena24():
                 scena_prog_3()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -4786,10 +4579,10 @@ def scena_prog_3():
         click = False
 
         screen.fill(black)
-        screen.blit(prog, (0, 0))
+        screen.blit(graph.prog, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
         zapisz_x = screen.blit(graph.zapisz[0], (570, 600))
 
@@ -4812,13 +4605,13 @@ def scena_prog_3():
                 scena25()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -4875,10 +4668,10 @@ def scena25():
         click = False
 
         screen.fill(black)
-        screen.blit(korytarzDZIEN, (0, 0))
+        screen.blit(graph.korytarzDZIEN, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -4899,13 +4692,13 @@ def scena25():
                 scena26()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -4926,11 +4719,11 @@ def scena25():
         pisak.pisz("wers3", "Dziwne.. a czy nie było tutaj czegoś innego?", 20, 380, white)
         pisak.pisz("wers4", "No tak, może byłem(-am) zaspany(-a).. przecież była 3 w nocy..", 20, 410, white)
 
-        obraz_nowy = screen.blit(nowyObraz, (334, 273))
+        obraz_nowy = screen.blit(graph.nowyObraz[0], (334, 273))
         if obraz_nowy.collidepoint((mx, my)):
-            screen.blit(nowyObraz1, (450, 50))
+            screen.blit(graph.nowyObraz[1], (450, 50))
 
-        screen.blit(oko, (mx, my))
+        screen.blit(graph.oko, (mx, my))
         pygame.display.update()
         mainClock.tick()
 
@@ -4943,11 +4736,11 @@ def scena26():
         click = False
 
         screen.fill(black)
-        screen.blit(wspol, (0, 0))
+        screen.blit(graph.wspol, (0, 0))
         button_nie = screen.blit(graph.nie[0], (470, 600))
         button_tak = screen.blit(graph.tak[0], (660, 600))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -4974,13 +4767,13 @@ def scena26():
                 scena_torba()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -5024,11 +4817,11 @@ def scena_torba():
         quest_tomek_torba = "torebunia"
 
         screen.fill(black)
-        inicjalyx = screen.blit(inicjaly, (880, 33))
-        naszywkax = screen.blit(naszywka, (783, 415))
-        ksiazkax = screen.blit(ksiazka, (587, 264))
-        knigax = screen.blit(kniga, (264, 275))
-        screen.blit(torbaBG, (0, 0))
+        inicjalyx = screen.blit(graph.inicjaly[0], (880, 33))
+        naszywkax = screen.blit(graph.naszywka[0], (783, 415))
+        ksiazkax = screen.blit(graph.ksiazka[0], (587, 264))
+        knigax = screen.blit(graph.kniga[0], (264, 275))
+        screen.blit(graph.torbaBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -5049,18 +4842,18 @@ def scena_torba():
                 scena27()
 
         if inicjalyx.collidepoint((mx, my)):
-            screen.blit(inicjaly1, (880, 120))
+            screen.blit(graph.inicjaly[1], (880, 120))
 
         if naszywkax.collidepoint((mx, my)):
-            screen.blit(naszywka1, (783, 510))
+            screen.blit(graph.naszywka[1], (783, 510))
 
         if ksiazkax.collidepoint((mx, my)):
-            screen.blit(ksiazka1, (587, 360))
+            screen.blit(graph.ksiazka[1], (587, 360))
 
         if knigax.collidepoint((mx, my)):
-            screen.blit(kniga1, (264, 370))
+            screen.blit(graph.kniga[1], (264, 370))
 
-        screen.blit(oko, (mx, my))
+        screen.blit(graph.oko, (mx, my))
         pygame.display.update()
         mainClock.tick()
 
@@ -5073,10 +4866,10 @@ def scena27():
         click = False
 
         screen.fill(black)
-        screen.blit(drogaBG, (0, 0))
+        screen.blit(graph.drogaBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -5097,13 +4890,13 @@ def scena27():
                 scena_prog_4()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -5143,10 +4936,10 @@ def scena_prog_4():
         click = False
 
         screen.fill(black)
-        screen.blit(prog, (0, 0))
+        screen.blit(graph.prog, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -5168,13 +4961,13 @@ def scena_prog_4():
                 scena28()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -5206,10 +4999,10 @@ def scena28():
         click = False
 
         screen.fill(black)
-        screen.blit(wspol, (0, 0))
+        screen.blit(graph.wspol, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -5230,13 +5023,13 @@ def scena28():
                 scena29()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -5273,10 +5066,10 @@ def scena29():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -5297,13 +5090,13 @@ def scena29():
                 scena30()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -5352,10 +5145,10 @@ def scena30():
         wykroczenia = "wykroczenia"
 
         screen.fill(black)
-        screen.blit(wspol2, (0, 0))
+        screen.blit(graph.wspol2, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -5376,13 +5169,13 @@ def scena30():
                 egzamin_wykr()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -5423,7 +5216,7 @@ def egzamin_wykr():
         global odp1_wykr
         click = False
         screen.fill(black)
-        screen.blit(egzaminFoto, (200, 0))
+        screen.blit(graph.egzaminFoto, (200, 0))
         pisak.pisz("wers", "Kodeks wykroczeń to..?", 450, 100, red)
         pisak.pisz("wers1", "Rozporządzenie", 450, 130, white)
         if odp1_wykr == "a":
@@ -5490,7 +5283,7 @@ def egzamin_wykr2():
         global odp2_wykr
         click = False
         screen.fill(black)
-        screen.blit(egzaminFoto, (200, 0))
+        screen.blit(graph.egzaminFoto, (200, 0))
         pisak.pisz("wers", "Wykroczenie można popełnić..", 450, 100, red)
         pisak.pisz("wers1", "Tylko umyślnie", 450, 130, white)
         if odp2_wykr == "a":
@@ -5557,7 +5350,7 @@ def egzamin_wykr3():
         global odp3_wykr
         click = False
         screen.fill(black)
-        screen.blit(egzaminFoto, (200, 0))
+        screen.blit(graph.egzaminFoto, (200, 0))
         pisak.pisz("wers", "Odpowiada za usiłowanie ten kto..", 450, 100, red)
         pisak.pisz("wers1", "Zmierza do popełniania czynu, który nie następuje", 450, 130, white)
         if odp3_wykr == "a":
@@ -5624,7 +5417,7 @@ def egzamin_wykr4():
         global odp4_wykr
         click = False
         screen.fill(black)
-        screen.blit(egzaminFoto, (200, 0))
+        screen.blit(graph.egzaminFoto, (200, 0))
         pisak.pisz("wers", "Nakłanianie innej osoby do popełniania czynu to..", 450, 100, red)
         pisak.pisz("wers1", "Pomocnictwo", 450, 130, white)
         if odp4_wykr == "a":
@@ -5690,11 +5483,11 @@ def wyniki_wykr():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -5721,13 +5514,13 @@ def wyniki_wykr():
                 wykazOcen()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -5792,11 +5585,11 @@ def scena31():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         button_nie = screen.blit(graph.nie[0], (470, 600))
         button_tak = screen.blit(graph.tak[0], (660, 600))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -5823,13 +5616,13 @@ def scena31():
                 scena_anka()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -5870,10 +5663,10 @@ def scena_anka():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -5894,13 +5687,13 @@ def scena_anka():
                 scena32()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -5955,7 +5748,7 @@ def scena_cela3():
         click = False
 
         screen.fill(black)
-        screen.blit(barBG, (0, 0))
+        screen.blit(graph.barBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -6011,7 +5804,7 @@ def scena_cela_quest():
         quest_tomek_cela = "cela"
 
         screen.fill(black)
-        screen.blit(barBG, (0, 0))
+        screen.blit(graph.barBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -6061,7 +5854,7 @@ def scena_cela4():
         click = False
 
         screen.fill(black)
-        screen.blit(barBG, (0, 0))
+        screen.blit(graph.barBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -6116,10 +5909,10 @@ def scena32():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -6140,13 +5933,13 @@ def scena32():
                 scena33()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -6180,9 +5973,9 @@ def scena33():
         click = False
 
         screen.fill(black)
-        screen.blit(strzelnica2, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        screen.blit(graph.strzelnica2, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
@@ -6198,13 +5991,13 @@ def scena33():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -6264,13 +6057,13 @@ def strzelnica_mossberg():
         nabojestr = str(naboje)
         wynikmb = punktystr
 
-        screen.blit(strzelnica2, (0, 0))
+        screen.blit(graph.strzelnica2, (0, 0))
         if naboje <= 0:
             pygame.mouse.set_visible(True)
             tablica_wynikow_mb.append(wynikmb)
             strzelnica2wyniki()
 
-        screen.blit(tabelaIMG, (5, 600))
+        screen.blit(graph.tabelaIMG, (5, 600))
         mx, my = pygame.mouse.get_pos()
         offset = (mx - ox, my - oy)
         result = francuz_mask.overlap(blob_mask, offset)
@@ -6384,9 +6177,9 @@ def strzelnica2wyniki():
         click = False
 
         screen.fill(black)
-        screen.blit(wynikiBG, (260, 10))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        screen.blit(graph.wynikiBG, (260, 10))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
 
@@ -6402,13 +6195,13 @@ def strzelnica2wyniki():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -6442,10 +6235,10 @@ def scena34():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj, (0, 0))
+        screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -6466,13 +6259,13 @@ def scena34():
                 scena35()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -6498,9 +6291,9 @@ def scena34():
         pisak.pisz("wers6", "Postanawiasz zdrzemnąć się do 17:30..",
                    20, 300, white)
 
-        kompleksx = screen.blit(kompleks, (623, 212))
+        kompleksx = screen.blit(graph.kompleks[0], (623, 212))
         if kompleksx.collidepoint((mx, my)):
-            screen.blit(kompleks1, (623, 235))
+            screen.blit(graph.kompleks[1], (623, 235))
 
         pygame.display.update()
         mainClock.tick()
@@ -6516,11 +6309,11 @@ def scena35():
         click = False
 
         screen.fill(black)
-        screen.blit(pokoj_noc_bg, (0, 0))
+        screen.blit(graph.pokoj_noc_bg, (0, 0))
         if item:
             dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -6542,13 +6335,13 @@ def scena35():
                     scena36()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -6567,38 +6360,38 @@ def scena35():
         pisak.pisz("wers3", "Co wziąć ze sobą na nocną służbę? (Wybierz 1 rzecz)",
                    20, 210, dyellow)
 
-        latarka_x = screen.blit(latarka, (330, 340))
+        latarka_x = screen.blit(graph.latarka[0], (330, 340))
         if latarka_x.collidepoint((mx, my)):
-            screen.blit(latarka_1, (330, 340))
+            screen.blit(graph.latarka[1], (330, 340))
             if click:
                 loadingSound.play()
                 item = "latarka"
 
-        nozyk_x = screen.blit(nozyk, (530, 340))
+        nozyk_x = screen.blit(graph.nozyk[0], (530, 340))
         if nozyk_x.collidepoint((mx, my)):
-            screen.blit(nozyk_1, (530, 340))
+            screen.blit(graph.nozyk[1], (530, 340))
             if click:
                 loadingSound.play()
                 item = "nozyk"
 
-        fajki_x = screen.blit(fajki, (730, 340))
+        fajki_x = screen.blit(graph.fajki[0], (730, 340))
         if fajki_x.collidepoint((mx, my)):
-            screen.blit(fajki_1, (730, 340))
+            screen.blit(graph.fajki[1], (730, 340))
             if click:
                 loadingSound.play()
                 item = "fajki"
 
         if item == "latarka":
-            screen.blit(nozyk_2, (530, 340))
-            screen.blit(fajki_2, (730, 340))
+            screen.blit(graph.nozyk[2], (530, 340))
+            screen.blit(graph.fajki[2], (730, 340))
             pisak.pisz("wers_x", "Dobrej jakości aluminowa latarka..", 450, 500, white)
         elif item == "nozyk":
-            screen.blit(latarka_2, (330, 340))
-            screen.blit(fajki_2, (730, 340))
+            screen.blit(graph.latarka[2], (330, 340))
+            screen.blit(graph.fajki[2], (730, 340))
             pisak.pisz("wers_x", "Bardzo ostry nóż kieszonkowy..", 470, 500, white)
         elif item == "fajki":
-            screen.blit(latarka_2, (330, 340))
-            screen.blit(nozyk_2, (530, 340))
+            screen.blit(graph.latarka[2], (330, 340))
+            screen.blit(graph.nozyk[2], (530, 340))
             pisak.pisz("wers_x", "Paczka 'KLUBOWYCH' z zapalniczką..", 450, 500, white)
 
         pygame.display.update()
@@ -6615,10 +6408,10 @@ def scena36():
         click = False
 
         screen.fill(black)
-        screen.blit(odprawaBG, (0, 0))
+        screen.blit(graph.odprawaBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
         kod_pin = "kod_pin"
 
@@ -6642,13 +6435,13 @@ def scena36():
                 scena_brama_magazyn()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -6709,16 +6502,15 @@ def scena_brama_magazyn(door_pkt=0):
         click = False
 
         screen.fill(black)
-        screen.blit(magazyn_brama_bg, (0, 0))
-        screen.blit(rain, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
-        alarm_pin_x = screen.blit(alarm_pin, (847, 358))
-        if door_pkt == 1:
-            dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
+        screen.blit(graph.magazyn_brama_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
+        alarm_pin_x = screen.blit(graph.alarm_pin[0], (847, 358))
 
-        screen.blit(rain, (0, 0))
+
+        screen.blit(graph.rain, (0, 0))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -6732,30 +6524,31 @@ def scena_brama_magazyn(door_pkt=0):
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
                 wykazOcen()
 
         if alarm_pin_x.collidepoint((mx, my)):
-            screen.blit(alarm_pin_1, (847, 358))
+            screen.blit(graph.alarm_pin[1], (847, 358))
             if click:
                 loadingSound.play()
                 door_pkt = scena_brama_kod_pin()
 
         if door_pkt == 1:
+            dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
             if dalej.collidepoint((mx, my)):
                 screen.blit(graph.press_Dalej[1], (1100, 640))
                 if click:
@@ -6769,7 +6562,7 @@ def scena_brama_magazyn(door_pkt=0):
             pisak.pisz("wers", "Wychodzisz za teren szkoły od strony parkingu.. Nie przestaje padać.. ", 20, 90, white)
             pisak.pisz("wers1", "Po 10 minutach stajesz przed bramą magazynów.", 20, 120, white)
             pisak.pisz("wers2", "Wiesz, że aby wejść, trzeba gdzieś wpisać KOD PIN..", 20, 150, white)
-        screen.blit(palec, (mx, my))
+        screen.blit(graph.palec, (mx, my))
         pygame.display.update()
         mainClock.tick(60)
 
@@ -6786,27 +6579,27 @@ def scena_brama_kod_pin():
         click = False
 
         screen.fill(black)
-        screen.blit(brama_kod_bg, (0, 0))
-        screen.blit(rain, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        screen.blit(graph.brama_kod_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        pin_1_x = screen.blit(pin_1, (504, 283))
-        pin_2_x = screen.blit(pin_2, (577, 283))
-        pin_3_x = screen.blit(pin_3, (649, 283))
-        pin_cancel_x = screen.blit(pin_cancel, (719, 283))
-        pin_4_x = screen.blit(pin_4, (504, 356))
-        pin_5_x = screen.blit(pin_5, (577, 356))
-        pin_6_x = screen.blit(pin_6, (649, 355))
-        pin_clear_x = screen.blit(pin_clear, (721, 354))
-        pin_7_x = screen.blit(pin_7, (505, 429))
-        pin_8_x = screen.blit(pin_8, (578, 428))
-        pin_9_x = screen.blit(pin_9, (650, 428))
-        pin_help_x = screen.blit(pin_help, (723, 425))
-        pin_0_x = screen.blit(pin_0, (579, 500))
-        pin_enter_x = screen.blit(pin_enter, (723, 497))
-        screen.blit(rain, (0, 0))
+        pin_1_x = screen.blit(graph.pin_1[0], (504, 283))
+        pin_2_x = screen.blit(graph.pin_2[0], (577, 283))
+        pin_3_x = screen.blit(graph.pin_3[0], (649, 283))
+        pin_cancel_x = screen.blit(graph.pin_cancel[0], (719, 283))
+        pin_4_x = screen.blit(graph.pin_4[0], (504, 356))
+        pin_5_x = screen.blit(graph.pin_5[0], (577, 356))
+        pin_6_x = screen.blit(graph.pin_6[0], (649, 355))
+        pin_clear_x = screen.blit(graph.pin_clear[0], (721, 354))
+        pin_7_x = screen.blit(graph.pin_7[0], (505, 429))
+        pin_8_x = screen.blit(graph.pin_8[0], (578, 428))
+        pin_9_x = screen.blit(graph.pin_9[0], (650, 428))
+        pin_help_x = screen.blit(graph.pin_help[0], (723, 425))
+        pin_0_x = screen.blit(graph.pin_0[0], (579, 500))
+        pin_enter_x = screen.blit(graph.pin_enter[0], (723, 497))
+        screen.blit(graph.rain, (0, 0))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -6824,94 +6617,98 @@ def scena_brama_kod_pin():
                     click = True
 
         if pin_1_x.collidepoint((mx, my)):
-            screen.blit(pin_1_press, (504, 283))
+            screen.blit(graph.pin_1[1], (504, 283))
             if click:
                 pin_list.append('1')
                 beep[random_beep].play()
         elif pin_2_x.collidepoint((mx, my)):
-            screen.blit(pin_2_press, (577, 283))
+            screen.blit(graph.pin_2[1], (577, 283))
             if click:
                 pin_list.append('2')
                 beep[random_beep].play()
         elif pin_3_x.collidepoint((mx, my)):
-            screen.blit(pin_3_press, (649, 283))
+            screen.blit(graph.pin_3[1], (649, 283))
             if click:
                 pin_list.append('3')
                 beep[random_beep].play()
         elif pin_cancel_x.collidepoint((mx, my)):
-            screen.blit(pin_cancel_press, (719, 283))
+            screen.blit(graph.pin_cancel[1], (719, 283))
             if click:
                 pin_list.clear()
                 beep[random_beep].play()
         elif pin_4_x.collidepoint((mx, my)):
-            screen.blit(pin_4_press, (504, 356))
+            screen.blit(graph.pin_4[1], (504, 356))
             if click:
                 pin_list.append('4')
                 beep[random_beep].play()
         elif pin_5_x.collidepoint((mx, my)):
-            screen.blit(pin_5_press, (577, 356))
+            screen.blit(graph.pin_5[1], (577, 356))
             if click:
                 pin_list.append('5')
                 beep[random_beep].play()
         elif pin_6_x.collidepoint((mx, my)):
-            screen.blit(pin_6_press, (649, 355))
+            screen.blit(graph.pin_6[1], (649, 355))
             if click:
                 pin_list.append('6')
                 beep[random_beep].play()
         elif pin_clear_x.collidepoint((mx, my)):
-            screen.blit(pin_clear_press, (721, 354))
+            screen.blit(graph.pin_clear[1], (721, 354))
             if click:
                 pin_list.clear()
                 beep[random_beep].play()
         elif pin_7_x.collidepoint((mx, my)):
-            screen.blit(pin_7_press, (505, 429))
+            screen.blit(graph.pin_7[1], (505, 429))
             if click:
                 pin_list.append('7')
                 beep[random_beep].play()
         elif pin_8_x.collidepoint((mx, my)):
-            screen.blit(pin_8_press, (578, 428))
+            screen.blit(graph.pin_8[1], (578, 428))
             if click:
                 pin_list.append('8')
                 beep[random_beep].play()
         elif pin_9_x.collidepoint((mx, my)):
-            screen.blit(pin_9_press, (650, 428))
+            screen.blit(graph.pin_9[1], (650, 428))
             if click:
                 pin_list.append('9')
                 beep[random_beep].play()
         elif pin_help_x.collidepoint((mx, my)):
-            screen.blit(pin_help_press, (723, 425))
+            screen.blit(graph.pin_help[1], (723, 425))
             if click:
                 pin_list.clear()
                 pin_list.append("!ERROR!")
                 beep[random_beep].play()
         elif pin_0_x.collidepoint((mx, my)):
-            screen.blit(pin_0_press, (579, 500))
+            screen.blit(graph.pin_0[1], (579, 500))
             if click:
                 pin_list.append('0')
                 beep[random_beep].play()
         elif pin_enter_x.collidepoint((mx, my)):
-            screen.blit(pin_enter_press, (723, 497))
+            screen.blit(graph.pin_enter[1], (723, 497))
             if click:
-                if pin_list[0] == "7" and pin_list[1] == "2" and pin_list[2] == "3" and pin_list[3] == "9" and pin_list[4] == "6":
-                    pin_open.play()
-                    door = 1
-                else:
+                try:
+                    if pin_list[0] == "7" and pin_list[1] == "2" and pin_list[2] == "3" and pin_list[3] == "9" and pin_list[4] == "6":
+                        pin_open.play()
+                        door = 1
+                    else:
+                        pin_closed.play()
+                        door = 0
+                except IndexError:
                     pin_closed.play()
                     door = 0
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -6924,7 +6721,7 @@ def scena_brama_kod_pin():
                 loadingSound.play()
                 running = False
 
-        screen.blit(palec, (mx, my))
+        screen.blit(graph.palec, (mx, my))
         pygame.display.update()
         mainClock.tick(60)
     return door
@@ -6940,11 +6737,11 @@ def falklandy_mapa(sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, s
         click = False
 
         screen.fill(black)
-        screen.blit(falklandy_bg, (0, 0))
+        screen.blit(graph.falklandy_bg, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
         reca_x = screen.blit(reca, (352, 318))
         recb_x = screen.blit(recb, (400, 144))
         recc_x = screen.blit(recc, (602, 59))
@@ -6974,18 +6771,18 @@ def falklandy_mapa(sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, s
                 # scena_prog_3()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -7048,8 +6845,8 @@ def falklandy_mapa(sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, s
 
         pisak.pisz("wers", "Kliknij w sektor, by zwiedzić wybrane miejsce!", 350, 650, dyellow)
 
-        screen.blit(but, (mx, my))
-        screen.blit(rain, (0, 0))
+        screen.blit(graph.but, (mx, my))
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
 
@@ -7065,11 +6862,11 @@ def falklandy_sektor_a():
         click = False
 
         screen.fill(black)
-        screen.blit(sektor_falklandy_bg, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
+        screen.blit(graph.sektor_falklandy_bg, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -7083,18 +6880,18 @@ def falklandy_sektor_a():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -7111,8 +6908,8 @@ def falklandy_sektor_a():
         pisak.pisz("wers1", "Ogrodzenie - bez uszkodzeń.", 20, 120, white)
         pisak.pisz("wers2", "To miejsce zostało sprawdzone..", 20, 150, white)
 
-        screen.blit(but, (mx, my))
-        screen.blit(rain, (0, 0))
+        screen.blit(graph.but, (mx, my))
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
     return sektor_a
@@ -7129,11 +6926,11 @@ def falklandy_sektor_b():
         click = False
 
         screen.fill(black)
-        screen.blit(sektor_falklandy_bg, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
+        screen.blit(graph.sektor_falklandy_bg, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -7147,18 +6944,18 @@ def falklandy_sektor_b():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -7175,8 +6972,8 @@ def falklandy_sektor_b():
         pisak.pisz("wers1", "Ogólnie to pusto tutaj, ciekawe czy cały plac wygląda tak samo..", 20, 120, white)
         pisak.pisz("wers2", "To miejsce zostało sprawdzone..", 20, 150, white)
 
-        screen.blit(but, (mx, my))
-        screen.blit(rain, (0, 0))
+        screen.blit(graph.but, (mx, my))
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
     return sektor_b
@@ -7193,11 +6990,11 @@ def falklandy_sektor_c():
         click = False
 
         screen.fill(black)
-        screen.blit(sektor_falklandy_bg, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
+        screen.blit(graph.sektor_falklandy_bg, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -7211,18 +7008,18 @@ def falklandy_sektor_c():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -7240,8 +7037,8 @@ def falklandy_sektor_c():
         pisak.pisz("wers2", "Jest ciemno i co chwilę potykasz się o drobne kawałki złomu i kamieni.", 20, 150, white)
         pisak.pisz("wers3", "Tu jest wporządku - sprawdzone.", 20, 180, white)
 
-        screen.blit(but, (mx, my))
-        screen.blit(rain, (0, 0))
+        screen.blit(graph.but, (mx, my))
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
     return sektor_c
@@ -7259,11 +7056,11 @@ def falklandy_sektor_d():
         click = False
 
         screen.fill(black)
-        screen.blit(sektor_falklandy_X_bg, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
+        screen.blit(graph.sektor_falklandy_X_bg, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
         klucz_x = screen.blit(klucz, (421, 245))
 
         mx, my = pygame.mouse.get_pos()
@@ -7278,18 +7075,18 @@ def falklandy_sektor_d():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -7316,8 +7113,8 @@ def falklandy_sektor_d():
             pisak.pisz("wers3", "To szukanie już Cię nudziło ale w końcu znalazłeś coś ciekawego.", 20, 90, dyellow)
             pisak.pisz("wers3", "Albo tym kluczem coś otworzysz albo.. zostanie na pamiątkę po służbie na Falklandach.", 20, 120, dyellow)
 
-        screen.blit(oko, (mx, my))
-        screen.blit(rain, (0, 0))
+        screen.blit(graph.oko, (mx, my))
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
     return sektor_d
@@ -7334,11 +7131,11 @@ def falklandy_sektor_e():
         click = False
 
         screen.fill(black)
-        screen.blit(sektor_falklandy_bg, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
+        screen.blit(graph.sektor_falklandy_bg, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -7352,18 +7149,18 @@ def falklandy_sektor_e():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -7383,8 +7180,8 @@ def falklandy_sektor_e():
         pisak.pisz("wers4", "'Najgorsze, że mogłem(-am) być w domu a wypadła akurat na mnie ta cholerna służba!'", 20, 210, white)
         pisak.pisz("wers5", "'Gdyby chociaż nie padało..'", 20, 240, white)
 
-        screen.blit(but, (mx, my))
-        screen.blit(rain, (0, 0))
+        screen.blit(graph.but, (mx, my))
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
     return sektor_e
@@ -7401,11 +7198,11 @@ def falklandy_sektor_h():
         click = False
 
         screen.fill(black)
-        screen.blit(sektor_falklandy_drzwi_bg, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
+        screen.blit(graph.sektor_falklandy_drzwi_bg, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
         drzwi_x = screen.blit(falklandy_drzwi, (630, 160))
 
         mx, my = pygame.mouse.get_pos()
@@ -7420,18 +7217,18 @@ def falklandy_sektor_h():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -7455,8 +7252,8 @@ def falklandy_sektor_h():
         pisak.pisz("wers3", "Przypomina Ci się historia z przedwojennym szpitalem.", 20, 120, white)
         pisak.pisz("wers4", "Korci Cię by wejść do środka..", 20, 150, white)
 
-        screen.blit(palec, (mx, my))
-        screen.blit(rain, (0, 0))
+        screen.blit(graph.palec, (mx, my))
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
     return sektor_h
@@ -7472,11 +7269,11 @@ def falklandy_sektor_h_klodka():
         click = False
 
         screen.fill(black)
-        screen.blit(sektor_falklandy_klodka_bg, (0, 0))
-        notka = screen.blit(notatnikA, (20, 570))
+        screen.blit(graph.sektor_falklandy_klodka_bg, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
         klodka_x = screen.blit(falklandy_klodka[0], (480, 207))
 
         mx, my = pygame.mouse.get_pos()
@@ -7491,18 +7288,18 @@ def falklandy_sektor_h_klodka():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -7531,8 +7328,8 @@ def falklandy_sektor_h_klodka():
         elif klucz_quest == "kluczyk":
             pisak.pisz("wers3", "Hmm.. Czy mój znaleziony klucz ją otworzy?", 20, 120, white)
 
-        screen.blit(palec, (mx, my))
-        screen.blit(rain, (0, 0))
+        screen.blit(graph.palec, (mx, my))
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
 
@@ -7547,10 +7344,10 @@ def kinowa_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(wspol2, (0, 0))
+        screen.blit(graph.wspol2, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -7565,13 +7362,13 @@ def kinowa_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -7613,10 +7410,10 @@ def dziekanat_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(wspol2, (0, 0))
+        screen.blit(graph.wspol2, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -7631,13 +7428,13 @@ def dziekanat_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -7673,10 +7470,10 @@ def tajwan_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(tajwan_bg, (0, 0))
+        screen.blit(graph.tajwan_bg, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -7691,13 +7488,13 @@ def tajwan_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -7742,10 +7539,10 @@ def budowla_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(palarnia_bg, (0, 0))
+        screen.blit(graph.palarnia_bg, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -7760,13 +7557,13 @@ def budowla_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -7817,10 +7614,10 @@ def palarnia_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(palarnia_bg, (0, 0))
+        screen.blit(graph.palarnia_bg, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -7835,13 +7632,13 @@ def palarnia_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -7882,10 +7679,10 @@ def biblioteka_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(biblioteka_bg, (0, 0))
+        screen.blit(graph.biblioteka_bg, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -7900,13 +7697,13 @@ def biblioteka_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -7949,10 +7746,10 @@ def kantyna_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(kantyna_bg, (0, 0))
+        screen.blit(graph.kantyna_bg, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -7967,13 +7764,13 @@ def kantyna_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -8009,10 +7806,10 @@ def symulator_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(pcab_bg, (0, 0))
+        screen.blit(graph.pcab_bg, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -8027,13 +7824,13 @@ def symulator_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -8089,10 +7886,10 @@ def silownia_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(silka, (0, 0))
+        screen.blit(graph.silka, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -8107,13 +7904,13 @@ def silownia_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -8153,10 +7950,10 @@ def karate_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(karate_bg, (0, 0))
+        screen.blit(graph.karate_bg, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -8171,13 +7968,13 @@ def karate_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -8222,10 +8019,10 @@ def hilton_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(hilton_bg, (0, 0))
+        screen.blit(graph.hilton_bg, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
@@ -8240,13 +8037,13 @@ def hilton_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
@@ -8297,11 +8094,11 @@ def pcab_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(pcab_bg, (0, 0))
+        screen.blit(graph.pcab_bg, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -8315,18 +8112,18 @@ def pcab_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -8369,11 +8166,11 @@ def strzelnica_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(strzelnica_bg, (0, 0))
+        screen.blit(graph.strzelnica_bg, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -8387,18 +8184,18 @@ def strzelnica_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -8421,9 +8218,9 @@ def strzelnica_budynek():
         pisak.pisz("wers3", "No cóż.. jest praktycznie weekend i strzelnica jest zamknięta do poniedziałku.",
                    20, 180, white)
 
-        nasucho_x = screen.blit(nasucho, (1090, 151))
+        nasucho_x = screen.blit(graph.nasucho[0], (1090, 151))
         if nasucho_x.collidepoint((mx, my)):
-            screen.blit(nasucho1, (850, 178))
+            screen.blit(graph.nasucho[1], (850, 178))
 
         pygame.display.update()
         mainClock.tick()
@@ -8442,11 +8239,11 @@ def salawf_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(salawfBG, (0, 0))
+        screen.blit(graph.salawfBG, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -8460,18 +8257,18 @@ def salawf_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -8520,11 +8317,11 @@ def akademik_budynek_1():
         click = False
 
         screen.fill(black)
-        screen.blit(akademikBG, (0, 0))
+        screen.blit(graph.akademikBG, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -8538,18 +8335,18 @@ def akademik_budynek_1():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -8580,11 +8377,11 @@ def akademik_budynek_2():
         click = False
 
         screen.fill(black)
-        screen.blit(akademikBG, (0, 0))
+        screen.blit(graph.akademikBG, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -8598,18 +8395,18 @@ def akademik_budynek_2():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -8641,11 +8438,11 @@ def akademik_budynek_3():
         click = False
 
         screen.fill(black)
-        screen.blit(akademikBG, (0, 0))
+        screen.blit(graph.akademikBG, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -8659,18 +8456,18 @@ def akademik_budynek_3():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -8710,11 +8507,11 @@ def sztab_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(sztabBG, (0, 0))
+        screen.blit(graph.sztabBG, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -8728,18 +8525,18 @@ def sztab_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -8795,11 +8592,11 @@ def stolowka_budynek():
         click = False
 
         screen.fill(black)
-        screen.blit(stolowkaBG, (0, 0))
+        screen.blit(graph.stolowkaBG, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -8813,18 +8610,18 @@ def stolowka_budynek():
                     click = True
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -8873,13 +8670,13 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         click = False
 
         screen.fill(black)
-        screen.blit(planBG, (0, 0))
-        screen.blit(rain, (0, 0))
+        screen.blit(graph.planBG, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
-        screen.blit(rain, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
+        screen.blit(graph.rain, (0, 0))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -8899,18 +8696,18 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
                 scena36()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -8931,140 +8728,140 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         pisak.pisz("wers3", "/18", 160, 70, dyellow)
         pisak.pisz("wers4", odwiedzone_str, 140, 70, dyellow)
 
-        stolowkax = screen.blit(stolowka, (468, 86))
+        stolowkax = screen.blit(graph.stolowka[0], (468, 86))
         if stolowkax.collidepoint((mx, my)):
-            screen.blit(stolowka1, (468, 86))
+            screen.blit(graph.stolowka[1], (468, 86))
             if click:
                 loadingSound.play()
                 stolowka_budynek_pkt = stolowka_budynek()
 
-        bibliotekax = screen.blit(biblioteka, (513, 254))
+        bibliotekax = screen.blit(graph.biblioteka[0], (513, 254))
         if bibliotekax.collidepoint((mx, my)):
-            screen.blit(biblioteka1, (513, 254))
+            screen.blit(graph.biblioteka[1], (513, 254))
             if click:
                 loadingSound.play()
                 biblioteka_budynek_pkt = biblioteka_budynek()
 
-        sala_rdx = screen.blit(sala_rd, (458, 185))
+        sala_rdx = screen.blit(graph.sala_rd[0], (458, 185))
         if sala_rdx.collidepoint((mx, my)):
-            screen.blit(sala_rd1, (458, 185))
+            screen.blit(graph.sala_rd[1], (458, 185))
             if click:
                 loadingSound.play()
                 symulator_budynek_pkt = symulator_budynek()
 
-        hiltonx = screen.blit(hilton, (457, 361))
+        hiltonx = screen.blit(graph.hilton[0], (457, 361))
         if hiltonx.collidepoint((mx, my)):
-            screen.blit(hilton1, (457, 361))
+            screen.blit(graph.hilton[1], (457, 361))
             if click:
                 loadingSound.play()
                 hilton_budynek_pkt = hilton_budynek()
 
-        akademik_x = screen.blit(akademik2, (379, 45))
+        akademik_x = screen.blit(graph.akademik2[0], (379, 45))
         if akademik_x.collidepoint((mx, my)):
-            screen.blit(akademik21, (379, 45))
+            screen.blit(graph.akademik2[1], (379, 45))
             if click:
                 loadingSound.play()
                 akademik_budynek_2_pkt = akademik_budynek_2()
 
-        akademik1X = screen.blit(akademik_1, (313, 71))
-        if akademik1X.collidepoint((mx, my)):
-            screen.blit(akademik_11, (313, 71))
+        akademik1x = screen.blit(graph.akademik_1[0], (313, 71))
+        if akademik1x.collidepoint((mx, my)):
+            screen.blit(graph.akademik_1[1], (313, 71))
             if click:
                 loadingSound.play()
                 akademik_budynek_1_pkt = akademik_budynek_1()
 
-        karatex = screen.blit(karate, (318, 291))
+        karatex = screen.blit(graph.karate[0], (318, 291))
         if karatex.collidepoint((mx, my)):
-            screen.blit(karate1, (318, 291))
+            screen.blit(graph.karate[1], (318, 291))
             if click:
                 loadingSound.play()
                 karate_budynek_pkt = karate_budynek()
 
-        akademik3X = screen.blit(akademik3, (569, 83))
-        if akademik3X.collidepoint((mx, my)):
-            screen.blit(akademik31, (569, 83))
+        akademik3x = screen.blit(graph.akademik3[0], (569, 83))
+        if akademik3x.collidepoint((mx, my)):
+            screen.blit(graph.akademik3[1], (569, 83))
             if click:
                 loadingSound.play()
                 akademik_budynek_3_pkt = akademik_budynek_3()
 
-        budynekx = screen.blit(budynek, (324, 438))
+        budynekx = screen.blit(graph.budynek[0], (324, 438))
         if budynekx.collidepoint((mx, my)):
-            screen.blit(budynek1, (324, 438))
+            screen.blit(graph.budynek[1], (324, 438))
             if click:
                 loadingSound.play()
                 dziekanat_budynek_pkt = dziekanat_budynek()
 
-        odprawyx = screen.blit(odprawy, (378, 447))
+        odprawyx = screen.blit(graph.odprawy[0], (378, 447))
         if odprawyx.collidepoint((mx, my)):
-            screen.blit(odprawy1, (378, 447))
+            screen.blit(graph.odprawy[1], (378, 447))
             if click:
                 loadingSound.play()
                 kinowa_budynek_pkt = kinowa_budynek()
 
-        salawfx = screen.blit(salawf, (608, 167))
+        salawfx = screen.blit(graph.salawf[0], (608, 167))
         if salawfx.collidepoint((mx, my)):
-            screen.blit(salawf1, (608, 167))
+            screen.blit(graph.salawf[1], (608, 167))
             if click:
                 loadingSound.play()
                 salawf_budynek_pkt = salawf_budynek()
 
-        cyberx = screen.blit(cyber, (666, 311))
+        cyberx = screen.blit(graph.cyber[0], (666, 311))
         if cyberx.collidepoint((mx, my)):
-            screen.blit(cyber1, (666, 311))
+            screen.blit(graph.cyber[1], (666, 311))
             if click:
                 loadingSound.play()
                 pcab_budynek_pkt = pcab_budynek()
 
-        pifpaf_x = screen.blit(pifpaf, (725, 161))
+        pifpaf_x = screen.blit(graph.pifpaf[0], (725, 161))
         if pifpaf_x.collidepoint((mx, my)):
-            screen.blit(pifpaf1, (725, 161))
+            screen.blit(graph.pifpaf[1], (725, 161))
             if click:
                 loadingSound.play()
                 strzelnica_budynek_pkt = strzelnica_budynek()
 
-        palarniax = screen.blit(palarnia, (735, 266))
+        palarniax = screen.blit(graph.palarnia[0], (735, 266))
         if palarniax.collidepoint((mx, my)):
-            screen.blit(palarnia1, (735, 266))
+            screen.blit(graph.palarnia[1], (735, 266))
             if click:
                 loadingSound.play()
                 palarnia_budynek_pkt = palarnia_budynek()
 
-        kantynax = screen.blit(kantyna, (511, 383))
+        kantynax = screen.blit(graph.kantyna[0], (511, 383))
         if kantynax.collidepoint((mx, my)):
-            screen.blit(kantyna1, (511, 383))
+            screen.blit(graph.kantyna[1], (511, 383))
             if click:
                 loadingSound.play()
                 kantyna_budynek_pkt = kantyna_budynek()
 
-        silkasx = screen.blit(silkas, (613, 405))
+        silkasx = screen.blit(graph.silkas[0], (613, 405))
         if silkasx.collidepoint((mx, my)):
-            screen.blit(silkas_1, (613, 405))
+            screen.blit(graph.silkas[1], (613, 405))
             if click:
                 loadingSound.play()
                 silownia_budynek_pkt = silownia_budynek()
 
-        budowlax = screen.blit(budowla, (753, 418))
+        budowlax = screen.blit(graph.budowla[0], (753, 418))
         if budowlax.collidepoint((mx, my)):
-            screen.blit(budowla1, (753, 418))
+            screen.blit(graph.budowla[1], (753, 418))
             if click:
                 loadingSound.play()
                 budowla_budynek_pkt = budowla_budynek()
 
-        tajwanx = screen.blit(tajwan, (840, 442))
+        tajwanx = screen.blit(graph.tajwan[0], (840, 442))
         if tajwanx.collidepoint((mx, my)):
-            screen.blit(tajwan1, (840, 442))
+            screen.blit(graph.tajwan[1], (840, 442))
             if click:
                 loadingSound.play()
                 tajwan_budynek_pkt = tajwan_budynek()
 
-        sztabx = screen.blit(sztab, (367, 511))
+        sztabx = screen.blit(graph.sztab[0], (367, 511))
         if sztabx.collidepoint((mx, my)):
-            screen.blit(sztab1, (367, 511))
+            screen.blit(graph.sztab[1], (367, 511))
             if click:
                 loadingSound.play()
                 sztab_budynek_pkt = sztab_budynek()
-        screen.blit(rain, (0, 0))
-        screen.blit(but, (mx, my))
+        screen.blit(graph.rain, (0, 0))
+        screen.blit(graph.but, (mx, my))
         pygame.display.update()
         mainClock.tick()
 
@@ -9079,12 +8876,12 @@ def scena37():
         click = False
 
         screen.fill(black)
-        screen.blit(prog, (0, 0))
+        screen.blit(graph.prog, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-        notka = screen.blit(notatnikA, (20, 570))
-        tornister = screen.blit(plecak, (200, 570))
-        indeksOcen = screen.blit(indeks, (900, 570))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(indeks, (900, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -9106,18 +8903,18 @@ def scena37():
                 plan_szkoly()
 
         if notka.collidepoint((mx, my)):
-            screen.blit(notatnikB, (20, 570))
+            screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
 
         if tornister.collidepoint((mx, my)):
-            screen.blit(plecak1, (200, 570))
+            screen.blit(graph.plecak1, (200, 570))
             if click:
                 loadingSound.play()
                 equip()
 
-        if indeksOcen.collidepoint((mx, my)):
+        if indeks_ocen.collidepoint((mx, my)):
             screen.blit(indeks1, (900, 570))
             if click:
                 loadingSound.play()
@@ -9148,8 +8945,8 @@ def info():
     while running:
         click = False
         screen.fill(black)
-        screen.blit(bgopcje, (0, 0))
-        screen.blit(licencja, (20, 520))
+        screen.blit(graph.bgopcje, (0, 0))
+        screen.blit(graph.licencja, (20, 520))
 
         volume = pygame.mixer.music.get_volume()
         if 0.2 < volume < 0.7:
@@ -9224,9 +9021,9 @@ def notatnik():
         click = False
         
         screen.fill(black)
-        screen.blit(notatniczek, (0, 0))
+        screen.blit(graph.notatniczek, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        notatnikP = screen.blit(notatnikPistol, (20, 20))
+        notatnik_x = screen.blit(graph.notatnikPistol, (20, 20))
         
         mx, my = pygame.mouse.get_pos()
         for event in pygame.event.get():
@@ -9242,30 +9039,30 @@ def notatnik():
             if click:
                 loadingSound.play()
                 break
-        if notatnikP.collidepoint((mx, my)):
-            screen.blit(zapiski, (20, 210))
+        if notatnik_x.collidepoint((mx, my)):
+            screen.blit(graph.zapiski, (20, 210))
 
         try:
             if legitymowanie == "legitymowanie":
-                zapisLegitymowanie = screen.blit(notatnikLegit, (200, 20))
-                if zapisLegitymowanie.collidepoint((mx, my)):
-                    screen.blit(zapiskiLegit, (70, 210))
+                zapislegitymowanie = screen.blit(graph.notatnikLegit, (200, 20))
+                if zapislegitymowanie.collidepoint((mx, my)):
+                    screen.blit(graph.zapiskiLegit, (70, 210))
         except ValueError:
             pass
 
         try:
             if ruchdrogowy == "ruchdrogowy":
-                zapisRuch = screen.blit(notatnikRuch, (380, 20))
-                if zapisRuch.collidepoint((mx, my)):
-                    screen.blit(zapiskiRuch, (120, 210))
+                zapisruch = screen.blit(graph.notatnikRuch, (380, 20))
+                if zapisruch.collidepoint((mx, my)):
+                    screen.blit(graph.zapiskiRuch, (120, 210))
         except ValueError:
             pass
 
         try:
             if wykroczenia == "wykroczenia":
-                zapisWykr = screen.blit(notatnikWykr, (560, 20))
-                if zapisWykr.collidepoint((mx, my)):
-                    screen.blit(zapiskiWykr, (170, 210))
+                zapiswykr = screen.blit(graph.notatnikWykr, (560, 20))
+                if zapiswykr.collidepoint((mx, my)):
+                    screen.blit(graph.zapiskiWykr, (170, 210))
         except ValueError:
             pass
 
@@ -9283,7 +9080,7 @@ def equip():
     while running:
         click = False
         screen.fill(black)
-        screen.blit(plecakIN, (0, 0))
+        screen.blit(graph.plecakIN, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
 
         zawartosc_plecaka = []
@@ -9332,40 +9129,40 @@ def equip():
         try:
             for i in zawartosc_plecaka:
                 if i == "testyTomka":
-                    ere = screen.blit(pendrive, (20 + poz_item, 40))
+                    ere = screen.blit(graph.pendrive[0], (20 + poz_item, 40))
                     if ere.collidepoint((mx, my)):
-                        screen.blit(pendriveOpis, (70 + poz_opis, 130))
+                        screen.blit(graph.pendrive[1], (70 + poz_opis, 130))
                     poz_item += 170
                     poz_opis += 90
                 elif i == "skrawek":
-                    ere = screen.blit(skrawek, (20 + poz_item, 40))
+                    ere = screen.blit(graph.skrawek[0], (20 + poz_item, 40))
                     if ere.collidepoint((mx, my)):
-                        screen.blit(skrawekOpis, (70 + poz_opis, 130))
+                        screen.blit(graph.skrawek[1], (70 + poz_opis, 130))
                     poz_item += 170
                     poz_opis += 90
                 elif i == "latarka":
-                    ere = screen.blit(latarka, (20 + poz_item, 40))
+                    ere = screen.blit(graph.latarka[0], (20 + poz_item, 40))
                     poz_item += 170
                     poz_opis += 90
                 elif i == "nozyk":
-                    ere = screen.blit(nozyk, (20 + poz_item, 40))
+                    ere = screen.blit(graph.nozyk[0], (20 + poz_item, 40))
                     poz_item += 170
                     poz_opis += 90
                 elif i == "fajki":
-                    ere = screen.blit(fajki, (20 + poz_item, 40))
+                    ere = screen.blit(graph.fajki[0], (20 + poz_item, 40))
                     poz_item += 170
                     poz_opis += 90
                 elif i == "kod_pin":
-                    ere = screen.blit(kod_pin_img, (20 + poz_item, 40))
+                    ere = screen.blit(graph.kod_pin_img[0], (20 + poz_item, 40))
                     if ere.collidepoint((mx, my)):
-                        screen.blit(kod_pin_opis, (70 + poz_opis, 130))
+                        screen.blit(graph.kod_pin_img[1], (70 + poz_opis, 130))
                     poz_item += 170
                     poz_opis += 90
                 elif i == "kluczyk":
                     ere = screen.blit(stary_klucz, (20 + poz_item, 40))
                     poz_item += 170
                     poz_opis += 90
-        except:
+        except ValueError:
             pass
 
         pisak.pisz("wers", "Najedź myszką na przedmiot by podejrzeć.", 455, 550, dyellow)
@@ -9382,7 +9179,7 @@ def wykazOcen():
     while running:
         click = False
         screen.fill(black)
-        screen.blit(indeksBG, (0, 0))
+        screen.blit(graph.indeksBG, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -9452,4 +9249,4 @@ def wykazOcen():
         mainClock.tick()
 
 
-falklandy_mapa()
+scena36()
