@@ -155,13 +155,20 @@ but = pygame.image.load(os.path.join(filepath, "data\\pics\\podeszwa.png")).conv
 rain = pygame.image.load(os.path.join(filepath, "data\\pics\\rain.png")).convert_alpha()
 latarka = [pygame.image.load(os.path.join(filepath, "data\\pics\\latarka.png")).convert_alpha(),
            pygame.image.load(os.path.join(filepath, "data\\pics\\latarka1.png")).convert(),
-           pygame.image.load(os.path.join(filepath, "data\\pics\\latarka2.png")).convert()]
-nozyk = [pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk.png")).convert(),
+           pygame.image.load(os.path.join(filepath, "data\\pics\\latarka2.png")).convert(),
+           pygame.image.load(os.path.join(filepath, "data\\pics\\latarkaON.png")).convert_alpha(),
+           pygame.image.load(os.path.join(filepath, "data\\pics\\latarka3.png")).convert_alpha(),
+           pygame.image.load(os.path.join(filepath, "data\\pics\\latarka4.png")).convert_alpha()]
+nozyk = [pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk.png")).convert_alpha(),
          pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk1.png")).convert(),
-         pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk2.png")).convert()]
-fajki = [pygame.image.load(os.path.join(filepath, "data\\pics\\fajki.png")).convert(),
+         pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk2.png")).convert(),
+         pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk3.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\pics\\nozyk4.png")).convert_alpha()]
+fajki = [pygame.image.load(os.path.join(filepath, "data\\pics\\fajki.png")).convert_alpha(),
          pygame.image.load(os.path.join(filepath, "data\\pics\\fajki1.png")).convert(),
-         pygame.image.load(os.path.join(filepath, "data\\pics\\fajki2.png")).convert()]
+         pygame.image.load(os.path.join(filepath, "data\\pics\\fajki2.png")).convert(),
+         pygame.image.load(os.path.join(filepath, "data\\pics\\fajki3.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\pics\\fajki4.png")).convert_alpha()]
 latarka_ON = pygame.image.load(os.path.join(filepath, "data\\pics\\latarkaON.png")).convert()
 
 # Grafiki scen
@@ -209,6 +216,7 @@ brama_kod_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\brama_kod_
 falklandy_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_bg.png")).convert()
 sektor_falklandy_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_sektor_bg.png")).convert()
 sektor_falklandy_X_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_sektor_X_bg.png")).convert()
+sektor_falklandy_X_bg_light = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_sektor_X_bg_light.png")).convert()
 sektor_falklandy_drzwi_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_drzwi_bg.png")).convert()
 sektor_falklandy_klodka_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_klodka_bg.png")).convert()
 
@@ -271,11 +279,15 @@ zapiskiWykr = pygame.image.load(os.path.join(filepath, "data\\note\\noteWykr.png
 plecak = pygame.image.load(os.path.join(filepath, "data\\navi\\plecak.png")).convert()
 plecak1 = pygame.image.load(os.path.join(filepath, "data\\navi\\plecak1.png")).convert()
 pendrive = [pygame.image.load(os.path.join(filepath, "data\\plecak\\usb.png")).convert(),
-            pygame.image.load(os.path.join(filepath, "data\\pics\\usbTomka.png")).convert()]
-skrawek = [pygame.image.load(os.path.join(filepath, "data\\plecak\\skrawek.png")).convert(),
-           pygame.image.load(os.path.join(filepath, "data\\plecak\\skrawekOpis.png")).convert()]
-kod_pin_img = [pygame.image.load(os.path.join(filepath, "data\\pics\\kod_pin.png")).convert_alpha(),
-               pygame.image.load(os.path.join(filepath, "data\\plecak\\kod_pin_opis.png")).convert_alpha()]
+            pygame.image.load(os.path.join(filepath, "data\\pics\\usbTomka.png")).convert(),
+            pygame.image.load(os.path.join(filepath, "data\\plecak\\usb1.png")).convert()]
+skrawek = [pygame.image.load(os.path.join(filepath, "data\\plecak\\skrawek.png")),
+           pygame.image.load(os.path.join(filepath, "data\\plecak\\skrawekOpis.png")).convert(),
+           pygame.image.load(os.path.join(filepath, "data\\plecak\\skrawek1.png"))]
+kod_pin_img = [pygame.image.load(os.path.join(filepath, "data\\pics\\kod_pin_blank.png")).convert_alpha(),
+               pygame.image.load(os.path.join(filepath, "data\\plecak\\kod_pin_opis.png")).convert_alpha(),
+               pygame.image.load(os.path.join(filepath, "data\\pics\\kod_pin.png")).convert_alpha(),
+               pygame.image.load(os.path.join(filepath, "data\\pics\\kod_pin_blank1.png")).convert_alpha()]
 
 # Grafiki alarmu
 pin_1 = [pygame.image.load(os.path.join(filepath, "data\\navi\\pin1.png")).convert_alpha(),
@@ -306,3 +318,139 @@ pin_0 = [pygame.image.load(os.path.join(filepath, "data\\navi\\pin0.png")).conve
          pygame.image.load(os.path.join(filepath, "data\\navi\\pin0_press.png")).convert_alpha()]
 pin_enter = [pygame.image.load(os.path.join(filepath, "data\\navi\\pin_enter.png")).convert_alpha(),
              pygame.image.load(os.path.join(filepath, "data\\navi\\pin_enter_press.png")).convert_alpha()]
+
+# Grafiki indeksu
+indeks = pygame.image.load(os.path.join(filepath, "data\\navi\\indeks.png")).convert()
+indeks1 = pygame.image.load(os.path.join(filepath, "data\\navi\\indeks1.png")).convert()
+
+# CYFRY do egzaminów
+cyfra5 = pygame.image.load(os.path.join(filepath, "data\\pics\\cyfra5.png")).convert()
+cyfra4 = pygame.image.load(os.path.join(filepath, "data\\pics\\cyfra4.png")).convert()
+cyfra3 = pygame.image.load(os.path.join(filepath, "data\\pics\\cyfra3.png")).convert()
+cyfra2 = pygame.image.load(os.path.join(filepath, "data\\pics\\cyfra2.png")).convert()
+cyfra1 = pygame.image.load(os.path.join(filepath, "data\\pics\\cyfra1.png")).convert()
+
+# CYFRY do indeksu
+cyfraIndex1 = pygame.image.load(os.path.join(filepath, "data\\indeks\\1.png")).convert()
+cyfraIndex2 = pygame.image.load(os.path.join(filepath, "data\\indeks\\2.png")).convert()
+cyfraIndex3 = pygame.image.load(os.path.join(filepath, "data\\indeks\\3.png")).convert()
+cyfraIndex4 = pygame.image.load(os.path.join(filepath, "data\\indeks\\4.png")).convert()
+cyfraIndex5 = pygame.image.load(os.path.join(filepath, "data\\indeks\\5.png")).convert()
+
+# Podpisy w indeksie
+podpis1 = pygame.image.load(os.path.join(filepath, "data\\indeks\\podpis1.png")).convert()
+podpis2 = pygame.image.load(os.path.join(filepath, "data\\indeks\\podpis2.png")).convert()
+podpis3 = pygame.image.load(os.path.join(filepath, "data\\indeks\\podpis3.png")).convert()
+podpis4 = pygame.image.load(os.path.join(filepath, "data\\indeks\\podpis4.png")).convert()
+
+# Keyboard
+key_enter = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\zatwierdz.png")).convert_alpha(),
+             pygame.image.load(os.path.join(filepath, "data\\keyboard\\zatwierdz1.png")).convert_alpha()]
+key_kasuj = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\kasuj.png")).convert_alpha(),
+             pygame.image.load(os.path.join(filepath, "data\\keyboard\\kasuj1.png")).convert_alpha()]
+key_q = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\q.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\q1.png")).convert_alpha()]
+key_w = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\w.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\w1.png")).convert_alpha()]
+key_e = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\e.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\e1.png")).convert_alpha()]
+key_r = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\r.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\r1.png")).convert_alpha()]
+key_t = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\t.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\t1.png")).convert_alpha()]
+key_z = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\z.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\z1.png")).convert_alpha()]
+key_u = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\u.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\u1.png")).convert_alpha()]
+key_i = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\i.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\i1.png")).convert_alpha()]
+key_o = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\o.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\o1.png")).convert_alpha()]
+key_p = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\p.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\p1.png")).convert_alpha()]
+key_os = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\os.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\keyboard\\os1.png")).convert_alpha()]
+key_a = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\a.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\a1.png")).convert_alpha()]
+key_s = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\s.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\s1.png")).convert_alpha()]
+key_d = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\d.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\d1.png")).convert_alpha()]
+key_f = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\f.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\f1.png")).convert_alpha()]
+key_g = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\g.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\g1.png")).convert_alpha()]
+key_h = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\h.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\h1.png")).convert_alpha()]
+key_j = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\j.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\j1.png")).convert_alpha()]
+key_k = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\k.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\k1.png")).convert_alpha()]
+key_l = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\l.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\l1.png")).convert_alpha()]
+key_es = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\es.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\keyboard\\es1.png")).convert_alpha()]
+key_as = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\as.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\keyboard\\as1.png")).convert_alpha()]
+key_y = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\y.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\y1.png")).convert_alpha()]
+key_x = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\x.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\x1.png")).convert_alpha()]
+key_c = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\c.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\c1.png")).convert_alpha()]
+key_v = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\v.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\v1.png")).convert_alpha()]
+key_b = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\b.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\b1.png")).convert_alpha()]
+key_n = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\n.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\n1.png")).convert_alpha()]
+key_m = [pygame.image.load(os.path.join(filepath, "data\\keyboard\\m.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\keyboard\\m1.png")).convert_alpha()]
+
+# Panel_głośności
+volPanel = [pygame.image.load(os.path.join(filepath, "data\\pics\\volPanel.png")),
+            pygame.image.load(os.path.join(filepath, "data\\pics\\volPanel0.png")),
+            pygame.image.load(os.path.join(filepath, "data\\pics\\volPanel2.png"))]
+volLow = [pygame.image.load(os.path.join(filepath, "data\\pics\\cicho.png")),
+          pygame.image.load(os.path.join(filepath, "data\\pics\\cicho1.png"))]
+volNormal = [pygame.image.load(os.path.join(filepath, "data\\pics\\srednio.png")),
+             pygame.image.load(os.path.join(filepath, "data\\pics\\srednio1.png"))]
+volHI = [pygame.image.load(os.path.join(filepath, "data\\pics\\glosno.png")),
+        pygame.image.load(os.path.join(filepath, "data\\pics\\glosno1.png"))]
+
+# Stopnie służbowe
+post = pygame.image.load(os.path.join(filepath, "data\\stopnie\\post.png")).convert()
+
+# Lokacje i grafiki Falklandów
+reca = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\reca.png")).convert_alpha(),
+        pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\reca1.png")).convert_alpha()]
+recb = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recb.png")).convert_alpha(),
+        pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recb1.png")).convert_alpha()]
+recc = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recc.png")).convert_alpha(),
+        pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recc1.png")).convert_alpha()]
+recd = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recd.png")).convert_alpha(),
+        pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recd1.png")).convert_alpha()]
+rece = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\rece.png")).convert_alpha(),
+        pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\rece1.png")).convert_alpha()]
+recf = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recf.png")).convert_alpha(),
+        pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recf1.png")).convert_alpha()]
+recg = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recg.png")).convert_alpha(),
+        pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\recg1.png")).convert_alpha()]
+rech = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\rech.png")).convert_alpha(),
+        pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\rech1.png")).convert_alpha()]
+reci = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\reci.png")).convert_alpha(),
+        pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\reci1.png")).convert_alpha()]
+klucz = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\klucz.png")).convert_alpha()
+stary_klucz = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\stary_klucz.png")).convert_alpha()
+nowy_klucz = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\klucz_klodka.png")).convert_alpha(),
+              pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\klucz_klodka1.png")).convert_alpha(),
+              pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\klucz_klodka2.png")).convert_alpha()]
+falklandy_drzwi = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\drzwi.png")).convert_alpha(),
+                   pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\drzwi1.png")).convert_alpha()]
+falklandy_klodka = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\klodka.png")).convert_alpha(),
+                    pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\klodka1.png")).convert_alpha()]
+
+# Banery plecaka
+glass_banner = pygame.image.load(os.path.join(filepath, "data\\pics\\glass_banner.png")).convert_alpha()
+help_banner = [pygame.image.load(os.path.join(filepath, "data\\pics\\pomoc.png")),
+               pygame.image.load(os.path.join(filepath, "data\\pics\\pomoc1.png")).convert()]
