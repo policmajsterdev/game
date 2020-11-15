@@ -59,6 +59,9 @@ pin_open = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\pin_open.wav"
 pin_closed = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\pin_closed.wav"))
 door_close = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\closed_door.wav"))
 door_open = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\open_door.wav"))
+radios = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\radiostacja.wav"))
+move = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\move.wav"))
+sektor_i_wav = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\sektori.wav"))
 
 # Tekst
 myFont = pygame.font.SysFont("monospace", 18)
@@ -73,8 +76,8 @@ wykroczenia = ""
 
 # Zawartość plecaka
 active = ""
-pendrive1 = "testyTomka"  # testyTomka
-skrawek1 = "skrawek"
+pendrive1 = ""  # testyTomka
+skrawek1 = ""  # skrawek
 item = ""
 kod_pin = ""
 klucz_quest = ""  # kluczyk
@@ -6382,7 +6385,7 @@ def scena36():
                              " teraz", 20, 420, white)
         pisak.pisz("wers12", "  będzie miała zaszczyt zwiedzić magazyny/Falklandy i trochę zmoknąć! - czyli się"
                              " uwziął..", 20, 450, white)
-        pisak.pisz("wers13", "- Królewna zacznie od Falklandów i jak je sprawdzi to przyjdzie i zamelduje się u mnie po"
+        pisak.pisz("wers13", "- Królewna zacznie od Falklandów a jak je sprawdzi to wróci tutaj i zamelduje się po"
                              " resztę zadań", 20, 480, white)
         pisak.pisz("wers14", "  prowadzący wręcza Ci mokry świstek papieru i klucz (sprawdź plecak)", 20, 510, dyellow)
         pisak.pisz("wers15",
@@ -6458,10 +6461,14 @@ def scena_brama_magazyn(door_pkt=0):
             pisak.pisz("wers3", "To nie było trudne. Można iść dalej..", 20, 90, dyellow)
 
         else:
-            pisak.pisz("wers", "Wychodzisz za teren szkoły od strony parkingu.. Nie przestaje padać.. ", 20, 90, white)
-            pisak.pisz("wers1", "Po 10 minutach stajesz przed bramą na teren magazynów.", 20, 120, white)
-            pisak.pisz("wers2", "Wiesz, że aby wejść, trzeba gdzieś wpisać KOD PIN..", 20, 150, white)
-            pisak.pisz("wers3", "W plecaku masz świstek z kodem PIN i.. O nie! Po drodze zgubiłeś klucz do głównego magazynu!", 20, 180, white)
+            pisak.pisz("wers", "Wychodzisz za teren szkoły od strony parkingu.. Nie przestaje padać.. ", 20, 60, white)
+            pisak.pisz("wers1", "Po 10 minutach stajesz przed bramą na teren magazynów.", 20, 90, white)
+            pisak.pisz("wers2", "Wiesz, że aby wejść, trzeba gdzieś wpisać KOD PIN..", 20, 120, white)
+            pisak.pisz("wers3", "W plecaku masz świstek z kodem PIN i.. O nie! Po drodze zgubiłeś(-aś) klucz do głównego magazynu!", 20, 150, white)
+            pisak.pisz("wers4", "No i jak teraz sprawdzić wszystkie miejsca?", 20, 180, white)
+            pisak.pisz("wers5", "Dyżurny pewnie się wkur**.. ", 20, 210, white)
+
+        screen.blit(graph.rain, (0, 0))
         screen.blit(graph.palec, (mx, my))
         pygame.display.update()
         mainClock.tick(60)
@@ -6621,6 +6628,7 @@ def scena_brama_kod_pin():
                 loadingSound.play()
                 running = False
 
+        screen.blit(graph.rain, (0, 0))
         screen.blit(graph.palec, (mx, my))
         pygame.display.update()
         mainClock.tick(60)
@@ -6630,7 +6638,7 @@ def scena_brama_kod_pin():
 # Scena Falklandy Mapa
 
 
-def falklandy_mapa(sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, sektor_e=0):
+def falklandy_mapa(text_radio=0, sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, sektor_e=0, sektor_f=0, sektor_i=0, sektor_g=0):
     pygame.mouse.set_visible(False)
     running = True
     while running:
@@ -6638,7 +6646,7 @@ def falklandy_mapa(sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, s
 
         screen.fill(black)
         screen.blit(graph.falklandy_bg, (0, 0))
-        dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
+        screen.blit(graph.rain, (0, 0))
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(graph.indeks, (900, 570))
@@ -6663,13 +6671,6 @@ def falklandy_mapa(sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, s
                 if event.button == 1:
                     click = True
 
-        if dalej.collidepoint((mx, my)):
-            screen.blit(graph.press_Dalej[1], (1100, 640))
-            if click:
-                pygame.mouse.set_visible(True)
-                loadingSound.play()
-                # scena_prog_3()
-
         if notka.collidepoint((mx, my)):
             screen.blit(graph.notatnikB, (20, 570))
             if click:
@@ -6688,7 +6689,7 @@ def falklandy_mapa(sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, s
                 loadingSound.play()
                 wykazOcen()
 
-        odwiedzone = sektor_a + sektor_b + sektor_c + sektor_d + sektor_h + sektor_e
+        odwiedzone = sektor_a + sektor_b + sektor_c + sektor_d + sektor_h + sektor_e + sektor_f + sektor_i + sektor_g
 
         odwiedzone_str = str(odwiedzone)
         if odwiedzone == 9:
@@ -6697,6 +6698,17 @@ def falklandy_mapa(sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, s
             pisak.pisz("wers2", "Sprawdzone sektory", 50, 50, dyellow)
         pisak.pisz("wers3", "/9", 160, 70, dyellow)
         pisak.pisz("wers4", odwiedzone_str, 140, 70, dyellow)
+
+        if odwiedzone < 9:
+            screen.blit(graph.szkola[0], (1100, 630))
+        elif odwiedzone == 9 and text_radio == 1:
+            dalej = screen.blit(graph.szkola[1], (1100, 630))
+            if dalej.collidepoint((mx, my)):
+                screen.blit(graph.szkola[2], (1100, 630))
+                if click:
+                    pygame.mouse.set_visible(True)
+                    loadingSound.play()
+                    trasa_falklandy()
 
         if reca_x.collidepoint((mx, my)):
             screen.blit(graph.reca[1], (352, 318))
@@ -6730,18 +6742,27 @@ def falklandy_mapa(sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, s
 
         if recf_x.collidepoint((mx, my)):
             screen.blit(graph.recf[1], (717, 318))
+            if click:
+                loadingSound.play()
+                sektor_f = falklandy_sektor_f()
 
         if recg_x.collidepoint((mx, my)):
             screen.blit(graph.recg[1], (602, 214))
+            if click:
+                loadingSound.play()
+                sektor_g = falklandy_sektor_g()
 
         if rech_x.collidepoint((mx, my)):
             screen.blit(graph.rech[1], (524, 318))
             if click:
                 loadingSound.play()
-                sektor_h = falklandy_sektor_h()
+                sektor_h, text_radio = falklandy_sektor_h()
 
         if reci_x.collidepoint((mx, my)):
             screen.blit(graph.reci[1], (524, 418))
+            if click:
+                loadingSound.play()
+                sektor_i = falklandy_sektor_i()
 
         pisak.pisz("wers", "Kliknij w sektor, by zwiedzić wybrane miejsce!", 350, 650, dyellow)
 
@@ -6763,6 +6784,7 @@ def falklandy_sektor_a():
 
         screen.fill(black)
         screen.blit(graph.sektor_falklandy_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         notka = screen.blit(graph.notatnikA, (20, 570))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -6827,6 +6849,7 @@ def falklandy_sektor_b():
 
         screen.fill(black)
         screen.blit(graph.sektor_falklandy_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         notka = screen.blit(graph.notatnikA, (20, 570))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -6891,6 +6914,7 @@ def falklandy_sektor_c():
 
         screen.fill(black)
         screen.blit(graph.sektor_falklandy_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         notka = screen.blit(graph.notatnikA, (20, 570))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -6961,12 +6985,11 @@ def falklandy_sektor_d():
             pisak.pisz("wers_x", "Światło latarki odbija się w kilku miejscach..", 20, 180, brown)
         else:
             screen.blit(graph.sektor_falklandy_X_bg, (0, 0))
-
+        screen.blit(graph.rain, (0, 0))
         notka = screen.blit(graph.notatnikA, (20, 570))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(graph.indeks, (900, 570))
-
 
         mx, my = pygame.mouse.get_pos()
 
@@ -7000,8 +7023,9 @@ def falklandy_sektor_d():
         if klucz_quest != "kluczyk":
             klucz_x = screen.blit(graph.klucz, (421, 245))
             if klucz_x.collidepoint((mx, my)):
-                screen.blit(graph.stary_klucz, (221, 245))
+                screen.blit(graph.stary_klucz[0], (221, 245))
                 if click:
+                    move.play()
                     klucz_quest = "kluczyk"
 
         if cofnij_x.collidepoint((mx, my)):
@@ -7012,13 +7036,16 @@ def falklandy_sektor_d():
                 running = False
 
         if klucz_quest != "kluczyk":
-            pisak.pisz("wers", "Jakieś dziwne miejsce, jakby coś miało być budowane lub.. niszczone.", 20, 60, white)
-            pisak.pisz("wers1", "Pełno tu starych przedmiotów, jakieś łopaty, skórzane wytarte rękawice, no.. prawie śmietnik.", 20, 90, white)
-            pisak.pisz("wers2", "Spoglądasz na ogrodzenie.. - jest nienaruszone.", 20, 120, white)
-            pisak.pisz("wers3", "W sumie masz sporo wolnego czasu, może wśród tych staroci znajdziesz coś ciekawego.", 20, 150, white)
+            pisak.pisz("wers", "Jakieś dziwne miejsce, jakby coś miało być budowane lub.. niszczone.", 20, 30, white)
+            pisak.pisz("wers1", "Pełno tu starych przedmiotów, jakieś łopaty, skórzane wytarte rękawice, no.. prawie śmietnik.", 20, 60, white)
+            pisak.pisz("wers2", "Spoglądasz na ogrodzenie.. - jest nienaruszone.", 20, 90, white)
+            pisak.pisz("wers3", "W sumie masz sporo wolnego czasu, może wśród tych staroci znajdziesz coś ciekawego.", 20, 120, white)
+            pisak.pisz("wers4", "Latarka w tym miejscu byłaby pomocna..",
+                       20, 150, white)
         if klucz_quest == "kluczyk":
-            pisak.pisz("wers3", "To szukanie już Cię nudziło ale w końcu znalazłeś coś ciekawego.", 20, 60, dyellow)
-            pisak.pisz("wers3", "Albo tym kluczem coś otworzysz albo.. zostanie na pamiątkę po służbie na Falklandach.", 20, 90, dyellow)
+            pisak.pisz("wers3", "To szukanie już Cię nudziło ale.. w końcu znalazłeś coś ciekawego. Ba! Klucz!", 20, 60, dyellow)
+            pisak.pisz("wers4", "Ciekawe czy będzie pasował do kłódki głównego magazynu. Bo stary się przecież.. zgubił.", 20, 90, dyellow)
+            pisak.pisz("wers5", "Najwyżej zostanie jako pamiątka..", 20, 120, dyellow)
 
         screen.blit(graph.oko, (mx, my))
         screen.blit(graph.rain, (0, 0))
@@ -7039,6 +7066,7 @@ def falklandy_sektor_e():
 
         screen.fill(black)
         screen.blit(graph.sektor_falklandy_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         notka = screen.blit(graph.notatnikA, (20, 570))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -7094,10 +7122,219 @@ def falklandy_sektor_e():
     return sektor_e
 
 
+# Falklandy Sektor F
+
+
+def falklandy_sektor_f():
+    pygame.mouse.set_visible(False)
+    running = True
+    sektor_f = None
+    while running:
+        click = False
+
+        screen.fill(black)
+        screen.blit(graph.sektor_falklandy_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(graph.indeks, (900, 570))
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        if notka.collidepoint((mx, my)):
+            screen.blit(graph.notatnikB, (20, 570))
+            if click:
+                loadingSound.play()
+                notatnik()
+
+        if tornister.collidepoint((mx, my)):
+            screen.blit(graph.plecak1, (200, 570))
+            if click:
+                loadingSound.play()
+                equip()
+
+        if indeks_ocen.collidepoint((mx, my)):
+            screen.blit(graph.indeks1, (900, 570))
+            if click:
+                loadingSound.play()
+                wykazOcen()
+
+        if cofnij_x.collidepoint((mx, my)):
+            screen.blit(graph.cofnij[1], (560, 640))
+            if click:
+                sektor_f = 1
+                loadingSound.play()
+                running = False
+
+        pisak.pisz("wers", "Nic tu nie ma.. Żywej duszy.. A ty chodzisz wzdłuż ogrodzenia jak pies.. Mokry pies..", 20, 90, white)
+        pisak.pisz("wers1", "Nie lepiej zamontować tu kamery? - zastanawiasz się.", 20, 120, white)
+        pisak.pisz("wers2", "Ogrodzenie całe, bez uszkodzeń - to miejsce zostało sprawdzone.", 20, 150, white)
+
+        screen.blit(graph.but, (mx, my))
+        screen.blit(graph.rain, (0, 0))
+        pygame.display.update()
+        mainClock.tick()
+    return sektor_f
+
+
+# Falklandy Sektor G
+
+
+def falklandy_sektor_g():
+    pygame.mouse.set_visible(False)
+    running = True
+    sektor_i_wav.play()
+    sektor_g = None
+    while running:
+        click = False
+
+        screen.fill(black)
+        screen.blit(graph.sektor_falklandy_sektor_g_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(graph.indeks, (900, 570))
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        if notka.collidepoint((mx, my)):
+            screen.blit(graph.notatnikB, (20, 570))
+            if click:
+                loadingSound.play()
+                notatnik()
+
+        if tornister.collidepoint((mx, my)):
+            screen.blit(graph.plecak1, (200, 570))
+            if click:
+                loadingSound.play()
+                equip()
+
+        if indeks_ocen.collidepoint((mx, my)):
+            screen.blit(graph.indeks1, (900, 570))
+            if click:
+                loadingSound.play()
+                wykazOcen()
+
+        if cofnij_x.collidepoint((mx, my)):
+            screen.blit(graph.cofnij[1], (560, 640))
+            if click:
+                sektor_i_wav.stop()
+                sektor_g = 1
+                loadingSound.play()
+                running = False
+
+        pisak.pisz("wers", "Miejsce za magazynem, to pozostałości po starym chodniku, prowadzącym w kierunku zardzewiałych drzwi pod nasypem.", 20, 30, white)
+        pisak.pisz("wers1", "To miejsce wydaje się tajemnicze.. Masywne drzwi bez klamki i zamka?", 20, 60, white)
+        pisak.pisz("wers2", "'Komuś chyba zależało żeby nikt tam nie mógł wejść' - przyglądasz się drzwiom, szukając mechanizmu otwarcia.", 20, 90, white)
+        pisak.pisz("wers3", "'A co jest pod nasypem?' - zadajesz sobie kolejne pytanie, wiedząc że nie znasz na nie odpowiedzi.", 20, 120, white)
+        pisak.pisz("wers3",
+                   "Postanawiasz zgłębić temat tego miejsca tylko.. nie wiesz za bardzo od czego zacząć.",
+                   20, 150, white)
+        pisak.pisz("wers3",
+                   "Podchodzisz do drzwi, opuszczasz wzrok i spokojnie nasłuchujesz.. nic.. cisza..",
+                   20, 180, white)
+        pisak.pisz("wers3",
+                   "W tym skupieniu, dostrzegasz leżący na ziemi niedopałek cienkiego papierosa marki 'Cristal'",
+                   20, 210, white)
+        pisak.pisz("wers1", "Eh, nic tu nie ma.. Ale gdyby dyżurny zapytał, to drzwi zamknięte a miejsce sprawdzone.", 20, 240, white)
+
+        screen.blit(graph.but, (mx, my))
+        screen.blit(graph.rain, (0, 0))
+        pygame.display.update()
+        mainClock.tick()
+    return sektor_g
+
+
+# Falklandy Sektor I
+
+
+def falklandy_sektor_i():
+    pygame.mouse.set_visible(False)
+    running = True
+    sektor_i = None
+    while running:
+        click = False
+
+        screen.fill(black)
+        screen.blit(graph.sektor_falklandy_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(graph.indeks, (900, 570))
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        if notka.collidepoint((mx, my)):
+            screen.blit(graph.notatnikB, (20, 570))
+            if click:
+                loadingSound.play()
+                notatnik()
+
+        if tornister.collidepoint((mx, my)):
+            screen.blit(graph.plecak1, (200, 570))
+            if click:
+                loadingSound.play()
+                equip()
+
+        if indeks_ocen.collidepoint((mx, my)):
+            screen.blit(graph.indeks1, (900, 570))
+            if click:
+                loadingSound.play()
+                wykazOcen()
+
+        if cofnij_x.collidepoint((mx, my)):
+            screen.blit(graph.cofnij[1], (560, 640))
+            if click:
+                sektor_i = 1
+                loadingSound.play()
+                running = False
+
+        pisak.pisz("wers", "Zastanawiasz się, że oprócz magazynu, nic tutaj nie ma ciekawego do oglądania.", 20, 90, white)
+        pisak.pisz("wers1", "'Iwona naopowiadała nam pewnie bajek na dobranoc' - przypominasz sobie historię ze szpitalem.", 20, 120, white)
+        pisak.pisz("wers2", "'Gdyby mieć więcej czasu tutaj, to można sprawdzić ten magazyn dokładniej' - kontynuujesz myśl.", 20, 150, white)
+        pisak.pisz("wers2", " Ogrodzenie bez uszkodzeń - to miejsce zostało sprawdzone.", 20, 180, white)
+
+        screen.blit(graph.but, (mx, my))
+        screen.blit(graph.rain, (0, 0))
+        pygame.display.update()
+        mainClock.tick()
+    return sektor_i
+
+
 # Falklandy Sektor H (drzwi)
 
 
-def falklandy_sektor_h():
+def falklandy_sektor_h(text_radio=0):
     pygame.mouse.set_visible(False)
     running = True
     sektor_h = None
@@ -7106,6 +7343,7 @@ def falklandy_sektor_h():
 
         screen.fill(black)
         screen.blit(graph.sektor_falklandy_drzwi_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         notka = screen.blit(graph.notatnikA, (20, 570))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -7145,7 +7383,7 @@ def falklandy_sektor_h():
             screen.blit(graph.falklandy_drzwi[1], (630, 160))
             if click:
                 loadingSound.play()
-                falklandy_sektor_h_klodka()
+                text_radio = falklandy_sektor_h_klodka()
 
         if cofnij_x.collidepoint((mx, my)):
             screen.blit(graph.cofnij[1], (560, 640))
@@ -7156,14 +7394,14 @@ def falklandy_sektor_h():
 
         pisak.pisz("wers", "Obchodzisz cały budynek dookoła ale nic nie znajdujesz..", 20, 60, white)
         pisak.pisz("wers1", "Podchodzisz od frontu do zardzewiałych drzwi - zamknięte.", 20, 90, white)
-        pisak.pisz("wers3", "Przypomina Ci się historia z przedwojennym szpitalem.", 20, 120, white)
-        pisak.pisz("wers4", "Korci Cię by wejść do środka..", 20, 150, white)
+        pisak.pisz("wers3", "Przyglądasz się chwilę i widzisz na drzwiach zatrzaśniętą kłódkę.", 20, 120, white)
+        pisak.pisz("wers4", "'- To pewnie ten budynek mam sprawdzić' - myślisz - 'A zgubiony klucz, otwierał kłódkę..'", 20, 150, white)
 
         screen.blit(graph.palec, (mx, my))
         screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
-    return sektor_h
+    return sektor_h, text_radio
 
 
 # Falklandy Sektor H Kłódka
@@ -7171,12 +7409,16 @@ def falklandy_sektor_h():
 
 def falklandy_sektor_h_klodka():
     pygame.mouse.set_visible(False)
+    text_radio = 0
     running = True
+    delta = 0.0
+    correct = 0
     while running:
         click = False
 
         screen.fill(black)
         screen.blit(graph.sektor_falklandy_klodka_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         notka = screen.blit(graph.notatnikA, (20, 570))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -7217,10 +7459,10 @@ def falklandy_sektor_h_klodka():
             if click:
                 if klucz_quest != "kluczyk":
                     door_close.play()
-                    pass
-                elif klucz_quest == "kluczyk":
+                elif klucz_quest == "kluczyk" and correct == 4:
                     door_open.play()
-                    pass
+                else:
+                    door_close.play()
 
         if cofnij_x.collidepoint((mx, my)):
             screen.blit(graph.cofnij[1], (560, 640))
@@ -7228,15 +7470,197 @@ def falklandy_sektor_h_klodka():
                 loadingSound.play()
                 running = False
 
-        pisak.pisz("wers2", "Na drzwiach wisi jakaś bardzo stara kłódka.", 20, 60, white)
-        pisak.pisz("wers1", "Nie będziesz się włamywać.. no przecież.. ale zajrzeć na chwilkę można by było.", 20, 90, white)
-        if klucz_quest != "kluczyk":
-            pisak.pisz("wers3", "Hmm.. Czym ją otworzyć?", 20, 120, white)
-        elif klucz_quest == "kluczyk":
-            pisak.pisz("wers3", "Hmm.. Czy mój znaleziony klucz ją otworzy?", 20, 120, white)
+        if text_radio != 1:
+            pisak.pisz("wers2", "Na drzwiach wisi kłódka.", 20, 30, white)
+            pisak.pisz("wers1", "Musisz sprawdzić wnętrze tego budynku.", 20, 60, white)
+        if text_radio != 1 and klucz_quest != "kluczyk":
+            pisak.pisz("wers3", "Hmm.. Czym ją otworzyć jak zgubiłem(-am) klucz.. ", 20, 90, white)
+        elif text_radio != 1 and klucz_quest == "kluczyk":
+            pisak.pisz("wers3", "Hmm.. Czy mój znaleziony klucz ją otworzy? Jakby pasuje..", 20, 90, white)
+            pisak.pisz("wers4", "Muszę być ostrożny(-a) i spróbować naruszyć jej mechanizm w odpowiednim momencie.", 20, 120, white)
+            pisak.pisz("wers5", "Nożem mógłbym pewnie podważyć ten klucz..", 20,
+                       150, white)
+        if text_radio == 1:
+            pisak.pisz("wers4x", "JEST! Otworzyła się ale.. ktoś wzywa Cię przez radiostację.", 20, 30, white)
+            pisak.pisz("wers4", "To chyba dyżurny.. radiostacja ma jakieś zakłócenia - pewnie od pogody", 20, 60, white)
+            pisak.pisz("wers6", "Nie słyszałeś(-aś) dokładnego komunikatu ale postanawiasz szybko wracać do szkoły.", 20, 90,
+                       white)
+            pisak.pisz("wers5", "Nie masz już czasu na sprawdzenie budynku! Nie masz oryginalnego klucza!",
+                       20, 120, white)
+            pisak.pisz("wers7", "Kurde.. jak oddać klucz, jak się zgubił..", 20, 150,
+                       white)
+
+        screen.blit(graph.sensivity_range, (440, 520))
+        if active == "nozyk":
+            delta += mainClock.tick(30) / 9.0
+        else:
+            delta += mainClock.tick(30) / 3.0
+
+        if klucz_quest == "kluczyk":
+            if correct < 3:
+                if delta < 390:
+                    screen.blit(graph.sensivity_point[0], (440 + int(delta), 505))
+                    if delta > 190 and delta < 210:
+                        screen.blit(graph.sensivity_point[1], (440 + int(delta), 505))
+                        if click:
+                            correct += 1
+                elif delta >= 390:
+                    delta = 0.0
+            elif correct == 3:
+                door_open.play()
+                radios.play()
+                text_radio = 1
+                correct = 4
+
+        if correct == 0:
+            screen.blit(graph.zamek[0], (1020, 250))
+        elif correct == 1:
+            screen.blit(graph.zamek[1], (1020, 250))
+        elif correct == 2:
+            screen.blit(graph.zamek[2], (1020, 250))
+        elif correct >= 3:
+            screen.blit(graph.zamek[3], (1020, 250))
 
         screen.blit(graph.palec, (mx, my))
         screen.blit(graph.rain, (0, 0))
+        pygame.display.update()
+    return text_radio
+
+
+# Trasa Falklandy
+
+
+def trasa_falklandy():
+    running = True
+    radios.play()
+    global klucz_klodka
+    while running:
+        klucz_klodka = "klucz_klodka"
+        click = False
+        screen.fill(black)
+        screen.blit(graph.trasa_falklandy_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(graph.indeks, (900, 570))
+        dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        if notka.collidepoint((mx, my)):
+            screen.blit(graph.notatnikB, (20, 570))
+            if click:
+                loadingSound.play()
+                notatnik()
+
+        if tornister.collidepoint((mx, my)):
+            screen.blit(graph.plecak1, (200, 570))
+            if click:
+                loadingSound.play()
+                equip()
+
+        if indeks_ocen.collidepoint((mx, my)):
+            screen.blit(graph.indeks1, (900, 570))
+            if click:
+                loadingSound.play()
+                wykazOcen()
+
+        if dalej.collidepoint((mx, my)):
+            screen.blit(graph.press_Dalej[1], (1100, 640))
+            if click:
+                rain_wav.stop()
+                loadingSound.play()
+                akademik_dyzurny()
+
+        pisak.pisz("wers", "Dyżurny ponownie wzywa przez radiostację ale nic z tego nie rozumiesz, przez zakłócenia.", 20, 60, white)
+        pisak.pisz("wers1", "Idąc ulicą Solidarności i tak unikając co większych kałuż, Twoja twarz się rozpromienia.", 20, 90, white)
+        pisak.pisz("wers2", "Na chodniku leży.. klucz! Klucz, który wcześniej zgubiłeś(-aś).", 20, 120, white)
+        pisak.pisz("wers3", "'Teraz spokojnie mogę iść do dyżurnego po resztę zadań, ciekawe co wymyśli' - jesteś pełen(-na) optymizmu.", 20, 150, white)
+        pisak.pisz("wers4",
+                   "Zastanawiasz się czy powiedzieć mu o znalezionym kluczu, czy taką informację pozostawić sobie..",
+                   20, 180, white)
+
+        screen.blit(graph.rain, (0, 0))
+        pygame.display.update()
+        mainClock.tick()
+
+
+# Akademik I - powrót do dyżurnego
+
+
+def akademik_dyzurny():
+    siren.play()
+    running = True
+    global klucz_klodka, active
+    while running:
+        click = False
+
+        screen.fill(black)
+        screen.blit(graph.odprawaBG, (0, 0))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(graph.indeks, (900, 570))
+        dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        if notka.collidepoint((mx, my)):
+            screen.blit(graph.notatnikB, (20, 570))
+            if click:
+                loadingSound.play()
+                notatnik()
+
+        if tornister.collidepoint((mx, my)):
+            screen.blit(graph.plecak1, (200, 570))
+            if click:
+                loadingSound.play()
+                equip()
+
+        if indeks_ocen.collidepoint((mx, my)):
+            screen.blit(graph.indeks1, (900, 570))
+            if click:
+                loadingSound.play()
+                wykazOcen()
+
+        if dalej.collidepoint((mx, my)):
+            screen.blit(graph.press_Dalej[1], (1100, 640))
+            if click:
+                if active == "klucz_klodka":
+                    active = ""
+                klucz_klodka = ""
+                siren.stop()
+                loadingSound.play()
+                rain_wav.play(-1)
+                plan_szkoly()
+
+        pisak.pisz("wers", "- Nooo nareszcie! - dyżurny ironicznie zwraca się do Ciebie.", 20, 30, white)
+        pisak.pisz("wers1", "- Rozumiem, że Falklandy zostały sprawdzone i wszystko jest wporządku, tak? - spogląda marszcząc brwi", 20, 60, white)
+        pisak.pisz("wers2", "- Tak - odpowiedasz, krótko", 20, 90, white)
+        pisak.pisz("wers3", "- Na pewno? - próbuje wymusić od Ciebie inną odpowiedź ale odpowiadasz stanowczo - Tak, bez uwag!", 20, 120, white)
+        pisak.pisz("wers4", "- No dobrze, to czas na resztę zadań.. Słuchaj uważnie bo dwa razy powtarzać nie będę..", 20, 150,
+                   white)
+        pisak.pisz("wers5", "- Polecam sprawdzić wszystkie obiekty w szkole. Wchodzisz, sprawdzasz zabezpieczenia i wychodzisz.", 20, 180, white)
+        pisak.pisz("wers6", "- Do 6 rano masz niewiele czasu - dyżury kontynuuje - dlatego w tył zwrot i do roboty!", 20, 210, white)
+        pisak.pisz("wers7", "- I proszę mi tu oddać klucz od magazynu - wskazuje palcem na blat a Ty odkładasz felerny klucz",
+                   20, 240, white)
         pygame.display.update()
         mainClock.tick()
 
@@ -8224,7 +8648,8 @@ def akademik_budynek_1():
         click = False
 
         screen.fill(black)
-        screen.blit(graph.akademikBG, (0, 0))
+        screen.blit(graph.akademik_bg_noc, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -8267,9 +8692,11 @@ def akademik_budynek_1():
                 running = False
 
         pisak.pisz("wers", "Akademik nr 1 - to miejsce znasz już jak własną kieszeń. Logiczne - masz tu"
-                           " przecież pokój!", 20, 120, white)
-        pisak.pisz("wers7", "Eee nudno.. tu nie ma co robić.. ", 20, 150, white)
+                           " przecież pokój!", 20, 60, white)
+        pisak.pisz("wers7", "W sali 101 pusto - dyżurny poszedł już do sztabu.", 20, 90, white)
+        pisak.pisz("wers8", "Sprawdzasz drzwi przeciwpożarowe - zamknięte. Na korytarzach pusto, cisza, spokój.", 20, 120, white)
 
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
     return akademik_budynek_1_pkt
@@ -8284,7 +8711,8 @@ def akademik_budynek_2():
         click = False
 
         screen.fill(black)
-        screen.blit(graph.akademikBG, (0, 0))
+        screen.blit(graph.akademik_bg_noc, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -8326,10 +8754,11 @@ def akademik_budynek_2():
                 loadingSound.play()
                 running = False
 
-        pisak.pisz("wers", "Akademik nr 2 - Drugi z akademików na terenie szkoły.", 20, 120, white)
-        pisak.pisz("wers1", "Szkoda, że nie macie tu pokoju - byłoby bliżej na stołówkę.", 20, 150, white)
-        pisak.pisz("wers2", "Rozglądasz się ale.. nie ma tu nic ciekawego.", 20, 180, white)
-
+        pisak.pisz("wers", "Akademik nr 2 - Drugi z akademików na terenie szkoły.", 20, 60, white)
+        pisak.pisz("wers1", "Szkoda, że nie macie tu pokoju - byłoby bliżej na stołówkę.", 20, 90, white)
+        pisak.pisz("wers2", "Rozglądasz się ale.. nie ma tu nic ciekawego.", 20, 120, white)
+        pisak.pisz("wers3", "Sprawdzasz drzwi przeciwpożarowe - zamknięte. Na korytarzach pusto, cisza, spokój.", 20, 150, white)
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
 
@@ -8345,7 +8774,8 @@ def akademik_budynek_3():
         click = False
 
         screen.fill(black)
-        screen.blit(graph.akademikBG, (0, 0))
+        screen.blit(graph.akademik_bg_noc, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -8388,18 +8818,18 @@ def akademik_budynek_3():
                 running = False
 
         pisak.pisz("wers", "Akademik nr 3 - Trzeci z akademików na terenie szkoły, pomiędzy stołówką a basenem.",
-                   20, 120, white)
+                   20, 60, white)
         pisak.pisz("wers1", "Charakteryzuje się tym, że na parterze jest 'podwyższony standard' warunków mieszkalnych.",
-                   20, 150, white)
+                   20, 90, white)
         pisak.pisz("wers2", "Pokoje są 3-osobowe, codziennie sprzątane, jest w nich nawet telewizor z kablówką.",
-                   20, 180, white)
+                   20, 120, white)
         pisak.pisz("wers3", "Na parterze znajduje się też niewielka przychodnia, czynna w godz.08:00-10:00.",
-                   20, 210, white)
+                   20, 150, white)
         pisak.pisz("wers4", "Zwykle w tym akademiku, mieszkają policjanci uczestniczący w kursach specjalistycznych.",
-                   20, 240, white)
-        pisak.pisz("wers5", "Teraz jest tu pusto, wszyscy wyjechali na weekend..", 20, 270, white)
-        pisak.pisz("wers6", "Rozglądasz się jeszcze chwilkę i wychodzisz na zewnątrz.", 20, 300, white)
-
+                   20, 180, white)
+        pisak.pisz("wers5", "Teraz jest tu pusto, wszyscy wyjechali na weekend..", 20, 210, white)
+        pisak.pisz("wers6", "Rozglądasz się jeszcze chwilkę i wychodzisz na zewnątrz. Tu wszystko jest ok.", 20, 240, white)
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
     return akademik_budynek_3_pkt
@@ -8478,7 +8908,7 @@ def sztab_budynek():
                              " Cię wzrokiem od stóp do głowy.", 20, 420, white)
         pisak.pisz("wers11", "- Chciałem(-am) tylko zobaczyć.. - próbujesz wytłumaczyć po co tu jesteś.",
                    20, 450, white)
-        pisak.pisz("wers12", "- Tu nie ma czego oglądać - policjant przerywa Twoją wypowiedź - Jest weekend.",
+        pisak.pisz("wers12", "- Tu nie ma czego oglądać - dyżurny przerywa Twoją wypowiedź - Wracaj do roboty!",
                    20, 480, white)
         pisak.pisz("wers13", "- Aha - Nie wiesz co odpowiedzieć i wychodzisz z budynku.", 20, 510, white)
 
@@ -8573,6 +9003,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
                 kantyna_budynek_pkt=0, biblioteka_budynek_pkt=0, palarnia_budynek_pkt=0, budowla_budynek_pkt=0,
                 tajwan_budynek_pkt=0, dziekanat_budynek_pkt=0, kinowa_budynek_pkt=0):
     running = True
+    pygame.mouse.set_visible(False)
     while running:
         click = False
 
@@ -8639,6 +9070,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if stolowkax.collidepoint((mx, my)):
             screen.blit(graph.stolowka[1], (468, 86))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 stolowka_budynek_pkt = stolowka_budynek()
 
@@ -8646,6 +9078,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if bibliotekax.collidepoint((mx, my)):
             screen.blit(graph.biblioteka[1], (513, 254))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 biblioteka_budynek_pkt = biblioteka_budynek()
 
@@ -8653,6 +9086,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if sala_rdx.collidepoint((mx, my)):
             screen.blit(graph.sala_rd[1], (458, 185))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 symulator_budynek_pkt = symulator_budynek()
 
@@ -8660,6 +9094,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if hiltonx.collidepoint((mx, my)):
             screen.blit(graph.hilton[1], (457, 361))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 hilton_budynek_pkt = hilton_budynek()
 
@@ -8667,6 +9102,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if akademik_x.collidepoint((mx, my)):
             screen.blit(graph.akademik2[1], (379, 45))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 akademik_budynek_2_pkt = akademik_budynek_2()
 
@@ -8674,6 +9110,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if akademik1x.collidepoint((mx, my)):
             screen.blit(graph.akademik_1[1], (313, 71))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 akademik_budynek_1_pkt = akademik_budynek_1()
 
@@ -8681,6 +9118,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if karatex.collidepoint((mx, my)):
             screen.blit(graph.karate[1], (318, 291))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 karate_budynek_pkt = karate_budynek()
 
@@ -8688,6 +9126,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if akademik3x.collidepoint((mx, my)):
             screen.blit(graph.akademik3[1], (569, 83))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 akademik_budynek_3_pkt = akademik_budynek_3()
 
@@ -8695,6 +9134,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if budynekx.collidepoint((mx, my)):
             screen.blit(graph.budynek[1], (324, 438))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 dziekanat_budynek_pkt = dziekanat_budynek()
 
@@ -8702,6 +9142,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if odprawyx.collidepoint((mx, my)):
             screen.blit(graph.odprawy[1], (378, 447))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 kinowa_budynek_pkt = kinowa_budynek()
 
@@ -8709,6 +9150,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if salawfx.collidepoint((mx, my)):
             screen.blit(graph.salawf[1], (608, 167))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 salawf_budynek_pkt = salawf_budynek()
 
@@ -8716,6 +9158,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if cyberx.collidepoint((mx, my)):
             screen.blit(graph.cyber[1], (666, 311))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 pcab_budynek_pkt = pcab_budynek()
 
@@ -8723,6 +9166,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if pifpaf_x.collidepoint((mx, my)):
             screen.blit(graph.pifpaf[1], (725, 161))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 strzelnica_budynek_pkt = strzelnica_budynek()
 
@@ -8730,6 +9174,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if palarniax.collidepoint((mx, my)):
             screen.blit(graph.palarnia[1], (735, 266))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 palarnia_budynek_pkt = palarnia_budynek()
 
@@ -8737,6 +9182,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if kantynax.collidepoint((mx, my)):
             screen.blit(graph.kantyna[1], (511, 383))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 kantyna_budynek_pkt = kantyna_budynek()
 
@@ -8744,6 +9190,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if silkasx.collidepoint((mx, my)):
             screen.blit(graph.silkas[1], (613, 405))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 silownia_budynek_pkt = silownia_budynek()
 
@@ -8751,6 +9198,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if budowlax.collidepoint((mx, my)):
             screen.blit(graph.budowla[1], (753, 418))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 budowla_budynek_pkt = budowla_budynek()
 
@@ -8758,6 +9206,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if tajwanx.collidepoint((mx, my)):
             screen.blit(graph.tajwan[1], (840, 442))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 tajwan_budynek_pkt = tajwan_budynek()
 
@@ -8765,8 +9214,10 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         if sztabx.collidepoint((mx, my)):
             screen.blit(graph.sztab[1], (367, 511))
             if click:
+                pygame.mouse.set_visible(True)
                 loadingSound.play()
                 sztab_budynek_pkt = sztab_budynek()
+
         screen.blit(graph.rain, (0, 0))
         screen.blit(graph.but, (mx, my))
         pygame.display.update()
@@ -9010,7 +9461,8 @@ def equip():
             screen.blit(graph.kod_pin_img[2], (1096, 515))
             screen.blit(graph.kod_pin_img[1], (800, 580))
         elif active == "kluczyk":
-            screen.blit(graph.stary_klucz, (1106, 520))
+            screen.blit(graph.stary_klucz[0], (1106, 520))
+            screen.blit(graph.stary_klucz[2], (800, 580))
         elif active == "klucz_klodka":
             screen.blit(graph.nowy_klucz[0], (1106, 520))
             screen.blit(graph.nowy_klucz[2], (800, 580))
@@ -9074,7 +9526,7 @@ def equip():
                     if ere.collidepoint((mx, my)):
                         screen.blit(graph.pendrive[2], (20 + poz_item, 40))
                         if click:
-                            loadingSoundDEV.play()
+                            move.play()
                             active = "testyTomka"
                     poz_item += 170
                 elif i == "skrawek":
@@ -9082,7 +9534,7 @@ def equip():
                     if ere.collidepoint((mx, my)):
                         screen.blit(graph.skrawek[2], (20 + poz_item, 40))
                         if click:
-                            loadingSoundDEV.play()
+                            move.play()
                             active = "skrawek"
                     poz_item += 170
                 elif i == "latarka":
@@ -9090,7 +9542,7 @@ def equip():
                     if ere.collidepoint((mx, my)):
                         screen.blit(graph.latarka[4], (20 + poz_item, 40))
                         if click:
-                            loadingSoundDEV.play()
+                            move.play()
                             active = "latarka"
                     poz_item += 170
                 elif i == "nozyk":
@@ -9098,7 +9550,7 @@ def equip():
                     if ere.collidepoint((mx, my)):
                         screen.blit(graph.nozyk[3], (20 + poz_item, 40))
                         if click:
-                            loadingSoundDEV.play()
+                            move.play()
                             active = "nozyk"
                     poz_item += 170
                 elif i == "fajki":
@@ -9106,7 +9558,7 @@ def equip():
                     if ere.collidepoint((mx, my)):
                         screen.blit(graph.fajki[3], (20 + poz_item, 40))
                         if click:
-                            loadingSoundDEV.play()
+                            move.play()
                             active = "fajki"
                     poz_item += 170
                 elif i == "kod_pin":
@@ -9114,14 +9566,15 @@ def equip():
                     if ere.collidepoint((mx, my)):
                         screen.blit(graph.kod_pin_img[3], (20 + poz_item, 40))
                         if click:
-                            loadingSoundDEV.play()
+                            move.play()
                             active = "kod_pin"
                     poz_item += 170
                 elif i == "kluczyk":
-                    ere = screen.blit(graph.stary_klucz, (20 + poz_item, 40))
+                    ere = screen.blit(graph.stary_klucz[0], (20 + poz_item, 40))
                     if ere.collidepoint((mx, my)):
+                        screen.blit(graph.stary_klucz[1], (20 + poz_item, 40))
                         if click:
-                            loadingSoundDEV.play()
+                            move.play()
                             active = "kluczyk"
                     poz_item += 170
                 elif i == "klucz_klodka":
@@ -9129,7 +9582,7 @@ def equip():
                     if ere.collidepoint((mx, my)):
                         screen.blit(graph.nowy_klucz[1], (20 + poz_item, 40))
                         if click:
-                            loadingSoundDEV.play()
+                            move.play()
                             active = "klucz_klodka"
                     poz_item += 170
         except ValueError:
@@ -9218,4 +9671,3 @@ def wykazOcen():
 
         pygame.display.update()
         mainClock.tick()
-
