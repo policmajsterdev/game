@@ -200,6 +200,7 @@ drogaBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\droga.png")).co
 planBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\planszkoly.png")).convert()
 stolowkaBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\stolowka.png")).convert()
 akademikBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\akademik.png")).convert()
+akademik_bg_noc = pygame.image.load(os.path.join(filepath, "data\\sceny\\akademik_noc.png")).convert()
 sztabBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\sztabBG.png")).convert()
 salawfBG = pygame.image.load(os.path.join(filepath, "data\\sceny\\salawf.png")).convert()
 pcab_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\pcab.png")).convert()
@@ -219,6 +220,8 @@ sektor_falklandy_X_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\f
 sektor_falklandy_X_bg_light = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_sektor_X_bg_light.png")).convert()
 sektor_falklandy_drzwi_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_drzwi_bg.png")).convert()
 sektor_falklandy_klodka_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_klodka_bg.png")).convert()
+sektor_falklandy_sektor_g_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_sektor_g.png")).convert()
+trasa_falklandy_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\trasa_falklandy.png")).convert()
 
 # Pojęcia + zdjęcia
 czarnuch = [pygame.image.load(os.path.join(filepath, "data\\pojecia\\czarnuch.png")).convert(),
@@ -441,7 +444,9 @@ rech = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\rec
 reci = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\reci.png")).convert_alpha(),
         pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\reci1.png")).convert_alpha()]
 klucz = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\klucz.png")).convert_alpha()
-stary_klucz = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\stary_klucz.png")).convert_alpha()
+stary_klucz = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\stary_klucz.png")).convert_alpha(),
+               pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\stary_klucz1.png")).convert_alpha(),
+               pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\stary_klucz2.png")).convert_alpha()]
 nowy_klucz = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\klucz_klodka.png")).convert_alpha(),
               pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\klucz_klodka1.png")).convert_alpha(),
               pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\klucz_klodka2.png")).convert_alpha()]
@@ -450,6 +455,18 @@ falklandy_drzwi = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklan
 falklandy_klodka = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\klodka.png")).convert_alpha(),
                     pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\klodka1.png")).convert_alpha()]
 
+szkola = [pygame.image.load(os.path.join(filepath, "data\\navi\\szkola0.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\navi\\szkola.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\navi\\szkola1.png")).convert_alpha()]
+
+sensivity_range = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\sensivity_range.png")).convert_alpha()
+sensivity_point = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\sensivity_point.png")).convert_alpha(),
+                   pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\sensivity_point1.png")).convert_alpha()]
+
+zamek = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\zamek0.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\zamek1.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\zamek2.png")).convert_alpha(),
+         pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\zamek3.png")).convert_alpha()]
 # Banery plecaka
 glass_banner = pygame.image.load(os.path.join(filepath, "data\\pics\\glass_banner.png")).convert_alpha()
 help_banner = [pygame.image.load(os.path.join(filepath, "data\\pics\\pomoc.png")),
