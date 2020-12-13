@@ -9,7 +9,12 @@ from pygame import mixer
 from pygame.locals import *
 import pisak
 import graph
+import iotaconn
 
+
+if getattr(sys, 'frozen', False):
+    os.chdir(sys._MEIPASS)
+    
 pygame.init()
 pygame.mixer.pre_init(44100, 16, 2, 4096)
 pygame.mixer.init()
@@ -68,6 +73,7 @@ myFont = pygame.font.SysFont("monospace", 18)
 
 # Save
 zapis = ""
+save_file = ""
 
 # Zawartość notatnika
 legitymowanie = ""
@@ -184,6 +190,108 @@ blob_rect = green_blob.get_rect()
 blob_color = green_blob
 
 
+def create_save():
+
+    """ Tworzy listę plików do zapisu """
+
+    save_list = ""
+
+    if imieGracza != "":
+        nazwa_gracza = "PLAYER:" + imieGracza + "/"
+        save_list += nazwa_gracza
+    if legitymowanie != "":
+        notatnik_leg = "LEGITY:" + legitymowanie + "/"
+        save_list += notatnik_leg
+    if ruchdrogowy != "":
+        notatnik_ruc = "RUCHDR:" + ruchdrogowy + "/"
+        save_list += notatnik_ruc
+    if pendrive1 != "":
+        usb_tom = "PENDRI:" + pendrive1 + "/"
+        save_list += usb_tom
+    if skrawek1 != "":
+        skr_aw = "SKRAWE:" + skrawek1 + "/"
+        save_list += skr_aw
+    if ocenaSTR != "":
+        ocena_leg = "OCENAL:" + ocenaSTR + "/"
+        save_list += ocena_leg
+    if ocena_ruchSTR != "":
+        ocena_ruc = "OCENAR:" + ocena_ruchSTR + "/"
+        save_list += ocena_ruc
+    if quest_tomek_1 != "":
+        quest_t = "QUESTT:" + quest_tomek_1 + "/"
+        save_list += quest_t
+    if wynikp99 != "":
+        wynik_p = "WYNIKP:" + wynikp99 + "/"
+        save_list += wynik_p
+
+    return save_list
+
+
+def blockchain():
+    node = None
+    version = None
+    hash_tx = 0
+    global zapis
+    while True:
+        click = False
+        mx, my = pygame.mouse.get_pos()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        screen.fill(black)
+        screen.blit(graph.bg_conn, (0, 0))
+        check_conn = screen.blit(graph.connect[0], (900, 20))
+
+        if check_conn.collidepoint((mx, my)):
+            screen.blit(graph.connect[1], (900, 20))
+            if click:
+                loadingSound.play()
+                node, version = iotaconn.check()
+
+        if node == None and version == None:
+            screen.blit(graph.status_pc[2], (1050, 20))
+            screen.blit(graph.zapisz[2], (900, 100))
+        elif node == "Error" and version == "Error":
+            screen.blit(graph.status_pc[0], (1050, 20))
+            pisak.pisz("wers2", "Węzeł: ", 1120, 200, red)
+            pisak.pisz("wers3", node, 1120, 220, red)
+            screen.blit(graph.zapisz[2], (900, 100))
+        else:
+            screen.blit(graph.status_pc[1], (1050, 20))
+            pisak.pisz("wers2", "Węzeł: ", 1120, 200, white)
+            pisak.pisz("wers3", node, 1120, 220, white)
+            pisak.pisz("wers5", version, 1120, 240, white)
+            zapisz_x = screen.blit(graph.zapisz[0], (900, 100))
+            if zapisz_x.collidepoint((mx, my)):
+                screen.blit(graph.zapisz[1], (900, 100))
+                if click:
+                    loadingSound.play()
+                    save_list = create_save()
+                    hash = iotaconn.save(save_list)
+                    hash = str(hash)
+                    if hash:
+                        hash_tx = 1
+
+        pisak.pisz("wers1", "Zapis gry w DLT IOTA Tangle:", 120, 200, white)
+        pisak.pisz("wers2", "1. Sprawdź połączenie z węzłem, klikając połącz.", 120, 230, white)
+        pisak.pisz("wers3", "2. Gdy ikona PC zmieni kolor na zielony, kliknij 'ZAPISZ'", 120, 260, white)
+        pisak.pisz("wers4", "3. W folderze gry 'save' utworzy się plik tekstowy z nagłówkiem hasha Twojego zapisu gry.", 120, 290, white)
+        pisak.pisz("wers5", "4. Hash możesz sprawdzić tutaj: https://explorer.iota.org/devnet", 120, 320, white)
+        if hash_tx > 0:
+            pisak.pisz("wers6", "Hash zapisu gry:", 120, 360, white)
+            pisak.pisz("wers6", hash, 120, 390, white)
+            zapis = "OK"
+        if zapis == "OK":
+            screen.blit(graph.zapisano, (570, 575))
+        pygame.display.update()
+        mainClock.tick()
+
+
 def intro_dev():
     pygame.mixer.music.play(-1)
     while True:
@@ -236,6 +344,7 @@ def wejsciedogry():
     bg_x = 0
     bg_x2 = graph.bg.get_width()
     starter = 0
+    global save_file
     while True:
         click = False
         mouse = pygame.mouse.get_pressed()
@@ -287,7 +396,8 @@ def wejsciedogry():
                     start()
 
         try:
-            save_file = open("data\\save\\save.txt", "r")
+            list_file = os.listdir(os.path.join(filepath, "data\\save"))
+            save_file = list_file[0]
             if save_file:
                 kontynuacja_x = screen.blit(graph.kontynuacja[0], (618, 580))
                 if kontynuacja_x.collidepoint((mx, my)):
@@ -296,7 +406,6 @@ def wejsciedogry():
                         click = True
                         if click:
                             loadingSound.play()
-                            save_file.close()
                             kontynuacja_gry()
         except (UnboundLocalError, FileNotFoundError):
             pass
@@ -309,11 +418,11 @@ def wejsciedogry():
 
 def kontynuacja_gry():
     running = True
+    node, version = iotaconn.check()
     global imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR
     global quest_tomek_1, wynikp99
     while running:
         click = False
-
         screen.fill(black)
         screen.blit(graph.bgankieta, (200, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
@@ -330,6 +439,20 @@ def kontynuacja_gry():
                 if event.button == 1:
                     click = True
 
+        if node == None and version == None:
+            screen.blit(graph.status_pc[2], (1050, 350))
+            screen.blit(graph.zapisz[2], (900, 100))
+        elif node == "Error" and version == "Error":
+            screen.blit(graph.status_pc[0], (1050, 350))
+            pisak.pisz("wers2", "Węzeł: ", 1060, 530, red)
+            pisak.pisz("wers3", node, 1130, 530, red)
+            screen.blit(graph.zapisz[2], (900, 100))
+        else:
+            screen.blit(graph.status_pc[1], (1050, 350))
+            pisak.pisz("wers2", "Węzeł: ", 1060, 530, white)
+            pisak.pisz("wers3", node, 1130, 530, white)
+            pisak.pisz("wers5", version, 1210, 530, white)
+
         if cofnij_x.collidepoint((mx, my)):
             screen.blit(graph.cofnij[1], (560, 640))
             if click:
@@ -339,31 +462,14 @@ def kontynuacja_gry():
         if dalejx.collidepoint((mx, my)):
             screen.blit(graph.save_start[1], (1100, 570))
             if click:
-                save_file = open("data\\save\\save.txt", "r")
-                imie_save = save_file.readline()
-                imieGracza = imie_save.replace("\n", "")
-                legitymowanie_save = save_file.readline()
-                legitymowanie = legitymowanie_save.replace("\n", "")
-                ruchdrogowy_save = save_file.readline()
-                ruchdrogowy = ruchdrogowy_save.replace("\n", "")
-                pendrive1_save = save_file.readline()
-                pendrive1 = pendrive1_save.replace("\n", "")
-                skrawek1_save = save_file.readline()
-                skrawek1 = skrawek1_save.replace("\n", "")
-                quest_tomek_1_save = save_file.readline()
-                quest_tomek_1 = quest_tomek_1_save.replace("\n", "")
-                ocena_str_save = save_file.readline()
-                ocenaSTR = ocena_str_save.replace("\n", "")
-                ocena_ruchstr_save = save_file.readline()
-                ocena_ruchSTR = ocena_ruchstr_save.replace("\n", "")
-                wynikp99_save = save_file.readline()
-                wynikp99 = wynikp99_save.replace("\n", "")
-                save_file.close()
+                list_save = iotaconn.open_save()
+                imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR, quest_tomek_1, wynikp99 = delisting_save(list_save)
                 pygame.mixer.music.stop()
                 loadingSoundDEV.play()
                 scena_prog_3()
 
-        czas_pliku = time.ctime(os.path.getctime("data\\save\\save.txt"))
+        text_file = "data\\save\\" + save_file
+        czas_pliku = time.ctime(os.path.getctime(text_file))
 
         pisak.pisz("wers1", "Witaj!", 30, 90, dyellow)
         pisak.pisz("wers2", "Posiadasz już zapis gry.", 30, 120, dyellow)
@@ -4524,31 +4630,9 @@ def scena_prog_3():
             screen.blit(graph.zapisz[1], (570, 600))
             if click:
                 loadingSound.play()
-                save_file = open("data\\save\\save.txt", "w+")
-                save_file.write(imieGracza)
-                save_file.write("\n")
-                save_file.write(legitymowanie)
-                save_file.write("\n")
-                save_file.write(ruchdrogowy)
-                save_file.write("\n")
-                save_file.write(pendrive1)
-                save_file.write("\n")
-                save_file.write(skrawek1)
-                save_file.write("\n")
-                save_file.write(quest_tomek_1)
-                save_file.write("\n")
-                save_file.write(ocenaSTR)
-                save_file.write("\n")
-                save_file.write(ocena_ruchSTR)
-                save_file.write("\n")
-                save_file.write(wynikp99)
-                save_file.write("\n")
-                save_file.close()
-                zapis = "OK"
+                blockchain()
 
-        if zapis == "OK":
-            screen.blit(graph.zapisano, (570, 675))
-        pisak.pisz("wers", "Ten etap pozwala zapisać stan Gry. Wystarczy kliknąć 'ZAPISZ'", 20, 460, dyellow)
+        pisak.pisz("wers", "Ten etap pozwala zapisać stan Gry.", 20, 460, dyellow)
         pisak.pisz("wers1", "Przy kolejnym uruchomieniu gry, w MENU pojawi się ikona plusa '+' - oznaczająca"
                             " kontynuację", 20, 490, dyellow)
         pisak.pisz("wers2", "Jest to również miejsce, z którego będziesz kontynuował(-a) dalszą grę.", 20, 520, dyellow)
@@ -7651,9 +7735,9 @@ def akademik_dyzurny():
                 rain_wav.play(-1)
                 plan_szkoly()
 
-        pisak.pisz("wers", "- Nooo nareszcie! - dyżurny ironicznie zwraca się do Ciebie.", 20, 30, white)
+        pisak.pisz("wers", "- Nooo nareszcie! - dyżurny ironicznie zwraca się do Ciebie - A radiostacji to nie nauczyli Cię obsługować?", 20, 30, white)
         pisak.pisz("wers1", "- Rozumiem, że Falklandy zostały sprawdzone i wszystko jest wporządku, tak? - spogląda marszcząc brwi", 20, 60, white)
-        pisak.pisz("wers2", "- Tak - odpowiedasz, krótko", 20, 90, white)
+        pisak.pisz("wers2", "- Tak - odpowiedasz - Miałem zakłócenia to dlatego..", 20, 90, white)
         pisak.pisz("wers3", "- Na pewno? - próbuje wymusić od Ciebie inną odpowiedź ale odpowiadasz stanowczo - Tak, bez uwag!", 20, 120, white)
         pisak.pisz("wers4", "- No dobrze, to czas na resztę zadań.. Słuchaj uważnie bo dwa razy powtarzać nie będę..", 20, 150,
                    white)
@@ -8056,11 +8140,11 @@ def biblioteka_budynek():
 
         pisak.pisz("wers", "Biblioteka - tutejsza biblioteka posiada dużą bazę ciekawych książek i czasopism.",
                    20, 90, white)
-        pisak.pisz("wers1", "Można by coś przeczytać skoro zostajesz na weekend.", 20, 120, white)
+        pisak.pisz("wers1", "Można by coś przeczytać skoro już zostałeś(-aś) na weekend.", 20, 120, white)
         pisak.pisz("wers2", "Na drzwiach wejściowych wisi kartka: 'Biblioteka nieczynna z powodu remontu'",
                    20, 150, white)
         pisak.pisz("wers3", "'Przepraszamy i zapraszamy za 2 tygodnie'", 20, 180, white)
-        pisak.pisz("wers4", "No nic.. najwyżej wrócisz tu  za 2 tygodnie..", 20, 210, white)
+        pisak.pisz("wers4", " Postanawiasz wrócić tu po remoncie, by dowiedzieć się czegoś więcej o Falklandach.", 20, 210, white)
 
         pygame.display.update()
         mainClock.tick()
@@ -8616,7 +8700,7 @@ def salawf_budynek():
 
         pisak.pisz("wers", "Wchodzisz do sali gimnastycznej. Miało być pusto ale..  na boisku rozgrywa się mecz piłki"
                            " halowej.", 20, 120, white)
-        pisak.pisz("wers1", "Z racji wolnego czasu z którym nie wiesz co robić, postanawiasz chwilę posiedzieć.",
+        pisak.pisz("wers1", "Masz trochę czasu więc postanawiasz chwilę posiedzieć.",
                    20, 150, white)
         pisak.pisz("wers2", "Zasiadasz w III rzędzie niewielkich trybun, znajdujących się po prawej stronie.",
                    20, 180, white)
@@ -8930,6 +9014,7 @@ def stolowka_budynek():
 
         screen.fill(black)
         screen.blit(graph.stolowkaBG, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -8973,8 +9058,7 @@ def stolowka_budynek():
                 loadingSound.play()
                 running = False
 
-        pisak.pisz("wers", "Wchodzisz po schodach na I piętro. Widzisz, że na sali posila się jeszcze kilka osób."
-                           " Obiadów już nie wydają.", 20, 120, white)
+        pisak.pisz("wers", "Wchodzisz po schodach na I piętro. Posiłów nie wydają już od kilku godzin.", 20, 120, white)
         pisak.pisz("wers1", "Na sali jest ze 100 stolików, przy każdym stoliku stoją po 4 krzesła.", 20, 150, white)
         pisak.pisz("wers2", "Panie barmanki, zsuwają krzesła i zabierają plastikowe koszyki z chlebem. ",
                    20, 180, white)
@@ -8982,12 +9066,12 @@ def stolowka_budynek():
                    20, 210, white)
         pisak.pisz("wers4", "Podchodzisz do wielkiego filaru przy okienku do wydawania posiłków na którym "
                             "przyczepiona jest kartka z MENU.", 20, 240, white)
-        pisak.pisz("wers5", "Piątek - Kolacja: Makaron z sosem grzybowym, chleb, serek, kompot. *Grubo.. - "
+        pisak.pisz("wers5", "Sobota - Kolacja: Makaron z sosem grzybowym, chleb, serek, kompot. *Grubo.. - "
                             "myślisz sobie.", 20, 270, white)
         pisak.pisz("wers6", "Jedyny plus tej kolacji jest taki, że dużo osób pojechało do domu i jest szansa na "
                             "dostanie 2 porcji.", 20, 300, white)
-        pisak.pisz("wers7", "Eee nudno.. tu nie ma co robić.. ", 20, 330, white)
-
+        pisak.pisz("wers7", "Rozglądasz się.. chyba wszystko tu jest na swoim miejscu.", 20, 330, white)
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
 
@@ -9671,3 +9755,35 @@ def wykazOcen():
 
         pygame.display.update()
         mainClock.tick()
+
+
+def delisting_save(list_save):
+
+    """ Delisting save list """
+
+    list_save = list(list_save.split("/"))
+    for i in list_save:
+        if i[:7] == "PLAYER:":
+            imieGracza = i[7:]
+        if i[:7] == "LEGITY:":
+            legitymowanie = i[7:]
+        if i[:7] == "RUCHDR:":
+            ruchdrogowy = i[7:]
+        if i[:7] == "PENDRI:":
+            pendrive1 = i[7:]
+        if i[:7] == "SKRAWE:":
+            skrawek1 = i[7:]
+        if i[:7] == "OCENAL:":
+            ocenaSTR = i[7:]
+        if i[:7] == "OCENAR:":
+            ocena_ruchSTR = i[7:]
+        if i[:7] == "QUESTT:":
+            quest_tomek_1 = i[7:]
+        if i[:7] == "WYNIKP:":
+            wynikp99 = i[7:]
+
+    return imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR, quest_tomek_1, wynikp99
+
+
+
+intro_dev()
