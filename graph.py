@@ -1,7 +1,11 @@
 import os.path
 import pygame
 from pygame import mixer
+import sys
 
+if getattr(sys, 'frozen', False):
+    os.chdir(sys._MEIPASS)
+    
 pygame.init()
 pygame.mixer.pre_init(44100, 16, 2, 4096)
 pygame.mixer.init()
@@ -95,7 +99,8 @@ cela_nav = [pygame.image.load(os.path.join(filepath, "data\\navi\\cela.png")).co
 miasto = [pygame.image.load(os.path.join(filepath, "data\\navi\\miasto.png")).convert(),
           pygame.image.load(os.path.join(filepath, "data\\navi\\miasto1.png")).convert()]
 zapisz = [pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz.png")).convert(),
-          pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz1.png")).convert()]
+          pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz1.png")).convert(),
+          pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz2.png")).convert()]
 zapisano = pygame.image.load(os.path.join(filepath, "data\\navi\\zapisano.png")).convert()
 kontynuacja = [pygame.image.load(os.path.join(filepath, "data\\navi\\plusz.png")).convert(),
                pygame.image.load(os.path.join(filepath, "data\\navi\\plusz1.png")).convert()]
@@ -467,7 +472,18 @@ zamek = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\za
          pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\zamek1.png")).convert_alpha(),
          pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\zamek2.png")).convert_alpha(),
          pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\zamek3.png")).convert_alpha()]
+
 # Banery plecaka
 glass_banner = pygame.image.load(os.path.join(filepath, "data\\pics\\glass_banner.png")).convert_alpha()
 help_banner = [pygame.image.load(os.path.join(filepath, "data\\pics\\pomoc.png")),
                pygame.image.load(os.path.join(filepath, "data\\pics\\pomoc1.png")).convert()]
+
+# Grafiki połączenia
+status_pc = [pygame.image.load(os.path.join(filepath, "data\\block\\pc_red.png")).convert_alpha(),
+             pygame.image.load(os.path.join(filepath, "data\\block\\pc_green.png")).convert_alpha(),
+             pygame.image.load(os.path.join(filepath, "data\\block\\pc_blue.png")).convert_alpha()]
+
+bg_conn = pygame.image.load(os.path.join(filepath, "data\\block\\bg_conn.png")).convert_alpha()
+
+connect = [pygame.image.load(os.path.join(filepath, "data\\block\\connect.png")).convert_alpha(),
+           pygame.image.load(os.path.join(filepath, "data\\block\\connect1.png")).convert_alpha()]
