@@ -11,9 +11,6 @@ import pisak
 import graph
 import iotaconn
 
-
-if getattr(sys, 'frozen', False):
-    os.chdir(sys._MEIPASS)
     
 pygame.init()
 pygame.mixer.pre_init(44100, 16, 2, 4096)
@@ -74,6 +71,7 @@ myFont = pygame.font.SysFont("monospace", 18)
 # Save
 zapis = ""
 save_file = ""
+list_save = []
 
 # Zawartość notatnika
 legitymowanie = ""
@@ -397,16 +395,17 @@ def wejsciedogry():
 
         try:
             list_file = os.listdir(os.path.join(filepath, "data\\save"))
-            save_file = list_file[0]
-            if save_file:
-                kontynuacja_x = screen.blit(graph.kontynuacja[0], (618, 580))
-                if kontynuacja_x.collidepoint((mx, my)):
-                    screen.blit(graph.kontynuacja[1], (618, 580))
-                    if mouse[0] == 1:
-                        click = True
-                        if click:
-                            loadingSound.play()
-                            kontynuacja_gry()
+            if len(list_file) > 0:
+                save_file = list_file[0]
+                if save_file:
+                    kontynuacja_x = screen.blit(graph.kontynuacja[0], (618, 580))
+                    if kontynuacja_x.collidepoint((mx, my)):
+                        screen.blit(graph.kontynuacja[1], (618, 580))
+                        if mouse[0] == 1:
+                            click = True
+                            if click:
+                                loadingSound.play()
+                                kontynuacja_gry()
         except (UnboundLocalError, FileNotFoundError):
             pass
 
@@ -419,14 +418,15 @@ def wejsciedogry():
 def kontynuacja_gry():
     running = True
     node, version = iotaconn.check()
+    continue_plus = 0
     global imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR
     global quest_tomek_1, wynikp99
+    global list_save
     while running:
         click = False
         screen.fill(black)
         screen.blit(graph.bgankieta, (200, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        dalejx = screen.blit(graph.save_start[0], (1100, 570))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -452,29 +452,50 @@ def kontynuacja_gry():
             pisak.pisz("wers2", "Węzeł: ", 1060, 530, white)
             pisak.pisz("wers3", node, 1130, 530, white)
             pisak.pisz("wers5", version, 1210, 530, white)
+            wczytaj_x = screen.blit(graph.wczytaj[0], (30, 220))
+            if wczytaj_x.collidepoint((mx, my)):
+                screen.blit(graph.wczytaj[1], (30, 220))
+                if click:
+                    loadingSoundDEV.play()
+                    list_save = iotaconn.open_save()
+                    print(list_save)
+                    continue_plus = 1
 
         if cofnij_x.collidepoint((mx, my)):
             screen.blit(graph.cofnij[1], (560, 640))
             if click:
+                imieGracza = ""
+                legitymowanie = ""
+                ruchdrogowy = ""
+                pendrive1 = ""
+                skrawek1 = ""
+                ocenaSTR = ""
+                ocena_ruchSTR = ""
+                quest_tomek_1 = ""
+                wynikp99 = ""
+                continue_plus = 0
                 loadingSound.play()
                 break
 
-        if dalejx.collidepoint((mx, my)):
-            screen.blit(graph.save_start[1], (1100, 570))
-            if click:
-                list_save = iotaconn.open_save()
-                imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR, quest_tomek_1, wynikp99 = delisting_save(list_save)
-                pygame.mixer.music.stop()
-                loadingSoundDEV.play()
-                scena_prog_3()
+        if continue_plus == 1:
+            dalejx = screen.blit(graph.save_start[0], (1100, 570))
+            if dalejx.collidepoint((mx, my)):
+                screen.blit(graph.save_start[1], (1100, 570))
+                if click:
+                    imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR, quest_tomek_1, wynikp99 = delisting_save()
+                    pygame.mixer.music.stop()
+                    loadingSoundDEV.play()
+                    scena_prog_3()
 
         text_file = "data\\save\\" + save_file
         czas_pliku = time.ctime(os.path.getctime(text_file))
-
+        hash_file = save_file.replace(".txt", "")
         pisak.pisz("wers1", "Witaj!", 30, 90, dyellow)
         pisak.pisz("wers2", "Posiadasz już zapis gry.", 30, 120, dyellow)
         pisak.pisz("wers4", "Data utworzenia: ", 30, 150, dyellow)
         pisak.pisz("wers3", czas_pliku, 230, 150, white)
+        pisak.pisz("wers5", "HASH zapisu: ", 30, 180, dyellow)
+        pisak.pisz("wers6", hash_file , 230, 180, white)
         screen.blit(graph.odznaka, (40, 490))
 
         pygame.display.update()
@@ -9757,12 +9778,24 @@ def wykazOcen():
         mainClock.tick()
 
 
-def delisting_save(list_save):
+def delisting_save():
 
     """ Delisting save list """
 
-    list_save = list(list_save.split("/"))
-    for i in list_save:
+    imieGracza = ""
+    legitymowanie = ""
+    ruchdrogowy = ""
+    pendrive1 = ""
+    skrawek1 = ""
+    ocenaSTR = ""
+    ocena_ruchSTR = ""
+    quest_tomek_1 = ""
+    wynikp99 = ""
+
+    lis_save = list_save.split("/")
+    print(lis_save)
+
+    for i in lis_save:
         if i[:7] == "PLAYER:":
             imieGracza = i[7:]
         if i[:7] == "LEGITY:":
@@ -9783,7 +9816,5 @@ def delisting_save(list_save):
             wynikp99 = i[7:]
 
     return imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR, quest_tomek_1, wynikp99
-
-
 
 intro_dev()
