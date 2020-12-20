@@ -2,24 +2,28 @@ import os.path
 import pygame
 from pygame import mixer
 
+    
 pygame.init()
 pygame.mixer.pre_init(44100, 16, 2, 4096)
 pygame.mixer.init()
 filepath = os.path.dirname(__file__)
-#Moduł wypisywania tekstu
+
+# Moduł wypisywania tekstu
 controlVol = 0.5
 screen = pygame.display.set_mode((1280, 720))
-loadingSound = pygame.mixer.Sound("data\\sound\\load.wav")
-siren = pygame.mixer.Sound("data\\sound\\norma.wav")
-szum = pygame.mixer.Sound("data\\sound\\szumszkolny.wav")
-silowniaOGG = pygame.mixer.Sound("data\\sound\\silownia.wav")
-progOGG = pygame.mixer.Sound("data\\sound\\prog.wav")
-barSound = pygame.mixer.Sound("data\\sound\\barSound.wav")
+loadingSound = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\load.wav"))
+siren = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\norma.wav"))
+szum = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\szumszkolny.wav"))
+silowniaOGG = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\silownia.wav"))
+progOGG = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\prog.wav"))
+barSound = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\barSound.wav"))
 
-def pisz(wers, tekst, szerokosc, wysokosc, kolor):
-    myFont = pygame.font.SysFont("monospace", 18, bold = True)
-    wers = myFont.render(tekst, 1, kolor)
+
+def pisz(wers, tekst, szerokosc, wysokosc, kolor, rozmiar=18):
+    my_font = pygame.font.SysFont("monospace", rozmiar, bold=True)
+    wers = my_font.render(tekst, 1, kolor)
     screen.blit(wers, (szerokosc, wysokosc))
+
 
 def volume_low():
     global controlVol
@@ -30,9 +34,10 @@ def volume_low():
     pygame.mixer.Sound.set_volume(szum, 0.1)
     pygame.mixer.Sound.set_volume(silowniaOGG, 0.1)
     pygame.mixer.Sound.set_volume(progOGG, 0.1)
-    pygame.mixer.Sound.set_volume(loadingSound, 0.3)
+    pygame.mixer.Sound.set_volume(loadingSound, 0.2)
     pygame.mixer.Sound.set_volume(barSound, 0.1)
     pygame.mixer.music.play(-1)
+
 
 def volume_normal():
     global controlVol
@@ -47,6 +52,7 @@ def volume_normal():
     pygame.mixer.Sound.set_volume(barSound, 0.4)
     pygame.mixer.music.play(-1)
 
+
 def volume_hi():
     global controlVol
     pygame.mixer.music.pause()
@@ -59,5 +65,3 @@ def volume_hi():
     pygame.mixer.Sound.set_volume(loadingSound, 0.8)
     pygame.mixer.Sound.set_volume(barSound, 0.8)
     pygame.mixer.music.play(-1)
-
-    
