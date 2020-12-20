@@ -3,8 +3,7 @@ import pygame
 from pygame import mixer
 import sys
 
-if getattr(sys, 'frozen', False):
-    os.chdir(sys._MEIPASS)
+
     
 pygame.init()
 pygame.mixer.pre_init(44100, 16, 2, 4096)
@@ -100,7 +99,9 @@ miasto = [pygame.image.load(os.path.join(filepath, "data\\navi\\miasto.png")).co
           pygame.image.load(os.path.join(filepath, "data\\navi\\miasto1.png")).convert()]
 zapisz = [pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz.png")).convert(),
           pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz1.png")).convert(),
-          pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz2.png")).convert()]
+          pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz2.png")).convert(),
+          pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz_bsv.png")).convert(),
+          pygame.image.load(os.path.join(filepath, "data\\navi\\zapisz_bsv_1.png")).convert(),]
 zapisano = pygame.image.load(os.path.join(filepath, "data\\navi\\zapisano.png")).convert()
 kontynuacja = [pygame.image.load(os.path.join(filepath, "data\\navi\\plusz.png")).convert(),
                pygame.image.load(os.path.join(filepath, "data\\navi\\plusz1.png")).convert()]
@@ -481,9 +482,31 @@ help_banner = [pygame.image.load(os.path.join(filepath, "data\\pics\\pomoc.png")
 # Grafiki połączenia
 status_pc = [pygame.image.load(os.path.join(filepath, "data\\block\\pc_red.png")).convert_alpha(),
              pygame.image.load(os.path.join(filepath, "data\\block\\pc_green.png")).convert_alpha(),
-             pygame.image.load(os.path.join(filepath, "data\\block\\pc_blue.png")).convert_alpha()]
+             pygame.image.load(os.path.join(filepath, "data\\block\\pc_blue.png")).convert_alpha(),
+             pygame.image.load(os.path.join(filepath, "data\\block\\pc_orange.png")).convert_alpha()]
 
 bg_conn = pygame.image.load(os.path.join(filepath, "data\\block\\bg_conn.png")).convert_alpha()
 
+bg_chose = [pygame.image.load(os.path.join(filepath, "data\\block\\bg_conn_iota.png")).convert_alpha(),
+            pygame.image.load(os.path.join(filepath, "data\\block\\bg_conn_bsv.png")).convert_alpha(),
+            pygame.image.load(os.path.join(filepath, "data\\block\\bg_conn_pc.png")).convert_alpha()]
+
 connect = [pygame.image.load(os.path.join(filepath, "data\\block\\connect.png")).convert_alpha(),
            pygame.image.load(os.path.join(filepath, "data\\block\\connect1.png")).convert_alpha()]
+
+connect_bsv = [pygame.image.load(os.path.join(filepath, "data\\block\\connect_bsv0.png")).convert_alpha(),
+           pygame.image.load(os.path.join(filepath, "data\\block\\connect_bsv1.png")).convert_alpha()]
+
+wczytaj = [pygame.image.load(os.path.join(filepath, "data\\block\\wczytaj.png")).convert_alpha(),
+           pygame.image.load(os.path.join(filepath, "data\\block\\wczytaj1.png")).convert_alpha()]
+
+# Chose_save
+
+button_iota = [pygame.image.load(os.path.join(filepath, "data\\block\\iota0.png")).convert_alpha(),
+               pygame.image.load(os.path.join(filepath, "data\\block\\iota1.png")).convert_alpha()]
+
+button_bsv = [pygame.image.load(os.path.join(filepath, "data\\block\\bsv0.png")).convert_alpha(),
+               pygame.image.load(os.path.join(filepath, "data\\block\\bsv01.png")).convert_alpha()]
+
+button_pc = [pygame.image.load(os.path.join(filepath, "data\\block\\pc_save0.png")).convert_alpha(),
+             pygame.image.load(os.path.join(filepath, "data\\block\\pc_save1.png")).convert_alpha()]
