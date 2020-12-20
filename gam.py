@@ -9,9 +9,10 @@ from pygame import mixer
 from pygame.locals import *
 import pisak
 import graph
+import bsvconn
 import iotaconn
 
-    
+
 pygame.init()
 pygame.mixer.pre_init(44100, 16, 2, 4096)
 pygame.mixer.init()
@@ -188,6 +189,60 @@ blob_rect = green_blob.get_rect()
 blob_color = green_blob
 
 
+def chose_save():
+    bg_chose = 0
+    while True:
+        click = False
+        mx, my = pygame.mouse.get_pos()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        screen.fill(black)
+        if bg_chose == 0:
+            screen.blit(graph.bg_conn, (0, 0))
+        elif bg_chose == 1:
+            screen.blit(graph.bg_chose[0], (0, 0))
+        elif bg_chose == 2:
+            screen.blit(graph.bg_chose[1], (0, 0))
+        elif bg_chose == 3:
+            screen.blit(graph.bg_chose[2], (0, 0))
+        else:
+            screen.blit(graph.bg_conn, (0, 0))
+        button_iota_x = screen.blit(graph.button_iota[0], (400, 250))
+        button_bsv_x = screen.blit(graph.button_bsv[0], (600, 250))
+        button_pc_x = screen.blit(graph.button_pc[0], (800, 250))
+        cofnij_x = screen.blit(graph.cofnij[0], (580, 640))
+
+        pisak.pisz("wers1", "Jak chcesz zapisać grę?", 520, 150, white)
+        if button_iota_x.collidepoint((mx, my)):
+            screen.blit(graph.button_iota[1], (400, 250))
+            bg_chose = 1
+            if click:
+                loadingSound.play()
+                iota_save()
+        if button_bsv_x.collidepoint((mx, my)):
+            screen.blit(graph.button_bsv[1], (600, 250))
+            bg_chose = 2
+            if click:
+                loadingSound.play()
+                bsv_save()
+        if button_pc_x.collidepoint((mx, my)):
+            screen.blit(graph.button_pc[1], (800, 250))
+            bg_chose = 3
+        if cofnij_x.collidepoint((mx, my)):
+            screen.blit(graph.cofnij[1], (580, 640))
+            if click:
+                loadingSound.play()
+                break
+        pygame.display.update()
+        mainClock.tick()
+
+
 def create_save():
 
     """ Tworzy listę plików do zapisu """
@@ -225,10 +280,92 @@ def create_save():
     return save_list
 
 
-def blockchain():
+def bsv_save():
+    hash_tx = 0
+    balance_bsv = None
+    key = None
+    one_id = None
+    unspend = None
+    global zapis
+    while True:
+        click = False
+        mx, my = pygame.mouse.get_pos()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        screen.fill(black)
+        screen.blit(graph.bg_conn, (0, 0))
+        check_conn = screen.blit(graph.connect_bsv[1], (900, 20))
+        cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
+
+        if check_conn.collidepoint((mx, my)):
+            screen.blit(graph.connect_bsv[0], (900, 20))
+            if click:
+                loadingSound.play()
+                key, balance_bsv = bsvconn.check_bsv()
+
+        if cofnij_x.collidepoint((mx, my)):
+            screen.blit(graph.cofnij[1], (560, 640))
+            if click:
+                loadingSound.play()
+                break
+
+        if balance_bsv == None:
+            screen.blit(graph.status_pc[2], (1050, 20))
+            screen.blit(graph.zapisz[2], (900, 100))
+        elif balance_bsv == "Error" and key == "Error":
+            screen.blit(graph.status_pc[0], (1050, 20))
+            screen.blit(graph.zapisz[2], (900, 100))
+        else:
+            screen.blit(graph.status_pc[3], (1050, 20))
+            pisak.pisz("wers2", "Saldo: ", 1120, 200, white)
+            pisak.pisz("wers3", balance_bsv, 1120, 220, white)
+            zapisz_x = screen.blit(graph.zapisz[3], (900, 100))
+            if zapisz_x.collidepoint((mx, my)):
+                screen.blit(graph.zapisz[4], (900, 100))
+                if click:
+                    loadingSound.play()
+                    save_list = create_save()
+                    unspend = bsvconn.send_save(key, save_list)
+                    if unspend == "Error":
+                        one_id = "Wystąpił jakiś błąd!"
+                    else:
+                        txid_x = unspend[0]
+                        txid = str(txid_x)
+                        lis_0 = txid.find("'")
+                        one_id = txid[(lis_0 + 1):(lis_0 + 65)]
+                        if one_id:
+                            bsvconn.save(one_id)
+                            hash_tx = 1
+
+        pisak.pisz("wers1", "Zapis gry w blockchain BitcoinSV:", 120, 200, white)
+        pisak.pisz("wers2", "1. Sprawdź połączenie z portelem.", 120, 230, white)
+        pisak.pisz("wers3", "2. Gdy ikona PC zmieni kolor na pomarańczowy, kliknij 'ZAPISZ'", 120, 260, white)
+        pisak.pisz("wers3", "3. Odczekaj ok 5 sekund, na pobranie nagłówka transakcji z blockchain.", 120, 290, white)
+        pisak.pisz("wers4", "4. W folderze gry 'save_bsv' utworzy się plik tekstowy z nagłówkiem hasha Twojego zapisu gry.",
+                   120, 320, white)
+        pisak.pisz("wers5", "5. Hash możesz sprawdzić tutaj: https://test.whatsonchain.com/", 120, 350, white)
+
+        if hash_tx > 0:
+            pisak.pisz("wers6", "Hash zapisu gry:", 120, 390, white)
+            pisak.pisz("wers6", one_id, 120, 420, white)
+            zapis = "OK"
+        if zapis == "OK":
+            screen.blit(graph.zapisano, (570, 575))
+        pygame.display.update()
+        mainClock.tick()
+
+
+def iota_save():
     node = None
     version = None
     hash_tx = 0
+    txid = None
     global zapis
     while True:
         click = False
@@ -244,12 +381,19 @@ def blockchain():
         screen.fill(black)
         screen.blit(graph.bg_conn, (0, 0))
         check_conn = screen.blit(graph.connect[0], (900, 20))
+        cofnij_x = screen.blit(graph.cofnij[0], (580, 640))
 
         if check_conn.collidepoint((mx, my)):
             screen.blit(graph.connect[1], (900, 20))
             if click:
                 loadingSound.play()
                 node, version = iotaconn.check()
+
+        if cofnij_x.collidepoint((mx, my)):
+            screen.blit(graph.cofnij[1], (580, 640))
+            if click:
+                loadingSound.play()
+                break
 
         if node == None and version == None:
             screen.blit(graph.status_pc[2], (1050, 20))
@@ -270,19 +414,19 @@ def blockchain():
                 if click:
                     loadingSound.play()
                     save_list = create_save()
-                    hash = iotaconn.save(save_list)
-                    hash = str(hash)
-                    if hash:
+                    txid = iotaconn.save(save_list)
+                    txid = str(txid)
+                    if txid:
                         hash_tx = 1
 
         pisak.pisz("wers1", "Zapis gry w DLT IOTA Tangle:", 120, 200, white)
         pisak.pisz("wers2", "1. Sprawdź połączenie z węzłem, klikając połącz.", 120, 230, white)
         pisak.pisz("wers3", "2. Gdy ikona PC zmieni kolor na zielony, kliknij 'ZAPISZ'", 120, 260, white)
-        pisak.pisz("wers4", "3. W folderze gry 'save' utworzy się plik tekstowy z nagłówkiem hasha Twojego zapisu gry.", 120, 290, white)
+        pisak.pisz("wers4", "3. W folderze gry 'save_iota' utworzy się plik tekstowy z nagłówkiem hasha Twojego zapisu gry.", 120, 290, white)
         pisak.pisz("wers5", "4. Hash możesz sprawdzić tutaj: https://explorer.iota.org/devnet", 120, 320, white)
         if hash_tx > 0:
             pisak.pisz("wers6", "Hash zapisu gry:", 120, 360, white)
-            pisak.pisz("wers6", hash, 120, 390, white)
+            pisak.pisz("wers6", txid, 120, 390, white)
             zapis = "OK"
         if zapis == "OK":
             screen.blit(graph.zapisano, (570, 575))
@@ -394,7 +538,7 @@ def wejsciedogry():
                     start()
 
         try:
-            list_file = os.listdir(os.path.join(filepath, "data\\save"))
+            list_file = os.listdir(os.path.join(filepath, "data\\save\\"))
             if len(list_file) > 0:
                 save_file = list_file[0]
                 if save_file:
@@ -458,7 +602,6 @@ def kontynuacja_gry():
                 if click:
                     loadingSoundDEV.play()
                     list_save = iotaconn.open_save()
-                    print(list_save)
                     continue_plus = 1
 
         if cofnij_x.collidepoint((mx, my)):
@@ -4651,7 +4794,7 @@ def scena_prog_3():
             screen.blit(graph.zapisz[1], (570, 600))
             if click:
                 loadingSound.play()
-                blockchain()
+                chose_save()
 
         pisak.pisz("wers", "Ten etap pozwala zapisać stan Gry.", 20, 460, dyellow)
         pisak.pisz("wers1", "Przy kolejnym uruchomieniu gry, w MENU pojawi się ikona plusa '+' - oznaczająca"
@@ -9793,7 +9936,6 @@ def delisting_save():
     wynikp99 = ""
 
     lis_save = list_save.split("/")
-    print(lis_save)
 
     for i in lis_save:
         if i[:7] == "PLAYER:":
