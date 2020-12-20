@@ -1,9 +1,11 @@
 import random
 import os
+import os.path
 from iota import Iota
 from iota import ProposedTransaction
 from iota import Address
 from iota import TryteString
+
 
 
 filepath = os.path.dirname(__file__)
@@ -23,7 +25,7 @@ def check():
         else:
             node = "Error"
             version = "Error"
-    except:
+    except ValueError:
         node = "Error"
         version = "Error"
 
@@ -60,11 +62,12 @@ def open_save():
     """ Open save in DLT """
 
     try:
-        list_file = os.listdir(os.path.join(filepath, "data\\save"))
+        list_file = os.listdir(os.path.join(filepath, "data\\save\\"))
         save_file = list_file[0].replace(".txt", "")
 
     except (UnboundLocalError, FileNotFoundError):
         pass
+
     try:
         api = Iota('https://nodes.devnet.iota.org:443', testnet=True)
         tail_transaction_hash = str(save_file)
@@ -73,7 +76,7 @@ def open_save():
         message = bundle['bundles'][0].tail_transaction.signature_message_fragment
         list_save = message.decode()
         return list_save
-    except:
+    except ValueError:
         pass
 
 
@@ -93,9 +96,9 @@ def save(save_list):
     )
     result = api.send_transfer(transfers=[tx])
 
-    hash = result['bundle'].tail_transaction.hash
+    txid = result['bundle'].tail_transaction.hash
 
-    save_file = open("data\\save\\" + str(hash) + ".txt", "w")
+    save_file = open(os.path.join(filepath, "data\\save\\" + str(txid) + ".txt", "w"))
     save_file.close()
 
-    return hash
+    return txid
