@@ -7,16 +7,14 @@ from iota import Address
 from iota import TryteString
 
 
-
 filepath = os.path.dirname(__file__)
 
 
 def check():
 
     """ Check connection """
-
-    api = Iota('https://nodes.devnet.iota.org:443', testnet=True)
     try:
+        api = Iota('https://nodes.devnet.iota.org:443', testnet=True)
         response = api.get_node_info()
         status = response['isHealthy']
         if status:
@@ -25,7 +23,7 @@ def check():
         else:
             node = "Error"
             version = "Error"
-    except ValueError:
+    except:
         node = "Error"
         version = "Error"
 
@@ -57,21 +55,25 @@ def new_seed():
     return seed
 
 
+def open_file():
+
+    """ Open iota_save.txt """
+
+    file = open(os.path.join(filepath, "data\\save\\iota_save.txt"))
+    tail_transaction_hash = file.read()
+    file.close()
+
+    return tail_transaction_hash
+
+
 def open_save():
 
     """ Open save in DLT """
 
-    try:
-        list_file = os.listdir(os.path.join(filepath, "data\\save\\"))
-        save_file = list_file[0].replace(".txt", "")
-
-    except (UnboundLocalError, FileNotFoundError):
-        pass
+    tail_transaction_hash = open_file()
 
     try:
         api = Iota('https://nodes.devnet.iota.org:443', testnet=True)
-        tail_transaction_hash = str(save_file)
-
         bundle = api.get_bundles(tail_transaction_hash)
         message = bundle['bundles'][0].tail_transaction.signature_message_fragment
         list_save = message.decode()
@@ -98,7 +100,8 @@ def save(save_list):
 
     txid = result['bundle'].tail_transaction.hash
 
-    save_file = open(os.path.join(filepath, "data\\save\\" + str(txid) + ".txt", "w"))
+    save_file = open(os.path.join(filepath, "data\\save\\iota_save.txt"), "w")
+    save_file.write(str(txid))
     save_file.close()
 
     return txid
