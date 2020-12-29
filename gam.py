@@ -4,13 +4,14 @@ import random
 import time
 import os
 import os.path
-from pygame import mixer
 # import pkg_resources.py2_warn
 from pygame.locals import *
 import pisak
 import graph
 import bsvconn
 import iotaconn
+import check_file_save
+import chose_pc
 
 
 pygame.init()
@@ -31,7 +32,7 @@ pygame.display.set_icon(graph.icon)
 
 # Muzyka w tle \\ reszta w module
 controlVol = 0.5
-music = pygame.mixer.music.load(os.path.join(filepath, "data\\sound\\horror2.wav"))
+pygame.mixer.music.load(os.path.join(filepath, "data\\sound\\horror2.wav"))
 pygame.mixer.music.set_volume(controlVol)
 
 # Dźwięki
@@ -81,8 +82,8 @@ wykroczenia = ""
 
 # Zawartość plecaka
 active = ""
-pendrive1 = ""  # testyTomka
-skrawek1 = ""  # skrawek
+pendrive1 = "testyTomka"  # testyTomka
+skrawek1 = "skrawek"  # skrawek
 item = ""
 kod_pin = ""
 klucz_quest = ""  # kluczyk
@@ -103,7 +104,7 @@ dyellow = (115, 115, 0)
 brown = (153, 102, 51)
 
 # Imię gracza
-imieGracza = ""
+imieGracza = "Lukasz"
 
 # Egzaminy  [ ODPOWIEDZI ]
 odp1 = ""
@@ -111,14 +112,14 @@ odp2 = ""
 odp3 = ""
 odp4 = ""
 ocena = ""
-ocenaSTR = ""
+ocenaSTR = "5"
 
 odp1_ruch = ""
 odp2_ruch = ""
 odp3_ruch = ""
 odp4_ruch = ""
 ocena_ruch = ""
-ocena_ruchSTR = ""
+ocena_ruchSTR = "4"
 
 odp1_wykr = ""
 odp2_wykr = ""
@@ -130,7 +131,7 @@ ocena_wykrSTR = ""
 # Wyniki ze strzelania [0 = P99, 1 = pompka...]
 tablica_wynikow = []
 tablica_wynikow_mb = []
-wynikp99 = ""
+wynikp99 = "230"
 wynikmb = ""
 
 # Strzelnica
@@ -234,6 +235,9 @@ def chose_save():
         if button_pc_x.collidepoint((mx, my)):
             screen.blit(graph.button_pc[1], (800, 250))
             bg_chose = 3
+            if click:
+                loadingSound.play()
+                pc_save()
         if cofnij_x.collidepoint((mx, my)):
             screen.blit(graph.cofnij[1], (580, 640))
             if click:
@@ -313,9 +317,10 @@ def bsv_save():
             screen.blit(graph.cofnij[1], (560, 640))
             if click:
                 loadingSound.play()
+                zapis = ""
                 break
 
-        if balance_bsv == None:
+        if balance_bsv is None:
             screen.blit(graph.status_pc[2], (1050, 20))
             screen.blit(graph.zapisz[2], (900, 100))
         elif balance_bsv == "Error" and key == "Error":
@@ -331,7 +336,8 @@ def bsv_save():
                 if click:
                     loadingSound.play()
                     save_list = create_save()
-                    unspend = bsvconn.send_save(key, save_list)
+                    bsv_data = chose_pc.encrypting_save(save_list)
+                    unspend = bsvconn.send_save(key, bsv_data)
                     if unspend == "Error":
                         one_id = "Wystąpił jakiś błąd!"
                     else:
@@ -355,6 +361,50 @@ def bsv_save():
             pisak.pisz("wers6", "Hash zapisu gry:", 120, 390, white)
             pisak.pisz("wers6", one_id, 120, 420, white)
             zapis = "OK"
+        if zapis == "OK":
+            screen.blit(graph.zapisano, (570, 575))
+        pygame.display.update()
+        mainClock.tick()
+
+
+def pc_save():
+    global zapis
+    while True:
+        click = False
+        mx, my = pygame.mouse.get_pos()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        screen.fill(black)
+        screen.blit(graph.bg_conn, (0, 0))
+        cofnij_x = screen.blit(graph.cofnij[0], (580, 640))
+        zapisz_x = screen.blit(graph.zapisz[0], (900, 100))
+
+        if cofnij_x.collidepoint((mx, my)):
+            screen.blit(graph.cofnij[1], (580, 640))
+            if click:
+                loadingSound.play()
+                zapis = ""
+                break
+
+        if zapisz_x.collidepoint((mx, my)):
+            screen.blit(graph.zapisz[1], (900, 100))
+            if click:
+                loadingSound.play()
+                save_list = create_save()
+                pc_data_x = chose_pc.encrypting_save(save_list)
+                chose_pc.create_file(pc_data_x)
+                if pc_data_x:
+                    zapis = "OK"
+
+        pisak.pisz("wers1", "Zapis gry na komputerze:", 120, 200, white)
+        pisak.pisz("wers2", "1. Kliknij 'Zapisz'.", 120, 230, white)
+        pisak.pisz("wers3", "2. W folderze gry 'save' utworzy się plik tekstowy 'pc_save.txt'", 120, 260, white)
         if zapis == "OK":
             screen.blit(graph.zapisano, (570, 575))
         pygame.display.update()
@@ -392,10 +442,11 @@ def iota_save():
         if cofnij_x.collidepoint((mx, my)):
             screen.blit(graph.cofnij[1], (580, 640))
             if click:
+                zapis = ""
                 loadingSound.play()
                 break
 
-        if node == None and version == None:
+        if node is None and version is None:
             screen.blit(graph.status_pc[2], (1050, 20))
             screen.blit(graph.zapisz[2], (900, 100))
         elif node == "Error" and version == "Error":
@@ -414,7 +465,8 @@ def iota_save():
                 if click:
                     loadingSound.play()
                     save_list = create_save()
-                    txid = iotaconn.save(save_list)
+                    iota_data = chose_pc.encrypting_save(save_list)
+                    txid = iotaconn.save(iota_data)
                     txid = str(txid)
                     if txid:
                         hash_tx = 1
@@ -537,21 +589,17 @@ def wejsciedogry():
                     loadingSoundDEV.play()
                     start()
 
-        try:
-            list_file = os.listdir(os.path.join(filepath, "data\\save\\"))
-            if len(list_file) > 0:
-                save_file = list_file[0]
-                if save_file:
-                    kontynuacja_x = screen.blit(graph.kontynuacja[0], (618, 580))
-                    if kontynuacja_x.collidepoint((mx, my)):
-                        screen.blit(graph.kontynuacja[1], (618, 580))
-                        if mouse[0] == 1:
-                            click = True
-                            if click:
-                                loadingSound.play()
-                                kontynuacja_gry()
-        except (UnboundLocalError, FileNotFoundError):
-            pass
+        check_save = check_file_save.checking_files()
+        if check_save == 1:
+            kontynuacja_x = screen.blit(graph.kontynuacja[0], (618, 580))
+            if kontynuacja_x.collidepoint((mx, my)):
+                screen.blit(graph.kontynuacja[1], (618, 580))
+                if mouse[0] == 1:
+                    click = True
+                    if click:
+                        iota_save, bsv_save, pc_save = check_file_save.type_save()
+                        loadingSound.play()
+                        kontynuacja_gry(iota_save, bsv_save, pc_save)
 
         pygame.display.update()
         mainClock.tick(30)
@@ -559,17 +607,28 @@ def wejsciedogry():
 # Kontynuacja gry
 
 
-def kontynuacja_gry():
+def kontynuacja_gry(iota_save, bsv_save, pc_save):
     running = True
+    node = None
+    version = None
     node, version = iotaconn.check()
+    api_bsv = bsvconn.status_api_bsv()
     continue_plus = 0
+    iota_save_list = iota_save
+    bsv_save_list = bsv_save
+    pc_save_list = pc_save
+    iota_save_list_open = ""
+    bsv_save_list_open = ""
+    pc_save_list_open = ""
     global imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR
     global quest_tomek_1, wynikp99
     global list_save
     while running:
+
         click = False
         screen.fill(black)
         screen.blit(graph.bgankieta, (200, 0))
+        screen.blit(graph.odznaka, (40, 490))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
 
         mx, my = pygame.mouse.get_pos()
@@ -583,26 +642,105 @@ def kontynuacja_gry():
                 if event.button == 1:
                     click = True
 
-        if node == None and version == None:
-            screen.blit(graph.status_pc[2], (1050, 350))
-            screen.blit(graph.zapisz[2], (900, 100))
-        elif node == "Error" and version == "Error":
-            screen.blit(graph.status_pc[0], (1050, 350))
-            pisak.pisz("wers2", "Węzeł: ", 1060, 530, red)
-            pisak.pisz("wers3", node, 1130, 530, red)
-            screen.blit(graph.zapisz[2], (900, 100))
-        else:
-            screen.blit(graph.status_pc[1], (1050, 350))
-            pisak.pisz("wers2", "Węzeł: ", 1060, 530, white)
-            pisak.pisz("wers3", node, 1130, 530, white)
-            pisak.pisz("wers5", version, 1210, 530, white)
-            wczytaj_x = screen.blit(graph.wczytaj[0], (30, 220))
-            if wczytaj_x.collidepoint((mx, my)):
-                screen.blit(graph.wczytaj[1], (30, 220))
+        if len(pc_save_list) > 0:
+            text_file_pc = os.path.join(filepath, "data\\save\\pc_save.txt")
+            czas_pliku_pc = time.ctime(os.path.getctime(text_file_pc))
+            if pc_save_list_open == "OK":
+                pisak.pisz("wers22", "Wczytano..", 30, 390, green)
+            else:
+                pisak.pisz("wers22", "Zapis z komputera", 30, 390, dyellow)
+            pisak.pisz("wers44", "Data utworzenia: ", 30, 420, dyellow)
+            pisak.pisz("wers33", czas_pliku_pc, 230, 420, white)
+            pisak.pisz("wers55", "Nazwa pliku: ", 30, 450, dyellow)
+            pisak.pisz("wers66", pc_save_list[0], 230, 450, white)
+            wczytaj_pc = screen.blit(graph.wczytaj[0], (30, 480))
+            if wczytaj_pc.collidepoint((mx, my)):
+                screen.blit(graph.wczytaj[1], (30, 480))
                 if click:
                     loadingSoundDEV.play()
-                    list_save = iotaconn.open_save()
+                    pc_data_x = chose_pc.open_pc_file()
+                    list_save = chose_pc.decrypting_save(pc_data_x)
+                    print("PC --->", list_save)
                     continue_plus = 1
+                    pc_save_list_open = "OK"
+                    iota_save_list_open = ""
+                    bsv_save_list_open = ""
+
+        if len(bsv_save_list) > 0:
+            text_file_bsv = os.path.join(filepath, "data\\save\\bsv_save.txt")
+            czas_pliku_bsv = time.ctime(os.path.getctime(text_file_bsv))
+            if bsv_save_list_open == "OK":
+                pisak.pisz("wers22", "Wczytano..", 30, 220, green)
+            else:
+                pisak.pisz("wers22", "Zapis z BitcoinSV", 30, 220, dyellow)
+            pisak.pisz("wers44", "Data utworzenia: ", 30, 250, dyellow)
+            pisak.pisz("wers33", czas_pliku_bsv, 230, 250, white)
+            pisak.pisz("wers55", "Nazwa pliku: ", 30, 280, dyellow)
+            pisak.pisz("wers66", bsv_save_list[0], 230, 280, white)
+            if api_bsv == 0:
+                wczytaj_bsv = screen.blit(graph.wczytaj[2], (30, 310))
+                pisak.pisz("wers77", "API: ", 190, 330, white)
+                pisak.pisz("wers88", "Brak połączenia..", 260, 330, red)
+            else:
+                wczytaj_bsv = screen.blit(graph.wczytaj[0], (30, 310))
+                pisak.pisz("wers77", "API: ", 190, 330, white)
+                pisak.pisz("wers88", "Online", 260, 330, green)
+                if wczytaj_bsv.collidepoint((mx, my)):
+                    screen.blit(graph.wczytaj[1], (30, 310))
+                    if click:
+                        loadingSoundDEV.play()
+                        bsv_data_x = bsvconn.transaction_details()
+                        list_save = chose_pc.decrypting_save(bsv_data_x)
+                        print("BSV --->", list_save)
+                        continue_plus = 1
+                        iota_save_list_open = ""
+                        pc_save_list_open = ""
+                        bsv_save_list_open = "OK"
+
+        if len(iota_save_list) > 0:
+            text_file_iota = os.path.join(filepath, "data\\save\\iota_save.txt")
+            czas_pliku_iota = time.ctime(os.path.getctime(text_file_iota))
+            if iota_save_list_open == "OK":
+                pisak.pisz("wers2", "Wczytano..", 30, 40, green)
+            else:
+                pisak.pisz("wers2", "Zapis z IOTA", 30, 40, dyellow)
+            pisak.pisz("wers4", "Data utworzenia: ", 30, 70, dyellow)
+            pisak.pisz("wers3", czas_pliku_iota, 230, 70, white)
+            pisak.pisz("wers5", "Nazwa pliku: ", 30, 100, dyellow)
+            pisak.pisz("wers6", iota_save_list[0], 230, 100, white)
+            if node is None and version is None:
+                pisak.pisz("wers2", "API: ", 190, 155, red)
+                pisak.pisz("wers3", "Brak połączenia", 260, 155, red)
+                screen.blit(graph.wczytaj[2], (30, 130))
+            elif node == "Error" and version == "Error":
+                pisak.pisz("wers2", "API: ", 190, 155, red)
+                pisak.pisz("wers3", node, 260, 155, red)
+                screen.blit(graph.wczytaj[2], (30, 130))
+            else:
+                pisak.pisz("wers2", "API: ", 190, 155, white)
+                pisak.pisz("wers3", "Online", 260, 155, green)
+                wczytaj_x = screen.blit(graph.wczytaj[0], (30, 130))
+                if wczytaj_x.collidepoint((mx, my)):
+                    screen.blit(graph.wczytaj[1], (30, 130))
+                    if click:
+                        loadingSoundDEV.play()
+                        iota_data_x = iotaconn.open_save()
+                        list_save = chose_pc.decrypting_save(iota_data_x)
+                        print("IOTA --->", list_save)
+                        continue_plus = 1
+                        iota_save_list_open = "OK"
+                        pc_save_list_open = ""
+                        bsv_save_list_open = ""
+
+        if continue_plus == 1:
+            dalejx = screen.blit(graph.save_start[0], (1100, 570))
+            if dalejx.collidepoint((mx, my)):
+                screen.blit(graph.save_start[1], (1100, 570))
+                if click:
+                    imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR, quest_tomek_1, wynikp99 = check_file_save.delisting_save(list_save)
+                    pygame.mixer.music.stop()
+                    loadingSoundDEV.play()
+                    scena_prog_3()
 
         if cofnij_x.collidepoint((mx, my)):
             screen.blit(graph.cofnij[1], (560, 640))
@@ -619,27 +757,6 @@ def kontynuacja_gry():
                 continue_plus = 0
                 loadingSound.play()
                 break
-
-        if continue_plus == 1:
-            dalejx = screen.blit(graph.save_start[0], (1100, 570))
-            if dalejx.collidepoint((mx, my)):
-                screen.blit(graph.save_start[1], (1100, 570))
-                if click:
-                    imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR, quest_tomek_1, wynikp99 = delisting_save()
-                    pygame.mixer.music.stop()
-                    loadingSoundDEV.play()
-                    scena_prog_3()
-
-        text_file = "data\\save\\" + save_file
-        czas_pliku = time.ctime(os.path.getctime(text_file))
-        hash_file = save_file.replace(".txt", "")
-        pisak.pisz("wers1", "Witaj!", 30, 90, dyellow)
-        pisak.pisz("wers2", "Posiadasz już zapis gry.", 30, 120, dyellow)
-        pisak.pisz("wers4", "Data utworzenia: ", 30, 150, dyellow)
-        pisak.pisz("wers3", czas_pliku, 230, 150, white)
-        pisak.pisz("wers5", "HASH zapisu: ", 30, 180, dyellow)
-        pisak.pisz("wers6", hash_file , 230, 180, white)
-        screen.blit(graph.odznaka, (40, 490))
 
         pygame.display.update()
         mainClock.tick()
@@ -6456,8 +6573,7 @@ def scena35():
 
         screen.fill(black)
         screen.blit(graph.pokoj_noc_bg, (0, 0))
-        if item:
-            dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
+
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(graph.indeks, (900, 570))
@@ -6474,7 +6590,8 @@ def scena35():
                     click = True
 
         if item:
-            if dalej.collidepoint((mx, my)):
+            dalej_x = screen.blit(graph.press_Dalej[0], (1100, 640))
+            if dalej_x.collidepoint((mx, my)):
                 screen.blit(graph.press_Dalej[1], (1100, 640))
                 if click:
                     loadingSound.play()
@@ -7748,7 +7865,7 @@ def falklandy_sektor_h_klodka():
             if correct < 3:
                 if delta < 390:
                     screen.blit(graph.sensivity_point[0], (440 + int(delta), 505))
-                    if delta > 190 and delta < 210:
+                    if 190 < delta < 210:
                         screen.blit(graph.sensivity_point[1], (440 + int(delta), 505))
                         if click:
                             correct += 1
@@ -9920,43 +10037,5 @@ def wykazOcen():
         pygame.display.update()
         mainClock.tick()
 
-
-def delisting_save():
-
-    """ Delisting save list """
-
-    imieGracza = ""
-    legitymowanie = ""
-    ruchdrogowy = ""
-    pendrive1 = ""
-    skrawek1 = ""
-    ocenaSTR = ""
-    ocena_ruchSTR = ""
-    quest_tomek_1 = ""
-    wynikp99 = ""
-
-    lis_save = list_save.split("/")
-
-    for i in lis_save:
-        if i[:7] == "PLAYER:":
-            imieGracza = i[7:]
-        if i[:7] == "LEGITY:":
-            legitymowanie = i[7:]
-        if i[:7] == "RUCHDR:":
-            ruchdrogowy = i[7:]
-        if i[:7] == "PENDRI:":
-            pendrive1 = i[7:]
-        if i[:7] == "SKRAWE:":
-            skrawek1 = i[7:]
-        if i[:7] == "OCENAL:":
-            ocenaSTR = i[7:]
-        if i[:7] == "OCENAR:":
-            ocena_ruchSTR = i[7:]
-        if i[:7] == "QUESTT:":
-            quest_tomek_1 = i[7:]
-        if i[:7] == "WYNIKP:":
-            wynikp99 = i[7:]
-
-    return imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR, quest_tomek_1, wynikp99
 
 intro_dev()
