@@ -1,12 +1,73 @@
 import os.path
 import time
 import bitsv
-import sys
+import requests
 
-if getattr(sys, 'frozen', False):
-    os.chdir(sys._MEIPASS)
 
 filepath = os.path.dirname(__file__)
+
+
+def status_api_bsv():
+
+    """ Checks the status of the API """
+
+    url = 'https://api.whatsonchain.com/v1/bsv/test/woc'
+
+    response = requests.get(url)
+    status_url = response.status_code
+
+    if status_url == 200:
+        api_bsv = 1
+    else:
+        api_bsv = 0
+
+    return api_bsv
+
+
+def transaction_details():
+
+    hex_data = open_bsv_file()
+    txid = hex_data
+
+    url = "https://api.whatsonchain.com/v1/bsv/test/tx/hash/" + txid
+    response = requests.get(url)
+    data = response.json()
+    vout = data['vout']
+    vout_x = vout[0]
+    scriptPubKey = vout_x['scriptPubKey']
+    hex_x = scriptPubKey['hex']
+    first_list_save = bytes.fromhex(str(hex_x)).decode('latin-1')
+    bsv_data_x = first_list_save[7:]
+
+    return bsv_data_x
+
+
+def pk_file():
+
+    """ Check pk.txt file """
+
+    pk_list_file = os.listdir(os.path.join(filepath, "data\\bitcoinkey\\"))
+
+    return pk_list_file
+
+
+def open_bsv_file():
+
+    """ Open bsv_save file """
+
+    file_bsv = open(os.path.join(filepath, "data\\save\\bsv_save.txt"), "r")
+    hex_data = file_bsv.read()
+    file_bsv.close()
+
+    return hex_data
+
+
+def private_key(pk_list_file):
+
+    file = open(os.path.join(filepath, "data\\bitcoinkey\\" + pk_list_file[0]))
+    pk_key = file.read()
+
+    return pk_key
 
 
 def check_bsv():
@@ -39,5 +100,6 @@ def send_save(key, save_list):
 
 def save(one_id):
 
-    save_file = open("data\\save\\" + one_id + ".txt", "w")
+    save_file = open(os.path.join(filepath, "data\\save\\bsv_save.txt"), "w")
+    save_file.write(one_id)
     save_file.close()
