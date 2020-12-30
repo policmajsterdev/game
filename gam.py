@@ -285,6 +285,10 @@ def create_save():
 
 
 def bsv_save():
+    pk_list_file = bsvconn.pk_file()
+    pk_key = None
+    if pk_list_file:
+        pk_key = bsvconn.private_key(pk_list_file)
     hash_tx = 0
     balance_bsv = None
     key = None
@@ -304,14 +308,19 @@ def bsv_save():
 
         screen.fill(black)
         screen.blit(graph.bg_conn, (0, 0))
-        check_conn = screen.blit(graph.connect_bsv[1], (900, 20))
-        cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
+        if pk_key:
+            check_conn = screen.blit(graph.connect_bsv[1], (900, 20))
+            if check_conn.collidepoint((mx, my)):
+                screen.blit(graph.connect_bsv[0], (900, 20))
+                if click:
+                    loadingSound.play()
+                    key, balance_bsv = bsvconn.check_bsv(pk_key)
+                    print(pk_key)
+        else:
+            screen.blit(graph.connect_bsv[2], (900, 20))
+            pisak.pisz("wers2s", "Brak klucza prywatnego", 630, 130, red)
 
-        if check_conn.collidepoint((mx, my)):
-            screen.blit(graph.connect_bsv[0], (900, 20))
-            if click:
-                loadingSound.play()
-                key, balance_bsv = bsvconn.check_bsv()
+        cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
 
         if cofnij_x.collidepoint((mx, my)):
             screen.blit(graph.cofnij[1], (560, 640))
@@ -348,14 +357,25 @@ def bsv_save():
                         if one_id:
                             bsvconn.save(one_id)
                             hash_tx = 1
-
-        pisak.pisz("wers1", "Zapis gry w blockchain BitcoinSV:", 120, 200, white)
-        pisak.pisz("wers2", "1. Sprawdź połączenie z portelem.", 120, 230, white)
-        pisak.pisz("wers3", "2. Gdy ikona PC zmieni kolor na pomarańczowy, kliknij 'ZAPISZ'", 120, 260, white)
-        pisak.pisz("wers3", "3. Odczekaj ok 5 sekund, na pobranie nagłówka transakcji z blockchain.", 120, 290, white)
-        pisak.pisz("wers4", "4. W folderze gry 'save_bsv' utworzy się plik tekstowy z nagłówkiem hasha Twojego zapisu gry.",
+                            pk_key = None
+        if pk_key:
+            pisak.pisz("wers1", "Zapis gry w blockchain BitcoinSV:", 120, 200, white)
+            pisak.pisz("wers2", "1. Sprawdź połączenie z portelem.", 120, 230, white)
+            pisak.pisz("wers3", "2. Gdy ikona PC zmieni kolor na pomarańczowy, kliknij 'ZAPISZ'", 120, 260, white)
+            pisak.pisz("wers3", "3. Odczekaj ok 5 sekund, na pobranie nagłówka transakcji z blockchain.", 120, 290, white)
+            pisak.pisz("wers4", "4. W folderze gry 'save_bsv' utworzy się plik tekstowy z nagłówkiem hasha Twojego zapisu gry.",
                    120, 320, white)
-        pisak.pisz("wers5", "5. Hash możesz sprawdzić tutaj: https://test.whatsonchain.com/", 120, 350, white)
+            pisak.pisz("wers5", "5. Twój klucz prywatny zostanie wykasowany z pamięci gry (Brak klucza prywatnego)", 120, 350, white)
+        else:
+            pisak.pisz("wers1", "Co zrobić gdy brakuje klucza prywatnego?:", 120, 200, white)
+            pisak.pisz("wers2", "1. Wejdź do folderu data/bitcoinkey/", 120, 230, white)
+            pisak.pisz("wers3", "2. Wpisz swój klucz prywatny w dokument tekstowy 'privatekey.txt' i zapisz.", 120, 260, white)
+            pisak.pisz("wers3", "3. Naciśnij 'cofnij' w oknie gry i wejdź ponownie w zapis BitcoinSV.", 120, 290,
+                       white)
+            pisak.pisz("wers4",
+                       "4. Po udanym zapisie, wyświetli się Hash zapisu i komunikat 'Brak klucza prywatnego'.",
+                       120, 320, white)
+            pisak.pisz("wers5", "5. Oznacza to wykasowanie z pamięci gry, Twojego klucza prywatnego.", 120, 350, white)
 
         if hash_tx > 0:
             pisak.pisz("wers6", "Hash zapisu gry:", 120, 390, white)
@@ -767,8 +787,8 @@ def kontynuacja_gry(iota_save, bsv_save, pc_save):
 def start():
     nazwa_gracza = []
     running = True
+    global imieGracza
     while running:
-        global imieGracza
         click = False
         
         screen.fill(black)
