@@ -70,9 +70,9 @@ def private_key(pk_list_file):
     return pk_key
 
 
-def check_bsv():
+def check_bsv(pk_key):
 
-    my_key = '32047ac7f8247e2dcaed827bdbf27a7e388a92e47f4935d254966f4dc8035c60'
+    my_key = pk_key
     try:
         key = bitsv.Key.from_hex(my_key, network="test")
         balance_bsv = key.get_balance('bsv')
