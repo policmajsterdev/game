@@ -1,7 +1,5 @@
 import os.path
 import pygame
-from pygame import mixer
-import sys
 
 
     
@@ -228,6 +226,7 @@ sektor_falklandy_drzwi_bg = pygame.image.load(os.path.join(filepath, "data\\scen
 sektor_falklandy_klodka_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_klodka_bg.png")).convert()
 sektor_falklandy_sektor_g_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_sektor_g.png")).convert()
 trasa_falklandy_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\trasa_falklandy.png")).convert()
+teczka_osobowa = pygame.image.load(os.path.join(filepath, "data\\sceny\\teczka_osobowa.png")).convert()
 
 # Pojęcia + zdjęcia
 czarnuch = [pygame.image.load(os.path.join(filepath, "data\\pojecia\\czarnuch.png")).convert(),
@@ -428,7 +427,8 @@ volHI = [pygame.image.load(os.path.join(filepath, "data\\pics\\glosno.png")),
         pygame.image.load(os.path.join(filepath, "data\\pics\\glosno1.png"))]
 
 # Stopnie służbowe
-post = pygame.image.load(os.path.join(filepath, "data\\stopnie\\post.png")).convert()
+post = pygame.image.load(os.path.join(filepath, "data\\stopnie\\post.png")).convert_alpha()
+st_post = pygame.image.load(os.path.join(filepath, "data\\stopnie\\stpost.png")).convert_alpha()
 
 # Lokacje i grafiki Falklandów
 reca = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\reca.png")).convert_alpha(),
@@ -495,10 +495,12 @@ connect = [pygame.image.load(os.path.join(filepath, "data\\block\\connect.png"))
            pygame.image.load(os.path.join(filepath, "data\\block\\connect1.png")).convert_alpha()]
 
 connect_bsv = [pygame.image.load(os.path.join(filepath, "data\\block\\connect_bsv0.png")).convert_alpha(),
-           pygame.image.load(os.path.join(filepath, "data\\block\\connect_bsv1.png")).convert_alpha()]
+               pygame.image.load(os.path.join(filepath, "data\\block\\connect_bsv1.png")).convert_alpha(),
+               pygame.image.load(os.path.join(filepath, "data\\block\\connect_bsv2.png")).convert_alpha(),]
 
 wczytaj = [pygame.image.load(os.path.join(filepath, "data\\block\\wczytaj.png")).convert_alpha(),
-           pygame.image.load(os.path.join(filepath, "data\\block\\wczytaj1.png")).convert_alpha()]
+           pygame.image.load(os.path.join(filepath, "data\\block\\wczytaj1.png")).convert_alpha(),
+           pygame.image.load(os.path.join(filepath, "data\\block\\wczytaj2.png")).convert_alpha(),]
 
 # Chose_save
 
@@ -510,3 +512,12 @@ button_bsv = [pygame.image.load(os.path.join(filepath, "data\\block\\bsv0.png"))
 
 button_pc = [pygame.image.load(os.path.join(filepath, "data\\block\\pc_save0.png")).convert_alpha(),
              pygame.image.load(os.path.join(filepath, "data\\block\\pc_save1.png")).convert_alpha()]
+
+# Akta_osobowe / Baretki / Wyróżnienia
+
+button_odznaka = [pygame.image.load(os.path.join(filepath, "data\\baretki\\odznak0.png")).convert_alpha(),
+                  pygame.image.load(os.path.join(filepath, "data\\baretki\\odznak1.png")).convert_alpha()]
+odznaka_p99 = [pygame.image.load(os.path.join(filepath, "data\\baretki\\baret_p99_0.png")).convert_alpha(),
+               pygame.image.load(os.path.join(filepath, "data\\baretki\\baret_p99_1.png")).convert_alpha()]
+odznaka_mosberg = [pygame.image.load(os.path.join(filepath, "data\\baretki\\baret_mosberg_0.png")).convert_alpha(),
+                   pygame.image.load(os.path.join(filepath, "data\\baretki\\baret_mosberg_1.png")).convert_alpha()]
