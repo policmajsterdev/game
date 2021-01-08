@@ -4,7 +4,6 @@ import random
 import time
 import os
 import os.path
-# import pkg_resources.py2_warn
 from pygame.locals import *
 import pisak
 import graph
@@ -12,6 +11,7 @@ import bsvconn
 import iotaconn
 import check_file_save
 import chose_pc
+import experience
 
 
 pygame.init()
@@ -82,8 +82,8 @@ wykroczenia = ""
 
 # Zawartość plecaka
 active = ""
-pendrive1 = "testyTomka"  # testyTomka
-skrawek1 = "skrawek"  # skrawek
+pendrive1 = ""  # testyTomka
+skrawek1 = ""  # skrawek
 item = ""
 kod_pin = ""
 klucz_quest = ""  # kluczyk
@@ -102,9 +102,10 @@ red = (220, 0, 0)
 green = (0, 140, 0)
 dyellow = (115, 115, 0)
 brown = (153, 102, 51)
+dark_blue = (0, 51, 102)
 
 # Imię gracza
-imieGracza = "Lukasz"
+imieGracza = ""
 
 # Egzaminy  [ ODPOWIEDZI ]
 odp1 = ""
@@ -112,14 +113,14 @@ odp2 = ""
 odp3 = ""
 odp4 = ""
 ocena = ""
-ocenaSTR = "5"
+ocenaSTR = ""
 
 odp1_ruch = ""
 odp2_ruch = ""
 odp3_ruch = ""
 odp4_ruch = ""
 ocena_ruch = ""
-ocena_ruchSTR = "4"
+ocena_ruchSTR = ""
 
 odp1_wykr = ""
 odp2_wykr = ""
@@ -128,10 +129,10 @@ odp4_wykr = ""
 ocena_wykr = ""
 ocena_wykrSTR = ""
 
-# Wyniki ze strzelania [0 = P99, 1 = pompka...]
+# Wyniki ze strzelania
 tablica_wynikow = []
 tablica_wynikow_mb = []
-wynikp99 = "230"
+wynikp99 = ""
 wynikmb = ""
 
 # Strzelnica
@@ -188,6 +189,99 @@ orange_blob = pygame.image.load(os.path.join(filepath, "data\\tarcze\\aim2.png")
 blob_mask = pygame.mask.from_surface(green_blob)
 blob_rect = green_blob.get_rect()
 blob_color = green_blob
+
+
+# Doświadczenie_/_Wyróżnienia
+
+exp = 1
+ang = 1
+stopien_sluzbowy = "POSTERUNKOWY"
+grupa_zaszeregowania = "kursant"
+dodatek_sluzbowy = "0 zł"
+BARETKI = []
+
+# Akta_osobowe
+
+
+def akta_osobowe():
+    running = True
+    exp_str = str(exp)
+    ang_str = str(ang)
+    ramka_exp = Rect(110, 295, 300, 20)
+    block_exp = Rect(111, 296, exp, 18)
+    ramka_ang = Rect(110, 345, 300, 20)
+    block_ang = Rect(111, 346, ang, 18)
+    while running:
+        poz_y = 0
+        click = False
+        screen.fill(black)
+        screen.blit(graph.teczka_osobowa, (0, 0))
+        cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
+        screen.blit(graph.odznaka, (1080, 10))
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        if cofnij_x.collidepoint((mx, my)):
+            screen.blit(graph.cofnij[1], (560, 640))
+            if click:
+                loadingSound.play()
+                break
+
+        # Stopnie służbowe
+
+        if stopien_sluzbowy == "POSTERUNKOWY":
+            screen.blit(graph.post, (340, 197))
+        elif stopien_sluzbowy == "STARSZY POSTERUNKOWY":
+            screen.blit(graph.st_post, (340, 197))
+
+        # Wyróżnienia
+        for i in BARETKI:
+            if i == "baretka_p99":
+                barteka_p99_x = screen.blit(graph.odznaka_p99[1], (730, 160 + poz_y))
+                if barteka_p99_x.collidepoint((mx, my)):
+                    screen.blit(graph.odznaka_p99[0], (730, 160 + poz_y))
+                    pisak.pisz("wers1a", "Ponad 200 pkt na strzelnicy z P99", 730, 160 + poz_y, dyellow)
+                poz_y += 30
+            if i == "baretka_mosberg":
+                baretka_mosberg_x = screen.blit(graph.odznaka_mosberg[1], (730, 160 + poz_y))
+                if baretka_mosberg_x.collidepoint((mx, my)):
+                    screen.blit(graph.odznaka_mosberg[0], (730, 160 + poz_y))
+                    pisak.pisz("wers1a", "Ponad 200 pkt na strzelnicy z Mossberg 590", 730, 160 + poz_y, dyellow)
+                poz_y += 30
+
+        pisak.pisz("wers2", "Dane funkcjonariusza:", 110, 153, black)
+        pisak.pisz("wers2", imieGracza, 340, 153, black)
+        pisak.pisz("wers3", "Stopień sł.:", 110, 175, black)
+        pisak.pisz("wers33", stopien_sluzbowy, 340, 175, black)
+        pisak.pisz("wers8", "Numer odznaki:       997187", 110, 250, black)
+        pisak.pisz("wers9", "Doświadczenie:", 110, 270, black)
+        pisak.pisz("wers91", exp_str, 340, 270, dark_blue)
+        pisak.pisz("wers92", "/300", 378, 270, black)
+        pisak.pisz("wers99", "Grupa zaszeregowania:", 110, 375, black)
+        pisak.pisz("wers99", grupa_zaszeregowania, 340, 375, black)
+        pisak.pisz("wers22", "Dodatek służbowy:", 110, 395, black)
+        pisak.pisz("wers23", dodatek_sluzbowy, 340, 395, brown)
+        pisak.pisz("wers2a", "Kariera:", 110, 435, black)
+        pisak.pisz("wers2a", "- kursant WSPOL Szczytno", 120, 450, black)
+        pisak.pisz("wers4", "Zaangażowanie:", 110, 320, black)
+        pisak.pisz("wers4", ang_str, 340, 320, brown)
+        pisak.pisz("wers41", "/300", 378, 320, black)
+
+        pygame.draw.rect(screen, black, ramka_exp, 1)
+        pygame.draw.rect(screen, dark_blue, block_exp)
+        pygame.draw.rect(screen, black, ramka_ang, 1)
+        pygame.draw.rect(screen, brown, block_ang)
+
+        pygame.display.update()
+        mainClock.tick()
 
 
 def chose_save():
@@ -894,7 +988,7 @@ def start():
             screen.blit(graph.key_os[1], (922, 402))
             if click:
                 klik.play()
-                nazwa_gracza.append("Ó")
+                nazwa_gracza.append("O")
 
         a_nopress = screen.blit(graph.key_a[0], (328, 459))
         if a_nopress.collidepoint((mx, my)):
@@ -964,14 +1058,14 @@ def start():
             screen.blit(graph.key_es[1], (875, 460))
             if click:
                 klik.play()
-                nazwa_gracza.append("Ę")
+                nazwa_gracza.append("E")
 
         as_nopress = screen.blit(graph.key_as[0], (932, 460))
         if as_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_as[1], (932, 460))
             if click:
                 klik.play()
-                nazwa_gracza.append("Ą")
+                nazwa_gracza.append("A")
 
         y_nopress = screen.blit(graph.key_y[0], (357, 516))
         if y_nopress.collidepoint((mx, my)):
@@ -1113,12 +1207,14 @@ def objasnienie():
 def scena1():
     siren.play(-1)
     running = True
+    global exp
     while running:
         click = False
         
         screen.fill(black)
         screen.blit(graph.wspol, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
+
 
         mx, my = pygame.mouse.get_pos()
 
@@ -1134,8 +1230,16 @@ def scena1():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp += 5
                 loadingSound.play()
                 scena2()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Pierwszy dzień w nowym środowisku - czujesz ekscytację! Jest trochę dziwnie ale wkońcu"
                            " nałożyłeś(-aś) mundur.", 30, 150, white)
@@ -1180,6 +1284,7 @@ def scena1():
 
 def scena2():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
         
@@ -1201,8 +1306,18 @@ def scena2():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania, dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena3()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Po śniadaniu był dzień zapoznawczy - zapoznajesz się właściwie z nowym miejscem, "
                            "sytuacją i ludźmi.", 30, 150, white)
@@ -1237,6 +1352,7 @@ def scena2():
 
 def scena3():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
         
@@ -1258,8 +1374,19 @@ def scena3():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena4()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Do Twojego pokoju wchodzi pewny siebie gość, który dziarsko się wita i zaczyna"
                            " rozmowę.", 30, 150, white)
@@ -1297,6 +1424,7 @@ def scena3():
 
 
 def scena4():
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -1320,13 +1448,25 @@ def scena4():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena5()
+
         if notka.collidepoint((mx, my)):
             screen.blit(graph.notatnikB, (20, 570))
             if click:
                 loadingSound.play()
                 notatnik()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "No w końcu! Dziś miałeś(-aś) bardzo ciekawe zajęcia na strzelnicy! Nie było jeszcze"
                            " strzelania ale..", 30, 150, white)
@@ -1368,6 +1508,7 @@ def scena4():
 
 
 def scena5():
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -1391,14 +1532,26 @@ def scena5():
         if button_nie.collidepoint((mx, my)):
             screen.blit(graph.nie[1], (470, 600))
             if click:
+                exp += 5
                 loadingSound.play()
                 scena_prog()
                 
         if button_tak.collidepoint((mx, my)):
             screen.blit(graph.tak[1], (660, 600))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 silownia()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "No i po weekendzie. Najfajniejsze z weekendu to.. wyjazd na weekend, bo wolny czas"
                            " tak szybko minął. ", 20, 150, white)
@@ -1438,12 +1591,11 @@ def scena5():
 def silownia():
     siren.stop()
     silowniaOGG.play(-1)
+    global exp, stopien_sluzbowy, pendrive1, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    pendrive1 = "testyTomka"
     running = True
     while running:
         click = False
-
-        global pendrive1
-        pendrive1 = "testyTomka"
 
         screen.fill(black)
         screen.blit(graph.silka, (0, 0))
@@ -1463,8 +1615,19 @@ def silownia():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena_prog()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Ruszyłeś(-aś) dupę, choć można było spędzić czas w pokoju.", 30, 150, white)
         pisak.pisz("wers1", "Siłownia to niewielki budynek, gdzieś na terenie szkoły, było ciemno i nie"
@@ -1544,6 +1707,13 @@ def scena_prog():
                 loadingSound.play()
                 equip()
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "** Pamiętaj, że w tej grze, każda Twoja decyzja ma wpływ na dalszą fabułę.", 20, 330, white)
         pisak.pisz("wers1", "Nie oznacza to, że zawsze musisz się zgadzać na to co Cię spotyka.", 20, 360, white)
         pisak.pisz("wers2", "Jak w życiu - co byś nie zrobił i tak będzie dobrze.", 20, 390, white)
@@ -1561,6 +1731,7 @@ def scena_prog():
 
 
 def scena6():
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     progOGG.stop()
     siren.play(-1)
     running = True
@@ -1591,12 +1762,20 @@ def scena6():
         if button_nie.collidepoint((mx, my)):
             screen.blit(graph.nie[1], (470, 600))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena7()
 
         if button_tak.collidepoint((mx, my)):
             screen.blit(graph.tak[1], (660, 600))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 silownia1()
 
@@ -1611,6 +1790,13 @@ def scena6():
             if click:
                 loadingSound.play()
                 equip()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Mijają kolejne dni, sporo zajęć, poranne zaprawy. Masz już dość kulek mocy.",
                    20, 150, white)
@@ -1634,6 +1820,7 @@ def scena6():
 
 
 def silownia1():
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     siren.stop()
     silowniaOGG.play(-1)
     running = True
@@ -1658,10 +1845,21 @@ def silownia1():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 silowniaOGG.stop()
                 siren.play()
                 loadingSound.play()
                 scena7()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Na siłowni ćwiczy kilkanaście osób.", 20, 150, white)
         pisak.pisz("wers1", "Nie widzisz nikogo znajomego.", 20, 180, white)
@@ -1676,6 +1874,7 @@ def silownia1():
 
 
 def scena7():
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -1685,9 +1884,9 @@ def scena7():
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
-        # pozycja myszy-------
+
         mx, my = pygame.mouse.get_pos()
-        # --------------------
+
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
@@ -1700,8 +1899,13 @@ def scena7():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena8()
+
         if notka.collidepoint((mx, my)):
             screen.blit(graph.notatnikB, (20, 570))
             if click:
@@ -1713,6 +1917,13 @@ def scena7():
             if click:
                 loadingSound.play()
                 equip()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Mijają kolejne dni.. Zajęcia trwają od 8 do 18 a po obiedzie i tak nic nie wchodzi"
                            " do głowy.", 20, 150, white)
@@ -1744,6 +1955,7 @@ def scena7():
 
 
 def scena8():
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -1768,8 +1980,13 @@ def scena8():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena9()
+
         if notka.collidepoint((mx, my)):
             screen.blit(graph.notatnikB, (20, 570))
             if click:
@@ -1781,6 +1998,13 @@ def scena8():
             if click:
                 loadingSound.play()
                 equip()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "W pokoju zastajecie Iwonę, lekko zmieszana stoi przy szafie, po czym siada na łóżku"
                            " z telefonem.", 20, 150, white)
@@ -1813,6 +2037,7 @@ def scena8():
 
 
 def scena9():
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -1837,8 +2062,13 @@ def scena9():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena10()
+
         if notka.collidepoint((mx, my)):
             screen.blit(graph.notatnikB, (20, 570))
             if click:
@@ -1850,6 +2080,13 @@ def scena9():
             if click:
                 loadingSound.play()
                 equip()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Kolejnego dnia Wasz pokój ma 'rejony' to tzw. sprzątanie wyznaczonego miejsca.",
                    20, 150, white)
@@ -1883,6 +2120,7 @@ def scena9():
 
 
 def scena10():
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -1907,6 +2145,10 @@ def scena10():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 egzamin_leg()
 
@@ -1921,6 +2163,13 @@ def scena10():
             if click:
                 loadingSound.play()
                 equip()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Minął weekend.. Kurde.. powroty są fajne.. ale najfajniejsze są - wyjazdy na powroty"
                            " do domu..", 20, 150, white)
@@ -2221,6 +2470,7 @@ def egzamin_leg4():
 
 def wyniki_leg():
     running = True
+    global exp, ocena, ocenaSTR, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -2244,6 +2494,18 @@ def wyniki_leg():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                if ocena == 5:
+                    exp += 20
+                    ang += 50
+                elif ocena == 4:
+                    exp += 15
+                elif ocena == 3:
+                    exp += 10
+                else:
+                    exp += 5
                 siren.stop()
                 loadingSound.play()
                 scena_prog1()
@@ -2259,6 +2521,14 @@ def wyniki_leg():
             if click:
                 loadingSound.play()
                 equip()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wersX", imieGracza, 600, 220, white)
         pisak.pisz("wers", "Twoja ocena z testu LEGITYMOWANIA!", 450, 250, white)
 
@@ -2283,7 +2553,6 @@ def wyniki_leg():
         else:
             odp4x = 0
 
-        global ocena, ocenaSTR
         ocena = jeden + odp1x + odp2x + odp3x + odp4x
         ocenaSTR = str(ocena)
 
@@ -2363,6 +2632,13 @@ def scena_prog1():
                 loadingSound.play()
                 wykazOcen()
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Jako młody adept otrzymujesz od szefa kompanii indeks!", 20, 490, dyellow)
         pisak.pisz("wers1", "W indeksie znajduje się spis przedmiotów do zaliczenia i Twoje dotychczasowe oceny.",
                    20, 520, dyellow)
@@ -2375,6 +2651,7 @@ def scena_prog1():
 
 def scena11():
     siren.play()
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -2401,12 +2678,20 @@ def scena11():
         if button_nie.collidepoint((mx, my)):
             screen.blit(graph.nie[1], (470, 600))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena12()
 
         if button_tak.collidepoint((mx, my)):
             screen.blit(graph.tak[1], (660, 600))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 siren.stop()
                 loadingSound.play()
                 bar()
@@ -2428,6 +2713,13 @@ def scena11():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Pierwsze koty za płoty, pierwszy test za Tobą, chyba czas na jakieś odreagowanie.",
                    20, 150, white)
@@ -2454,6 +2746,7 @@ def scena11():
 
 def bar():
     barSound.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -2476,6 +2769,10 @@ def bar():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 bar1()
 
@@ -2511,6 +2808,7 @@ def bar():
 
 def bar1():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -2533,12 +2831,20 @@ def bar1():
         if button_nie.collidepoint((mx, my)):
             screen.blit(graph.nie[1], (470, 600))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena_bar_iwona()
 
         if button_tak.collidepoint((mx, my)):
             screen.blit(graph.tak[1], (660, 600))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 bar2()
 
@@ -2573,6 +2879,7 @@ def bar1():
 
 def bar2():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     global quest_tomek_1
     while running:
         click = False
@@ -2597,6 +2904,10 @@ def bar2():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena_bar_iwona()
 
@@ -2633,6 +2944,7 @@ def scena_bar_iwona():
     siren.stop()
     barSound.stop()
     siren.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -2655,6 +2967,10 @@ def scena_bar_iwona():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena12()
 
@@ -2694,6 +3010,7 @@ def scena12():
     siren.stop()
     barSound.stop()
     siren.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -2720,6 +3037,10 @@ def scena12():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena13()
 
@@ -2740,6 +3061,13 @@ def scena12():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Mijają kolejne dni, a nauki jest coraz więcej. Codziennie uczysz się ciekawszych rzeczy.",
                    20, 150, white)
@@ -2769,6 +3097,7 @@ def scena12():
 
 def scena13():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -2793,6 +3122,10 @@ def scena13():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena14()
 
@@ -2813,6 +3146,13 @@ def scena13():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "19:00 - ruszasz na odprawę do sali 212 w akademiku nr 3. Odczuwasz lekki stres choć masz"
                            " wszystko co trzeba.", 20, 150, white)
@@ -2849,6 +3189,7 @@ def scena13():
 def scena14():
     siren.stop()
     korytarzSound.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -2874,6 +3215,10 @@ def scena14():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena15()
 
@@ -2894,6 +3239,13 @@ def scena14():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Do północy w akademiku był jako taki ruch, dopiero o 1:00 nastał spokój. Postanawiasz"
                            " trochę przymknąć oko..", 20, 150, white)
@@ -2933,6 +3285,7 @@ def scena14():
 
 def scena15():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -2957,6 +3310,10 @@ def scena15():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena_sciana()
 
@@ -2977,6 +3334,13 @@ def scena15():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers0", "Powoli zmierzasz w kierunku obranego miejsca oddalając się od źródła światła.",
                    20, 120, white)
@@ -3019,6 +3383,7 @@ def scena15():
 
 def scena_sciana():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -3043,6 +3408,10 @@ def scena_sciana():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena_prog2()
 
@@ -3137,6 +3506,13 @@ def scena_prog2():
         if napis_policja_x.collidepoint((mx, my)):
             screen.blit(graph.napisPolicja1, (640, 250))
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Jeśli napotkasz scenę, w której przy kursorze wyświetla się lupa - tak jak teraz",
                    20, 490, dyellow)
         pisak.pisz("wers1", "Bacznie obserwuj i poszukuj ciekawych przedmiotów na ekranie.",
@@ -3150,6 +3526,7 @@ def scena_prog2():
 
 def scena16():
     siren.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -3180,6 +3557,10 @@ def scena16():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena17()
 
@@ -3200,6 +3581,13 @@ def scena16():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Służba jako dyżurny to już przeszłość, czas wrócić do nauki.", 20, 120, white)
         pisak.pisz("wers1", "Pierwsze zajęcia z ruchu drogowego były nawet ciekawe, gdyby nie kilka jedynek na"
@@ -3242,6 +3630,7 @@ def scena16():
 
 def scena17():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -3268,6 +3657,10 @@ def scena17():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena18()
 
@@ -3288,6 +3681,13 @@ def scena17():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "- A to faktycznie nudną miałeś(-aś) nockę - puentuje Tomek, poprawia poduszkę i"
                            " kładzie się na niej wygodnie.", 20, 120, white)
@@ -3327,6 +3727,7 @@ def scena17():
 
 def scena18():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -3353,6 +3754,10 @@ def scena18():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena19()
 
@@ -3373,6 +3778,13 @@ def scena18():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "- No i co w tym takiego dziwnego? Szpital, bunkier, magazyn i tak puste stoi. Dobra idę"
                            " spać, nie chce mi", 20, 120, white)
@@ -3402,6 +3814,7 @@ def scena18():
 
 def scena19():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -3430,12 +3843,20 @@ def scena19():
         if wybor1.collidepoint((mx, my)):
             screen.blit(graph.silownia_N[1], (470, 600))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 silownia2()
 
         if wybor2.collidepoint((mx, my)):
             screen.blit(graph.spacer_N[1], (660, 600))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 spacer()
 
@@ -3456,6 +3877,13 @@ def scena19():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Minęło kilka dni - kilka a każdy.. jak dzień świstaka.", 20, 120, white)
         pisak.pisz("wers1", "Zaprawa, nauka, spanie.. Zaprawa, nauka, spanie.. zajęcia to tu, to tam.. eh.. ",
@@ -3486,6 +3914,7 @@ def silownia2():
     siren.stop()
     silowniaOGG.play(-1)
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     global quest_tomek_1
     while running:
         click = False
@@ -3531,8 +3960,19 @@ def silownia2():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena20()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Siłownia to nie Twoje klimaty ale z nudów można poprzeciągać trochę złomu.", 20, 90, white)
         pisak.pisz("wers1", "Wchodzisz do budynku, w tle słychać dźwięki odkładanych hantli i drążków.", 20, 120, white)
@@ -3567,6 +4007,7 @@ def silownia2():
 def spacer():
     siren.stop()
     spacerOGG.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -3610,8 +4051,19 @@ def spacer():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 spacer1()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "No pewnie! Lepiej trochę się przejść i zwiedzić trochę miasta. Jest 19:00 trochę późno..",
                    20, 900, white)
@@ -3651,6 +4103,7 @@ def spacer():
 
 def spacer1():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -3693,8 +4146,19 @@ def spacer1():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena20()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Stoisz chwilę i przypomina Ci się noc jako dyżurny - No tak! Gdzieś po prawej są"
                            " magazyny!", 20, 90, white)
@@ -3735,6 +4199,7 @@ def spacer1():
 def scena20():
     spacerOGG.stop()
     silowniaOGG.stop()
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -3778,8 +4243,19 @@ def scena20():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena21()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Wchodzisz do pokoju. Iwona rozmawia z Anką o jutrzejszych zajęciach na strzelnicy.",
                    30, 120, white)
@@ -3792,6 +4268,7 @@ def scena20():
 
 def scena21():
     strzelnicaOGG.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -3835,8 +4312,19 @@ def scena21():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 strzelnica_scena_1()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Nowy dzionek zapowiada się całkiem przyzwoicie. Będziesz strzelać na strzelnicy.",
                    30, 150, white)
@@ -3866,7 +4354,7 @@ def strzelnica_scena_1():
     naboje = 25
     startx = 500
     delta = 0.0
-    global blob_color, skrawek1, wynikp99
+    global blob_color, skrawek1, wynikp99, ang
     while True:
         click = False
         for event in pygame.event.get():
@@ -3881,12 +4369,14 @@ def strzelnica_scena_1():
 
         screen.blit(graph.strzelnica1, (0, 0))
         if naboje <= 0:
+            if punkty > 200:
+                skrawek1 = "skrawek"
+                ang += 100
+                BARETKI.append("baretka_p99")
             pygame.mouse.set_visible(True)
             tablica_wynikow.append(wynikp99)
             strzelnica1wyniki()
 
-        if punkty > 200:
-            skrawek1 = "skrawek"
 
         screen.blit(graph.tabelaIMG, (5, 600))
 
@@ -4042,6 +4532,7 @@ def strzelnica_scena_1():
 
 def strzelnica1wyniki():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -4084,8 +4575,19 @@ def strzelnica1wyniki():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena22()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers1", tablica_wynikow[0], 730, 238, black)
         pisak.pisz("wers2", imieGracza, 460, 60, black)
@@ -4097,6 +4599,7 @@ def strzelnica1wyniki():
 
 def scena22():
     strzelnicaOGG.stop()
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -4140,8 +4643,19 @@ def scena22():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 egzamin_ruch()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Pierwsze strzelanie za Tobą! Polubiłeś(-aś) to..  odgłosy strzałów, spadających łusek,"
                            " zapach prochu.", 20, 90, white)
@@ -4445,6 +4959,7 @@ def egzamin_ruch4():
 
 def wyniki_ruch():
     running = True
+    global ocena_ruch, ocena_ruchSTR, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -4469,6 +4984,18 @@ def wyniki_ruch():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                if ocena_ruch == 5:
+                    exp += 20
+                    ang += 50
+                elif ocena_ruch == 4:
+                    exp += 15
+                elif ocena_ruch == 3:
+                    exp += 10
+                else:
+                    exp += 5
                 siren.stop()
                 loadingSound.play()
                 scena23()
@@ -4490,6 +5017,14 @@ def wyniki_ruch():
             if click:
                 loadingSound.play()
                 equip()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wersX", imieGracza, 600, 220, white)
         pisak.pisz("wers", "Twoja ocena z testu RUCH DROGOWY!", 450, 250, white)
 
@@ -4514,7 +5049,6 @@ def wyniki_ruch():
         else:
             odp4x = 0
 
-        global ocena_ruch, ocena_ruchSTR
         ocena_ruch = jeden + odp1x + odp2x + odp3x + odp4x
         ocena_ruchSTR = str(ocena_ruch)
 
@@ -4548,6 +5082,7 @@ def wyniki_ruch():
 def scena23():
     szum.stop()
     siren.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -4574,11 +5109,19 @@ def scena23():
         if button_nie.collidepoint((mx, my)):
             screen.blit(graph.cela_nav[1], (470, 600))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 scena_cela()
 
         if button_tak.collidepoint((mx, my)):
             screen.blit(graph.miasto[1], (660, 600))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 scena_miasto()
 
         if notka.collidepoint((mx, my)):
@@ -4599,6 +5142,13 @@ def scena23():
                 loadingSound.play()
                 wykazOcen()
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Drugi sprawdzian za Tobą. Z tego co widać w indeksie, to pozostały jeszcze dwa do"
                            " egzaminu końcowego", 30, 120, white)
         pisak.pisz("wers1", "Na odstresowanie Tomek proponuje by wyjść na jakieś piwko. ", 30, 150, white)
@@ -4617,6 +5167,7 @@ def scena23():
 def scena_cela():
     siren.stop()
     barSound.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -4639,8 +5190,19 @@ def scena_cela():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena_cela2()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "W CELI jak zwykle - głośna muzyka i tłum ludzi. Czy każdy 'opija' tutaj sprawdziany?",
                    20, 150, white)
@@ -4671,6 +5233,7 @@ def scena_cela():
 
 def scena_cela2():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -4692,8 +5255,19 @@ def scena_cela2():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena24()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Pod barem tłoczą się ludzie ale Tomka nie widać.", 20, 150, white)
         pisak.pisz("wers1", "Na blacie, dostrzegasz samotnie stojące 4 kufle piwa, w tym jedno ciemne.."
@@ -4729,6 +5303,7 @@ def scena_cela2():
 def scena_miasto():
     siren.stop()
     spacerOGG.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -4772,8 +5347,19 @@ def scena_miasto():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena24()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Tomek nalegał ale zdecydowliście sie pójść na miasto. Trzeba się ruszyć dalej a nie"
                            " kisić przy szkole.", 20, 90, white)
@@ -4806,6 +5392,7 @@ def scena24():
     siren.play(-1)
     spacerOGG.stop()
     barSound.stop()
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -4831,6 +5418,10 @@ def scena24():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena_prog_3()
 
@@ -4851,6 +5442,13 @@ def scena24():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Wyjście za mury szkoły to jest coś co lubisz. Takie piwko po egzaminie chyba stanie"
                            " się Waszą tradycją.", 20, 120, white)
@@ -4933,6 +5531,13 @@ def scena_prog_3():
                 loadingSound.play()
                 chose_save()
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Ten etap pozwala zapisać stan Gry.", 20, 460, dyellow)
         pisak.pisz("wers1", "Przy kolejnym uruchomieniu gry, w MENU pojawi się ikona plusa '+' - oznaczająca"
                             " kontynuację", 20, 490, dyellow)
@@ -4946,6 +5551,7 @@ def scena_prog_3():
 def scena25():
     pygame.mixer.music.stop()
     siren.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -4971,6 +5577,10 @@ def scena25():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena26()
 
@@ -4991,6 +5601,13 @@ def scena25():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers0", "Piątek, piąteczek, piątunio! Nie dość, że za chwilę pojedziecie do domu to jeszcze"
                             " okazało się", 20, 120, white)
@@ -5015,6 +5632,7 @@ def scena25():
 
 def scena26():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -5040,12 +5658,20 @@ def scena26():
         if button_nie.collidepoint((mx, my)):
             screen.blit(graph.nie[1], (470, 600))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena27()
 
         if button_tak.collidepoint((mx, my)):
             screen.blit(graph.tak[1], (660, 600))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena_torba()
 
@@ -5066,6 +5692,13 @@ def scena26():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "I po zajęciach, weekend można uznać za rozpoczety, no.. prawie rozpoczety.", 20, 90, white)
         pisak.pisz("wers1", "Wszyscy się spieszą i nikt już nie czeka na obiad, każdy chce czym prędzej wsiąść"
@@ -5094,6 +5727,7 @@ def scena26():
 
 def scena_torba():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     global quest_tomek_torba
     while running:
         click = False
@@ -5121,6 +5755,10 @@ def scena_torba():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena27()
 
@@ -5145,6 +5783,7 @@ def scena_torba():
 
 def scena27():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -5169,6 +5808,10 @@ def scena27():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena_prog_4()
 
@@ -5189,6 +5832,13 @@ def scena27():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Spakowałeś(-aś) się do końca, zamknąłeś(-aś) pokój i wypisałeś(-aś) się u dyżurnego"
                            " akademika na wyjazd.", 20, 90, white)
@@ -5261,6 +5911,13 @@ def scena_prog_4():
                 loadingSound.play()
                 wykazOcen()
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Może być tak, że część tekstu wypisywana jest w grze na zielono z gwiazdką '*'.",
                    20, 430, dyellow)
         pisak.pisz("wers1", "*Taki tekst pojawia się jedynie, gdy pokierowałeś fabułą w interesującym kierunku,"
@@ -5277,6 +5934,7 @@ def scena_prog_4():
 
 def scena28():
     siren.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -5302,6 +5960,10 @@ def scena28():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena29()
 
@@ -5322,6 +5984,13 @@ def scena28():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Weekend zleciał nim się obejrzałeś(-aś), szkoda że kurs nie leci tak szybko..",
                    20, 90, white)
@@ -5345,6 +6014,7 @@ def scena28():
 
 def scena29():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -5369,6 +6039,10 @@ def scena29():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena30()
 
@@ -5389,6 +6063,13 @@ def scena29():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Bach! - drzwi otwierają się z impetem aż wyrywa Cię na baczność z łóżka.", 20, 90, white)
         pisak.pisz("wers1", "- Czeeeeeeśc! O a myślałam, że będę pierwsza. A Ty co tak na baczność stoisz?"
@@ -5422,6 +6103,7 @@ def scena29():
 
 def scena30():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
         global wykroczenia
@@ -5448,6 +6130,10 @@ def scena30():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 egzamin_wykr()
 
@@ -5468,6 +6154,13 @@ def scena30():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Dzisiaj był chyba jeden z cięższych dni na kursie. Zajęcia z wykroczeń, to dużo wiedzy"
                            " do przyswojenia.", 20, 90, white)
@@ -5762,6 +6455,7 @@ def egzamin_wykr4():
 
 def wyniki_wykr():
     running = True
+    global ocena_wykr, ocena_wykrSTR, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -5786,6 +6480,17 @@ def wyniki_wykr():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania, dodatek_sluzbowy)
+                if ocena_wykr == 5:
+                    exp += 20
+                    ang += 50
+                elif ocena_wykr == 4:
+                    exp += 15
+                elif ocena_wykr == 3:
+                    exp += 10
+                else:
+                    exp += 5
                 szum.stop()
                 loadingSound.play()
                 scena31()
@@ -5831,7 +6536,6 @@ def wyniki_wykr():
         else:
             odp4x = 0
 
-        global ocena_wykr, ocena_wykrSTR
         ocena_wykr = jeden + odp1x + odp2x + odp3x + odp4x
         ocena_wykrSTR = str(ocena_wykr)
 
@@ -5863,6 +6567,7 @@ def wyniki_wykr():
 
 def scena31():
     siren.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -5889,12 +6594,20 @@ def scena31():
         if button_nie.collidepoint((mx, my)):
             screen.blit(graph.nie[1], (470, 600))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena_cela3()
 
         if button_tak.collidepoint((mx, my)):
             screen.blit(graph.tak[1], (660, 600))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena_anka()
 
@@ -5915,6 +6628,13 @@ def scena31():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Jesteście już po zajęciach. Trzeci sprawdzian za Wami. Tomek z Iwoną dostali po 3,"
                            " Anka pójdzie na poprawkę.", 20, 90, white)
@@ -5942,6 +6662,7 @@ def scena31():
 
 def scena_anka():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -5966,6 +6687,10 @@ def scena_anka():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena32()
 
@@ -5986,6 +6711,13 @@ def scena_anka():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Postanowiłeś(-aś) wesprzeć koleżankę i pomóc jej w nauce. Tomek z Iwoną poszli do CELI"
                            " opić sprawdzian.", 20, 120, white)
@@ -6026,6 +6758,7 @@ def scena_anka():
 def scena_cela3():
     siren.stop()
     barSound.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -6048,6 +6781,10 @@ def scena_cela3():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena_cela4()
 
@@ -6070,6 +6807,10 @@ def scena_cela3():
             if idex.collidepoint((mx, my)):
                 screen.blit(graph.ide[1], (550, 620))
                 if click:
+                    exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                    ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                      dodatek_sluzbowy)
+                    exp += 5
                     loadingSound.play()
                     scena_cela_quest()
 
@@ -6081,6 +6822,7 @@ def scena_cela3():
 
 def scena_cela_quest():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     global quest_tomek_cela
     while running:
         click = False
@@ -6104,6 +6846,10 @@ def scena_cela_quest():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena_cela4()
 
@@ -6133,6 +6879,7 @@ def scena_cela_quest():
 
 def scena_cela4():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -6154,6 +6901,10 @@ def scena_cela4():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 barSound.stop()
                 loadingSound.play()
                 siren.play(-1)
@@ -6188,6 +6939,7 @@ def scena_cela4():
 
 def scena32():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -6212,6 +6964,10 @@ def scena32():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena33()
 
@@ -6233,6 +6989,13 @@ def scena32():
                 loadingSound.play()
                 wykazOcen()
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Minął kolejny dzień kursu. Trzymaliście kciuki za Ankę i opłaciło się - zaliczyła"
                            " sprawdzian poprawkowy.", 20, 120, white)
         pisak.pisz("wers1", "W pokoju panuje wesoła atmosfera, która wszystkim się udziela.", 20, 150, white)
@@ -6251,6 +7014,7 @@ def scena32():
 def scena33():
     siren.stop()
     strzelnicaOGG.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -6294,8 +7058,19 @@ def scena33():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 strzelnica_mossberg()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Nowy dzionek zapowiada się całkiem przyzwoicie. Będziesz strzelać na strzelnicy.",
                    30, 150, white)
@@ -6325,7 +7100,7 @@ def strzelnica_mossberg():
     punkty = 0
     naboje = 25
     delta = 0.0
-    global blob_color, wynikmb
+    global blob_color, wynikmb, ang
     while True:
         click = False
         for event in pygame.event.get():
@@ -6342,9 +7117,13 @@ def strzelnica_mossberg():
 
         screen.blit(graph.strzelnica2, (0, 0))
         if naboje <= 0:
+            if punkty > 200:
+                ang += 100
+                BARETKI.append("baretka_mosberg")
             pygame.mouse.set_visible(True)
             tablica_wynikow_mb.append(wynikmb)
             strzelnica2wyniki()
+
 
         screen.blit(graph.tabelaIMG, (5, 600))
         mx, my = pygame.mouse.get_pos()
@@ -6456,6 +7235,7 @@ def strzelnica_mossberg():
 
 def strzelnica2wyniki():
     running = True
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -6498,8 +7278,19 @@ def strzelnica2wyniki():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena34()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
                 
         pisak.pisz("wers1", wynikp99, 730, 238, black)
         pisak.pisz("wers2", wynikmb, 730, 328, black)
@@ -6513,6 +7304,7 @@ def strzelnica2wyniki():
 def scena34():
     strzelnicaOGG.stop()
     siren.play(-1)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -6538,6 +7330,10 @@ def scena34():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 loadingSound.play()
                 scena35()
 
@@ -6558,6 +7354,13 @@ def scena34():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Po strzelnicy wszyscy pakują się do wyjazdu.. no prawie wszyscy bo Ty zostajesz"
                            " na weekend.", 20, 120, white)
@@ -6587,7 +7390,7 @@ def scena34():
 
 def scena35():
     running = True
-    global item
+    global item, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -6614,6 +7417,10 @@ def scena35():
             if dalej_x.collidepoint((mx, my)):
                 screen.blit(graph.press_Dalej[1], (1100, 640))
                 if click:
+                    exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                    ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                      dodatek_sluzbowy)
+                    exp += 5
                     loadingSound.play()
                     scena36()
 
@@ -6634,6 +7441,13 @@ def scena35():
             if click:
                 loadingSound.play()
                 wykazOcen()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "17:50 - choć tak dobrze Ci się spało, dźwięk budzika skutecznie wybudza Cię ze snu.", 20,
                    120, white)
@@ -6686,7 +7500,7 @@ def scena35():
 
 def scena36():
     running = True
-    global kod_pin, klucz_klodka, active
+    global kod_pin, klucz_klodka, active, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -6713,6 +7527,10 @@ def scena36():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 if active == "klucz_klodka":
                     active = ""
                 klucz_klodka = ""
@@ -6785,6 +7603,7 @@ def scena36():
 
 def scena_brama_magazyn(door_pkt=0):
     pygame.mouse.set_visible(False)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -6816,6 +7635,13 @@ def scena_brama_magazyn(door_pkt=0):
                 loadingSound.play()
                 notatnik()
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         if tornister.collidepoint((mx, my)):
             screen.blit(graph.plecak1, (200, 570))
             if click:
@@ -6839,6 +7665,10 @@ def scena_brama_magazyn(door_pkt=0):
             if dalej.collidepoint((mx, my)):
                 screen.blit(graph.press_Dalej[1], (1100, 640))
                 if click:
+                    exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                    ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                      dodatek_sluzbowy)
+                    exp += 5
                     loadingSound.play()
                     falklandy_mapa()
 
@@ -7025,6 +7855,7 @@ def scena_brama_kod_pin():
 
 def falklandy_mapa(text_radio=0, sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, sektor_e=0, sektor_f=0, sektor_i=0, sektor_g=0):
     pygame.mouse.set_visible(False)
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     running = True
     while running:
         click = False
@@ -7091,6 +7922,10 @@ def falklandy_mapa(text_radio=0, sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0,
             if dalej.collidepoint((mx, my)):
                 screen.blit(graph.szkola[2], (1100, 630))
                 if click:
+                    exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                    ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                      dodatek_sluzbowy)
+                    exp += 5
                     pygame.mouse.set_visible(True)
                     loadingSound.play()
                     trasa_falklandy()
@@ -7148,6 +7983,13 @@ def falklandy_mapa(text_radio=0, sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0,
             if click:
                 loadingSound.play()
                 sektor_i = falklandy_sektor_i()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Kliknij w sektor, by zwiedzić wybrane miejsce!", 350, 650, dyellow)
 
@@ -7210,6 +8052,13 @@ def falklandy_sektor_a():
                 sektor_a = 1
                 loadingSound.play()
                 running = False
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Brama - zamknięta.", 20, 90, white)
         pisak.pisz("wers1", "Ogrodzenie - bez uszkodzeń.", 20, 120, white)
@@ -7276,6 +8125,13 @@ def falklandy_sektor_b():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Ogrodzenie, jeśli zardzewiałą siatkę można nazwać ogrodzeniem - bez uszkodzeń.", 20, 90, white)
         pisak.pisz("wers1", "Ogólnie to pusto tutaj, ciekawe czy cały plac wygląda tak samo..", 20, 120, white)
         pisak.pisz("wers2", "To miejsce zostało sprawdzone..", 20, 150, white)
@@ -7340,6 +8196,13 @@ def falklandy_sektor_c():
                 sektor_c = 1
                 loadingSound.play()
                 running = False
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Ogrodzenie - bez uszkodzeń.", 20, 90, white)
         pisak.pisz("wers1", "Na ziemi walają się odłamki skruszonego mokrego betonu - Ten plac musi być bardzo stary - myślisz.", 20, 120, white)
@@ -7420,6 +8283,13 @@ def falklandy_sektor_d():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         if klucz_quest != "kluczyk":
             pisak.pisz("wers", "Jakieś dziwne miejsce, jakby coś miało być budowane lub.. niszczone.", 20, 30, white)
             pisak.pisz("wers1", "Pełno tu starych przedmiotów, jakieś łopaty, skórzane wytarte rękawice, no.. prawie śmietnik.", 20, 60, white)
@@ -7493,6 +8363,13 @@ def falklandy_sektor_e():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Ogrodzenie - bez uszkodzeń.", 20, 90, white)
         pisak.pisz("wers1", "Ponownie zastanawiasz się nad sensem sprawdzania tego miejsca.. pustki.. ciemno.. cicho..", 20, 120, white)
         pisak.pisz("wers2", "No.. prawie cicho. Słychać tylko padający deszcz, spływający po rynnie magazynu.", 20, 150, white)
@@ -7561,6 +8438,13 @@ def falklandy_sektor_f():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Nic tu nie ma.. Żywej duszy.. A ty chodzisz wzdłuż ogrodzenia jak pies.. Mokry pies..", 20, 90, white)
         pisak.pisz("wers1", "Nie lepiej zamontować tu kamery? - zastanawiasz się.", 20, 120, white)
         pisak.pisz("wers2", "Ogrodzenie całe, bez uszkodzeń - to miejsce zostało sprawdzone.", 20, 150, white)
@@ -7627,6 +8511,13 @@ def falklandy_sektor_g():
                 sektor_g = 1
                 loadingSound.play()
                 running = False
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Miejsce za magazynem, to pozostałości po starym chodniku, prowadzącym w kierunku zardzewiałych drzwi pod nasypem.", 20, 30, white)
         pisak.pisz("wers1", "To miejsce wydaje się tajemnicze.. Masywne drzwi bez klamki i zamka?", 20, 60, white)
@@ -7704,6 +8595,13 @@ def falklandy_sektor_i():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Zastanawiasz się, że oprócz magazynu, nic tutaj nie ma ciekawego do oglądania.", 20, 90, white)
         pisak.pisz("wers1", "'Iwona naopowiadała nam pewnie bajek na dobranoc' - przypominasz sobie historię ze szpitalem.", 20, 120, white)
         pisak.pisz("wers2", "'Gdyby mieć więcej czasu tutaj, to można sprawdzić ten magazyn dokładniej' - kontynuujesz myśl.", 20, 150, white)
@@ -7776,6 +8674,13 @@ def falklandy_sektor_h(text_radio=0):
                 sektor_h = 1
                 loadingSound.play()
                 running = False
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Obchodzisz cały budynek dookoła ale nic nie znajdujesz..", 20, 60, white)
         pisak.pisz("wers1", "Podchodzisz od frontu do zardzewiałych drzwi - zamknięte.", 20, 90, white)
@@ -7855,6 +8760,13 @@ def falklandy_sektor_h_klodka():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         if text_radio != 1:
             pisak.pisz("wers2", "Na drzwiach wisi kłódka.", 20, 30, white)
             pisak.pisz("wers1", "Musisz sprawdzić wnętrze tego budynku.", 20, 60, white)
@@ -7918,7 +8830,7 @@ def falklandy_sektor_h_klodka():
 def trasa_falklandy():
     running = True
     radios.play()
-    global klucz_klodka
+    global klucz_klodka, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         klucz_klodka = "klucz_klodka"
         click = False
@@ -7962,9 +8874,20 @@ def trasa_falklandy():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 rain_wav.stop()
                 loadingSound.play()
                 akademik_dyzurny()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Dyżurny ponownie wzywa przez radiostację ale nic z tego nie rozumiesz, przez zakłócenia.", 20, 60, white)
         pisak.pisz("wers1", "Idąc ulicą Solidarności i tak unikając co większych kałuż, Twoja twarz się rozpromienia.", 20, 90, white)
@@ -7985,7 +8908,7 @@ def trasa_falklandy():
 def akademik_dyzurny():
     siren.play()
     running = True
-    global klucz_klodka, active
+    global klucz_klodka, active, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
     while running:
         click = False
 
@@ -8028,6 +8951,10 @@ def akademik_dyzurny():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                                                                                  dodatek_sluzbowy)
+                exp += 5
                 if active == "klucz_klodka":
                     active = ""
                 klucz_klodka = ""
@@ -8035,6 +8962,13 @@ def akademik_dyzurny():
                 loadingSound.play()
                 rain_wav.play(-1)
                 plan_szkoly()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "- Nooo nareszcie! - dyżurny ironicznie zwraca się do Ciebie - A radiostacji to nie nauczyli Cię obsługować?", 20, 30, white)
         pisak.pisz("wers1", "- Rozumiem, że Falklandy zostały sprawdzone i wszystko jest wporządku, tak? - spogląda marszcząc brwi", 20, 60, white)
@@ -8102,6 +9036,13 @@ def kinowa_budynek():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Budynek nr 7 - znajduje się w nim sala kinowa i centrum konferencyjne.", 20, 90, white)
         pisak.pisz("wers1", "Drzwi są otwarte, dlatego wchodzisz do środka, po lewej stronie schody do góry,"
                            " po prawej - na dół.", 20, 120, white)
@@ -8168,6 +9109,13 @@ def dziekanat_budynek():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Budynek nr 6 - dziekanaty, sale wykładowe.. nic ciekawego.. ",
                    20, 90, white)
 
@@ -8227,6 +9175,13 @@ def tajwan_budynek():
                 tajwan_budynek_pkt = 1
                 loadingSound.play()
                 running = False
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Budynek nr 28 - stary budynek na uboczu, nazywany przez policjantów - TAJWAN.",
                    20, 90, white)
@@ -8296,6 +9251,13 @@ def budowla_budynek():
                 budowla_budynek_pkt = 1
                 loadingSound.play()
                 running = False
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Budynek nr 27 - Dział zaopatrzenia i transportu.",
                    20, 90, white)
@@ -8372,6 +9334,13 @@ def palarnia_budynek():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Magazyny i budynki gospodarcze.",
                    20, 90, white)
         pisak.pisz("wers1", "Z budynku, dochodzi odgłos pracującej pompy wodnej.", 20, 120, white)
@@ -8439,6 +9408,13 @@ def biblioteka_budynek():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Biblioteka - tutejsza biblioteka posiada dużą bazę ciekawych książek i czasopism.",
                    20, 90, white)
         pisak.pisz("wers1", "Można by coś przeczytać skoro już zostałeś(-aś) na weekend.", 20, 120, white)
@@ -8504,6 +9480,13 @@ def kantyna_budynek():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Budunek nr 18 - siedziba Kanclerza i Prorektora WSPOL.", 20, 90, white)
         pisak.pisz("wers1", "Drzwi są zamknięte.. ", 20, 120, white)
 
@@ -8564,6 +9547,13 @@ def symulator_budynek():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Budunek nr 11 - znajdują się w nim: aula, sale wykładowe oraz symulator w sytuacjach"
                            " kryzysowych.", 20, 90, white)
         pisak.pisz("wers1", "Miałeś(-aś) tu już zajęcia, kilka razy zdarzyło Ci się przymknąć oko przy nudnych"
@@ -8587,6 +9577,7 @@ def symulator_budynek():
 
         pygame.display.update()
         mainClock.tick()
+
     return symulator_budynek_pkt
 
 
@@ -8645,6 +9636,13 @@ def silownia_budynek():
                 rain_wav.play(-1)
                 loadingSound.play()
                 running = False
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Siłownia - ot taki niewielki budynek.", 20, 90, white)
         pisak.pisz("wers1", "Hantle, ławeczki, ciężarki i różnorakie machiny na rozrost mięśni.",
@@ -8708,6 +9706,13 @@ def karate_budynek():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Hala sportów walki - tu również odbywają się zajęcia WF.", 20, 90, white)
         pisak.pisz("wers1", "Jest to trochę inna hala a to dlatego, że na podłodze rozłożone są materace.",
                    20, 120, white)
@@ -8722,6 +9727,7 @@ def karate_budynek():
 
         pygame.display.update()
         mainClock.tick()
+
     return karate_budynek_pkt
 
 
@@ -8777,6 +9783,13 @@ def hilton_budynek():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Budynek nr 9 to akademik, nazywany przez kursantów - Hilton", 20, 90, white)
         pisak.pisz("wers1", "Nazwę zawdzięcza temu, że w pokojach panuje nieco wyższy standard wypoczynku.",
                    20, 120, white)
@@ -8795,6 +9808,7 @@ def hilton_budynek():
 
         pygame.display.update()
         mainClock.tick()
+
     return hilton_budynek_pkt
 
 
@@ -8854,6 +9868,13 @@ def pcab_budynek():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Nowoczesny budynek PCAB - Policyjne Centrum Analityczno-Badawcze.", 20, 90, white)
         pisak.pisz("wers1", "Ciekawe miejsce, w którym jeszcze nie miałeś(-aś) zajęć i.. chyba mieć nie będziesz.",
                    20, 120, white)
@@ -8867,6 +9888,7 @@ def pcab_budynek():
 
         pygame.display.update()
         mainClock.tick()
+
     return pcab_budynek_pkt
 
 
@@ -8926,6 +9948,13 @@ def strzelnica_budynek():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Strzelnica - to niewielki budynek zaraz za salą gimnastyczną.", 20, 90, white)
         pisak.pisz("wers1", "W środku są 2 strzelnice, jedna wewnątrz, w której już strzelałeś(-aś) i druga na"
                             " zewnątrz", 20, 120, white)
@@ -8940,6 +9969,7 @@ def strzelnica_budynek():
 
         pygame.display.update()
         mainClock.tick()
+
     return strzelnica_budynek_pkt
 
 
@@ -8999,6 +10029,13 @@ def salawf_budynek():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Wchodzisz do sali gimnastycznej. Miało być pusto ale..  na boisku rozgrywa się mecz piłki"
                            " halowej.", 20, 120, white)
         pisak.pisz("wers1", "Masz trochę czasu więc postanawiasz chwilę posiedzieć.",
@@ -9020,6 +10057,7 @@ def salawf_budynek():
 
         pygame.display.update()
         mainClock.tick()
+
     return salawf_budynek_pkt
 
 
@@ -9076,6 +10114,13 @@ def akademik_budynek_1():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Akademik nr 1 - to miejsce znasz już jak własną kieszeń. Logiczne - masz tu"
                            " przecież pokój!", 20, 60, white)
         pisak.pisz("wers7", "W sali 101 pusto - dyżurny poszedł już do sztabu.", 20, 90, white)
@@ -9084,6 +10129,7 @@ def akademik_budynek_1():
         screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
+
     return akademik_budynek_1_pkt
 
 # Akademik II
@@ -9138,6 +10184,13 @@ def akademik_budynek_2():
                 akademik_budynek_2_pkt = 1
                 loadingSound.play()
                 running = False
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Akademik nr 2 - Drugi z akademików na terenie szkoły.", 20, 60, white)
         pisak.pisz("wers1", "Szkoda, że nie macie tu pokoju - byłoby bliżej na stołówkę.", 20, 90, white)
@@ -9202,6 +10255,13 @@ def akademik_budynek_3():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Akademik nr 3 - Trzeci z akademików na terenie szkoły, pomiędzy stołówką a basenem.",
                    20, 60, white)
         pisak.pisz("wers1", "Charakteryzuje się tym, że na parterze jest 'podwyższony standard' warunków mieszkalnych.",
@@ -9217,6 +10277,7 @@ def akademik_budynek_3():
         screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
+
     return akademik_budynek_3_pkt
 
 # Sztab
@@ -9270,6 +10331,13 @@ def sztab_budynek():
                 sztab_budynek_pkt = 1
                 loadingSound.play()
                 running = False
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         pisak.pisz("wers", "Budynek nr 1 - Najważniejszy budynek na kampusie Wyższej Szkoły Policji w Szczytnie.",
                    20, 120, white)
@@ -9359,6 +10427,13 @@ def stolowka_budynek():
                 loadingSound.play()
                 running = False
 
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
         pisak.pisz("wers", "Wchodzisz po schodach na I piętro. Posiłów nie wydają już od kilku godzin.", 20, 120, white)
         pisak.pisz("wers1", "Na sali jest ze 100 stolików, przy każdym stoliku stoją po 4 krzesła.", 20, 150, white)
         pisak.pisz("wers2", "Panie barmanki, zsuwają krzesła i zabierają plastikowe koszyki z chlebem. ",
@@ -9417,6 +10492,13 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
             if click:
                 loadingSound.play()
                 scena36()
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
         if notka.collidepoint((mx, my)):
             screen.blit(graph.notatnikB, (20, 570))
@@ -9820,8 +10902,9 @@ def notatnik():
 def equip():
     pygame.mouse.set_visible(False)
     running = True
+    global active
     while running:
-        global active
+        poz_item = 0
         click = False
         screen.fill(black)
         screen.blit(graph.plecakIN, (0, 0))
@@ -9903,7 +10986,6 @@ def equip():
                 zawartosc_plecaka.append(klucz_klodka)
         except ValueError:
             pass
-        poz_item = 0
         try:
             for i in zawartosc_plecaka:
                 if i == "testyTomka":
@@ -10056,6 +11138,5 @@ def wykazOcen():
 
         pygame.display.update()
         mainClock.tick()
-
 
 intro_dev()
