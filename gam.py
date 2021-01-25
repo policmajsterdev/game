@@ -22,20 +22,25 @@ mainClock = pygame.time.Clock()
 filepath = os.path.dirname(__file__)
 
 # Rozmiar_okna
+
 screen = pygame.display.set_mode((1280, 720))
 
 # Nazwa_okna_gry
+
 pygame.display.set_caption("Policmajster: Początek")
 
 # Ikona_gry
+
 pygame.display.set_icon(graph.icon)
 
 # Muzyka w tle \\ reszta w module
+
 controlVol = 0.5
 pygame.mixer.music.load(os.path.join(filepath, "data\\sound\\horror2.wav"))
 pygame.mixer.music.set_volume(controlVol)
 
 # Dźwięki
+
 loadingSound = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\load.wav"))
 loadingSoundDEV = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\loading1.wav"))
 siren = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\norma.wav"))
@@ -66,35 +71,42 @@ door_open = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\open_door.wa
 radios = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\radiostacja.wav"))
 move = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\move.wav"))
 sektor_i_wav = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\sektori.wav"))
+warsztat_wav = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\warsztat.wav"))
 
 # Tekst
+
 myFont = pygame.font.SysFont("monospace", 18)
 
 # Save
+
 zapis = ""
 save_file = ""
 list_save = []
 
 # Zawartość notatnika
-legitymowanie = ""
-ruchdrogowy = ""
-wykroczenia = ""
+
+legitymowanie = ""  # SAVE 2
+ruchdrogowy = ""  # SAVE 3
+wykroczenia = ""  # SAVE 10
 
 # Zawartość plecaka
+
 active = ""
-pendrive1 = ""  # testyTomka
-skrawek1 = ""  # skrawek
+pendrive1 = ""  # SAVE 4
+skrawek1 = ""  # SAVE 5
 item = ""
-kod_pin = ""
-klucz_quest = ""  # kluczyk
-klucz_klodka = ""  # klucz_klodka
+kod_pin = ""  # SAVE 11
+klucz_quest = ""
+klucz_klodka = ""  # SAVE 12
 
 # Quest TOMEK
-quest_tomek_1 = ""  # personel #rozmowa
-quest_tomek_torba = ""  # torebunia
-quest_tomek_cela = ""  # cela
+
+quest_tomek_1 = ""  # SAVE 8
+quest_tomek_torba = ""  # SAVE
+quest_tomek_cela = ""  # SAVE
 
 # Kolory
+
 blue = (0, 0, 255)
 black = (0, 0, 0)
 white = (170, 170, 170)
@@ -105,37 +117,42 @@ brown = (153, 102, 51)
 dark_blue = (0, 51, 102)
 
 # Imię gracza
-imieGracza = ""
+
+imieGracza = ""  # SAVE 1
 
 # Egzaminy  [ ODPOWIEDZI ]
+
 odp1 = ""
 odp2 = ""
 odp3 = ""
 odp4 = ""
 ocena = ""
-ocenaSTR = ""
+ocenaSTR = ""  # SAVE 6
 
 odp1_ruch = ""
 odp2_ruch = ""
 odp3_ruch = ""
 odp4_ruch = ""
 ocena_ruch = ""
-ocena_ruchSTR = ""
+ocena_ruchSTR = ""  # SAVE 7
 
 odp1_wykr = ""
 odp2_wykr = ""
 odp3_wykr = ""
 odp4_wykr = ""
 ocena_wykr = ""
-ocena_wykrSTR = ""
+ocena_wykrSTR = ""  # SAVE 13
 
 # Wyniki ze strzelania
+
 tablica_wynikow = []
 tablica_wynikow_mb = []
-wynikp99 = ""
-wynikmb = ""
+wynikp99 = ""  # SAVE 9
+wynikmb = ""  # SAVE 14
+
 
 # Strzelnica
+
 gun = pygame.image.load(os.path.join(filepath, "data\\tarcze\\gun.png")).convert_alpha()
 gun2 = pygame.image.load(os.path.join(filepath, "data\\tarcze\\gun1.png")).convert_alpha()
 efe = [pygame.image.load(os.path.join(filepath, "data\\tarcze\\efe.png")).convert_alpha(),
@@ -193,17 +210,35 @@ blob_color = green_blob
 
 # Doświadczenie_/_Wyróżnienia
 
-exp = 1
-ang = 1
-stopien_sluzbowy = "POSTERUNKOWY"
-grupa_zaszeregowania = "kursant"
-dodatek_sluzbowy = "0 zł"
-BARETKI = []
+exp = 1  # SAVE 15
+ang = 1  # SAVE 16
+stopien_sluzbowy = ""  # SAVE 17
+grupa_zaszeregowania = ""  # SAVE 18
+dodatek_sluzbowy = 0  # SAVE 19
+BARETKI = []  # SAVE 26
+kwota_bazowa = 1614.69  # SAVE 20
+mnoznik_grupa = 1.36  # SAVE 21
+dodatek_stopien = 280  # SAVE 22
+wysluga_lat = 1  # SAVE 23
+dni_sluzby = 1  # SAVE 24
+stan_konta = 2500.74  # SAVE 25
+
+
+# Doświadczenia_str
+
+kwota_bazowa_str = str(kwota_bazowa)
+mnoznik_grupa_str = str(mnoznik_grupa)
+dodatek_sluzbowy_str = str(dodatek_sluzbowy)
+dodatek_stopien_str = str(dodatek_stopien)
+wysluga_lat_str = str(wysluga_lat)
+wysluga_procent = wysluga_lat_str + "%"
 
 # Akta_osobowe
 
 
 def akta_osobowe():
+    pygame.mouse.set_visible(True)
+    global dni_sluzby, stan_konta
     running = True
     exp_str = str(exp)
     ang_str = str(ang)
@@ -211,6 +246,11 @@ def akta_osobowe():
     block_exp = Rect(111, 296, exp, 18)
     ramka_ang = Rect(110, 345, 300, 20)
     block_ang = Rect(111, 346, ang, 18)
+    wyplata_netto = experience.uposazenie_netto(kwota_bazowa, mnoznik_grupa, dodatek_sluzbowy, dodatek_stopien, wysluga_lat)
+    dni_sluzby, stan_konta = experience.wyplata(dni_sluzby, stan_konta, wyplata_netto)
+    wyplata_netto_str = str(wyplata_netto)
+    stan_konta_str = str(stan_konta)
+    najblizsza_wyplata = 31 - dni_sluzby
     while running:
         poz_y = 0
         click = False
@@ -248,29 +288,44 @@ def akta_osobowe():
                 barteka_p99_x = screen.blit(graph.odznaka_p99[1], (730, 160 + poz_y))
                 if barteka_p99_x.collidepoint((mx, my)):
                     screen.blit(graph.odznaka_p99[0], (730, 160 + poz_y))
-                    pisak.pisz("wers1a", "Ponad 200 pkt na strzelnicy z P99", 730, 160 + poz_y, dyellow)
-                poz_y += 30
+                    pisak.pisz("wers1a", "Ponad 200 pkt na strzelnicy z P99", 730, 140 + poz_y, red)
+                poz_y += 50
             if i == "baretka_mosberg":
                 baretka_mosberg_x = screen.blit(graph.odznaka_mosberg[1], (730, 160 + poz_y))
                 if baretka_mosberg_x.collidepoint((mx, my)):
                     screen.blit(graph.odznaka_mosberg[0], (730, 160 + poz_y))
-                    pisak.pisz("wers1a", "Ponad 200 pkt na strzelnicy z Mossberg 590", 730, 160 + poz_y, dyellow)
-                poz_y += 30
+                    pisak.pisz("wers1a", "Ponad 200 pkt na strzelnicy z Mossberg 590", 730, 140 + poz_y, red)
+                poz_y += 50
 
         pisak.pisz("wers2", "Dane funkcjonariusza:", 110, 153, black)
         pisak.pisz("wers2", imieGracza, 340, 153, black)
         pisak.pisz("wers3", "Stopień sł.:", 110, 175, black)
-        pisak.pisz("wers33", stopien_sluzbowy, 340, 175, black)
+        pisak.pisz("wers33", stopien_sluzbowy, 340, 175, blue)
         pisak.pisz("wers8", "Numer odznaki:       997187", 110, 250, black)
         pisak.pisz("wers9", "Doświadczenie:", 110, 270, black)
-        pisak.pisz("wers91", exp_str, 340, 270, dark_blue)
+        pisak.pisz("wers91", exp_str, 340, 270, blue)
         pisak.pisz("wers92", "/300", 378, 270, black)
         pisak.pisz("wers99", "Grupa zaszeregowania:", 110, 375, black)
-        pisak.pisz("wers99", grupa_zaszeregowania, 340, 375, black)
+        pisak.pisz("wers99", grupa_zaszeregowania, 340, 375, brown)
         pisak.pisz("wers22", "Dodatek służbowy:", 110, 395, black)
-        pisak.pisz("wers23", dodatek_sluzbowy, 340, 395, brown)
-        pisak.pisz("wers2a", "Kariera:", 110, 435, black)
-        pisak.pisz("wers2a", "- kursant WSPOL Szczytno", 120, 450, black)
+        pisak.pisz("wers23", dodatek_sluzbowy_str, 340, 395, brown)
+        pisak.pisz("wers2a", "Składniki uposażenia:", 110, 435, black)
+        pisak.pisz("wers2a", "- kwota bazowa", 120, 450, black)
+        pisak.pisz("wers2b", kwota_bazowa_str, 340, 450, black)
+        pisak.pisz("wers2c", "- mnożnik", 120, 470, black)
+        pisak.pisz("wers2d", mnoznik_grupa_str, 340, 470, brown)
+        pisak.pisz("wers2e", "- dodatek służbowy", 120, 490, black)
+        pisak.pisz("wers2f", dodatek_sluzbowy_str, 340, 490, brown)
+        pisak.pisz("wers2g", "- dodatek stopień", 120, 510, black)
+        pisak.pisz("wers2h", dodatek_stopien_str, 340, 510, blue)
+        pisak.pisz("wers2i", "- wysługa lat", 120, 530, black)
+        pisak.pisz("wers2j", wysluga_procent, 340, 530, black)
+        pisak.pisz("wers2k", "Uposażenie netto :", 120, 560, black)
+        pisak.pisz("wers2l", wyplata_netto_str, 340, 560, blue)
+        pisak.pisz("wers2o", "Wypłata za     dni.", 120, 580, black)
+        pisak.pisz("wers2p", str(najblizsza_wyplata), 250, 580, black)
+        pisak.pisz("wers2k", "Stan konta", 190, 605, black)
+        pisak.pisz("wers2k", stan_konta_str, 205, 635, white)
         pisak.pisz("wers4", "Zaangażowanie:", 110, 320, black)
         pisak.pisz("wers4", ang_str, 340, 320, brown)
         pisak.pisz("wers41", "/300", 378, 320, black)
@@ -298,6 +353,7 @@ def chose_save():
                     click = True
 
         screen.fill(black)
+
         if bg_chose == 0:
             screen.blit(graph.bg_conn, (0, 0))
         elif bg_chose == 1:
@@ -308,35 +364,40 @@ def chose_save():
             screen.blit(graph.bg_chose[2], (0, 0))
         else:
             screen.blit(graph.bg_conn, (0, 0))
+
         button_iota_x = screen.blit(graph.button_iota[0], (400, 250))
         button_bsv_x = screen.blit(graph.button_bsv[0], (600, 250))
         button_pc_x = screen.blit(graph.button_pc[0], (800, 250))
         cofnij_x = screen.blit(graph.cofnij[0], (580, 640))
-
         pisak.pisz("wers1", "Jak chcesz zapisać grę?", 520, 150, white)
+
         if button_iota_x.collidepoint((mx, my)):
             screen.blit(graph.button_iota[1], (400, 250))
             bg_chose = 1
             if click:
                 loadingSound.play()
                 iota_save()
+
         if button_bsv_x.collidepoint((mx, my)):
             screen.blit(graph.button_bsv[1], (600, 250))
             bg_chose = 2
             if click:
                 loadingSound.play()
                 bsv_save()
+
         if button_pc_x.collidepoint((mx, my)):
             screen.blit(graph.button_pc[1], (800, 250))
             bg_chose = 3
             if click:
                 loadingSound.play()
                 pc_save()
+
         if cofnij_x.collidepoint((mx, my)):
             screen.blit(graph.cofnij[1], (580, 640))
             if click:
                 loadingSound.play()
                 break
+
         pygame.display.update()
         mainClock.tick()
 
@@ -347,33 +408,75 @@ def create_save():
 
     save_list = ""
 
-    if imieGracza != "":
+    exp_s = "EXPERI:" + str(exp) + "/"  # 15
+    save_list += exp_s
+    ang_s = "ZAANGA:" + str(ang) + "/"  # 16
+    save_list += ang_s
+    stopien_s = "STOPIE:" + stopien_sluzbowy + "/"  # 17
+    save_list += stopien_s
+    grupa_s = "GRUPAZ:" + grupa_zaszeregowania + "/"  # 18
+    save_list += grupa_s
+    dodatek_slu = "DODSLU:" + str(dodatek_sluzbowy) + "/"  # 19
+    save_list += dodatek_slu
+    kwota_baz_s = "KWOTAB:" + str(kwota_bazowa) + "/"  # 20
+    save_list += kwota_baz_s
+    mnoznik_s = "MNOZNI:" + str(mnoznik_grupa) + "/"  # 21
+    save_list += mnoznik_s
+    dodatek_sto = "DODSTO:" + str(dodatek_stopien) + "/"  # 22
+    save_list += dodatek_sto
+    wysluga_s = "WYSLUG:" + str(wysluga_lat) + "/"  # 23
+    save_list += wysluga_s
+    dni_s = "DNISLU:" + str(dni_sluzby) + "/"  # 24
+    save_list += dni_s
+    stan_konta_s = "STANKO:" + str(stan_konta) + "/"  # 25
+    save_list += stan_konta_s
+
+    if imieGracza != "":  # 1
         nazwa_gracza = "PLAYER:" + imieGracza + "/"
         save_list += nazwa_gracza
-    if legitymowanie != "":
+    if legitymowanie != "":  # 2
         notatnik_leg = "LEGITY:" + legitymowanie + "/"
         save_list += notatnik_leg
-    if ruchdrogowy != "":
+    if ruchdrogowy != "":  # 3
         notatnik_ruc = "RUCHDR:" + ruchdrogowy + "/"
         save_list += notatnik_ruc
-    if pendrive1 != "":
+    if pendrive1 != "":  # 4
         usb_tom = "PENDRI:" + pendrive1 + "/"
         save_list += usb_tom
-    if skrawek1 != "":
+    if skrawek1 != "":  # 5
         skr_aw = "SKRAWE:" + skrawek1 + "/"
         save_list += skr_aw
-    if ocenaSTR != "":
+    if ocenaSTR != "":  # 6
         ocena_leg = "OCENAL:" + ocenaSTR + "/"
         save_list += ocena_leg
-    if ocena_ruchSTR != "":
+    if ocena_ruchSTR != "":  # 7
         ocena_ruc = "OCENAR:" + ocena_ruchSTR + "/"
         save_list += ocena_ruc
-    if quest_tomek_1 != "":
+    if quest_tomek_1 != "":  # 8
         quest_t = "QUESTT:" + quest_tomek_1 + "/"
         save_list += quest_t
-    if wynikp99 != "":
+    if wynikp99 != "":  # 9
         wynik_p = "WYNIKP:" + wynikp99 + "/"
         save_list += wynik_p
+    if wykroczenia != "":  # 10
+        notatnik_wykr = "WYKROC:" + wykroczenia + "/"
+        save_list += notatnik_wykr
+    if kod_pin != "":  # 11
+        kod_pin_s = "KODPIN:" + kod_pin + "/"
+        save_list += kod_pin_s
+    if klucz_klodka != "":  # 12
+        klucz_klodka_s = "KLUCZK:" + klucz_klodka + "/"
+        save_list += klucz_klodka_s
+    if ocena_wykrSTR != "":  # 13
+        ocena_wykro = "OCENAW:" + ocena_wykrSTR + "/"
+        save_list += ocena_wykro
+    if wynikmb != "":  # 14
+        wynik_m = "WYNIKM:" + wynikmb + "/"
+        save_list += wynik_m
+    if len(BARETKI) != 0:  # 26
+        str_1 = ','.join(BARETKI)
+        baretki_x = "BARETK:" + str_1 + "/"
+        save_list += baretki_x
 
     return save_list
 
@@ -409,7 +512,6 @@ def bsv_save():
                 if click:
                     loadingSound.play()
                     key, balance_bsv = bsvconn.check_bsv(pk_key)
-                    print(pk_key)
         else:
             screen.blit(graph.connect_bsv[2], (900, 20))
             pisak.pisz("wers2s", "Brak klucza prywatnego", 630, 130, red)
@@ -605,11 +707,14 @@ def intro_dev():
     while True:
         click = False
         mx, my = pygame.mouse.get_pos()
-        mouse = pygame.mouse.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
         screen.fill(black)
         screen.blit(graph.intro, (0, 0))
         pisak.pisz("wers1", "Kliknij by kontynuować..", 1000, 650, white)
@@ -635,11 +740,9 @@ def intro_dev():
             screen.blit(graph.kafel_6[1], (479, 116))
         if kaf_7.collidepoint((mx, my)):
             screen.blit(graph.kafel_7[1], (868, 391))
-            if mouse[0] == 1:
-                click = True
-                if click:
-                    loadingSound.play()
-                    wejsciedogry()
+            if click:
+                loadingSound.play()
+                wejsciedogry()
         if kaf_8.collidepoint((mx, my)):
             screen.blit(graph.kafel_8[1], (640, 44))
         pygame.display.update()
@@ -655,11 +758,13 @@ def wejsciedogry():
     global save_file
     while True:
         click = False
-        mouse = pygame.mouse.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
 
         bg_x -= 1
         bg_x2 -= 1
@@ -688,32 +793,26 @@ def wejsciedogry():
         if button_x.collidepoint((mx, my)):
             screen.blit(graph.press_Option[1], (680, 570))
             screen.blit(graph.kajdanki[1], (900, 500))
-            if mouse[0] == 1:
-                click = True
-                if click:
-                    loadingSound.play()
-                    info()
+            if click:
+                loadingSound.play()
+                info()
 
         if button.collidepoint((mx, my)):
             screen.blit(graph.press_Enter[1], (450, 570))
             screen.blit(graph.pistol[1], (0, 500))
-            if mouse[0] == 1:
-                click = True
-                if click:
-                    loadingSoundDEV.play()
-                    start()
+            if click:
+                loadingSoundDEV.play()
+                start()
 
         check_save = check_file_save.checking_files()
         if check_save == 1:
             kontynuacja_x = screen.blit(graph.kontynuacja[0], (618, 580))
             if kontynuacja_x.collidepoint((mx, my)):
                 screen.blit(graph.kontynuacja[1], (618, 580))
-                if mouse[0] == 1:
-                    click = True
-                    if click:
-                        iota_save, bsv_save, pc_save = check_file_save.type_save()
-                        loadingSound.play()
-                        kontynuacja_gry(iota_save, bsv_save, pc_save)
+                if click:
+                    iota_save, bsv_save, pc_save = check_file_save.type_save()
+                    loadingSound.play()
+                    kontynuacja_gry(iota_save, bsv_save, pc_save)
 
         pygame.display.update()
         mainClock.tick(30)
@@ -723,8 +822,6 @@ def wejsciedogry():
 
 def kontynuacja_gry(iota_save, bsv_save, pc_save):
     running = True
-    node = None
-    version = None
     node, version = iotaconn.check()
     api_bsv = bsvconn.status_api_bsv()
     continue_plus = 0
@@ -734,7 +831,7 @@ def kontynuacja_gry(iota_save, bsv_save, pc_save):
     iota_save_list_open = ""
     bsv_save_list_open = ""
     pc_save_list_open = ""
-    global imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR
+    global imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR, wykroczenia, kod_pin, klucz_klodka, ocena_wykrSTR, wynikmb, exp, ang, stopien_sluzbowy, grupa_zaszeregowania, dodatek_sluzbowy, kwota_bazowa, mnoznik_grupa, dodatek_stopien, wysluga_lat, dni_sluzby, stan_konta, BARETKI
     global quest_tomek_1, wynikp99
     global list_save
     while running:
@@ -851,7 +948,7 @@ def kontynuacja_gry(iota_save, bsv_save, pc_save):
             if dalejx.collidepoint((mx, my)):
                 screen.blit(graph.save_start[1], (1100, 570))
                 if click:
-                    imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR, quest_tomek_1, wynikp99 = check_file_save.delisting_save(list_save)
+                    imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR, quest_tomek_1, wynikp99, wykroczenia, kod_pin, klucz_klodka, ocena_wykrSTR, wynikmb, exp, ang, stopien_sluzbowy, grupa_zaszeregowania, dodatek_sluzbowy, kwota_bazowa, mnoznik_grupa, dodatek_stopien, wysluga_lat, dni_sluzby, stan_konta, BARETKI = check_file_save.delisting_save(list_save)
                     pygame.mixer.music.stop()
                     loadingSoundDEV.play()
                     scena_prog_3()
@@ -1125,8 +1222,7 @@ def start():
                 imieGracza = "".join(str(x) for x in nazwa_gracza)
 
         if not nazwa_gracza:
-            potwierdzenie_nie = myFont.render("Wpisz imię!", 1, red)
-            screen.blit(potwierdzenie_nie, (600, 150))
+            pisak.pisz("wersa1", "Wpisz imię.", 600, 150, red)
 
         if nazwa_gracza:
             enter_nopress = screen.blit(graph.key_enter[0], (965, 503))
@@ -1185,8 +1281,7 @@ def objasnienie():
 
         pisak.pisz("wers", "[ AKTA OSOBOWE ]", 30, 120, white)
         pisak.pisz("wers1", "Dane funkcjonariusza :", 30, 150, white)
-        text2 = myFont.render(imieGracza, 1, white)
-        screen.blit(text2, (280, 150))
+        pisak.pisz("wers1a", imieGracza, 280, 150, white)
         pisak.pisz("wers3", "Stopień : Posterunkowy", 30, 180, white)
         screen.blit(graph.post, (30, 210))
         pisak.pisz("wers4", "Data i miejsce urodzenia : 26.05.1988r Warszawa", 30, 340, white)
@@ -1207,14 +1302,13 @@ def objasnienie():
 def scena1():
     siren.play(-1)
     running = True
-    global exp
+    global exp, dni_sluzby
     while running:
         click = False
         
         screen.fill(black)
         screen.blit(graph.wspol, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-
 
         mx, my = pygame.mouse.get_pos()
 
@@ -1230,6 +1324,7 @@ def scena1():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                dni_sluzby += 1
                 exp += 5
                 loadingSound.play()
                 scena2()
@@ -1284,7 +1379,7 @@ def scena1():
 
 def scena2():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
         
@@ -1307,7 +1402,7 @@ def scena2():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania, dodatek_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania, dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
                 scena3()
@@ -1352,7 +1447,7 @@ def scena2():
 
 def scena3():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     while running:
         click = False
         
@@ -1375,9 +1470,10 @@ def scena3():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 1
                 loadingSound.play()
                 scena4()
 
@@ -1404,12 +1500,12 @@ def scena3():
                             " że będziecie mieli", 30, 330, white)
         pisak.pisz("wers7", "po 3-4 w tygodniu, czasem 2-3 dziennie a jak nie zaliczysz to masz jeszcze egzaminy"
                             " poprawkowe.", 30, 360, white)
-        pisak.pisz("wers8", "a jak tego poprawkowego nie zdasz to masz komisję, a u nas w tamtym tygodniu 2 osoby"
+        pisak.pisz("wers8", "a jak tego poprawkowego nie zdasz to masz komisję, a u nas w tamtym miesiącu 2 osoby"
                             " nie zaliczyły..", 30, 390, white)
         pisak.pisz("wers9", "- Nie zaliczyły? - pytasz trochę bardziej przejęty(-a) - No tak i wyleciały z całego"
                             " kursu.", 30, 420, white)
-        pisak.pisz("wers10", "- No dobra to trzymajcie się i korzystajcie z wolnego bo niebawem się zacznie -"
-                             " pokiwał głową i wyszedł.", 30, 450, white)
+        pisak.pisz("wers10", "- A jeden to strzelił sobie samobója.. świr.. kogo to przyjmują teraz.. ehh.."
+                             "- pokiwał głową i wyszedł.", 30, 450, white)
         pisak.pisz("wers11", "- Co to był za koleś? - powiedział Tomek, który wstał z łóżka obok. - Nie wiem -"
                              " odpowiedziała Anka,", 30, 480, white)
         pisak.pisz("wers12", "odkładając swój telefon na łóżko. - A właśnie, skąd jesteście? - zapytała Iwona,"
@@ -1424,7 +1520,7 @@ def scena3():
 
 
 def scena4():
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     running = True
     while running:
         click = False
@@ -1449,9 +1545,10 @@ def scena4():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 1
                 loadingSound.play()
                 scena5()
 
@@ -1508,7 +1605,7 @@ def scena4():
 
 
 def scena5():
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     running = True
     while running:
         click = False
@@ -1540,9 +1637,10 @@ def scena5():
             screen.blit(graph.tak[1], (660, 600))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 5
                 loadingSound.play()
                 silownia()
 
@@ -1591,7 +1689,7 @@ def scena5():
 def silownia():
     siren.stop()
     silowniaOGG.play(-1)
-    global exp, stopien_sluzbowy, pendrive1, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, pendrive1, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     pendrive1 = "testyTomka"
     running = True
     while running:
@@ -1616,7 +1714,7 @@ def silownia():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -1645,7 +1743,7 @@ def silownia():
         pisak.pisz("wers7", "bo był w innej klasie ale kojarzysz go z widzenia bo często mieliście łączone zajęcia"
                             " WF-u.", 30, 360, white)
         pisak.pisz("wers8", "- Kurczę nie widziałem Cię wcześniej, ile czasu tutaj jesteś? - kontynuuje. -"
-                            " Od 2 tygodni - odpowiadasz.", 30, 390, white)
+                            " Od tygodnia - odpowiadasz.", 30, 390, white)
         pisak.pisz("wers9", "- E to fajnie! Szkoda, że nie wcześniej bo mogliśmy razem dojeżdżać do szkoły."
                             " Ja za 3 tygodnie", 30, 420, white)
         pisak.pisz("wers10", "kończę już kurs. Odezwij się do mnie jutro dam Ci materiały do nauki, chyba"
@@ -1731,7 +1829,7 @@ def scena_prog():
 
 
 def scena6():
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     progOGG.stop()
     siren.play(-1)
     running = True
@@ -1763,9 +1861,10 @@ def scena6():
             screen.blit(graph.nie[1], (470, 600))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 2
                 loadingSound.play()
                 scena7()
 
@@ -1773,9 +1872,10 @@ def scena6():
             screen.blit(graph.tak[1], (660, 600))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 2
                 loadingSound.play()
                 silownia1()
 
@@ -1820,7 +1920,7 @@ def scena6():
 
 
 def silownia1():
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     siren.stop()
     silowniaOGG.play(-1)
     running = True
@@ -1846,7 +1946,7 @@ def silownia1():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 silowniaOGG.stop()
@@ -1874,7 +1974,7 @@ def silownia1():
 
 
 def scena7():
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     running = True
     while running:
         click = False
@@ -1900,9 +2000,10 @@ def scena7():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 2
                 loadingSound.play()
                 scena8()
 
@@ -1955,7 +2056,7 @@ def scena7():
 
 
 def scena8():
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     running = True
     while running:
         click = False
@@ -1981,9 +2082,10 @@ def scena8():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 1
                 loadingSound.play()
                 scena9()
 
@@ -2037,7 +2139,7 @@ def scena8():
 
 
 def scena9():
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     running = True
     while running:
         click = False
@@ -2063,9 +2165,10 @@ def scena9():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 3
                 loadingSound.play()
                 scena10()
 
@@ -2120,7 +2223,7 @@ def scena9():
 
 
 def scena10():
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     running = True
     while running:
         click = False
@@ -2146,9 +2249,10 @@ def scena10():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 1
                 loadingSound.play()
                 egzamin_leg()
 
@@ -2470,7 +2574,7 @@ def egzamin_leg4():
 
 def wyniki_leg():
     running = True
-    global exp, ocena, ocenaSTR, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, ocena, ocenaSTR, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -2495,7 +2599,7 @@ def wyniki_leg():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 if ocena == 5:
                     exp += 20
@@ -2651,7 +2755,7 @@ def scena_prog1():
 
 def scena11():
     siren.play()
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -2679,7 +2783,7 @@ def scena11():
             screen.blit(graph.nie[1], (470, 600))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -2689,7 +2793,7 @@ def scena11():
             screen.blit(graph.tak[1], (660, 600))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 siren.stop()
@@ -2746,7 +2850,7 @@ def scena11():
 
 def bar():
     barSound.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -2770,7 +2874,7 @@ def bar():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -2808,7 +2912,7 @@ def bar():
 
 def bar1():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -2832,7 +2936,7 @@ def bar1():
             screen.blit(graph.nie[1], (470, 600))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -2842,7 +2946,7 @@ def bar1():
             screen.blit(graph.tak[1], (660, 600))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -2879,7 +2983,7 @@ def bar1():
 
 def bar2():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     global quest_tomek_1
     while running:
         click = False
@@ -2905,7 +3009,7 @@ def bar2():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -2944,7 +3048,7 @@ def scena_bar_iwona():
     siren.stop()
     barSound.stop()
     siren.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -2968,7 +3072,7 @@ def scena_bar_iwona():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -3010,7 +3114,7 @@ def scena12():
     siren.stop()
     barSound.stop()
     siren.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     running = True
     while running:
         click = False
@@ -3038,9 +3142,10 @@ def scena12():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 3
                 loadingSound.play()
                 scena13()
 
@@ -3097,7 +3202,7 @@ def scena12():
 
 def scena13():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     while running:
         click = False
 
@@ -3123,9 +3228,10 @@ def scena13():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 1
                 loadingSound.play()
                 scena14()
 
@@ -3189,7 +3295,7 @@ def scena13():
 def scena14():
     siren.stop()
     korytarzSound.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -3216,7 +3322,7 @@ def scena14():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -3285,7 +3391,7 @@ def scena14():
 
 def scena15():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -3311,7 +3417,7 @@ def scena15():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -3383,7 +3489,7 @@ def scena15():
 
 def scena_sciana():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -3409,7 +3515,7 @@ def scena_sciana():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -3526,7 +3632,7 @@ def scena_prog2():
 
 def scena16():
     siren.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     running = True
     while running:
         click = False
@@ -3558,9 +3664,10 @@ def scena16():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 1
                 loadingSound.play()
                 scena17()
 
@@ -3630,7 +3737,7 @@ def scena16():
 
 def scena17():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -3658,7 +3765,7 @@ def scena17():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -3727,7 +3834,7 @@ def scena17():
 
 def scena18():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -3755,7 +3862,7 @@ def scena18():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -3814,7 +3921,7 @@ def scena18():
 
 def scena19():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     while running:
         click = False
 
@@ -3844,9 +3951,10 @@ def scena19():
             screen.blit(graph.silownia_N[1], (470, 600))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 6
                 loadingSound.play()
                 silownia2()
 
@@ -3854,9 +3962,10 @@ def scena19():
             screen.blit(graph.spacer_N[1], (660, 600))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 6
                 loadingSound.play()
                 spacer()
 
@@ -3914,7 +4023,7 @@ def silownia2():
     siren.stop()
     silowniaOGG.play(-1)
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     global quest_tomek_1
     while running:
         click = False
@@ -3961,7 +4070,7 @@ def silownia2():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -3981,22 +4090,16 @@ def silownia2():
         pisak.pisz("wers3", "- No jak już jestem to.. ehh.. dobra idę trochę poćwiczę, gdzie była ta szatnia",
                    20, 180, white)
         pisak.pisz("wers4", "Wchodzisz do szatni, siadasz na ławeczce, zmieniasz buty na wygodniejsze.", 20, 210, white)
-        pisak.pisz("wers5", "Słyszysz z korytarza, rozmowę jakiegoś mężczyzny przez telefon:", 20, 240, white)
-        pisak.pisz("wers6", "(ktoś) - Za krótko, mówiłem Ci.. To sam tu przyjedź i siedź.. Tak, jest może kilogram",
+        pisak.pisz("wers5", "Słyszysz z korytarza, rozmowę jakiegoś mężczyzny przez telefon, głos jakby Tomka:", 20, 240, white)
+        pisak.pisz("wers6", "(Tomek) - Za krótko, mówiłem Ci.. To sam tu przyjedź i siedź.. Jeszcze nie wiem kto..",
                    20, 270, white)
         pisak.pisz("wers7", "**Słyszysz tylko rozmówcę z korytarza, głos w słuchawce jest niezrozumiały.",
                    20, 300, white)
-        pisak.pisz("wers8", "(ktoś) - Nie wiem, dużo.. dobra muszę kończyć bo się zczają.. ", 20, 330, white)
-        pisak.pisz("wers9", "Słysząc to wbijasz tępo wzrok w szafkę - O k**** jak w filmie! - myślisz", 20, 360, white)
-        pisak.pisz("wers10", "Co robić? Podpierdolić dla dowódcy czy robić własne przeszpiegi?", 20, 390, white)
-        pisak.pisz("wers11", "Kilogram? Pewnie chodzi o narkotyki albo koks, napewno nie kartofle.", 20, 420, white)
-        pisak.pisz("wers12", "Słyszysz jak ktoś chodzi po korytarzu - O fak! Teraz nie wychodzę.. - siedzisz cicho.",
-                   20, 450, white)
-        pisak.pisz("wers13", "Zobaczy mnie i.. no i nie wiem co.. lipa będzie no.. jak nie dostanę po gębie..",
-                   20, 480, white)
-        pisak.pisz("wers14", "To mnie zastraszą.. Albo.. k****.. a może wyjść jakby nigdy nic? Powiem cześć. "
-                             "Chwila.. o cicho jest", 20, 510, white)
-        pisak.pisz("wers15", " *Zbierasz się nie zmieniając butów i wracasz prędko do akademika.", 20, 540, white)
+        pisak.pisz("wers8", "(Tomek) - Nie wiem, dużo.. dobra muszę kończyć bo się zczają.. ", 20, 330, white)
+        pisak.pisz("wers9", "Słysząc to wbijasz tępo wzrok w szafkę i nasłuchujesz dalej ale jest cicho.", 20, 360, white)
+        pisak.pisz("wers10", "*Hmm to była nieco dziwna rozmowa - zastanawiasz się i wychodzisz na korytarz", 20, 390, white)
+        pisak.pisz("wers11", "ale nikogo już tam nie ma.", 20, 420, white)
+        pisak.pisz("wers12", "*Odechciało Ci się ćwiczeń i nie zmieniając butów i wracasz do akademika.", 20, 450, white)
 
         pygame.display.update()
         mainClock.tick()
@@ -4007,7 +4110,7 @@ def silownia2():
 def spacer():
     siren.stop()
     spacerOGG.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -4052,7 +4155,7 @@ def spacer():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -4103,7 +4206,7 @@ def spacer():
 
 def spacer1():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -4147,7 +4250,7 @@ def spacer1():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -4199,7 +4302,7 @@ def spacer1():
 def scena20():
     spacerOGG.stop()
     silowniaOGG.stop()
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     running = True
     while running:
         click = False
@@ -4244,9 +4347,10 @@ def scena20():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 1
                 loadingSound.play()
                 scena21()
 
@@ -4259,7 +4363,7 @@ def scena20():
 
         pisak.pisz("wers", "Wchodzisz do pokoju. Iwona rozmawia z Anką o jutrzejszych zajęciach na strzelnicy.",
                    30, 120, white)
-        pisak.pisz("wers1", "Tomek bierze prysznic. Nie chwalisz się nikomu o tym co Cię spotkało.", 30, 150, white)
+        pisak.pisz("wers1", "Tomek bierze prysznic.", 30, 150, white)
         pisak.pisz("wers2", "Kładziesz się i idziesz spać.", 30, 180, white)
 
         pygame.display.update()
@@ -4268,7 +4372,7 @@ def scena20():
 
 def scena21():
     strzelnicaOGG.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -4313,7 +4417,7 @@ def scena21():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -4376,7 +4480,6 @@ def strzelnica_scena_1():
             pygame.mouse.set_visible(True)
             tablica_wynikow.append(wynikp99)
             strzelnica1wyniki()
-
 
         screen.blit(graph.tabelaIMG, (5, 600))
 
@@ -4532,7 +4635,7 @@ def strzelnica_scena_1():
 
 def strzelnica1wyniki():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -4576,7 +4679,7 @@ def strzelnica1wyniki():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -4599,7 +4702,7 @@ def strzelnica1wyniki():
 
 def scena22():
     strzelnicaOGG.stop()
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     running = True
     while running:
         click = False
@@ -4644,9 +4747,10 @@ def scena22():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 1
                 loadingSound.play()
                 egzamin_ruch()
 
@@ -4959,7 +5063,7 @@ def egzamin_ruch4():
 
 def wyniki_ruch():
     running = True
-    global ocena_ruch, ocena_ruchSTR, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global ocena_ruch, ocena_ruchSTR, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -4985,7 +5089,7 @@ def wyniki_ruch():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 if ocena_ruch == 5:
                     exp += 20
@@ -5082,7 +5186,7 @@ def wyniki_ruch():
 def scena23():
     szum.stop()
     siren.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     running = True
     while running:
         click = False
@@ -5110,18 +5214,20 @@ def scena23():
             screen.blit(graph.cela_nav[1], (470, 600))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 1
                 scena_cela()
 
         if button_tak.collidepoint((mx, my)):
             screen.blit(graph.miasto[1], (660, 600))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 1
                 scena_miasto()
 
         if notka.collidepoint((mx, my)):
@@ -5167,7 +5273,7 @@ def scena23():
 def scena_cela():
     siren.stop()
     barSound.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -5191,7 +5297,7 @@ def scena_cela():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -5233,7 +5339,7 @@ def scena_cela():
 
 def scena_cela2():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -5256,7 +5362,7 @@ def scena_cela2():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -5303,7 +5409,7 @@ def scena_cela2():
 def scena_miasto():
     siren.stop()
     spacerOGG.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -5348,7 +5454,7 @@ def scena_miasto():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -5392,7 +5498,7 @@ def scena24():
     siren.play(-1)
     spacerOGG.stop()
     barSound.stop()
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -5419,7 +5525,7 @@ def scena24():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -5551,7 +5657,7 @@ def scena_prog_3():
 def scena25():
     pygame.mixer.music.stop()
     siren.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -5578,7 +5684,7 @@ def scena25():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -5632,7 +5738,7 @@ def scena25():
 
 def scena26():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -5659,7 +5765,7 @@ def scena26():
             screen.blit(graph.nie[1], (470, 600))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -5669,7 +5775,7 @@ def scena26():
             screen.blit(graph.tak[1], (660, 600))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -5727,7 +5833,7 @@ def scena26():
 
 def scena_torba():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     global quest_tomek_torba
     while running:
         click = False
@@ -5756,7 +5862,7 @@ def scena_torba():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -5783,7 +5889,7 @@ def scena_torba():
 
 def scena27():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     while running:
         click = False
 
@@ -5809,9 +5915,10 @@ def scena27():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 3
                 loadingSound.play()
                 scena_prog_4()
 
@@ -5920,9 +6027,9 @@ def scena_prog_4():
 
         pisak.pisz("wers", "Może być tak, że część tekstu wypisywana jest w grze na zielono z gwiazdką '*'.",
                    20, 430, dyellow)
-        pisak.pisz("wers1", "*Taki tekst pojawia się jedynie, gdy pokierowałeś fabułą w interesującym kierunku,"
+        pisak.pisz("wers1", "*Taki tekst pojawia się jedynie, gdy pokierowałeś(-aś) fabułą w interesującym kierunku,"
                             " wykonujesz zadanie lub", 20, 460, green)
-        pisak.pisz("wers2", "*wykazałeś się sprawnością w jakimś etapie gry.", 20, 490, green)
+        pisak.pisz("wers2", "*wykazałeś(-aś) się sprawnością w jakimś etapie gry.", 20, 490, green)
         pisak.pisz("wers3", "*Są to też dodatkowe dialogi, pomocnicze przemyślenia bohatera lub specjalne sceny.",
                    20, 520, green)
 
@@ -5934,7 +6041,7 @@ def scena_prog_4():
 
 def scena28():
     siren.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -5961,7 +6068,7 @@ def scena28():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -6014,7 +6121,7 @@ def scena28():
 
 def scena29():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     while running:
         click = False
 
@@ -6040,9 +6147,10 @@ def scena29():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 1
                 loadingSound.play()
                 scena30()
 
@@ -6103,7 +6211,7 @@ def scena29():
 
 def scena30():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     while running:
         click = False
         global wykroczenia
@@ -6131,9 +6239,10 @@ def scena30():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 1
                 loadingSound.play()
                 egzamin_wykr()
 
@@ -6455,7 +6564,7 @@ def egzamin_wykr4():
 
 def wyniki_wykr():
     running = True
-    global ocena_wykr, ocena_wykrSTR, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global ocena_wykr, ocena_wykrSTR, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -6481,7 +6590,7 @@ def wyniki_wykr():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania, dodatek_sluzbowy)
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania, dodatek_sluzbowy)
                 if ocena_wykr == 5:
                     exp += 20
                     ang += 50
@@ -6567,7 +6676,7 @@ def wyniki_wykr():
 
 def scena31():
     siren.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     running = True
     while running:
         click = False
@@ -6595,9 +6704,10 @@ def scena31():
             screen.blit(graph.nie[1], (470, 600))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 1
                 loadingSound.play()
                 scena_cela3()
 
@@ -6605,9 +6715,10 @@ def scena31():
             screen.blit(graph.tak[1], (660, 600))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
+                dni_sluzby += 1
                 loadingSound.play()
                 scena_anka()
 
@@ -6662,7 +6773,7 @@ def scena31():
 
 def scena_anka():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -6688,7 +6799,7 @@ def scena_anka():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -6758,7 +6869,7 @@ def scena_anka():
 def scena_cela3():
     siren.stop()
     barSound.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -6782,7 +6893,7 @@ def scena_cela3():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -6795,7 +6906,7 @@ def scena_cela3():
         pisak.pisz("wers2", "Klasycznie, zasiadacie w tym samym stoliku co zwykle, krótkie zastanowienie, co kto pije.",
                    20, 210, white)
         pisak.pisz("wers3", "Tomek wstaje od stolika, zbiera Wasze zamówienia i idzie w kierunku baru.", 20, 240, white)
-        pisak.pisz("wers4", "- Tylko się straszczaj, bo jestem spragniona! - krzyczy za nim Iwona.", 20, 270, white)
+        pisak.pisz("wers4", "- Tylko się streszczaj, bo jestem spragniona! - krzyczy za nim Iwona.", 20, 270, white)
         if quest_tomek_torba == "torebunia":
             pisak.pisz("wers5", "*Myślisz sobie, że znając Tomka, pewnie znowu gdzieś zniknie na 15 minut",
                        20, 300, green)
@@ -6808,7 +6919,7 @@ def scena_cela3():
                 screen.blit(graph.ide[1], (550, 620))
                 if click:
                     exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                    ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                    ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                       dodatek_sluzbowy)
                     exp += 5
                     loadingSound.play()
@@ -6822,7 +6933,7 @@ def scena_cela3():
 
 def scena_cela_quest():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     global quest_tomek_cela
     while running:
         click = False
@@ -6847,7 +6958,7 @@ def scena_cela_quest():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -6879,7 +6990,7 @@ def scena_cela_quest():
 
 def scena_cela4():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -6902,7 +7013,7 @@ def scena_cela4():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 barSound.stop()
@@ -6939,7 +7050,7 @@ def scena_cela4():
 
 def scena32():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -6965,7 +7076,7 @@ def scena32():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -7014,7 +7125,7 @@ def scena32():
 def scena33():
     siren.stop()
     strzelnicaOGG.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -7059,7 +7170,7 @@ def scena33():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -7123,7 +7234,6 @@ def strzelnica_mossberg():
             pygame.mouse.set_visible(True)
             tablica_wynikow_mb.append(wynikmb)
             strzelnica2wyniki()
-
 
         screen.blit(graph.tabelaIMG, (5, 600))
         mx, my = pygame.mouse.get_pos()
@@ -7235,7 +7345,7 @@ def strzelnica_mossberg():
 
 def strzelnica2wyniki():
     running = True
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -7279,7 +7389,7 @@ def strzelnica2wyniki():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -7304,7 +7414,7 @@ def strzelnica2wyniki():
 def scena34():
     strzelnicaOGG.stop()
     siren.play(-1)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -7331,7 +7441,7 @@ def scena34():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 loadingSound.play()
@@ -7390,7 +7500,7 @@ def scena34():
 
 def scena35():
     running = True
-    global item, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global item, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa, dni_sluzby
     while running:
         click = False
 
@@ -7418,9 +7528,10 @@ def scena35():
                 screen.blit(graph.press_Dalej[1], (1100, 640))
                 if click:
                     exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                    ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                    ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                       dodatek_sluzbowy)
                     exp += 5
+                    dni_sluzby += 2
                     loadingSound.play()
                     scena36()
 
@@ -7500,7 +7611,7 @@ def scena35():
 
 def scena36():
     running = True
-    global kod_pin, klucz_klodka, active, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global kod_pin, klucz_klodka, active, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -7528,7 +7639,7 @@ def scena36():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 if active == "klucz_klodka":
@@ -7603,7 +7714,7 @@ def scena36():
 
 def scena_brama_magazyn(door_pkt=0):
     pygame.mouse.set_visible(False)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -7661,20 +7772,16 @@ def scena_brama_magazyn(door_pkt=0):
                 door_pkt = scena_brama_kod_pin()
 
         if door_pkt == 1:
-            dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
-            if dalej.collidepoint((mx, my)):
-                screen.blit(graph.press_Dalej[1], (1100, 640))
+            pisak.pisz("wers3", "To nie było trudne. Można iść dalej..", 20, 90, dyellow)
+            drzwi_brama_x = screen.blit(graph.drzwi_brama[0], (900, 310))
+            if drzwi_brama_x.collidepoint((mx, my)):
+                screen.blit(graph.drzwi_brama[1], (900, 310))
                 if click:
                     exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                    ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
-                                                                                      dodatek_sluzbowy)
+                    ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania, dodatek_sluzbowy)
                     exp += 5
-                    loadingSound.play()
+                    door_open.play()
                     falklandy_mapa()
-
-        if door_pkt == 1:
-            pisak.pisz("wers3", "To nie było trudne. Można iść dalej..", 20, 90, dyellow)
-
         else:
             pisak.pisz("wers", "Wychodzisz za teren szkoły od strony parkingu.. Nie przestaje padać.. ", 20, 60, white)
             pisak.pisz("wers1", "Po 10 minutach stajesz przed bramą na teren magazynów.", 20, 90, white)
@@ -7853,9 +7960,9 @@ def scena_brama_kod_pin():
 # Scena Falklandy Mapa
 
 
-def falklandy_mapa(text_radio=0, sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, sektor_e=0, sektor_f=0, sektor_i=0, sektor_g=0):
+def falklandy_mapa(text_radio=None, sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, sektor_e=0, sektor_f=0, sektor_i=0, sektor_g=0):
     pygame.mouse.set_visible(False)
-    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     running = True
     while running:
         click = False
@@ -7923,7 +8030,7 @@ def falklandy_mapa(text_radio=0, sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0,
                 screen.blit(graph.szkola[2], (1100, 630))
                 if click:
                     exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                    ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                    ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                       dodatek_sluzbowy)
                     exp += 5
                     pygame.mouse.set_visible(True)
@@ -7976,7 +8083,7 @@ def falklandy_mapa(text_radio=0, sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0,
             screen.blit(graph.rech[1], (524, 318))
             if click:
                 loadingSound.play()
-                sektor_h, text_radio = falklandy_sektor_h()
+                sektor_h, text_radio = falklandy_sektor_h(text_radio)
 
         if reci_x.collidepoint((mx, my)):
             screen.blit(graph.reci[1], (524, 418))
@@ -8519,20 +8626,20 @@ def falklandy_sektor_g():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Miejsce za magazynem, to pozostałości po starym chodniku, prowadzącym w kierunku zardzewiałych drzwi pod nasypem.", 20, 30, white)
-        pisak.pisz("wers1", "To miejsce wydaje się tajemnicze.. Masywne drzwi bez klamki i zamka?", 20, 60, white)
-        pisak.pisz("wers2", "'Komuś chyba zależało żeby nikt tam nie mógł wejść' - przyglądasz się drzwiom, szukając mechanizmu otwarcia.", 20, 90, white)
-        pisak.pisz("wers3", "'A co jest pod nasypem?' - zadajesz sobie kolejne pytanie, wiedząc że nie znasz na nie odpowiedzi.", 20, 120, white)
+        pisak.pisz("wers", "Miejsce za magazynem, to pozostałości po starym chodniku, prowadzącym w kierunku zardzewiałych drzwi pod nasypem.", 20, 60, white)
+        pisak.pisz("wers1", "To miejsce wydaje się tajemnicze.. Masywne drzwi bez klamki i zamka?", 20, 90, white)
+        pisak.pisz("wers2", "'Komuś chyba zależało żeby nikt tam nie mógł wejść' - przyglądasz się drzwiom, szukając mechanizmu otwarcia.", 20, 120, white)
+        pisak.pisz("wers3", "'A co jest pod nasypem?' - zadajesz sobie kolejne pytanie, wiedząc że nie znasz na nie odpowiedzi.", 20, 150, white)
         pisak.pisz("wers3",
                    "Postanawiasz zgłębić temat tego miejsca tylko.. nie wiesz za bardzo od czego zacząć.",
-                   20, 150, white)
-        pisak.pisz("wers3",
-                   "Podchodzisz do drzwi, opuszczasz wzrok i spokojnie nasłuchujesz.. nic.. cisza..",
                    20, 180, white)
         pisak.pisz("wers3",
-                   "W tym skupieniu, dostrzegasz leżący na ziemi niedopałek cienkiego papierosa marki 'Cristal'",
+                   "Podchodzisz do drzwi, opuszczasz wzrok i spokojnie nasłuchujesz.. nic.. cisza..",
                    20, 210, white)
-        pisak.pisz("wers1", "Eh, nic tu nie ma.. Ale gdyby dyżurny zapytał, to drzwi zamknięte a miejsce sprawdzone.", 20, 240, white)
+        pisak.pisz("wers3",
+                   "W tym skupieniu, dostrzegasz leżący na ziemi niedopałek cienkiego papierosa marki 'Cristal'",
+                   20, 240, white)
+        pisak.pisz("wers1", "Eh, nic tu nie ma.. Ale gdyby dyżurny zapytał, to drzwi zamknięte a miejsce sprawdzone.", 20, 270, white)
 
         screen.blit(graph.but, (mx, my))
         screen.blit(graph.rain, (0, 0))
@@ -8617,7 +8724,7 @@ def falklandy_sektor_i():
 # Falklandy Sektor H (drzwi)
 
 
-def falklandy_sektor_h(text_radio=0):
+def falklandy_sektor_h(text_radio):
     pygame.mouse.set_visible(False)
     running = True
     sektor_h = None
@@ -8666,7 +8773,7 @@ def falklandy_sektor_h(text_radio=0):
             screen.blit(graph.falklandy_drzwi[1], (630, 160))
             if click:
                 loadingSound.play()
-                text_radio = falklandy_sektor_h_klodka()
+                text_radio = falklandy_sektor_h_klodka(text_radio)
 
         if cofnij_x.collidepoint((mx, my)):
             screen.blit(graph.cofnij[1], (560, 640))
@@ -8697,9 +8804,8 @@ def falklandy_sektor_h(text_radio=0):
 # Falklandy Sektor H Kłódka
 
 
-def falklandy_sektor_h_klodka():
+def falklandy_sektor_h_klodka(text_radio):
     pygame.mouse.set_visible(False)
-    text_radio = 0
     running = True
     delta = 0.0
     correct = 0
@@ -8830,7 +8936,7 @@ def falklandy_sektor_h_klodka():
 def trasa_falklandy():
     running = True
     radios.play()
-    global klucz_klodka, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global klucz_klodka, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         klucz_klodka = "klucz_klodka"
         click = False
@@ -8875,7 +8981,7 @@ def trasa_falklandy():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 rain_wav.stop()
@@ -8908,7 +9014,7 @@ def trasa_falklandy():
 def akademik_dyzurny():
     siren.play()
     running = True
-    global klucz_klodka, active, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy
+    global klucz_klodka, active, exp, stopien_sluzbowy, ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa
     while running:
         click = False
 
@@ -8952,7 +9058,7 @@ def akademik_dyzurny():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 exp, stopien_sluzbowy = experience.check_exp(exp, stopien_sluzbowy)
-                ang, grupa_zaszeregowania, dodatek_sluzbowy = experience.check_gr(ang, grupa_zaszeregowania,
+                ang, grupa_zaszeregowania, dodatek_sluzbowy, mnoznik_grupa = experience.check_gr(ang, grupa_zaszeregowania,
                                                                                   dodatek_sluzbowy)
                 exp += 5
                 if active == "klucz_klodka":
@@ -8995,6 +9101,7 @@ def kinowa_budynek():
 
         screen.fill(black)
         screen.blit(graph.wspol2, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -9052,6 +9159,7 @@ def kinowa_budynek():
         pisak.pisz("wers4", "Podchodzisz do baru i zamawiasz hamburgera ze wszystkimi dodatkami.", 20, 210, white)
         pisak.pisz("wers5", "Mniam! To miejsce warto zapamiętać!", 20, 240, white)
 
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
     return kinowa_budynek_pkt
@@ -9068,6 +9176,7 @@ def dziekanat_budynek():
 
         screen.fill(black)
         screen.blit(graph.wspol2, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -9118,9 +9227,12 @@ def dziekanat_budynek():
 
         pisak.pisz("wers", "Budynek nr 6 - dziekanaty, sale wykładowe.. nic ciekawego.. ",
                    20, 90, white)
-
+        pisak.pisz("wers", "Tu wszsytko jest wporządku.",
+                   20, 90, white)
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
+
     return dziekanat_budynek_pkt
 
 
@@ -9135,6 +9247,7 @@ def tajwan_budynek():
 
         screen.fill(black)
         screen.blit(graph.tajwan_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -9194,9 +9307,10 @@ def tajwan_budynek():
         pisak.pisz("wers4", "Ten budynek, dawno nie był remontowany i przez to można poczuć 'smak' starej szkoły.",
                    20, 210, white)
         pisak.pisz("wers5", "*Naciskasz na klamkę ale drzwi są zamknięte..", 20, 240, white)
-
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
+
     return tajwan_budynek_pkt
 
 
@@ -9211,6 +9325,7 @@ def budowla_budynek():
 
         screen.fill(black)
         screen.blit(graph.palarnia_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -9276,7 +9391,7 @@ def budowla_budynek():
         pisak.pisz("wers11", "- No dobra, jasna sprawa - mężczyzna w uniformie zamyka za sobą drzwi i idzie w kierunku"
                             " siłowni.", 20, 420, white)
         pisak.pisz("wers12", "*Heh same Tomki w tym Szczytnie - myślisz sobie.", 20, 450, white)
-
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
     return budowla_budynek_pkt
@@ -9285,7 +9400,8 @@ def budowla_budynek():
 # Sala Palarnia
 
 
-def palarnia_budynek():
+def palarnia_budynek(drzwi_otwarte):
+    pygame.mouse.set_visible(False)
     running = True
     palarnia_budynek_pkt = None
     while running:
@@ -9293,10 +9409,12 @@ def palarnia_budynek():
 
         screen.fill(black)
         screen.blit(graph.palarnia_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(graph.indeks, (900, 570))
+        drzwi_warsztat_x = screen.blit(graph.drzwi_warsztat[0], (786, 180))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -9334,6 +9452,16 @@ def palarnia_budynek():
                 loadingSound.play()
                 running = False
 
+        if drzwi_warsztat_x.collidepoint((mx, my)):
+            screen.blit(graph.drzwi_warsztat[1], (786, 180))
+            if click:
+                if drzwi_otwarte != False:
+                    door_open.play()
+                    drzwi_otwarte = warsztat(drzwi_otwarte)
+                else:
+                    door_close.play()
+
+
         akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
         if akta_x.collidepoint((mx, my)):
             screen.blit(graph.button_odznaka[1], (1150, 20))
@@ -9341,15 +9469,126 @@ def palarnia_budynek():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Magazyny i budynki gospodarcze.",
+        pisak.pisz("wers", "Warsztat i zabudowania gospodarcze.",
                    20, 90, white)
         pisak.pisz("wers1", "Z budynku, dochodzi odgłos pracującej pompy wodnej.", 20, 120, white)
-        pisak.pisz("wers2", "Eh nic tu nie ma ciekawego..",
+
+        if drzwi_otwarte != False:
+            pisak.pisz("wers2", "Sprawdź zamknięcie drzwi.",
                    20, 150, white)
+        else:
+            pisak.pisz("wers2", "Wychodząc zatrzasnąłeś(-aś) za sobą drzwi.",
+                       20, 150, white)
+
+
+        screen.blit(graph.rain, (0, 0))
+        screen.blit(graph.palec, (mx, my))
+        pygame.display.update()
+        mainClock.tick()
+
+    return palarnia_budynek_pkt, drzwi_otwarte
+
+
+# Warsztat
+
+
+def warsztat(drzwi_otwarte):
+    pygame.mouse.set_visible(True)
+    warsztat_wav.play(-1)
+    running = True
+    while running:
+        click = False
+
+        screen.fill(black)
+        screen.blit(graph.warsztat_bg, (0, 0))
+        cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
+        notka = screen.blit(graph.notatnikA, (20, 570))
+        tornister = screen.blit(graph.plecak, (200, 570))
+        indeks_ocen = screen.blit(graph.indeks, (900, 570))
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        if notka.collidepoint((mx, my)):
+            screen.blit(graph.notatnikB, (20, 570))
+            if click:
+                loadingSound.play()
+                notatnik()
+
+        if tornister.collidepoint((mx, my)):
+            screen.blit(graph.plecak1, (200, 570))
+            if click:
+                loadingSound.play()
+                equip()
+
+        if indeks_ocen.collidepoint((mx, my)):
+            screen.blit(graph.indeks1, (900, 570))
+            if click:
+                loadingSound.play()
+                wykazOcen()
+
+        if cofnij_x.collidepoint((mx, my)):
+            screen.blit(graph.cofnij[1], (560, 640))
+            if click:
+                warsztat_wav.stop()
+                door_open.play()
+                drzwi_otwarte= False
+                running = False
+
+
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
+
+        pisak.pisz("wers", "- Oho.. drzwi są otwarte.",
+                   20, 30, white)
+        pisak.pisz("wers", "- Co do.. ?! - spoglądasz na obrysowaną kredą, sylwetkę człowieka.",
+                   20, 60, white)
+        pisak.pisz("wers1", "Zastanawiasz się dłuższą chwilę.. po co ktoś miałby narysować akurat tutaj, coś takiego..", 20, 90, white)
+        pisak.pisz("wers2", "Wpatrujesz się w posadzkę a wzrok wędruje po białej linii.. centymetr po centymetrze.",
+                   20, 120, white)
+        pisak.pisz("wers3", "Rozglądasz się po pomieszczeniu, wszędzie leżą jakieś narzędzia: - No warsztat - głośno myślisz.",
+                   20, 150, white)
+        pisak.pisz("wers4",
+                   "- Warsztat i miejsce.. O kurwa! - przypominasz sobie pierwsze dni szkolenia i dziwnego kolesia",
+                   20, 180, white)
+        pisak.pisz("wers5",
+                   "który jak nakręcony opowiadał jak wygląda kurs i mówił coś o.. samobóju.",
+                   20, 210, white)
+        pisak.pisz("wers6",
+                   "- No tak.. czyli chodziło mu o samobójstwo!",
+                   20, 240, white)
+        pisak.pisz("wers8",
+                   "- A więc to tak wygląda miejsce zbrodni.. ciekawe jak.. odebrał sobie życie..",
+                   20, 270, white)
+        pisak.pisz("wers7",
+                   "- Czy którymś z narzędzi.. czy się powiesił.. czy się zastrzelił.. czy nałykał tabletek.. ",
+                   20, 300, white)
+        pisak.pisz("wers9",
+                   "A w ogóle to.. dlaczego warsztat jest otwarty o tej porze.. - rozkminiasz dalej.",
+                   20, 330, white)
+        pisak.pisz("wers10",
+                   "- No nic.. Trzeba będzie dowiedzieć się więcej o tej historii i tym miejscu.",
+                   20, 360, white)
+        pisak.pisz("wers9",
+                   "Ok, ogólnie to nikogo tu nie ma i chyba jest wporządku, zatrzasnę drzwi i po sprawie.",
+                   20, 390, white)
 
         pygame.display.update()
         mainClock.tick()
-    return palarnia_budynek_pkt
+    return drzwi_otwarte
+
 
 
 # Sala Biblioteka
@@ -9439,6 +9678,7 @@ def kantyna_budynek():
 
         screen.fill(black)
         screen.blit(graph.kantyna_bg, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -9487,9 +9727,9 @@ def kantyna_budynek():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Budunek nr 18 - siedziba Kanclerza i Prorektora WSPOL.", 20, 90, white)
+        pisak.pisz("wers", "Budynek nr 18 - siedziba Kanclerza i Prorektora WSPOL.", 20, 90, white)
         pisak.pisz("wers1", "Drzwi są zamknięte.. ", 20, 120, white)
-
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
     return kantyna_budynek_pkt
@@ -10291,6 +10531,7 @@ def sztab_budynek():
 
         screen.fill(black)
         screen.blit(graph.sztabBG, (0, 0))
+        screen.blit(graph.rain, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
@@ -10340,31 +10581,32 @@ def sztab_budynek():
                 akta_osobowe()
 
         pisak.pisz("wers", "Budynek nr 1 - Najważniejszy budynek na kampusie Wyższej Szkoły Policji w Szczytnie.",
-                   20, 120, white)
+                   20, 60, white)
         pisak.pisz("wers1", "To tu znajduje się rektorat. Swoją siedzibę ma tu m.in. Komendant-Rektor WSPOL"
-                            " oraz dyżurny.", 20, 150, white)
+                            " oraz dyżurny.", 20, 90, white)
         pisak.pisz("wers2", "Na budynku od strony [al.Marszałka Józefa Piłsudskiego], znajduje się duży napis z"
-                            " nazwą szkoły.", 20, 180, white)
-        pisak.pisz("wers3", "Jeszcze nie byłeś(-aś) w tym budynku, dlatego postanawiasz go zwiedzić.", 20, 210, white)
+                            " nazwą szkoły.", 20, 120, white)
+        pisak.pisz("wers3", "Jeszcze nie byłeś(-aś) w tym budynku, dlatego postanawiasz go zwiedzić.", 20, 150, white)
         pisak.pisz("wers4", "Otwierasz drzwi i zaczynasz wchodzić po schodach, przed sobą, po prawej stronie"
-                            " widzisz jakiś pokój za szybą.", 20, 240, white)
-        pisak.pisz("wers5", "- Halo, a Ty dokąd? A Ty dokąd?! - słyszysz ponownie.", 20, 270, white)
+                            " widzisz jakiś pokój za szybą.", 20, 180, white)
+        pisak.pisz("wers5", "- Halo, a Ty dokąd? A Ty dokąd?! - słyszysz ponownie.", 20, 210, white)
         pisak.pisz("wers6", "Wchodzisz jeszcze kilka schodków, do wysokości szyby, za którą przy biurku"
-                            " siedzi policjant.", 20, 300, white)
+                            " siedzi policjant.", 20, 240, white)
         pisak.pisz("wers7", "W jego pokoju jest z 6 monitorów, na których widać podgląd z monitoringu,"
-                            " za nim na ścianie wisi mapa szkoły.", 20, 330, white)
+                            " za nim na ścianie wisi mapa szkoły.", 20, 270, white)
         pisak.pisz("wers8", "Na biurku kilka telefonów, 2 małe przenośne radiostacje. Z jednej słyszysz"
-                            " jak ktoś powtarza: 'Bez uwag'", 20, 360, white)
+                            " jak ktoś powtarza: 'Bez uwag'", 20, 300, white)
         pisak.pisz("wers9", "- Słucham? - odpowiadasz lekko zmieszany(-a), policjant za szybą podsuwa "
-                            "się bliżej szyby i mówi.", 20, 390, white)
+                            "się bliżej szyby i mówi.", 20, 330, white)
         pisak.pisz("wers10", "- To ja słucham, coś się stało? - spogląda na Ciebie i widzisz jak mierzy"
-                             " Cię wzrokiem od stóp do głowy.", 20, 420, white)
+                             " Cię wzrokiem od stóp do głowy.", 20, 360, white)
         pisak.pisz("wers11", "- Chciałem(-am) tylko zobaczyć.. - próbujesz wytłumaczyć po co tu jesteś.",
-                   20, 450, white)
+                   20, 390, white)
         pisak.pisz("wers12", "- Tu nie ma czego oglądać - dyżurny przerywa Twoją wypowiedź - Wracaj do roboty!",
-                   20, 480, white)
-        pisak.pisz("wers13", "- Aha - Nie wiesz co odpowiedzieć i wychodzisz z budynku.", 20, 510, white)
+                   20, 420, white)
+        pisak.pisz("wers13", "- Aha - Nie wiesz co odpowiedzieć i wychodzisz z budynku.", 20, 450, white)
 
+        screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
 
@@ -10461,7 +10703,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
                 akademik_budynek_1_pkt=0, salawf_budynek_pkt=0, strzelnica_budynek_pkt=0, pcab_budynek_pkt=0,
                 hilton_budynek_pkt=0, karate_budynek_pkt=0, silownia_budynek_pkt=0, symulator_budynek_pkt=0,
                 kantyna_budynek_pkt=0, biblioteka_budynek_pkt=0, palarnia_budynek_pkt=0, budowla_budynek_pkt=0,
-                tajwan_budynek_pkt=0, dziekanat_budynek_pkt=0, kinowa_budynek_pkt=0):
+                tajwan_budynek_pkt=0, dziekanat_budynek_pkt=0, kinowa_budynek_pkt=0, drzwi_otwarte=True):
     running = True
     pygame.mouse.set_visible(False)
     while running:
@@ -10491,7 +10733,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 loadingSound.play()
-                scena36()
+                scena_prog_5()  # SAVE
 
         akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
         if akta_x.collidepoint((mx, my)):
@@ -10524,14 +10766,15 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
                      kantyna_budynek_pkt + biblioteka_budynek_pkt + palarnia_budynek_pkt + budowla_budynek_pkt + \
                      tajwan_budynek_pkt + dziekanat_budynek_pkt + kinowa_budynek_pkt
 
-        odwiedzone_str = str(odwiedzone)
         pisak.pisz("wers", "Kliknij na budynek, by zwiedzić wybrane miejsce!", 350, 650, dyellow)
+
         if odwiedzone == 18:
             pisak.pisz("wers2", "Odwiedzone miejsca", 50, 50, green)
         else:
             pisak.pisz("wers2", "Odwiedzone miejsca", 50, 50, dyellow)
+
         pisak.pisz("wers3", "/18", 160, 70, dyellow)
-        pisak.pisz("wers4", odwiedzone_str, 140, 70, dyellow)
+        pisak.pisz("wers4", str(odwiedzone), 140, 70, dyellow)
 
         stolowkax = screen.blit(graph.stolowka[0], (468, 86))
         if stolowkax.collidepoint((mx, my)):
@@ -10643,7 +10886,7 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
             if click:
                 pygame.mouse.set_visible(True)
                 loadingSound.play()
-                palarnia_budynek_pkt = palarnia_budynek()
+                palarnia_budynek_pkt, drzwi_otwarte = palarnia_budynek(drzwi_otwarte)
 
         kantynax = screen.blit(graph.kantyna[0], (511, 383))
         if kantynax.collidepoint((mx, my)):
@@ -10690,23 +10933,25 @@ def plan_szkoly(stolowka_budynek_pkt=0, sztab_budynek_pkt=0, akademik_budynek_3_
         pygame.display.update()
         mainClock.tick()
 
-# Scena37
+
+# SCENA PROG 5 - SAVE 2
 
 
-def scena37():
-    rain_wav.stop()
-    progOGG.play(-1)
+def scena_prog_5():
+    siren.stop()
+    saveOGG.play(-1)
     running = True
+    global zapis
     while running:
         click = False
 
         screen.fill(black)
         screen.blit(graph.prog, (0, 0))
-        cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(graph.indeks, (900, 570))
+        zapisz_x = screen.blit(graph.zapisz[0], (570, 600))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -10722,10 +10967,8 @@ def scena37():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
+                saveOGG.stop()
                 loadingSound.play()
-                progOGG.stop()
-                rain_wav.play(-1)
-                plan_szkoly()
 
         if notka.collidepoint((mx, my)):
             screen.blit(graph.notatnikB, (20, 570))
@@ -10745,21 +10988,26 @@ def scena37():
                 loadingSound.play()
                 wykazOcen()
 
-        if cofnij_x.collidepoint((mx, my)):
-            screen.blit(graph.cofnij[1], (560, 640))
+        if zapisz_x.collidepoint((mx, my)):
+            screen.blit(graph.zapisz[1], (570, 600))
             if click:
                 loadingSound.play()
-                progOGG.stop()
-                rain_wav.play(-1)
-                running = False
+                chose_save()
 
-        pisak.pisz("wers3", "Za chwilę opuścisz plan szkoły.",
-                   20, 400, dyellow)
-        pisak.pisz("wers4", "Jeśli nie chcesz już zwiedzać - naciśnij 'Dalej'", 20, 430, dyellow)
-        pisak.pisz("wers5", "Jeśli chcesz kontynuować zwiedzanie - naciśnij 'Cofnij'", 20, 460, dyellow)
+        akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
+        if akta_x.collidepoint((mx, my)):
+            screen.blit(graph.button_odznaka[1], (1150, 20))
+            if click:
+                loadingSound.play()
+                akta_osobowe()
 
+        pisak.pisz("wers", "Ten etap pozwala zapisać stan Gry.", 20, 460, dyellow)
+        pisak.pisz("wers1", "Przy kolejnym uruchomieniu gry, w MENU pojawi się ikona plusa '+' - oznaczająca"
+                            " kontynuację", 20, 490, dyellow)
+        pisak.pisz("wers2", "Jest to również miejsce, z którego będziesz kontynuował(-a) dalszą grę.", 20, 520, dyellow)
         pygame.display.update()
         mainClock.tick()
+
 
 
 # INFO
@@ -11138,5 +11386,142 @@ def wykazOcen():
 
         pygame.display.update()
         mainClock.tick()
+
+
+# Sklep
+
+
+def sklep():
+    rain_wav.stop()
+    running = True
+    global stan_konta
+    pamietnik_sklep = 1  # zrobić jako zmienną globalną bo zawsze będzie książka
+    while running:
+        click = False
+
+        screen.fill(black)
+        screen.blit(graph.sklep_bg, (0, 0))
+        cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+
+        if cofnij_x.collidepoint((mx, my)):
+            screen.blit(graph.cofnij[1], (560, 640))
+            if click:
+                loadingSound.play()
+                progOGG.stop()
+                rain_wav.play(-1)
+                running = False
+
+        if pamietnik_sklep == 1:
+            ksiazka_x = screen.blit(graph.stara_ksiazka[0], (50, 50))
+            if ksiazka_x.collidepoint((mx, my)) and stan_konta > 500:
+                screen.blit(graph.stara_ksiazka[1], (50, 50))
+                pisak.pisz("wersa", "'Pamiętnik, 1952r. - autor nieznany", 35, 35, dyellow)
+                if click:
+                    stan_konta = stan_konta - 500
+                    stan_konta = round(stan_konta, 2)
+                    pamietnik_sklep = 0
+        else:
+            screen.blit(graph.stara_ksiazka[2], (50, 50))
+
+
+        pisak.pisz("wersb", "Stan konta", 190, 600, white)
+        pisak.pisz("wersa", str(stan_konta), 205, 632, black)
+
+
+        pygame.display.update()
+        mainClock.tick()
+
+
+# Sklep
+
+
+def stary_pamietnik():
+    running = True
+    while running:
+        click = False
+
+        screen.fill(black)
+        screen.blit(graph.pamietnik_bg, (0, 0))
+        cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
+        kartka_1_x = screen.blit(graph.kartka[0], (150, 50))
+        kartka_2_x = screen.blit(graph.kartka[1], (300, 50))
+        kartka_3_x = screen.blit(graph.kartka[2], (450, 50))
+        kartka_4_x = screen.blit(graph.kartka[3], (600, 50))
+        kartka_5_x = screen.blit(graph.kartka[4], (750, 50))
+        kartka_6_x = screen.blit(graph.kartka[5], (900, 50))
+        kartka_7_x = screen.blit(graph.kartka[6], (1050, 50))
+        kartka_8_x = screen.blit(graph.kartka[7], (150, 250))
+        kartka_9_x = screen.blit(graph.kartka[8], (300, 250))
+        kartka_10_x = screen.blit(graph.kartka[9], (450, 250))
+        kartka_11_x = screen.blit(graph.kartka[10], (600, 250))
+        kartka_12_x = screen.blit(graph.kartka[11], (750, 250))
+        kartka_13_x = screen.blit(graph.kartka[12], (900, 250))
+        kartka_14_x = screen.blit(graph.kartka[13], (1050, 250))
+
+        mx, my = pygame.mouse.get_pos()
+
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+
+        if cofnij_x.collidepoint((mx, my)):
+            screen.blit(graph.cofnij[1], (560, 640))
+            if click:
+                loadingSound.play()
+                progOGG.stop()
+                rain_wav.play(-1)
+                running = False
+
+        if kartka_1_x.collidepoint((mx, my)):
+            screen.blit(graph.strona[0], (450, 100))
+        if kartka_2_x.collidepoint((mx, my)):
+            screen.blit(graph.strona[1], (450, 100))
+        if kartka_3_x.collidepoint((mx, my)):
+            screen.blit(graph.strona[2], (450, 100))
+        if kartka_4_x.collidepoint((mx, my)):
+            screen.blit(graph.strona[3], (450, 100))
+        if kartka_5_x.collidepoint((mx, my)):
+            screen.blit(graph.strona[4], (450, 100))
+        if kartka_6_x.collidepoint((mx, my)):
+            screen.blit(graph.strona[5], (450, 100))
+        if kartka_7_x.collidepoint((mx, my)):
+            screen.blit(graph.strona[6], (450, 100))
+        if kartka_8_x.collidepoint((mx, my)):
+            screen.blit(graph.strona[7], (450, 100))
+        if kartka_9_x.collidepoint((mx, my)):
+            screen.blit(graph.strona[8], (450, 100))
+        if kartka_10_x.collidepoint((mx, my)):
+            screen.blit(graph.strona[9], (450, 100))
+        if kartka_11_x.collidepoint((mx, my)):
+            screen.blit(graph.strona[10], (450, 100))
+        if kartka_12_x.collidepoint((mx, my)):
+            screen.blit(graph.strona[11], (450, 100))
+        if kartka_13_x.collidepoint((mx, my)):
+            screen.blit(graph.strona[12], (450, 100))
+        if kartka_14_x.collidepoint((mx, my)):
+            screen.blit(graph.strona[13], (450, 100))
+
+
+        pygame.display.update()
+        mainClock.tick()
+
 
 intro_dev()
