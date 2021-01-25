@@ -52,6 +52,23 @@ def delisting_save(list_save):
     ocena_ruchSTR = ""
     quest_tomek_1 = ""
     wynikp99 = ""
+    wykroczenia = ""
+    kod_pin = ""
+    klucz_klodka = ""
+    ocena_wykrSTR = ""
+    wynikmb = ""
+    exp = ""
+    ang = ""
+    stopien_sluzbowy = ""
+    grupa_zaszeregowania = ""
+    dodatek_sluzbowy = ""
+    kwota_bazowa = ""
+    mnoznik_grupa = ""
+    dodatek_stopien = ""
+    wysluga_lat = ""
+    dni_sluzby = ""
+    stan_konta = ""
+    BARETKI = []
 
     lis_save = list_save.split("/")
 
@@ -74,5 +91,40 @@ def delisting_save(list_save):
             quest_tomek_1 = i[7:]
         if i[:7] == "WYNIKP:":
             wynikp99 = i[7:]
+        if i[:7] == "WYKROC:":
+            wykroczenia = i[7:]
+        if i[:7] == "KODPIN:":
+            kod_pin = i[7:]
+        if i[:7] == "KLUCZK:":
+            klucz_klodka = i[7:]
+        if i[:7] == "OCENAW:":
+            ocena_wykrSTR = i[7:]
+        if i[:7] == "WYNIKM:":
+            wynikmb = i[7:]
+        if i[:7] == "EXPERI:":
+            exp = int(i[7:])
+        if i[:7] == "ZAANGA:":
+            ang = int(i[7:])
+        if i[:7] == "STOPIE:":
+            stopien_sluzbowy = i[7:]
+        if i[:7] == "GRUPAZ:":
+            grupa_zaszeregowania = i[7:]
+        if i[:7] == "DODSLU:":
+            dodatek_sluzbowy = float(i[7:])
+        if i[:7] == "KWOTAB:":
+            kwota_bazowa = float(i[7:])
+        if i[:7] == "MNOZNI:":
+            mnoznik_grupa = float(i[7:])
+        if i[:7] == "DODSTO:":
+            dodatek_stopien = int(i[7:])
+        if i[:7] == "WYSLUG:":
+            wysluga_lat = int(i[7:])
+        if i[:7] == "DNISLU:":
+            dni_sluzby = int(i[7:])
+        if i[:7] == "STANKO:":
+            stan_konta_s = float(i[7:])
+            stan_konta = round(stan_konta_s, 2)
+        if i[:7] == "BARETK:":
+            BARETKI = i[7:].split(",")
 
-    return imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR, quest_tomek_1, wynikp99
+    return imieGracza, legitymowanie, ruchdrogowy, pendrive1, skrawek1, ocenaSTR, ocena_ruchSTR, quest_tomek_1, wynikp99, wykroczenia, kod_pin, klucz_klodka, ocena_wykrSTR, wynikmb, exp, ang, stopien_sluzbowy, grupa_zaszeregowania, dodatek_sluzbowy, kwota_bazowa, mnoznik_grupa, dodatek_stopien, wysluga_lat, dni_sluzby, stan_konta, BARETKI
