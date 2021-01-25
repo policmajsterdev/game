@@ -148,6 +148,12 @@ sztab = [pygame.image.load(os.path.join(filepath, "data\\navi\\sztab.png")).conv
 alarm_pin = [pygame.image.load(os.path.join(filepath, "data\\navi\\alarm_pin1.png")).convert(),
              pygame.image.load(os.path.join(filepath, "data\\navi\\alarm_pin.png")).convert()]
 
+drzwi_warsztat = [pygame.image.load(os.path.join(filepath, "data\\navi\\drzwi_warsztat.png")).convert(),
+                  pygame.image.load(os.path.join(filepath, "data\\navi\\drzwi_warsztat1.png")).convert()]
+
+drzwi_brama = [pygame.image.load(os.path.join(filepath, "data\\navi\\drzwi_brama0.png")).convert(),
+               pygame.image.load(os.path.join(filepath, "data\\navi\\drzwi_brama1.png")).convert()]
+
 # Dodatkowe grafiki
 odznaka = pygame.image.load(os.path.join(filepath, "data\\pics\\odznaka.png")).convert()
 bgopcje = pygame.image.load(os.path.join(filepath, "data\\sceny\\bgopcje.png")).convert()
@@ -227,6 +233,9 @@ sektor_falklandy_klodka_bg = pygame.image.load(os.path.join(filepath, "data\\sce
 sektor_falklandy_sektor_g_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_sektor_g.png")).convert()
 trasa_falklandy_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\trasa_falklandy.png")).convert()
 teczka_osobowa = pygame.image.load(os.path.join(filepath, "data\\sceny\\teczka_osobowa.png")).convert()
+sklep_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\sklep.png")).convert()
+pamietnik_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\ksiazka_bg.png")).convert()
+warsztat_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\warsztat_bg.png")).convert()
 
 # Pojęcia + zdjęcia
 czarnuch = [pygame.image.load(os.path.join(filepath, "data\\pojecia\\czarnuch.png")).convert(),
@@ -521,3 +530,43 @@ odznaka_p99 = [pygame.image.load(os.path.join(filepath, "data\\baretki\\baret_p9
                pygame.image.load(os.path.join(filepath, "data\\baretki\\baret_p99_1.png")).convert_alpha()]
 odznaka_mosberg = [pygame.image.load(os.path.join(filepath, "data\\baretki\\baret_mosberg_0.png")).convert_alpha(),
                    pygame.image.load(os.path.join(filepath, "data\\baretki\\baret_mosberg_1.png")).convert_alpha()]
+
+# Sklep_Kantyna
+
+stara_ksiazka = [pygame.image.load(os.path.join(filepath, "data\\sklep\\przedmiot.png")).convert_alpha(),
+                 pygame.image.load(os.path.join(filepath, "data\\sklep\\przedmiot1.png")).convert_alpha(),
+                 pygame.image.load(os.path.join(filepath, "data\\sklep\\przedmiot2.png")).convert_alpha()]
+
+# Pamiętnik
+
+kartka = [pygame.image.load(os.path.join(filepath, "data\\odbook\\kartka_1.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\kartka_2.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\kartka_3.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\kartka_4.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\kartka_5.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\kartka_6.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\kartka_7.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\kartka_8.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\kartka_9.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\kartka_10.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\kartka_11.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\kartka_12.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\kartka_13.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\kartka_14.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\kartka_14_po_badaniach.png")).convert_alpha()]
+
+strona = [pygame.image.load(os.path.join(filepath, "data\\odbook\\strona1.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\strona2.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\strona3.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\strona4.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\strona5.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\strona6.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\strona7.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\strona8.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\strona9.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\strona10.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\strona11.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\strona12.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\strona13.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\strona14_przed_badaniami.png")).convert_alpha(),
+          pygame.image.load(os.path.join(filepath, "data\\odbook\\strona14_po_badaniach.png")).convert_alpha()]
