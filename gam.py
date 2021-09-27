@@ -15,8 +15,8 @@ import experience
 
 
 pygame.init()
-pygame.mixer.pre_init(44100, 16, 2, 4096)
-pygame.mixer.init()
+pygame.mixer.pre_init(44100, -16, 2, 512)
+pygame.mixer.set_num_channels(32)
 
 mainClock = pygame.time.Clock()
 filepath = os.path.dirname(__file__)
