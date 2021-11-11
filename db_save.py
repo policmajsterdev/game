@@ -14,7 +14,7 @@ def create_db_account():
     curs.execute('''INSERT INTO dane_gracza VALUES (1, 1, 0)''')
     curs.execute('''CREATE TABLE IF NOT EXISTS dane_baretki (baretki TEXT)''')
     curs.execute('''CREATE TABLE IF NOT EXISTS dane_notatki (notatki TEXT)''')
-    curs.execute('''CREATE TABLE IF NOT EXISTS dane_quest_tomek (quest_tomek TEXT)''')
+    curs.execute('''CREATE TABLE IF NOT EXISTS dane_quest_tomek (quest_tomek TEXT, quest_opis TEXT)''')
     curs.execute('''CREATE TABLE IF NOT EXISTS dane_indeks (ocena INT)''')
     curs.execute('''CREATE TABLE IF NOT EXISTS dane_strzelnica (punkty INT)''')
     curs.execute('''CREATE TABLE IF NOT EXISTS dane_ekwipunek (ekwipunek TEXT)''')
@@ -147,13 +147,13 @@ def search_data(kolumna, tabela):
 
 def pobierz_dane(tabela):
 
-    """ Pobiera stan konta gracza """
+    """ Pobiera dane """
 
-    stan_konta = []
+    dane = []
     zapytanie = "SELECT * FROM " + tabela
     connector = sqlite3.connect(os.path.join(filepath, "data\\save\\db_account.db"))
     curs = connector.execute(zapytanie)
     for i in curs:
-        stan_konta.append(i)
+        dane.append(i)
     connector.close()
-    return stan_konta
+    return dane
