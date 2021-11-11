@@ -42,6 +42,6 @@ def zapiski(osoba, tabela):
 
     for x in dane:
         tex = x[0] + " : " + x[1]
-        label = Label(root, text=tex, foreground="#FFFFFF", bg="#000000")  # set your text
+        label = Label(root, text=tex, foreground="#FFFFFF", bg="#000000")
         label.pack()
     root.mainloop()
