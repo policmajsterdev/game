@@ -1,22 +1,20 @@
 import os.path
 import pygame
-from pygame import mixer
 
-    
 pygame.init()
-pygame.mixer.pre_init(44100, 16, 2, 4096)
+pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.mixer.init()
 filepath = os.path.dirname(__file__)
 
 # Moduł wypisywania tekstu
 controlVol = 0.5
 screen = pygame.display.set_mode((1280, 720))
-loadingSound = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\load.wav"))
-siren = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\norma.wav"))
-szum = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\szumszkolny.wav"))
-silowniaOGG = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\silownia.wav"))
-progOGG = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\prog.wav"))
-barSound = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\barSound.wav"))
+loadingSound = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\load.ogg"))
+siren = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\norma.ogg"))
+szum = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\szumszkolny.ogg"))
+silowniaOGG = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\silownia.ogg"))
+progOGG = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\prog.ogg"))
+barSound = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\barSound.ogg"))
 
 
 def pisz(wers, tekst, szerokosc, wysokosc, kolor, rozmiar=18):
