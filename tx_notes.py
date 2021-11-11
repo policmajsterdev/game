@@ -37,7 +37,6 @@ def ostatnia_strona():
         screen.fill(black)
         screen.blit(graph.zapisky_bg, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        mx, my = pygame.mouse.get_pos()
 
         mx, my = pygame.mouse.get_pos()
         events = pygame.event.get()
@@ -64,11 +63,7 @@ def ostatnia_strona():
                     loadingSound.play()
                     tk_box.zapiski("Tomka", "dane_quest_tomek")
 
-
-
         pisak.pisz("wers", "Wybierz zapiski by przeczytać.", 20, 655, dyellow)
 
         pygame.display.update()
         mainClock.tick(30)
-
-
