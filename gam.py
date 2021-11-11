@@ -10,6 +10,7 @@ import experience
 import tk_box
 import db_save
 import delete_db
+import tx_notes
 
 
 pygame.init()
@@ -71,6 +72,7 @@ move = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\move.wav"))
 sektor_i_wav = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\sektori.ogg"))
 warsztat_wav = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\warsztat.ogg"))
 eq_wav = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\hiteq.ogg"))
+cashpaid = pygame.mixer.Sound(os.path.join(filepath, "data\\sound\\cashpaid.wav"))
 
 # Tekst
 
@@ -233,7 +235,7 @@ def akta_osobowe():
         pisak.pisz("wers2i", "- wysługa lat", 120, 530, black)
         pisak.pisz("wers2j", dane_konta[6], 340, 530, black)
         pisak.pisz("wers2k", "Uposażenie netto :", 120, 560, black)
-        pisak.pisz("wers2l", str(dane_konta[8]), 340, 560, blue)
+        pisak.pisz("wers2l", str(dane_konta[8]), 340, 560, black)
         pisak.pisz("wers2o", "Wypłata za    dni.", 120, 580, black)
         pisak.pisz("wers2p", str(dane_konta[9]), 250, 580, black)
         pisak.pisz("wers2k", "Stan konta", 190, 605, black)
@@ -258,6 +260,7 @@ def intro_dev():
         mx, my = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                delete_db.delete_db_0_save()
                 pygame.quit()
                 sys.exit()
             if event.type == MOUSEBUTTONDOWN:
@@ -308,6 +311,7 @@ def wejsciedogry():
         click = False
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                delete_db.delete_db_0_save()
                 pygame.quit()
                 sys.exit()
             if event.type == MOUSEBUTTONDOWN:
@@ -360,9 +364,16 @@ def wejsciedogry():
 
 def kontynuacja_gry():
     running = True
-    check_save = check_file_save.checking_files()
+    scena_save = None
+    check_presave = check_file_save.checking_presave()
+    if check_presave == 1:
+        delete_db.delete_db_0_save()
+    check_save = check_file_save.checking_save()
     if check_save == 1:
         scena_save = db_save.search_dane_save()
+        if scena_save != "save_1":
+            delete_db.delete_db_continue()
+            check_save = check_file_save.checking_save()
     while running:
 
         click = False
@@ -376,6 +387,7 @@ def kontynuacja_gry():
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
+                delete_db.delete_db_0_save()
                 pygame.quit()
                 sys.exit()
             if event.type == MOUSEBUTTONDOWN:
@@ -393,7 +405,7 @@ def kontynuacja_gry():
                     pygame.mixer.music.stop()
                     loadingSoundDEV.play()
                     if scena_save == "save_1":
-                        scena_prog_3(1)
+                        scena_prog_3()
 
         if cofnij_x.collidepoint((mx, my)):
             screen.blit(graph.cofnij[1], (560, 640))
@@ -438,6 +450,7 @@ def start():
 
         for event in events:
             if event.type == pygame.QUIT:
+                delete_db.delete_db_0_save()
                 pygame.quit()
                 sys.exit()
             if event.type == MOUSEBUTTONDOWN:
@@ -700,6 +713,7 @@ def objasnienie(imie_gracza):
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
+                delete_db.delete_db_0_save()
                 pygame.quit()
                 sys.exit()
             if event.type == MOUSEBUTTONDOWN:
@@ -744,6 +758,8 @@ def objasnienie(imie_gracza):
 
 
 def scena1():
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     siren.play(-1)
     running = True
     while running:
@@ -768,8 +784,6 @@ def scena1():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 17)
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 experience.check_exp()
                 loadingSound.play()
                 scena2()
@@ -823,6 +837,7 @@ def scena1():
 
 
 def scena2():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     running = True
     while running:
         click = False
@@ -846,7 +861,6 @@ def scena2():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena3()
 
@@ -889,6 +903,7 @@ def scena2():
 
 
 def scena3():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     running = True
     while running:
         click = False
@@ -912,8 +927,6 @@ def scena3():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 16)
                 experience.check_exp()
                 loadingSound.play()
                 scena4()
@@ -961,6 +974,8 @@ def scena3():
 
 
 def scena4():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 2)
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 2)
     running = True
     while running:
         click = False
@@ -985,8 +1000,6 @@ def scena4():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 experience.check_exp()
                 loadingSound.play()
                 scena5()
@@ -1044,6 +1057,10 @@ def scena4():
 
 
 def scena5():
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 5)
+    db_save.update_exp_ang_dni("exp", "dane_konta", 5)
+    dane_konta = experience.aktualny_stan_konta()
+    stan_portfela = round(dane_konta[7], 2)
     running = True
     while running:
         click = False
@@ -1052,6 +1069,7 @@ def scena5():
         screen.blit(graph.wspol, (0, 0))
         button_nie = screen.blit(graph.nie[0], (470, 600))
         button_tak = screen.blit(graph.tak[0], (660, 600))
+        screen.blit(graph.portfel, (1115, 530))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -1068,17 +1086,15 @@ def scena5():
         if button_nie.collidepoint((mx, my)):
             screen.blit(graph.nie[1], (470, 600))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena_prog()
                 
         if button_tak.collidepoint((mx, my)):
             screen.blit(graph.tak[1], (660, 600))
             if click:
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 20)
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+                cashpaid.play()
+                db_save.update_exp_ang_dni("stan_konta", "dane_konta", -60)
                 experience.check_exp()
-                loadingSound.play()
                 silownia()
 
         akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
@@ -1110,7 +1126,8 @@ def scena5():
                    20, 450, white)
         pisak.pisz("wers11", "Swoją drogą to Tomek nie próżnuje jak Ty, tylko szuka ciekawszego zajęcia jak leżenie"
                              " odłogiem w pokoju.", 20, 480, white)
-        pisak.pisz("wers12", "--> Idziesz z Tomkiem na siłownię ?", 20, 530, dyellow)
+        pisak.pisz("wers12", "--> Idziesz z Tomkiem na siłownię ? (Koszt 60zł)", 20, 530, dyellow)
+        pisak.pisz("wers2k", str(stan_portfela), 1135, 603, white)
 
         kulka = screen.blit(graph.kulkamocy[0], (700, 298))
 
@@ -1126,8 +1143,11 @@ def scena5():
 def silownia():
     siren.stop()
     silowniaOGG.play(-1)
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     db_save.add_1_value("dane_ekwipunek", "usb")
-    db_save.add_1_value("dane_quest_tomek", "silownia")
+    db_save.add_2_value("dane_quest_tomek", "silownia", "Przyszedł ze mną ale gdzieś poszedł..")
+    dane_konta = experience.aktualny_stan_konta()
+    stan_portfela = round(dane_konta[7], 2)
     running = True
     while running:
         click = False
@@ -1135,6 +1155,7 @@ def silownia():
         screen.fill(black)
         screen.blit(graph.silka, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
+        screen.blit(graph.portfel, (1115, 530))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -1153,7 +1174,6 @@ def silownia():
             if click:
                 eq_wav.play()
                 tk_box.informacja("Pendrive ze starymi testami", graph.pendrive_src, "350x150")
-                db_save.update_exp_ang_dni("exp", "dane_konta", 20)
                 loadingSound.play()
                 scena_prog()
 
@@ -1192,6 +1212,7 @@ def silownia():
         pisak.pisz("wers13", "- To co wracamy? - zapytał Tomek. - No możemy wracać - odpowiadasz", 30, 540, white)
         pisak.pisz("wers14", "Swoją drogą, to gdzie był Tomek? Przyszedł z Tobą a nie było go na siłowni.",
                    30, 570, white)
+        pisak.pisz("wers2k", str(stan_portfela), 1135, 603, white)
 
         pygame.display.update()
         mainClock.tick(60)
@@ -1269,7 +1290,11 @@ def scena_prog():
 def scena6():
     progOGG.stop()
     siren.play(-1)
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 2)
+    db_save.update_exp_ang_dni("exp", "dane_konta", 2)
     db_save.add_1_value("dane_notatki", "legitymowanie")
+    dane_konta = experience.aktualny_stan_konta()
+    stan_portfela = round(dane_konta[7], 2)
     running = True
     while running:
         click = False
@@ -1280,6 +1305,7 @@ def scena6():
         button_tak = screen.blit(graph.tak[0], (660, 600))
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
+        screen.blit(graph.portfel, (1115, 530))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -1296,18 +1322,15 @@ def scena6():
         if button_nie.collidepoint((mx, my)):
             screen.blit(graph.nie[1], (470, 600))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 2)
                 loadingSound.play()
                 scena7()
 
         if button_tak.collidepoint((mx, my)):
             screen.blit(graph.tak[1], (660, 600))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 2)
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 20)
+                cashpaid.play()
+                db_save.update_exp_ang_dni("stan_konta", "dane_konta", -60)
                 experience.check_exp()
-                loadingSound.play()
                 silownia1()
 
         if notka.collidepoint((mx, my)):
@@ -1342,7 +1365,8 @@ def scena6():
         pisak.pisz("wers5", "powoli dociera do Ciebie, że chyba jesteście podobni - to chyba ten sam cel - Policja.",
                    20, 300, white)
         pisak.pisz("wers6", "Po zajęciach Tomek znowu proponuje Ci siłownię.", 20, 330, white)
-        pisak.pisz("wers7", "--> Idziesz z Tomkiem na siłownię ?", 20, 530, dyellow)
+        pisak.pisz("wers7", "--> Idziesz z Tomkiem na siłownię ? (Koszt 60zł)", 20, 530, dyellow)
+        pisak.pisz("wers2k", str(stan_portfela), 1135, 603, white)
 
         pygame.display.update()
         mainClock.tick(60)
@@ -1351,6 +1375,10 @@ def scena6():
 
 
 def silownia1():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+    db_save.add_2_value("dane_quest_tomek", "silownia_2", "Wyszedł z sali i wrócił po 20 minutach..")
+    dane_konta = experience.aktualny_stan_konta()
+    stan_portfela = round(dane_konta[7], 2)
     siren.stop()
     silowniaOGG.play(-1)
     running = True
@@ -1360,6 +1388,7 @@ def silownia1():
         screen.fill(black)
         screen.blit(graph.silka, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
+        screen.blit(graph.portfel, (1115, 530))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -1376,7 +1405,6 @@ def silownia1():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 silowniaOGG.stop()
                 siren.play()
                 loadingSound.play()
@@ -1394,6 +1422,7 @@ def silownia1():
         pisak.pisz("wers2", "Tomek pobył z Tobą kilka minut i gdzieś się ulotnił.", 20, 210, white)
         pisak.pisz("wers3", "Wrócił po 20 minutach.", 20, 240, white)
         pisak.pisz("wers4", "Poćwiczyliście jeszcze 10 minut i wracacie razem do pokoju.", 20, 270, white)
+        pisak.pisz("wers2k", str(stan_portfela), 1135, 603, white)
 
         pygame.display.update()
         mainClock.tick(60)
@@ -1403,6 +1432,8 @@ def silownia1():
 
 
 def scena7():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 6)
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 6)
     running = True
     while running:
         click = False
@@ -1428,8 +1459,6 @@ def scena7():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 20)
                 loadingSound.play()
                 scena8()
 
@@ -1482,6 +1511,7 @@ def scena7():
 
 
 def scena8():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     running = True
     while running:
         click = False
@@ -1507,8 +1537,6 @@ def scena8():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena9()
 
@@ -1562,6 +1590,8 @@ def scena8():
 
 
 def scena9():
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     running = True
     while running:
         click = False
@@ -1587,8 +1617,6 @@ def scena9():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 3)
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena10()
 
@@ -1643,6 +1671,8 @@ def scena9():
 
 
 def scena10():
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 3)
+    db_save.update_exp_ang_dni("exp", "dane_konta", 3)
     running = True
     while running:
         click = False
@@ -1668,8 +1698,6 @@ def scena10():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 egzamin_leg()
 
@@ -1706,6 +1734,8 @@ def scena10():
 
 
 def egzamin_leg():
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     siren.stop()
     szum.play(-1)
     running = True
@@ -2043,13 +2073,13 @@ def wyniki_leg(odp1, odp2, odp3, odp4):
             if click:
                 eq_wav.play()
                 if ocena == 5:
-                    tk_box.informacja("+5 doświadczenia, +5 zaangażowania ", graph.zaang_up, "350x100")
-                    db_save.update_exp_ang_dni("exp", "dane_konta", 5)
-                    db_save.update_exp_ang_dni("ang", "dane_konta", 5)
+                    tk_box.informacja("+10 doświadczenia, +10 zaangażowania ", graph.zaang_up, "350x100")
+                    db_save.update_exp_ang_dni("exp", "dane_konta", 10)
+                    db_save.update_exp_ang_dni("ang", "dane_konta", 10)
                     db_save.add_1_value("dane_indeks", 5)
                 elif ocena == 4:
-                    tk_box.informacja("+4 doświadczenia", graph.zaang_up, "350x100")
-                    db_save.update_exp_ang_dni("exp", "dane_konta", 4)
+                    tk_box.informacja("+7 doświadczenia", graph.zaang_up, "350x100")
+                    db_save.update_exp_ang_dni("exp", "dane_konta", 7)
                     db_save.add_1_value("dane_indeks", 4)
                 elif ocena == 3:
                     tk_box.informacja("+3 doświadczenia", graph.zaang_up, "350x100")
@@ -2183,6 +2213,9 @@ def scena_prog1():
 
 def scena11():
     siren.play()
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+    dane_konta = experience.aktualny_stan_konta()
+    stan_portfela = round(dane_konta[7], 2)
     running = True
     while running:
         click = False
@@ -2194,6 +2227,7 @@ def scena11():
         notka = screen.blit(graph.notatnikA, (20, 570))
         tornister = screen.blit(graph.plecak, (200, 570))
         indeks_ocen = screen.blit(graph.indeks, (900, 570))
+        screen.blit(graph.portfel, (1115, 530))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -2210,16 +2244,16 @@ def scena11():
         if button_nie.collidepoint((mx, my)):
             screen.blit(graph.nie[1], (470, 600))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena12()
 
         if button_tak.collidepoint((mx, my)):
             screen.blit(graph.tak[1], (660, 600))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 2)
                 siren.stop()
-                loadingSound.play()
+                cashpaid.play()
+                db_save.update_exp_ang_dni("stan_konta", "dane_konta", -200)
+                experience.check_exp()
                 bar()
 
         if notka.collidepoint((mx, my)):
@@ -2257,7 +2291,8 @@ def scena11():
         pisak.pisz("wers4", "Dowódca Twojego plutonu - Jacek - rzucił hasło by wyjść na jakieś piwo całym plutonem.",
                    20, 270, white)
         pisak.pisz("wers5", "Podobno przy szkole jest jakiś bar, który nazywa się - 'CELA'.", 20, 300, white)
-        pisak.pisz("wers6", "--> Idziesz na piwo?", 520, 530, dyellow)
+        pisak.pisz("wers6", "--> Idziesz na piwo? (Koszt 200zł)", 20, 530, dyellow)
+        pisak.pisz("wers2k", str(stan_portfela), 1135, 603, white)
 
         cela_bar = screen.blit(graph.cela[0], (627, 302))
 
@@ -2271,6 +2306,9 @@ def scena11():
 
 
 def bar():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+    dane_konta = experience.aktualny_stan_konta()
+    stan_portfela = round(dane_konta[7], 2)
     barSound.play(-1)
     running = True
     while running:
@@ -2279,6 +2317,7 @@ def bar():
         screen.fill(black)
         screen.blit(graph.barBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
+        screen.blit(graph.portfel, (1115, 530))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -2295,7 +2334,6 @@ def bar():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 bar1()
 
@@ -2323,6 +2361,8 @@ def bar():
         pisak.pisz("wers11", "'Mniam ale to piwo dobre' - myślisz. Jednak miesiąc bez wyjścia robi swoje.. ",
                    20, 480, white)
 
+        pisak.pisz("wers2k", str(stan_portfela), 1135, 603, white)
+
         pygame.display.update()
         mainClock.tick()
 
@@ -2330,6 +2370,9 @@ def bar():
 
 
 def bar1():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+    dane_konta = experience.aktualny_stan_konta()
+    stan_portfela = round(dane_konta[7], 2)
     running = True
     while running:
         click = False
@@ -2338,6 +2381,7 @@ def bar1():
         screen.blit(graph.barBG, (0, 0))
         button_nie = screen.blit(graph.nie[0], (470, 600))
         button_tak = screen.blit(graph.tak[0], (660, 600))
+        screen.blit(graph.portfel, (1115, 530))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -2354,16 +2398,18 @@ def bar1():
         if button_nie.collidepoint((mx, my)):
             screen.blit(graph.nie[1], (470, 600))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena_bar_iwona()
 
         if button_tak.collidepoint((mx, my)):
             screen.blit(graph.tak[1], (660, 600))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
-                loadingSound.play()
-                bar2()
+                if dane_konta[7] > 100:
+                    cashpaid.play()
+                    db_save.update_exp_ang_dni("stan_konta", "dane_konta", -100)
+                    bar2()
+                else:
+                    pisak.pisz("wers11", "--> Nie masz tyle pieniędzy.. ", 20, 580, red)
 
         pisak.pisz("wers", "Po piwie, a właściwie dwóch - bo tak fajnie się Wam rozmawiało - idziecie do stolika"
                            " Jacka.", 20, 150, white)
@@ -2382,7 +2428,9 @@ def bar1():
         pisak.pisz("wers8", "Proponujesz powrót do akademika ale Anka oświadcza, że wróci z Jackiem. Iwona jest za"
                             " powrotem.", 20, 390, white)
         pisak.pisz("wers9", "Tomka gdzieś wcieło, postaliście jeszcze 10 minut ale nigdzie go nie ma.", 20, 420, white)
-        pisak.pisz("wers10", "--> Zostajesz jeszcze chwilę?", 20, 550, dyellow)
+        pisak.pisz("wers10", "--> Zostajesz jeszcze chwilę? (Koszt 100zł)", 20, 550, dyellow)
+
+        pisak.pisz("wers2k", str(stan_portfela), 1135, 603, white)
 
         wodka_poj = screen.blit(graph.wodka[0], (880, 210))
         if wodka_poj.collidepoint((mx, my)):
@@ -2396,14 +2444,18 @@ def bar1():
 
 
 def bar2():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     running = True
-    db_save.add_1_value("dane_quest_tomek", "personel")
+    dane_konta = experience.aktualny_stan_konta()
+    stan_portfela = round(dane_konta[7], 2)
+    db_save.add_1_value("dane_quest_tomek", "bar")
     while running:
         click = False
 
         screen.fill(black)
         screen.blit(graph.barBG, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
+        screen.blit(graph.portfel, (1115, 530))
 
         mx, my = pygame.mouse.get_pos()
 
@@ -2420,7 +2472,6 @@ def bar2():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena_bar_iwona()
 
@@ -2447,6 +2498,8 @@ def bar2():
                    "**Wracacie do pokoju.. ",
                    20, 390, white)
 
+        pisak.pisz("wers2k", str(stan_portfela), 1135, 603, white)
+
         pygame.display.update()
         mainClock.tick(60)
 
@@ -2454,6 +2507,7 @@ def bar2():
 
 
 def scena_bar_iwona():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     siren.stop()
     barSound.stop()
     siren.play(-1)
@@ -2480,7 +2534,6 @@ def scena_bar_iwona():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena12()
 
@@ -2517,6 +2570,8 @@ def scena_bar_iwona():
 
 
 def scena12():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 3)
     siren.stop()
     barSound.stop()
     siren.play(-1)
@@ -2547,8 +2602,6 @@ def scena12():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 3)
                 loadingSound.play()
                 scena13()
 
@@ -2604,6 +2657,7 @@ def scena12():
 
 
 def scena13():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     running = True
     while running:
         click = False
@@ -2630,8 +2684,6 @@ def scena13():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena14()
 
@@ -2693,6 +2745,8 @@ def scena13():
 
 
 def scena14():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
     siren.stop()
     korytarzSound.play(-1)
     running = True
@@ -2721,7 +2775,6 @@ def scena14():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena15()
 
@@ -2788,6 +2841,7 @@ def scena14():
 
 
 def scena15():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     running = True
     while running:
         click = False
@@ -2814,7 +2868,6 @@ def scena15():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena_sciana()
 
@@ -2883,6 +2936,7 @@ def scena15():
 
 
 def scena_sciana():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     running = True
     while running:
         click = False
@@ -2909,7 +2963,6 @@ def scena_sciana():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena_prog2()
 
@@ -3022,6 +3075,8 @@ def scena_prog2():
 
 
 def scena16():
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     siren.play(-1)
     db_save.add_1_value("dane_notatki", "ruchdrogowy")
     running = True
@@ -3050,8 +3105,6 @@ def scena16():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena17()
 
@@ -3120,6 +3173,7 @@ def scena16():
 
 
 def scena17():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     running = True
     while running:
         click = False
@@ -3146,7 +3200,6 @@ def scena17():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena18()
 
@@ -3212,6 +3265,8 @@ def scena17():
 
 
 def scena18():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
     running = True
     while running:
         click = False
@@ -3238,8 +3293,6 @@ def scena18():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 6)
                 loadingSound.play()
                 scena19()
 
@@ -3295,6 +3348,8 @@ def scena18():
 
 
 def scena19():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 2)
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 3)
     running = True
     quest_tomek = db_save.search_data("quest_tomek", "dane_quest_tomek")
     while running:
@@ -3324,14 +3379,12 @@ def scena19():
         if wybor1.collidepoint((mx, my)):
             screen.blit(graph.silownia_N[1], (470, 600))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 silownia2()
 
         if wybor2.collidepoint((mx, my)):
             screen.blit(graph.spacer_N[1], (660, 600))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 spacer()
 
@@ -3368,7 +3421,7 @@ def scena19():
         pisak.pisz("wers3", "Szkoda Ci czasu na alkohol a szukasz jakiegoś pożytecznego zajęcia.", 20, 210, white)
         pisak.pisz("wers4", "Zastanawiasz się co robić:", 20, 240, white)
         for q in quest_tomek:
-            if q == "personel":
+            if q == "bar":
                 pisak.pisz("wers5x", "1. Iść na siłownię? I może zobaczę Tomka i zagadam co robił w CELI", 20, 270, green)
             else:
                 pisak.pisz("wers5", "1. Iść na siłownię?", 20, 270, white)
@@ -3387,9 +3440,10 @@ def scena19():
 
 
 def silownia2():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     siren.stop()
     silowniaOGG.play(-1)
-    db_save.add_1_value("dane_quest_tomek", "rozmowa")
+    db_save.add_1_value("dane_quest_tomek", "silownia_3")
     running = True
     while running:
         click = False
@@ -3434,7 +3488,6 @@ def silownia2():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena20()
 
@@ -3470,6 +3523,7 @@ def silownia2():
 
 
 def spacer():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     siren.stop()
     spacerOGG.play(-1)
     running = True
@@ -3516,7 +3570,6 @@ def spacer():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 spacer1()
 
@@ -3564,6 +3617,7 @@ def spacer():
 
 
 def spacer1():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     running = True
     while running:
         click = False
@@ -3608,7 +3662,6 @@ def spacer1():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena20()
 
@@ -3656,6 +3709,7 @@ def spacer1():
 
 
 def scena20():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     spacerOGG.stop()
     silowniaOGG.stop()
     running = True
@@ -3702,8 +3756,6 @@ def scena20():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
                 loadingSound.play()
                 scena21()
 
@@ -3724,6 +3776,8 @@ def scena20():
 
 
 def scena21():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
     strzelnicaOGG.play(-1)
     running = True
     while running:
@@ -3769,7 +3823,6 @@ def scena21():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 strzelnica_scena_1()
 
@@ -3825,10 +3878,10 @@ def strzelnica_scena_1():
         screen.blit(graph.strzelnica1, (0, 0))
         if naboje <= 0:
             if punkty > 200:
-                tk_box.informacja("+5 doświadczenia, +5 zaangażowania ", graph.zaang_up, "350x100")
+                tk_box.informacja("+10 doświadczenia, +12 zaangażowania ", graph.zaang_up, "350x100")
                 db_save.add_1_value("dane_ekwipunek", "skrawek")
-                db_save.update_exp_ang_dni("ang", "dane_konta", 5)
-                db_save.update_exp_ang_dni("exp", "dane_konta", 5)
+                db_save.update_exp_ang_dni("ang", "dane_konta", 12)
+                db_save.update_exp_ang_dni("exp", "dane_konta", 10)
                 db_save.add_1_value("dane_baretki", "p99")
             pygame.mouse.set_visible(True)
             db_save.add_1_value("dane_strzelnica", punkty)
@@ -4055,6 +4108,8 @@ def strzelnica1wyniki(punkty):
 
 
 def scena22():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
     strzelnicaOGG.stop()
     eq = db_save.search_data("ekwipunek", "dane_ekwipunek")
     running = True
@@ -4101,8 +4156,6 @@ def scena22():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
                 loadingSound.play()
                 egzamin_ruch()
 
@@ -4547,6 +4600,8 @@ def wyniki_ruch(odp1_ruch, odp2_ruch, odp3_ruch, odp4_ruch):
 
 
 def scena23():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+    db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
     szum.stop()
     siren.play(-1)
     quest_tomek = db_save.search_data("quest_tomek", "dane_quest_tomek")
@@ -4577,15 +4632,13 @@ def scena23():
         if button_nie.collidepoint((mx, my)):
             screen.blit(graph.cela_nav[1], (470, 600))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
+                loadingSound.play()
                 scena_cela()
 
         if button_tak.collidepoint((mx, my)):
             screen.blit(graph.miasto[1], (660, 600))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
-                db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
+                loadingSound.play()
                 scena_miasto()
 
         if notka.collidepoint((mx, my)):
@@ -4618,7 +4671,7 @@ def scena23():
         pisak.pisz("wers1", "Na odstresowanie Tomek proponuje by wyjść na jakieś piwko. ", 30, 150, white)
         pisak.pisz("wers2", "Anka z Iwoną, chcą iść na miasto. Tomek naciska by wyjść do CELI.", 30, 180, white)
         for q in quest_tomek:
-            if q == "rozmowa":
+            if q == "silownia_3":
                 pisak.pisz("wers3", "*Znowu CELA? No tak, wychodził kiedyś z drzwi dla personelu.", 30, 210, green)
                 pisak.pisz("wers4", "*Może dowiem się czegoś więcej o tym miejscu.", 30, 240, green)
         pisak.pisz("wers6", "--> To gdzie idziemy?", 520, 530, dyellow)
@@ -4630,6 +4683,7 @@ def scena23():
 
 
 def scena_cela():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     siren.stop()
     barSound.play(-1)
     running = True
@@ -4655,7 +4709,6 @@ def scena_cela():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena_cela2()
 
@@ -4694,6 +4747,7 @@ def scena_cela():
 
 
 def scena_cela2():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     running = True
     while running:
         click = False
@@ -4717,7 +4771,6 @@ def scena_cela2():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena24()
 
@@ -4760,6 +4813,7 @@ def scena_cela2():
 
 
 def scena_miasto():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     siren.stop()
     spacerOGG.play(-1)
     running = True
@@ -4806,7 +4860,6 @@ def scena_miasto():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena24()
 
@@ -4845,6 +4898,7 @@ def scena_miasto():
 
 
 def scena24():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     siren.play(-1)
     spacerOGG.stop()
     barSound.stop()
@@ -4874,7 +4928,6 @@ def scena24():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena_prog_3()
 
@@ -4926,7 +4979,7 @@ def scena24():
 # SCENA PROG_SAVE_1
 
 
-def scena_prog_3(codalej=0):
+def scena_prog_3(co_dalej=0):
     siren.stop()
     saveOGG.play(-1)
     running = True
@@ -4977,13 +5030,13 @@ def scena_prog_3(codalej=0):
                 loadingSound.play()
                 wykaz_ocen()
 
-        if codalej == 0:
+        if not co_dalej:
             zapisz_x = screen.blit(graph.zapisz[0], (570, 600))
             if zapisz_x.collidepoint((mx, my)):
                 screen.blit(graph.zapisz[1], (570, 600))
                 if click:
                     loadingSound.play()
-                    codalej = save_1()
+                    co_dalej = save_1()
 
         akta_x = screen.blit(graph.button_odznaka[0], (1150, 20))
         if akta_x.collidepoint((mx, my)):
@@ -4992,7 +5045,7 @@ def scena_prog_3(codalej=0):
                 loadingSound.play()
                 akta_osobowe()
 
-        if codalej == 0:
+        if not co_dalej:
             pisak.pisz("wers", "Ten etap pozwala zapisać stan Gry.", 20, 460, dyellow)
             pisak.pisz("wers2", "Jest to również miejsce, z którego będziesz kontynuował(-a) dalszą grę.", 20, 490, dyellow)
         else:
@@ -5006,7 +5059,7 @@ def scena_prog_3(codalej=0):
 def save_1():
     running = True
     control_pc = None
-    codalej = 0
+    co_dalej = None
     while running:
         click = False
 
@@ -5039,7 +5092,7 @@ def save_1():
                 loadingSound.play()
                 db_save.add_1_value("dane_save", "save_1")
                 control_pc = 1
-                codalej = 1
+                co_dalej = 1
 
         if not control_pc:
             screen.blit(graph.status_pc[0], (1030, 20))
@@ -5049,12 +5102,13 @@ def save_1():
 
         pygame.display.update()
         mainClock.tick()
-        return codalej
+    return co_dalej
 
 # Scena15
 
 
 def scena25():
+    db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     pygame.mixer.music.stop()
     siren.play(-1)
     running = True
@@ -5084,7 +5138,6 @@ def scena25():
         if dalej.collidepoint((mx, my)):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
-                db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 loadingSound.play()
                 scena26()
 
@@ -5213,7 +5266,7 @@ def scena26():
         pisak.pisz("wers9", "Wiesz, że za bardzo nie wypada ale zastanawiasz się czy przyjrzeć się jej bliżej.",
                    20, 360, white)
         for q in quest_tomek:
-            if q == "rozmowa":
+            if q == "silownia_3":
                 pisak.pisz("wers10", "*Może znajdziesz coś.. cokolwiek.. może związanego z dziwną rozmową w korytarzu"
                                      " siłowni?", 20, 390, green)
         pisak.pisz("wers12", "--> Zaglądasz do torby?", 500, 530, dyellow)
@@ -5226,7 +5279,7 @@ def scena26():
 
 def scena_torba():
     running = True
-    db_save.add_1_value("dane_quest_tomek", "torebunia")
+    db_save.add_1_value("dane_quest_tomek", "torba_tomka")
     while running:
         click = False
 
@@ -5337,7 +5390,7 @@ def scena27():
         pisak.pisz("wers1", "Już po 15 minutach siedzisz w swoim autku i obierasz kierunek DOM.", 20, 120, white)
         pisak.pisz("wers2", "Droga daleka.. odpalasz ulubioną stację radiową i suniesz przed siebie.", 20, 150, white)
         for q in quest_tomek:
-            if q == "torebunia":
+            if q == "torba_tomka":
                 pisak.pisz("wers3", "*Jednak to co zobaczyłeś(-aś) w torbie, trochę nie daje Ci spokoju.", 20, 180, green)
                 pisak.pisz("wers4", "*Te dziwne inicjały.. No gdyby były tylko na torbie to zrozumiałe - pożyczona ale"
                                     " takie same na butach?", 20, 210, green)
@@ -5489,7 +5542,7 @@ def scena28():
         pisak.pisz("wers2", "Jest 21:00 ale okazuje się, że jesteś jako pierwszy(-a) w pokoju. Kładziesz się na"
                             " chwilę.", 20, 150, white)
         for q in quest_tomek:
-            if q == "torebunia":
+            if q == "torba_tomka":
                 pisak.pisz("wers3", "*Zastanawiasz się czy zapytać Tomka o jego zainteresowania, no.. te książki",
                            20, 180, green)
                 pisak.pisz("wers4", "*Tylko lipa o tym rozmawiać, bo wyjdzie na jaw, że grzebałem(-am) mu w torbie",
@@ -6137,7 +6190,7 @@ def scena31():
         pisak.pisz("wers8", "*Sumienie podpowiada Ci zostać z Anką i pomóc jej w nauce.", 20, 330, white)
         pisak.pisz("wers9", "*Rozsądek każe Ci iść z Tomkiem i Iwoną.", 20, 360, white)
         for q in quest_tomek:
-            if q == "torebunia":
+            if q == "torba_tomka":
                 pisak.pisz("wers10", "*Zawsze to jakaś okazja do obserwacji Tomka.", 20, 390, green)
         pisak.pisz("wersX", "--> Zostajesz z Anką?", 520, 530, dyellow)
 
@@ -6277,7 +6330,7 @@ def scena_cela3():
         pisak.pisz("wers3", "Tomek wstaje od stolika, zbiera Wasze zamówienia i idzie w kierunku baru.", 20, 240, white)
         pisak.pisz("wers4", "- Tylko się streszczaj, bo jestem spragniona! - krzyczy za nim Iwona.", 20, 270, white)
         for q in quest_tomek:
-            if q == "torebunia":
+            if q == "torba_tomka":
                 pisak.pisz("wers5", "*Myślisz sobie, że znając Tomka, pewnie znowu gdzieś zniknie na 15 minut",
                            20, 300, green)
                 pisak.pisz("wers6", "*Nie chcesz mówić o tym Iwonie ale jest okazja by wyrwać się pod pretekstem "
@@ -6300,7 +6353,7 @@ def scena_cela3():
 
 def scena_cela_quest():
     running = True
-    db_save.add_1_value("dane_quest_tomek", "cela")
+    db_save.add_1_value("dane_quest_tomek", "bar_2")
     while running:
         click = False
 
@@ -6400,7 +6453,7 @@ def scena_cela4():
         pisak.pisz("wers11", "- Soryy - Tomek wydaje się zmieszany - Musiałem jeszcze skorzystać z toalety.",
                    20, 480, white)
         for q in quest_tomek:
-            if q == "cela":
+            if q == "bar_2":
                 pisak.pisz("wers12", "*Skłamał! Teraz jestem pewny(-a)! On coś ukrywa! Tylko co?", 20, 520, green)
         pygame.display.update()
         mainClock.tick()
@@ -9618,7 +9671,7 @@ def salawf_budynek():
         pisak.pisz("wers5", "*Eee - zamyślasz się - to wykładowcy grają po zajęciach wraz z osobami, które pozostały "
                             "na weekend.", 20, 270, white)
         for q in quest_tomek:
-            if q == "cela":
+            if q == "bar_2":
                 pisak.pisz("wers6", "*Ale.. chwila.. Jeden z mężczyzn szczególnie przykuwa Twoją uwagę.. hmm..",
                            20, 300, green)
                 pisak.pisz("wers7", "*Twarz jakby znajoma.. wykładowca? - Nieee. - Kursant? - Nie.. ale coś powoli świta"
@@ -10426,6 +10479,7 @@ def notatnik():
         screen.blit(graph.notatniczek, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         notatnik_x = screen.blit(graph.notatnikPistol, (20, 20))
+        note_quest = screen.blit(graph.oststrona[0], (1150, 550))
         
         mx, my = pygame.mouse.get_pos()
         for event in pygame.event.get():
@@ -10442,8 +10496,14 @@ def notatnik():
             if click:
                 loadingSound.play()
                 break
+
         if notatnik_x.collidepoint((mx, my)):
             screen.blit(graph.zapiski, (20, 210))
+
+        if note_quest.collidepoint((mx, my)):
+            screen.blit(graph.oststrona[1], (1150, 550))
+            if click:
+                tx_notes.ostatnia_strona()
 
         for i in notatki:
             if i == "legitymowanie":
@@ -10460,6 +10520,7 @@ def notatnik():
                     screen.blit(graph.zapiskiWykr, (170, 210))
 
         pisak.pisz("wers", "Najedź kursorem na notatki by przeczytać.", 20, 655, dyellow)
+        pisak.pisz("wers", "Zapiski", 1160, 510, dyellow)
                                    
         pygame.display.update()
         mainClock.tick(60)
