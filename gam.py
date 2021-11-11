@@ -12,7 +12,6 @@ import db_save
 import delete_db
 import tx_notes
 
-
 pygame.init()
 pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.mixer.set_num_channels(32)
@@ -24,12 +23,9 @@ filepath = os.path.dirname(__file__)
 
 screen = pygame.display.set_mode((1280, 720))
 
-# Nazwa_okna_gry
+# Nazwa_okna_gry/Ikona
 
 pygame.display.set_caption("Policmajster: Początek")
-
-# Ikona_gry
-
 pygame.display.set_icon(graph.icon)
 
 # Muzyka w tle \\ reszta w module
@@ -89,7 +85,6 @@ dyellow = (115, 115, 0)
 brown = (153, 102, 51)
 dark_blue = (0, 51, 102)
 
-
 # Strzelnica
 
 gun = pygame.image.load(os.path.join(filepath, "data\\tarcze\\gun.png")).convert_alpha()
@@ -146,10 +141,10 @@ blob_mask = pygame.mask.from_surface(green_blob)
 blob_rect = green_blob.get_rect()
 blob_color = green_blob
 
-
 # Aktywne eq
 
 active = None
+
 
 # Akta_osobowe
 
@@ -300,6 +295,7 @@ def intro_dev():
         pygame.display.update()
         mainClock.tick()
 
+
 # Wejście do gry
 
 
@@ -324,7 +320,7 @@ def wejsciedogry():
             bg_x = graph.bg.get_width()
         if bg_x2 < graph.bg.get_width() * -1:
             bg_x = graph.bg.get_width()
-                
+
         screen.fill(black)
         screen.blit(graph.bg, (bg_x, 0))
         screen.blit(graph.bg, (bg_x2, 0))
@@ -358,6 +354,7 @@ def wejsciedogry():
 
         pygame.display.update()
         mainClock.tick(30)
+
 
 # Kontynuacja gry
 
@@ -424,6 +421,7 @@ def kontynuacja_gry():
         pygame.display.update()
         mainClock.tick()
 
+
 # Start
 
 
@@ -433,7 +431,7 @@ def start():
     imie_gracza = None
     while running:
         click = False
-        
+
         screen.fill(black)
         screen.blit(graph.maszyna_bg, (0, 0))
         screen.blit(graph.key_enter[1], (565, 570))
@@ -456,7 +454,7 @@ def start():
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True
-              
+
         if cofnij_x.collidepoint((mx, my)):
             screen.blit(graph.cofnij[1], (560, 640))
             if click:
@@ -684,6 +682,7 @@ def start():
                 if click:
                     klik.play()
                     imie_gracza = "".join(str(x) for x in nazwa_gracza)
+
         if imie_gracza:
             dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
             if dalej.collidepoint((mx, my)):
@@ -691,9 +690,10 @@ def start():
                 if click:
                     loadingSound.play()
                     objasnienie(imie_gracza)
-            
+
         pygame.display.update()
         mainClock.tick()
+
 
 # Objaśnienie
 
@@ -750,9 +750,10 @@ def objasnienie(imie_gracza):
         pisak.pisz("wers9", "**Posterunkowy(-a)! Jeśli jesteś gotowy(-a) na szkolenie, naciśnij 'Kariera'**",
                    260, 500, dyellow)
         screen.blit(graph.odznaka, (40, 490))
-        
+
         pygame.display.update()
         mainClock.tick()
+
 
 # Scena 1
 
@@ -764,7 +765,7 @@ def scena1():
     running = True
     while running:
         click = False
-        
+
         screen.fill(black)
         screen.blit(graph.wspol, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
@@ -833,6 +834,7 @@ def scena1():
         pygame.display.update()
         mainClock.tick()
 
+
 # Scena 2
 
 
@@ -841,7 +843,7 @@ def scena2():
     running = True
     while running:
         click = False
-        
+
         screen.fill(black)
         screen.blit(graph.wspol, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
@@ -899,6 +901,7 @@ def scena2():
         pygame.display.update()
         mainClock.tick()
 
+
 # Scena 3
 
 
@@ -907,7 +910,7 @@ def scena3():
     running = True
     while running:
         click = False
-        
+
         screen.fill(black)
         screen.blit(graph.pokoj, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
@@ -970,6 +973,7 @@ def scena3():
         pygame.display.update()
         mainClock.tick()
 
+
 # Scena 4
 
 
@@ -979,7 +983,7 @@ def scena4():
     running = True
     while running:
         click = False
-        
+
         screen.fill(black)
         screen.blit(graph.strzelnica, (0, 0))
         dalej = screen.blit(graph.press_Dalej[0], (1100, 640))
@@ -1053,6 +1057,7 @@ def scena4():
         pygame.display.update()
         mainClock.tick(60)
 
+
 # Scena 5
 
 
@@ -1064,7 +1069,7 @@ def scena5():
     running = True
     while running:
         click = False
-        
+
         screen.fill(black)
         screen.blit(graph.wspol, (0, 0))
         button_nie = screen.blit(graph.nie[0], (470, 600))
@@ -1088,7 +1093,7 @@ def scena5():
             if click:
                 loadingSound.play()
                 scena_prog()
-                
+
         if button_tak.collidepoint((mx, my)):
             screen.blit(graph.tak[1], (660, 600))
             if click:
@@ -1137,6 +1142,7 @@ def scena5():
         pygame.display.update()
         mainClock.tick(60)
 
+
 # Siłownia
 
 
@@ -1173,7 +1179,7 @@ def silownia():
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 eq_wav.play()
-                tk_box.informacja("Pendrive ze starymi testami", graph.pendrive_src, "350x150")
+                tk_box.informacja("Pendrive ze starymi testami", graph.pendrive_src)
                 loadingSound.play()
                 scena_prog()
 
@@ -1216,6 +1222,7 @@ def silownia():
 
         pygame.display.update()
         mainClock.tick(60)
+
 
 # ScenaProg
 
@@ -1283,6 +1290,7 @@ def scena_prog():
 
         pygame.display.update()
         mainClock.tick()
+
 
 # Scena 6
 
@@ -1370,6 +1378,7 @@ def scena6():
 
         pygame.display.update()
         mainClock.tick(60)
+
 
 # Siłownia 1
 
@@ -1507,6 +1516,7 @@ def scena7():
         pygame.display.update()
         mainClock.tick(60)
 
+
 # Scena 8
 
 
@@ -1585,6 +1595,7 @@ def scena8():
 
         pygame.display.update()
         mainClock.tick(60)
+
 
 # Scena 9
 
@@ -1667,6 +1678,7 @@ def scena9():
         pygame.display.update()
         mainClock.tick(60)
 
+
 # Scena 10
 
 
@@ -1730,6 +1742,7 @@ def scena10():
         pygame.display.update()
         mainClock.tick(60)
 
+
 # Egzamin z legitymowania ---------------
 
 
@@ -1785,14 +1798,14 @@ def egzamin_leg():
         if b_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_b[1], (338, 175))
             if click:
-                pen.play()          
+                pen.play()
                 odp1 = "b"
 
         c_nopress = screen.blit(graph.key_c[0], (338, 235))
         if c_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_c[1], (338, 235))
             if click:
-                pen.play()          
+                pen.play()
                 odp1 = "c"
 
         if odp1:
@@ -1804,6 +1817,7 @@ def egzamin_leg():
                     egzamin_leg2(odp1)
         pygame.display.update()
         mainClock.tick(60)
+
 
 # Pytanie 2----------------------
 
@@ -1840,7 +1854,7 @@ def egzamin_leg2(odp1):
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True
-        
+
         if not odp2:
             pisak.pisz("wers4", "Wybierz 'a' , 'b' lub 'c'", 455, 520, red)
 
@@ -1848,21 +1862,21 @@ def egzamin_leg2(odp1):
         if a_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_a[1], (338, 115))
             if click:
-                pen.play()          
+                pen.play()
                 odp2 = "a"
 
         b_nopress = screen.blit(graph.key_b[0], (338, 175))
         if b_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_b[1], (338, 175))
             if click:
-                pen.play()          
+                pen.play()
                 odp2 = "b"
 
         c_nopress = screen.blit(graph.key_c[0], (338, 235))
         if c_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_c[1], (338, 235))
             if click:
-                pen.play()          
+                pen.play()
                 odp2 = "c"
 
         if odp2:
@@ -1874,6 +1888,7 @@ def egzamin_leg2(odp1):
                     egzamin_leg3(odp1, odp2)
         pygame.display.update()
         mainClock.tick(60)
+
 
 # Pytanie 3----------------------
 
@@ -1919,21 +1934,21 @@ def egzamin_leg3(odp1, odp2):
         if a_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_a[1], (338, 115))
             if click:
-                pen.play()          
+                pen.play()
                 odp3 = "a"
 
         b_nopress = screen.blit(graph.key_b[0], (338, 175))
         if b_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_b[1], (338, 175))
             if click:
-                pen.play()          
+                pen.play()
                 odp3 = "b"
 
         c_nopress = screen.blit(graph.key_c[0], (338, 235))
         if c_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_c[1], (338, 235))
             if click:
-                pen.play()          
+                pen.play()
                 odp3 = "c"
 
         if odp3:
@@ -1992,21 +2007,21 @@ def egzamin_leg4(odp1, odp2, odp3):
         if a_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_a[1], (338, 115))
             if click:
-                pen.play()          
+                pen.play()
                 odp4 = "a"
 
         b_nopress = screen.blit(graph.key_b[0], (338, 175))
         if b_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_b[1], (338, 175))
             if click:
-                pen.play()          
+                pen.play()
                 odp4 = "b"
 
         c_nopress = screen.blit(graph.key_c[0], (338, 235))
         if c_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_c[1], (338, 235))
             if click:
-                pen.play()          
+                pen.play()
                 odp4 = "c"
 
         if odp4:
@@ -2073,16 +2088,16 @@ def wyniki_leg(odp1, odp2, odp3, odp4):
             if click:
                 eq_wav.play()
                 if ocena == 5:
-                    tk_box.informacja("+10 doświadczenia, +10 zaangażowania ", graph.zaang_up, "350x100")
+                    tk_box.informacja("+10 doświadczenia, +10 zaangażowania ", graph.zaang_up)
                     db_save.update_exp_ang_dni("exp", "dane_konta", 10)
                     db_save.update_exp_ang_dni("ang", "dane_konta", 10)
                     db_save.add_1_value("dane_indeks", 5)
                 elif ocena == 4:
-                    tk_box.informacja("+7 doświadczenia", graph.zaang_up, "350x100")
+                    tk_box.informacja("+7 doświadczenia", graph.zaang_up)
                     db_save.update_exp_ang_dni("exp", "dane_konta", 7)
                     db_save.add_1_value("dane_indeks", 4)
                 elif ocena == 3:
-                    tk_box.informacja("+3 doświadczenia", graph.zaang_up, "350x100")
+                    tk_box.informacja("+3 doświadczenia", graph.zaang_up)
                     db_save.update_exp_ang_dni("exp", "dane_konta", 3)
                     db_save.add_1_value("dane_indeks", 3)
                 elif ocena == 2:
@@ -2139,6 +2154,7 @@ def wyniki_leg(odp1, odp2, odp3, odp4):
 
         pygame.display.update()
         mainClock.tick(60)
+
 
 # SCENA PROG1
 
@@ -2207,6 +2223,7 @@ def scena_prog1():
 
         pygame.display.update()
         mainClock.tick(60)
+
 
 # Scena 11
 
@@ -2302,6 +2319,7 @@ def scena11():
         pygame.display.update()
         mainClock.tick()
 
+
 # Bar
 
 
@@ -2365,6 +2383,7 @@ def bar():
 
         pygame.display.update()
         mainClock.tick()
+
 
 # Bar1
 
@@ -2503,6 +2522,7 @@ def bar2():
         pygame.display.update()
         mainClock.tick(60)
 
+
 # ScenaBarIwona
 
 
@@ -2565,6 +2585,7 @@ def scena_bar_iwona():
 
         pygame.display.update()
         mainClock.tick(60)
+
 
 # Scena12
 
@@ -2653,6 +2674,7 @@ def scena12():
         pygame.display.update()
         mainClock.tick(60)
 
+
 # Scena13
 
 
@@ -2740,6 +2762,7 @@ def scena13():
 
         pygame.display.update()
         mainClock.tick(60)
+
 
 # Scena14
 
@@ -2932,6 +2955,7 @@ def scena15():
         pygame.display.update()
         mainClock.tick()
 
+
 # Scena15
 
 
@@ -2995,6 +3019,7 @@ def scena_sciana():
         screen.blit(graph.oko, (mx, my))
         pygame.display.update()
         mainClock.tick()
+
 
 # SCENA PROG2
 
@@ -3070,6 +3095,7 @@ def scena_prog2():
         screen.blit(graph.oko, (mx, my))
         pygame.display.update()
         mainClock.tick()
+
 
 # Scena16
 
@@ -3169,6 +3195,7 @@ def scena16():
         pygame.display.update()
         mainClock.tick()
 
+
 # Scena17
 
 
@@ -3261,6 +3288,7 @@ def scena17():
         pygame.display.update()
         mainClock.tick()
 
+
 # Scena18
 
 
@@ -3344,6 +3372,7 @@ def scena18():
         pygame.display.update()
         mainClock.tick()
 
+
 # Scena19
 
 
@@ -3422,7 +3451,8 @@ def scena19():
         pisak.pisz("wers4", "Zastanawiasz się co robić:", 20, 240, white)
         for q in quest_tomek:
             if q == "bar":
-                pisak.pisz("wers5x", "1. Iść na siłownię? I może zobaczę Tomka i zagadam co robił w CELI", 20, 270, green)
+                pisak.pisz("wers5x", "1. Iść na siłownię? I może zobaczę Tomka i zagadam co robił w CELI", 20, 270,
+                           green)
             else:
                 pisak.pisz("wers5", "1. Iść na siłownię?", 20, 270, white)
         pisak.pisz("wers6", "2. Iść na spacer?", 20, 300, white)
@@ -3435,6 +3465,7 @@ def scena19():
 
         pygame.display.update()
         mainClock.tick()
+
 
 # Silownia2
 
@@ -3505,19 +3536,24 @@ def silownia2():
         pisak.pisz("wers3", "- No jak już jestem to.. ehh.. dobra idę trochę poćwiczę, gdzie była ta szatnia",
                    20, 180, white)
         pisak.pisz("wers4", "Wchodzisz do szatni, siadasz na ławeczce, zmieniasz buty na wygodniejsze.", 20, 210, white)
-        pisak.pisz("wers5", "Słyszysz z korytarza, rozmowę jakiegoś mężczyzny przez telefon, głos jakby Tomka:", 20, 240, white)
+        pisak.pisz("wers5", "Słyszysz z korytarza, rozmowę jakiegoś mężczyzny przez telefon, głos jakby Tomka:", 20,
+                   240, white)
         pisak.pisz("wers6", "(Tomek) - Za krótko, mówiłem Ci.. To sam tu przyjedź i siedź.. Jeszcze nie wiem kto..",
                    20, 270, white)
         pisak.pisz("wers7", "**Słyszysz tylko rozmówcę z korytarza, głos w słuchawce jest niezrozumiały.",
                    20, 300, white)
         pisak.pisz("wers8", "(Tomek) - Nie wiem, dużo.. dobra muszę kończyć bo się zczają.. ", 20, 330, white)
-        pisak.pisz("wers9", "Słysząc to wbijasz tępo wzrok w szafkę i nasłuchujesz dalej ale jest cicho.", 20, 360, white)
-        pisak.pisz("wers10", "*Hmm to była nieco dziwna rozmowa - zastanawiasz się i wychodzisz na korytarz", 20, 390, white)
+        pisak.pisz("wers9", "Słysząc to wbijasz tępo wzrok w szafkę i nasłuchujesz dalej ale jest cicho.", 20, 360,
+                   white)
+        pisak.pisz("wers10", "*Hmm to była nieco dziwna rozmowa - zastanawiasz się i wychodzisz na korytarz", 20, 390,
+                   white)
         pisak.pisz("wers11", "ale nikogo już tam nie ma.", 20, 420, white)
-        pisak.pisz("wers12", "*Odechciało Ci się ćwiczeń i nie zmieniając butów i wracasz do akademika.", 20, 450, white)
+        pisak.pisz("wers12", "*Odechciało Ci się ćwiczeń i nie zmieniając butów i wracasz do akademika.", 20, 450,
+                   white)
 
         pygame.display.update()
         mainClock.tick()
+
 
 # Spacer
 
@@ -3613,6 +3649,7 @@ def spacer():
         pygame.display.update()
         mainClock.tick()
 
+
 # Spacer1
 
 
@@ -3704,6 +3741,7 @@ def spacer1():
 
         pygame.display.update()
         mainClock.tick(60)
+
 
 # Scena20
 
@@ -3878,7 +3916,7 @@ def strzelnica_scena_1():
         screen.blit(graph.strzelnica1, (0, 0))
         if naboje <= 0:
             if punkty > 200:
-                tk_box.informacja("+10 doświadczenia, +12 zaangażowania ", graph.zaang_up, "350x100")
+                tk_box.informacja("+10 doświadczenia, +12 zaangażowania ", graph.zaang_up)
                 db_save.add_1_value("dane_ekwipunek", "skrawek")
                 db_save.update_exp_ang_dni("ang", "dane_konta", 12)
                 db_save.update_exp_ang_dni("exp", "dane_konta", 10)
@@ -4036,6 +4074,7 @@ def strzelnica_scena_1():
 
         pygame.display.update()
 
+
 # Strzelnica1 Wyniki
 
 
@@ -4088,7 +4127,7 @@ def strzelnica1wyniki(punkty):
             if click:
                 db_save.update_exp_ang_dni("exp", "dane_konta", 1)
                 if punkty > 200:
-                    tk_box.informacja("Zwitek papieru", graph.skrawek_src, "350x150")
+                    tk_box.informacja("Zwitek papieru", graph.skrawek_src)
                 loadingSound.play()
                 scena22()
 
@@ -4103,6 +4142,7 @@ def strzelnica1wyniki(punkty):
         pisak.pisz("wers2", dane_gracza[0][0], 460, 60, black)
         pygame.display.update()
         mainClock.tick()
+
 
 # Scena22
 
@@ -4228,21 +4268,21 @@ def egzamin_ruch():
         if a_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_a[1], (338, 115))
             if click:
-                pen.play()          
+                pen.play()
                 odp1_ruch = "a"
 
         b_nopress = screen.blit(graph.key_b[0], (338, 175))
         if b_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_b[1], (338, 175))
             if click:
-                pen.play()          
+                pen.play()
                 odp1_ruch = "b"
 
         c_nopress = screen.blit(graph.key_c[0], (338, 235))
         if c_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_c[1], (338, 235))
             if click:
-                pen.play()          
+                pen.play()
                 odp1_ruch = "c"
 
         if odp1_ruch:
@@ -4255,6 +4295,7 @@ def egzamin_ruch():
 
         pygame.display.update()
         mainClock.tick()
+
 
 # Pytanie 2----------------------
 
@@ -4300,21 +4341,21 @@ def egzamin_ruch2(odp1_ruch):
         if a_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_a[1], (338, 115))
             if click:
-                pen.play()          
+                pen.play()
                 odp2_ruch = "a"
 
         b_nopress = screen.blit(graph.key_b[0], (338, 175))
         if b_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_b[1], (338, 175))
             if click:
-                pen.play()          
+                pen.play()
                 odp2_ruch = "b"
 
         c_nopress = screen.blit(graph.key_c[0], (338, 235))
         if c_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_c[1], (338, 235))
             if click:
-                pen.play()          
+                pen.play()
                 odp2_ruch = "c"
 
         if odp2_ruch:
@@ -4326,6 +4367,7 @@ def egzamin_ruch2(odp1_ruch):
                     egzamin_ruch3(odp1_ruch, odp2_ruch)
         pygame.display.update()
         mainClock.tick(60)
+
 
 # Pytanie 3----------------------
 
@@ -4361,7 +4403,7 @@ def egzamin_ruch3(odp1_ruch, odp2_ruch):
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True
-   
+
         if not odp3_ruch:
             pisak.pisz("wers4", "Wybierz 'a' , 'b' lub 'c'", 455, 520, red)
 
@@ -4369,21 +4411,21 @@ def egzamin_ruch3(odp1_ruch, odp2_ruch):
         if a_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_a[1], (338, 115))
             if click:
-                pen.play()          
+                pen.play()
                 odp3_ruch = "a"
 
         b_nopress = screen.blit(graph.key_b[0], (338, 175))
         if b_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_b[1], (338, 175))
             if click:
-                pen.play()          
+                pen.play()
                 odp3_ruch = "b"
 
         c_nopress = screen.blit(graph.key_c[0], (338, 235))
         if c_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_c[1], (338, 235))
             if click:
-                pen.play()          
+                pen.play()
                 odp3_ruch = "c"
 
         if odp3_ruch:
@@ -4396,6 +4438,7 @@ def egzamin_ruch3(odp1_ruch, odp2_ruch):
 
         pygame.display.update()
         mainClock.tick(60)
+
 
 # Pytanie 4----------------------
 
@@ -4432,7 +4475,7 @@ def egzamin_ruch4(odp1_ruch, odp2_ruch, odp3_ruch):
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True
-        
+
         if not odp4_ruch:
             pisak.pisz("wers4", "Wybierz 'a' , 'b' lub 'c'", 455, 520, red)
 
@@ -4440,21 +4483,21 @@ def egzamin_ruch4(odp1_ruch, odp2_ruch, odp3_ruch):
         if a_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_a[1], (338, 115))
             if click:
-                pen.play()          
+                pen.play()
                 odp4_ruch = "a"
 
         b_nopress = screen.blit(graph.key_b[0], (338, 175))
         if b_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_b[1], (338, 175))
             if click:
-                pen.play()          
+                pen.play()
                 odp4_ruch = "b"
 
         c_nopress = screen.blit(graph.key_c[0], (338, 235))
         if c_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_c[1], (338, 235))
             if click:
-                pen.play()          
+                pen.play()
                 odp4_ruch = "c"
 
         if odp4_ruch:
@@ -4467,6 +4510,7 @@ def egzamin_ruch4(odp1_ruch, odp2_ruch, odp3_ruch):
 
         pygame.display.update()
         mainClock.tick(60)
+
 
 # Wyniki z ruchu drogowego
 
@@ -4522,16 +4566,16 @@ def wyniki_ruch(odp1_ruch, odp2_ruch, odp3_ruch, odp4_ruch):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 if ocena_ruch == 5:
-                    tk_box.informacja("+5 doświadczenia, +5 zaangażowania ", graph.zaang_up, "350x100")
+                    tk_box.informacja("+5 doświadczenia, +5 zaangażowania ", graph.zaang_up)
                     db_save.update_exp_ang_dni("exp", "dane_konta", 5)
                     db_save.update_exp_ang_dni("ang", "dane_konta", 5)
                     db_save.add_1_value("dane_indeks", 5)
                 elif ocena_ruch == 4:
-                    tk_box.informacja("+4 doświadczenia", graph.zaang_up, "350x100")
+                    tk_box.informacja("+4 doświadczenia", graph.zaang_up)
                     db_save.update_exp_ang_dni("exp", "dane_konta", 4)
                     db_save.add_1_value("dane_indeks", 4)
                 elif ocena_ruch == 3:
-                    tk_box.informacja("+3 doświadczenia", graph.zaang_up, "350x100")
+                    tk_box.informacja("+3 doświadczenia", graph.zaang_up)
                     db_save.update_exp_ang_dni("exp", "dane_konta", 3)
                     db_save.add_1_value("dane_indeks", 3)
                 elif ocena_ruch == 2:
@@ -4679,6 +4723,7 @@ def scena23():
         pygame.display.update()
         mainClock.tick()
 
+
 # Scena_CELA
 
 
@@ -4742,6 +4787,7 @@ def scena_cela():
 
         pygame.display.update()
         mainClock.tick()
+
 
 # Scena_CELA2
 
@@ -4808,6 +4854,7 @@ def scena_cela2():
 
         pygame.display.update()
         mainClock.tick()
+
 
 # Spacer
 
@@ -4894,6 +4941,7 @@ def scena_miasto():
         pygame.display.update()
         mainClock.tick()
 
+
 # Scena24
 
 
@@ -4976,6 +5024,7 @@ def scena24():
         pygame.display.update()
         mainClock.tick()
 
+
 # SCENA PROG_SAVE_1
 
 
@@ -5047,7 +5096,8 @@ def scena_prog_3(co_dalej=0):
 
         if not co_dalej:
             pisak.pisz("wers", "Ten etap pozwala zapisać stan Gry.", 20, 460, dyellow)
-            pisak.pisz("wers2", "Jest to również miejsce, z którego będziesz kontynuował(-a) dalszą grę.", 20, 490, dyellow)
+            pisak.pisz("wers2", "Jest to również miejsce, z którego będziesz kontynuował(-a) dalszą grę.", 20, 490,
+                       dyellow)
         else:
             pisak.pisz("wers", "Możesz kontynuować swoją służbę.", 460, 490, dyellow)
         pygame.display.update()
@@ -5103,6 +5153,7 @@ def save_1():
         pygame.display.update()
         mainClock.tick()
     return co_dalej
+
 
 # Scena15
 
@@ -5183,6 +5234,7 @@ def scena25():
         screen.blit(graph.oko, (mx, my))
         pygame.display.update()
         mainClock.tick()
+
 
 # Scena26
 
@@ -5274,6 +5326,7 @@ def scena26():
         pygame.display.update()
         mainClock.tick()
 
+
 # Scena Torba Tomka
 
 
@@ -5324,6 +5377,7 @@ def scena_torba():
         screen.blit(graph.oko, (mx, my))
         pygame.display.update()
         mainClock.tick()
+
 
 # Scena27
 
@@ -5391,7 +5445,8 @@ def scena27():
         pisak.pisz("wers2", "Droga daleka.. odpalasz ulubioną stację radiową i suniesz przed siebie.", 20, 150, white)
         for q in quest_tomek:
             if q == "torba_tomka":
-                pisak.pisz("wers3", "*Jednak to co zobaczyłeś(-aś) w torbie, trochę nie daje Ci spokoju.", 20, 180, green)
+                pisak.pisz("wers3", "*Jednak to co zobaczyłeś(-aś) w torbie, trochę nie daje Ci spokoju.", 20, 180,
+                           green)
                 pisak.pisz("wers4", "*Te dziwne inicjały.. No gdyby były tylko na torbie to zrozumiałe - pożyczona ale"
                                     " takie same na butach?", 20, 210, green)
                 pisak.pisz("wers5", "*No i te książki.. Od kiedy Tomek jest taki oczytany? Taktyka wojny? Testy"
@@ -5403,6 +5458,7 @@ def scena27():
 
         pygame.display.update()
         mainClock.tick()
+
 
 # SCENA PROG 4
 
@@ -5474,6 +5530,7 @@ def scena_prog_4():
 
         pygame.display.update()
         mainClock.tick()
+
 
 # Scena28
 
@@ -5552,6 +5609,7 @@ def scena28():
 
         pygame.display.update()
         mainClock.tick()
+
 
 # Scena29
 
@@ -5639,6 +5697,7 @@ def scena29():
         pygame.display.update()
         mainClock.tick()
 
+
 # Scena30
 
 
@@ -5717,6 +5776,7 @@ def scena30():
         pygame.display.update()
         mainClock.tick()
 
+
 # Egzamin z wykroczeń ---------------
 # Pytanie 1
 
@@ -5759,21 +5819,21 @@ def egzamin_wykr():
         if a_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_a[1], (338, 115))
             if click:
-                pen.play()          
+                pen.play()
                 odp1_wykr = "a"
 
         b_nopress = screen.blit(graph.key_b[0], (338, 175))
         if b_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_b[1], (338, 175))
             if click:
-                pen.play()          
+                pen.play()
                 odp1_wykr = "b"
 
         c_nopress = screen.blit(graph.key_c[0], (338, 235))
         if c_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_c[1], (338, 235))
             if click:
-                pen.play()          
+                pen.play()
                 odp1_wykr = "c"
 
         if odp1_wykr:
@@ -5786,6 +5846,7 @@ def egzamin_wykr():
 
         pygame.display.update()
         mainClock.tick()
+
 
 # Pytanie 2----------------------
 
@@ -5826,21 +5887,21 @@ def egzamin_wykr2(odp1_wykr):
         if a_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_a[1], (338, 115))
             if click:
-                pen.play()          
+                pen.play()
                 odp2_wykr = "a"
 
         b_nopress = screen.blit(graph.key_b[0], (338, 175))
         if b_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_b[1], (338, 175))
             if click:
-                pen.play()          
+                pen.play()
                 odp2_wykr = "b"
 
         c_nopress = screen.blit(graph.key_c[0], (338, 235))
         if c_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_c[1], (338, 235))
             if click:
-                pen.play()          
+                pen.play()
                 odp2_wykr = "c"
 
         if odp2_wykr:
@@ -5853,6 +5914,7 @@ def egzamin_wykr2(odp1_wykr):
 
         pygame.display.update()
         mainClock.tick()
+
 
 # Pytanie 3----------------------
 
@@ -5893,21 +5955,21 @@ def egzamin_wykr3(odp1_wykr, odp2_wykr):
         if a_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_a[1], (338, 115))
             if click:
-                pen.play()          
+                pen.play()
                 odp3_wykr = "a"
 
         b_nopress = screen.blit(graph.key_b[0], (338, 175))
         if b_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_b[1], (338, 175))
             if click:
-                pen.play()          
+                pen.play()
                 odp3_wykr = "b"
 
         c_nopress = screen.blit(graph.key_c[0], (338, 235))
         if c_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_c[1], (338, 235))
             if click:
-                pen.play()          
+                pen.play()
                 odp3_wykr = "c"
 
         if odp3_wykr:
@@ -5920,6 +5982,7 @@ def egzamin_wykr3(odp1_wykr, odp2_wykr):
 
         pygame.display.update()
         mainClock.tick()
+
 
 # Pytanie 4----------------------
 
@@ -5952,7 +6015,7 @@ def egzamin_wykr4(odp1_wykr, odp2_wykr, odp3_wykr):
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True
-        
+
         if not odp4_wykr:
             pisak.pisz("wers4", "Wybierz 'a' , 'b' lub 'c'", 455, 520, red)
 
@@ -5960,21 +6023,21 @@ def egzamin_wykr4(odp1_wykr, odp2_wykr, odp3_wykr):
         if a_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_a[1], (338, 115))
             if click:
-                pen.play()          
+                pen.play()
                 odp4_wykr = "a"
 
         b_nopress = screen.blit(graph.key_b[0], (338, 175))
         if b_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_b[1], (338, 175))
             if click:
-                pen.play()          
+                pen.play()
                 odp4_wykr = "b"
 
         c_nopress = screen.blit(graph.key_c[0], (338, 235))
         if c_nopress.collidepoint((mx, my)):
             screen.blit(graph.key_c[1], (338, 235))
             if click:
-                pen.play()          
+                pen.play()
                 odp4_wykr = "c"
 
         if odp4_wykr:
@@ -5986,6 +6049,7 @@ def egzamin_wykr4(odp1_wykr, odp2_wykr, odp3_wykr):
                     wyniki_wykr(odp1_wykr, odp2_wykr, odp3_wykr, odp4_wykr)
         pygame.display.update()
         mainClock.tick()
+
 
 # Wyniki z wykroczeń
 
@@ -6040,16 +6104,16 @@ def wyniki_wykr(odp1_wykr, odp2_wykr, odp3_wykr, odp4_wykr):
             screen.blit(graph.press_Dalej[1], (1100, 640))
             if click:
                 if ocena_wykr == 5:
-                    tk_box.informacja("+5 doświadczenia, +5 zaangażowania ", graph.zaang_up, "350x100")
+                    tk_box.informacja("+5 doświadczenia, +5 zaangażowania ", graph.zaang_up)
                     db_save.update_exp_ang_dni("exp", "dane_konta", 5)
                     db_save.update_exp_ang_dni("ang", "dane_konta", 5)
                     db_save.add_1_value("dane_indeks", 5)
                 elif ocena_wykr == 4:
-                    tk_box.informacja("+4 doświadczenia", graph.zaang_up, "350x100")
+                    tk_box.informacja("+4 doświadczenia", graph.zaang_up)
                     db_save.update_exp_ang_dni("exp", "dane_konta", 4)
                     db_save.add_1_value("dane_indeks", 4)
                 elif ocena_wykr == 3:
-                    tk_box.informacja("+3 doświadczenia", graph.zaang_up, "350x100")
+                    tk_box.informacja("+3 doświadczenia", graph.zaang_up)
                     db_save.update_exp_ang_dni("exp", "dane_konta", 3)
                     db_save.add_1_value("dane_indeks", 3)
                 elif ocena_wykr == 2:
@@ -6104,6 +6168,7 @@ def wyniki_wykr(odp1_wykr, odp2_wykr, odp3_wykr, odp4_wykr):
 
         pygame.display.update()
         mainClock.tick()
+
 
 # Scena31
 
@@ -6197,6 +6262,7 @@ def scena31():
         pygame.display.update()
         mainClock.tick()
 
+
 # Scena_anka
 
 
@@ -6288,6 +6354,7 @@ def scena_anka():
         pygame.display.update()
         mainClock.tick()
 
+
 # Scena_CELA3
 
 
@@ -6348,6 +6415,7 @@ def scena_cela3():
         pygame.display.update()
         mainClock.tick()
 
+
 # Scena_CELA_quest
 
 
@@ -6399,6 +6467,7 @@ def scena_cela_quest():
 
         pygame.display.update()
         mainClock.tick()
+
 
 # Scena_cela4
 
@@ -6457,6 +6526,7 @@ def scena_cela4():
                 pisak.pisz("wers12", "*Skłamał! Teraz jestem pewny(-a)! On coś ukrywa! Tylko co?", 20, 520, green)
         pygame.display.update()
         mainClock.tick()
+
 
 # Scena32
 
@@ -6527,6 +6597,7 @@ def scena32():
 
         pygame.display.update()
         mainClock.tick()
+
 
 # Scena 33
 
@@ -6605,6 +6676,7 @@ def scena33():
         pygame.display.update()
         mainClock.tick()
 
+
 # Strzelnica Mossberg
 
 
@@ -6632,7 +6704,7 @@ def strzelnica_mossberg():
         screen.blit(graph.strzelnica2, (0, 0))
         if naboje <= 0:
             if punkty > 200:
-                tk_box.informacja("+5 doświadczenia, +5 zaangażowania ", graph.zaang_up, "350x100")
+                tk_box.informacja("+5 doświadczenia, +5 zaangażowania ", graph.zaang_up)
                 db_save.update_exp_ang_dni("ang", "dane_konta", 5)
                 db_save.update_exp_ang_dni("exp", "dane_konta", 5)
                 db_save.add_1_value("dane_baretki", "mosberg")
@@ -6745,6 +6817,7 @@ def strzelnica_mossberg():
 
         pygame.display.update()
 
+
 # Strzelnica2 Wyniki
 
 
@@ -6804,12 +6877,13 @@ def strzelnica2wyniki():
             if click:
                 loadingSound.play()
                 akta_osobowe()
-                
+
         pisak.pisz("wers1", str(wynik[0]), 730, 238, black)
         pisak.pisz("wers2", str(wynik[1]), 730, 328, black)
         pisak.pisz("wers3", dane_gracza[0][0], 460, 60, black)
         pygame.display.update()
         mainClock.tick()
+
 
 # Scena34
 
@@ -7066,9 +7140,11 @@ def scena36():
             if i == "latarka":
                 pisak.pisz("wers", "Jak służba w nocy, to padło na latarkę. Może do czegoś się przyda.", 20, 90, white)
             elif i == "nozyk":
-                pisak.pisz("wers", "Nie masz ze sobą konserwy ale.. ostry nóż może do czegoś się przydać.", 20, 90, white)
+                pisak.pisz("wers", "Nie masz ze sobą konserwy ale.. ostry nóż może do czegoś się przydać.", 20, 90,
+                           white)
             elif i == "fajki":
-                pisak.pisz("wers", "Służba w nocy może się dłużyć, paczka papierosów przyda się na nudę..", 20, 90, white)
+                pisak.pisz("wers", "Służba w nocy może się dłużyć, paczka papierosów przyda się na nudę..", 20, 90,
+                           white)
 
         pisak.pisz("wers1", "Na zewnątrz rozpadało się jeszcze bardziej ale służba nie drużba - służyć trzeba.",
                    20, 120, white)
@@ -7178,7 +7254,9 @@ def scena_brama_magazyn(door_pkt=0):
             pisak.pisz("wers", "Wychodzisz za teren szkoły od strony parkingu.. Nie przestaje padać.. ", 20, 60, white)
             pisak.pisz("wers1", "Po 10 minutach stajesz przed bramą na teren magazynów.", 20, 90, white)
             pisak.pisz("wers2", "Wiesz, że aby wejść, trzeba gdzieś wpisać KOD PIN..", 20, 120, white)
-            pisak.pisz("wers3", "W plecaku masz świstek z kodem PIN i.. O nie! Po drodze zgubiłeś(-aś) klucz do głównego magazynu!", 20, 150, white)
+            pisak.pisz("wers3",
+                       "W plecaku masz świstek z kodem PIN i.. O nie! Po drodze zgubiłeś(-aś) klucz do głównego magazynu!",
+                       20, 150, white)
             pisak.pisz("wers4", "No i jak teraz sprawdzić wszystkie miejsca?", 20, 180, white)
             pisak.pisz("wers5", "Dyżurny pewnie się wkur**.. ", 20, 210, white)
 
@@ -7307,7 +7385,8 @@ def scena_brama_kod_pin():
             screen.blit(graph.pin_enter[1], (723, 497))
             if click:
                 try:
-                    if pin_list[0] == "7" and pin_list[1] == "2" and pin_list[2] == "3" and pin_list[3] == "9" and pin_list[4] == "6":
+                    if pin_list[0] == "7" and pin_list[1] == "2" and pin_list[2] == "3" and pin_list[3] == "9" and \
+                            pin_list[4] == "6":
                         pin_open.play()
                         door = 1
                     else:
@@ -7352,7 +7431,8 @@ def scena_brama_kod_pin():
 # Scena Falklandy Mapa
 
 
-def falklandy_mapa(text_radio=None, sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, sektor_e=0, sektor_f=0, sektor_i=0, sektor_g=0):
+def falklandy_mapa(text_radio=None, sektor_a=0, sektor_b=0, sektor_c=0, sektor_d=0, sektor_h=0, sektor_e=0, sektor_f=0,
+                   sektor_i=0, sektor_g=0):
     pygame.mouse.set_visible(False)
     running = True
     while running:
@@ -7627,7 +7707,8 @@ def falklandy_sektor_b():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Ogrodzenie, jeśli zardzewiałą siatkę można nazwać ogrodzeniem - bez uszkodzeń.", 20, 90, white)
+        pisak.pisz("wers", "Ogrodzenie, jeśli zardzewiałą siatkę można nazwać ogrodzeniem - bez uszkodzeń.", 20, 90,
+                   white)
         pisak.pisz("wers1", "Ogólnie to pusto tutaj, ciekawe czy cały plac wygląda tak samo..", 20, 120, white)
         pisak.pisz("wers2", "To miejsce zostało sprawdzone..", 20, 150, white)
 
@@ -7700,7 +7781,9 @@ def falklandy_sektor_c():
                 akta_osobowe()
 
         pisak.pisz("wers", "Ogrodzenie - bez uszkodzeń.", 20, 90, white)
-        pisak.pisz("wers1", "Na ziemi walają się odłamki skruszonego mokrego betonu - Ten plac musi być bardzo stary - myślisz.", 20, 120, white)
+        pisak.pisz("wers1",
+                   "Na ziemi walają się odłamki skruszonego mokrego betonu - Ten plac musi być bardzo stary - myślisz.",
+                   20, 120, white)
         pisak.pisz("wers2", "Jest ciemno i co chwilę potykasz się o drobne kawałki złomu i kamieni.", 20, 150, white)
         pisak.pisz("wers3", "Tu jest wporządku - sprawdzone.", 20, 180, white)
 
@@ -7788,15 +7871,23 @@ def falklandy_sektor_d():
 
         for x in eq:
             if x != "kluczyk":
-                pisak.pisz("wers", "Jakieś dziwne miejsce, jakby coś miało być budowane lub.. niszczone.", 20, 30, white)
-                pisak.pisz("wers1", "Pełno tu starych przedmiotów, jakieś łopaty, skórzane wytarte rękawice, no.. prawie śmietnik.", 20, 60, white)
+                pisak.pisz("wers", "Jakieś dziwne miejsce, jakby coś miało być budowane lub.. niszczone.", 20, 30,
+                           white)
+                pisak.pisz("wers1",
+                           "Pełno tu starych przedmiotów, jakieś łopaty, skórzane wytarte rękawice, no.. prawie śmietnik.",
+                           20, 60, white)
                 pisak.pisz("wers2", "Spoglądasz na ogrodzenie.. - jest nienaruszone.", 20, 90, white)
-                pisak.pisz("wers3", "W sumie masz sporo wolnego czasu, może wśród tych staroci znajdziesz coś ciekawego.", 20, 120, white)
+                pisak.pisz("wers3",
+                           "W sumie masz sporo wolnego czasu, może wśród tych staroci znajdziesz coś ciekawego.", 20,
+                           120, white)
                 pisak.pisz("wers4", "Latarka w tym miejscu byłaby pomocna..",
                            20, 150, white)
             if x == "kluczyk":
-                pisak.pisz("wers3", "To szukanie już Cię nudziło ale.. w końcu znalazłeś coś ciekawego. Ba! Klucz!", 20, 60, dyellow)
-                pisak.pisz("wers4", "Ciekawe czy będzie pasował do kłódki głównego magazynu. Bo stary się przecież.. zgubił.", 20, 90, dyellow)
+                pisak.pisz("wers3", "To szukanie już Cię nudziło ale.. w końcu znalazłeś coś ciekawego. Ba! Klucz!", 20,
+                           60, dyellow)
+                pisak.pisz("wers4",
+                           "Ciekawe czy będzie pasował do kłódki głównego magazynu. Bo stary się przecież.. zgubił.",
+                           20, 90, dyellow)
                 pisak.pisz("wers5", "Najwyżej zostanie jako pamiątka..", 20, 120, dyellow)
 
         screen.blit(graph.oko, (mx, my))
@@ -7868,10 +7959,13 @@ def falklandy_sektor_e():
                 akta_osobowe()
 
         pisak.pisz("wers", "Ogrodzenie - bez uszkodzeń.", 20, 90, white)
-        pisak.pisz("wers1", "Ponownie zastanawiasz się nad sensem sprawdzania tego miejsca.. pustki.. ciemno.. cicho..", 20, 120, white)
-        pisak.pisz("wers2", "No.. prawie cicho. Słychać tylko padający deszcz, spływający po rynnie magazynu.", 20, 150, white)
+        pisak.pisz("wers1", "Ponownie zastanawiasz się nad sensem sprawdzania tego miejsca.. pustki.. ciemno.. cicho..",
+                   20, 120, white)
+        pisak.pisz("wers2", "No.. prawie cicho. Słychać tylko padający deszcz, spływający po rynnie magazynu.", 20, 150,
+                   white)
         pisak.pisz("wers3", "'Dyżury w tym miejscu są bez sensu' - powtarzasz sobie co kilka kroków.", 20, 180, white)
-        pisak.pisz("wers4", "'Najgorsze, że mogłem(-am) być w domu a wypadła akurat na mnie ta cholerna służba!'", 20, 210, white)
+        pisak.pisz("wers4", "'Najgorsze, że mogłem(-am) być w domu a wypadła akurat na mnie ta cholerna służba!'", 20,
+                   210, white)
         pisak.pisz("wers5", "'Gdyby chociaż nie padało..'", 20, 240, white)
 
         screen.blit(graph.but, (mx, my))
@@ -7942,7 +8036,8 @@ def falklandy_sektor_f():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Nic tu nie ma.. Żywej duszy.. A ty chodzisz wzdłuż ogrodzenia jak pies.. Mokry pies..", 20, 90, white)
+        pisak.pisz("wers", "Nic tu nie ma.. Żywej duszy.. A ty chodzisz wzdłuż ogrodzenia jak pies.. Mokry pies..", 20,
+                   90, white)
         pisak.pisz("wers1", "Nie lepiej zamontować tu kamery? - zastanawiasz się.", 20, 120, white)
         pisak.pisz("wers2", "Ogrodzenie całe, bez uszkodzeń - to miejsce zostało sprawdzone.", 20, 150, white)
 
@@ -8016,10 +8111,16 @@ def falklandy_sektor_g():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Miejsce za magazynem, to pozostałości po starym chodniku, prowadzącym w kierunku zardzewiałych drzwi pod nasypem.", 20, 60, white)
+        pisak.pisz("wers",
+                   "Miejsce za magazynem, to pozostałości po starym chodniku, prowadzącym w kierunku zardzewiałych drzwi pod nasypem.",
+                   20, 60, white)
         pisak.pisz("wers1", "To miejsce wydaje się tajemnicze.. Masywne drzwi bez klamki i zamka?", 20, 90, white)
-        pisak.pisz("wers2", "'Komuś chyba zależało żeby nikt tam nie mógł wejść' - przyglądasz się drzwiom, szukając mechanizmu otwarcia.", 20, 120, white)
-        pisak.pisz("wers3", "'A co jest pod nasypem?' - zadajesz sobie kolejne pytanie, wiedząc że nie znasz na nie odpowiedzi.", 20, 150, white)
+        pisak.pisz("wers2",
+                   "'Komuś chyba zależało żeby nikt tam nie mógł wejść' - przyglądasz się drzwiom, szukając mechanizmu otwarcia.",
+                   20, 120, white)
+        pisak.pisz("wers3",
+                   "'A co jest pod nasypem?' - zadajesz sobie kolejne pytanie, wiedząc że nie znasz na nie odpowiedzi.",
+                   20, 150, white)
         pisak.pisz("wers3",
                    "Postanawiasz zgłębić temat tego miejsca tylko.. nie wiesz za bardzo od czego zacząć.",
                    20, 180, white)
@@ -8029,7 +8130,8 @@ def falklandy_sektor_g():
         pisak.pisz("wers3",
                    "W tym skupieniu, dostrzegasz leżący na ziemi niedopałek cienkiego papierosa marki 'Cristal'",
                    20, 240, white)
-        pisak.pisz("wers1", "Eh, nic tu nie ma.. Ale gdyby dyżurny zapytał, to drzwi zamknięte a miejsce sprawdzone.", 20, 270, white)
+        pisak.pisz("wers1", "Eh, nic tu nie ma.. Ale gdyby dyżurny zapytał, to drzwi zamknięte a miejsce sprawdzone.",
+                   20, 270, white)
 
         screen.blit(graph.but, (mx, my))
         screen.blit(graph.rain, (0, 0))
@@ -8099,9 +8201,14 @@ def falklandy_sektor_i():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Zastanawiasz się, że oprócz magazynu, nic tutaj nie ma ciekawego do oglądania.", 20, 90, white)
-        pisak.pisz("wers1", "'Iwona naopowiadała nam pewnie bajek na dobranoc' - przypominasz sobie historię ze szpitalem.", 20, 120, white)
-        pisak.pisz("wers2", "'Gdyby mieć więcej czasu tutaj, to można sprawdzić ten magazyn dokładniej' - kontynuujesz myśl.", 20, 150, white)
+        pisak.pisz("wers", "Zastanawiasz się, że oprócz magazynu, nic tutaj nie ma ciekawego do oglądania.", 20, 90,
+                   white)
+        pisak.pisz("wers1",
+                   "'Iwona naopowiadała nam pewnie bajek na dobranoc' - przypominasz sobie historię ze szpitalem.", 20,
+                   120, white)
+        pisak.pisz("wers2",
+                   "'Gdyby mieć więcej czasu tutaj, to można sprawdzić ten magazyn dokładniej' - kontynuujesz myśl.",
+                   20, 150, white)
         pisak.pisz("wers2", " Ogrodzenie bez uszkodzeń - to miejsce zostało sprawdzone.", 20, 180, white)
 
         screen.blit(graph.but, (mx, my))
@@ -8182,7 +8289,8 @@ def falklandy_sektor_h(text_radio):
         pisak.pisz("wers", "Obchodzisz cały budynek dookoła ale nic nie znajdujesz..", 20, 60, white)
         pisak.pisz("wers1", "Podchodzisz od frontu do zardzewiałych drzwi - zamknięte.", 20, 90, white)
         pisak.pisz("wers3", "Przyglądasz się chwilę i widzisz na drzwiach zatrzaśniętą kłódkę.", 20, 120, white)
-        pisak.pisz("wers4", "'- To pewnie ten budynek mam sprawdzić' - myślisz - 'A zgubiony klucz, otwierał kłódkę..'", 20, 150, white)
+        pisak.pisz("wers4", "'- To pewnie ten budynek mam sprawdzić' - myślisz - 'A zgubiony klucz, otwierał kłódkę..'",
+                   20, 150, white)
 
         screen.blit(graph.palec, (mx, my))
         screen.blit(graph.rain, (0, 0))
@@ -8272,13 +8380,15 @@ def falklandy_sektor_h_klodka(text_radio):
             pisak.pisz("wers3", "Hmm.. Czym ją otworzyć jak zgubiłem(-am) klucz.. ", 20, 90, white)
         elif text_radio != 1 and (v for v in eq if v == "kluczyk"):
             pisak.pisz("wers3", "Hmm.. Czy mój znaleziony klucz ją otworzy? Jakby pasuje..", 20, 90, white)
-            pisak.pisz("wers4", "Muszę być ostrożny(-a) i spróbować naruszyć jej mechanizm w odpowiednim momencie.", 20, 120, white)
+            pisak.pisz("wers4", "Muszę być ostrożny(-a) i spróbować naruszyć jej mechanizm w odpowiednim momencie.", 20,
+                       120, white)
             pisak.pisz("wers5", "Nożem mógłbym pewnie podważyć ten klucz..", 20,
                        150, white)
         if text_radio == 1:
             pisak.pisz("wers4x", "JEST! Otworzyła się ale.. ktoś wzywa Cię przez radiostację.", 20, 30, white)
             pisak.pisz("wers4", "To chyba dyżurny.. radiostacja ma jakieś zakłócenia - pewnie od pogody", 20, 60, white)
-            pisak.pisz("wers6", "Nie słyszałeś(-aś) dokładnego komunikatu ale postanawiasz szybko wracać do szkoły.", 20, 90,
+            pisak.pisz("wers6", "Nie słyszałeś(-aś) dokładnego komunikatu ale postanawiasz szybko wracać do szkoły.",
+                       20, 90,
                        white)
             pisak.pisz("wers5", "Nie masz już czasu na sprawdzenie budynku! Nie masz oryginalnego klucza!",
                        20, 120, white)
@@ -8383,10 +8493,14 @@ def trasa_falklandy():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Dyżurny ponownie wzywa przez radiostację ale nic z tego nie rozumiesz, przez zakłócenia.", 20, 60, white)
-        pisak.pisz("wers1", "Idąc ulicą Solidarności i tak unikając co większych kałuż, Twoja twarz się rozpromienia.", 20, 90, white)
+        pisak.pisz("wers", "Dyżurny ponownie wzywa przez radiostację ale nic z tego nie rozumiesz, przez zakłócenia.",
+                   20, 60, white)
+        pisak.pisz("wers1", "Idąc ulicą Solidarności i tak unikając co większych kałuż, Twoja twarz się rozpromienia.",
+                   20, 90, white)
         pisak.pisz("wers2", "Na chodniku leży.. klucz! Klucz, który wcześniej zgubiłeś(-aś).", 20, 120, white)
-        pisak.pisz("wers3", "'Teraz spokojnie mogę iść do dyżurnego po resztę zadań, ciekawe co wymyśli' - jesteś pełen(-na) optymizmu.", 20, 150, white)
+        pisak.pisz("wers3",
+                   "'Teraz spokojnie mogę iść do dyżurnego po resztę zadań, ciekawe co wymyśli' - jesteś pełen(-na) optymizmu.",
+                   20, 150, white)
         pisak.pisz("wers4",
                    "Zastanawiasz się czy powiedzieć mu o znalezionym kluczu, czy taką informację pozostawić sobie..",
                    20, 180, white)
@@ -8461,15 +8575,26 @@ def akademik_dyzurny():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "- Nooo nareszcie! - dyżurny ironicznie zwraca się do Ciebie - A radiostacji to nie nauczyli Cię obsługować?", 20, 30, white)
-        pisak.pisz("wers1", "- Rozumiem, że Falklandy zostały sprawdzone i wszystko jest wporządku, tak? - spogląda marszcząc brwi", 20, 60, white)
+        pisak.pisz("wers",
+                   "- Nooo nareszcie! - dyżurny ironicznie zwraca się do Ciebie - A radiostacji to nie nauczyli Cię obsługować?",
+                   20, 30, white)
+        pisak.pisz("wers1",
+                   "- Rozumiem, że Falklandy zostały sprawdzone i wszystko jest wporządku, tak? - spogląda marszcząc brwi",
+                   20, 60, white)
         pisak.pisz("wers2", "- Tak - odpowiedasz - Miałem zakłócenia to dlatego..", 20, 90, white)
-        pisak.pisz("wers3", "- Na pewno? - próbuje wymusić od Ciebie inną odpowiedź ale odpowiadasz stanowczo - Tak, bez uwag!", 20, 120, white)
-        pisak.pisz("wers4", "- No dobrze, to czas na resztę zadań.. Słuchaj uważnie bo dwa razy powtarzać nie będę..", 20, 150,
+        pisak.pisz("wers3",
+                   "- Na pewno? - próbuje wymusić od Ciebie inną odpowiedź ale odpowiadasz stanowczo - Tak, bez uwag!",
+                   20, 120, white)
+        pisak.pisz("wers4", "- No dobrze, to czas na resztę zadań.. Słuchaj uważnie bo dwa razy powtarzać nie będę..",
+                   20, 150,
                    white)
-        pisak.pisz("wers5", "- Polecam sprawdzić wszystkie obiekty w szkole. Wchodzisz, sprawdzasz zabezpieczenia i wychodzisz.", 20, 180, white)
-        pisak.pisz("wers6", "- Do 6 rano masz niewiele czasu - dyżury kontynuuje - dlatego w tył zwrot i do roboty!", 20, 210, white)
-        pisak.pisz("wers7", "- I proszę mi tu oddać klucz od magazynu - wskazuje palcem na blat a Ty odkładasz felerny klucz",
+        pisak.pisz("wers5",
+                   "- Polecam sprawdzić wszystkie obiekty w szkole. Wchodzisz, sprawdzasz zabezpieczenia i wychodzisz.",
+                   20, 180, white)
+        pisak.pisz("wers6", "- Do 6 rano masz niewiele czasu - dyżury kontynuuje - dlatego w tył zwrot i do roboty!",
+                   20, 210, white)
+        pisak.pisz("wers7",
+                   "- I proszę mi tu oddać klucz od magazynu - wskazuje palcem na blat a Ty odkładasz felerny klucz",
                    20, 240, white)
         pygame.display.update()
         mainClock.tick()
@@ -8537,9 +8662,9 @@ def kinowa_budynek():
 
         pisak.pisz("wers", "Budynek nr 7 - znajduje się w nim sala kinowa i centrum konferencyjne.", 20, 90, white)
         pisak.pisz("wers1", "Drzwi są otwarte, dlatego wchodzisz do środka, po lewej stronie schody do góry,"
-                           " po prawej - na dół.", 20, 120, white)
+                            " po prawej - na dół.", 20, 120, white)
         pisak.pisz("wers2", "Słyszysz głosy dobiegające z jakiegoś pomieszczenia, gdzie prowadzą schody po prawej"
-                           " stronie.", 20, 150, white)
+                            " stronie.", 20, 150, white)
         pisak.pisz("wers3", "Schodzisz na dół i.. Wooo! Tu jest bar z niezdrowym jedzonkiem!", 20, 180, white)
         pisak.pisz("wers4", "Podchodzisz do baru i zamawiasz hamburgera ze wszystkimi dodatkami.", 20, 210, white)
         pisak.pisz("wers5", "Mniam! To miejsce warto zapamiętać!", 20, 240, white)
@@ -8767,14 +8892,15 @@ def budowla_budynek():
         pisak.pisz("wers3", "Wpatrujesz się w duże metalowe drzwi, które nagle zaczynają się otwierać.", 20, 180, white)
         pisak.pisz("wers4", "Wychodzi z nich mężczyzna ubrany w czarny uniform - ale nie robotniczy, wygląda trochę jak"
                             " Twój mundur ćwiczebny ", 20, 210, white)
-        pisak.pisz("wers5", "ale jest jednoczęściowy. Przez otwarte drzwi słyszysz głośne śmiechy i rozmowy.", 20, 240, white)
+        pisak.pisz("wers5", "ale jest jednoczęściowy. Przez otwarte drzwi słyszysz głośne śmiechy i rozmowy.", 20, 240,
+                   white)
         pisak.pisz("wers6", "Jeden ze śmiejących się głosów obniża nieco ton i mówi: - Jarek!", 20, 270, white)
         pisak.pisz("wers7", "- Czego!? - odpowiada mężczyzna w czarnym uniformie.", 20, 300, white)
         pisak.pisz("wers8", "- Tylko nie zapomnij zadzownić do Tomka!", 20, 330, white)
         pisak.pisz("wers9", "- Jakiego Tomka?", 20, 360, white)
         pisak.pisz("wers10", "- Znaczy się Marka - odpowiada głos z budynku.", 20, 390, white)
         pisak.pisz("wers11", "- No dobra, jasna sprawa - mężczyzna w uniformie zamyka za sobą drzwi i idzie w kierunku"
-                            " siłowni.", 20, 420, white)
+                             " siłowni.", 20, 420, white)
         pisak.pisz("wers12", "*Heh same Tomki w tym Szczytnie - myślisz sobie.", 20, 450, white)
         screen.blit(graph.rain, (0, 0))
         pygame.display.update()
@@ -8859,7 +8985,7 @@ def palarnia_budynek(drzwi_otwarte):
 
         if drzwi_otwarte is not False:
             pisak.pisz("wers2", "Sprawdź zamknięcie drzwi.",
-                   20, 150, white)
+                       20, 150, white)
         else:
             pisak.pisz("wers2", "Wychodząc zatrzasnąłeś(-aś) za sobą drzwi.",
                        20, 150, white)
@@ -8937,10 +9063,12 @@ def warsztat(drzwi_otwarte):
                    20, 30, white)
         pisak.pisz("wers", "- Co do.. ?! - spoglądasz na obrysowaną kredą, sylwetkę człowieka.",
                    20, 60, white)
-        pisak.pisz("wers1", "Zastanawiasz się dłuższą chwilę.. po co ktoś miałby narysować akurat tutaj, coś takiego..", 20, 90, white)
+        pisak.pisz("wers1", "Zastanawiasz się dłuższą chwilę.. po co ktoś miałby narysować akurat tutaj, coś takiego..",
+                   20, 90, white)
         pisak.pisz("wers2", "Wpatrujesz się w posadzkę a wzrok wędruje po białej linii.. centymetr po centymetrze.",
                    20, 120, white)
-        pisak.pisz("wers3", "Rozglądasz się po pomieszczeniu, wszędzie leżą jakieś narzędzia: - No warsztat - głośno myślisz.",
+        pisak.pisz("wers3",
+                   "Rozglądasz się po pomieszczeniu, wszędzie leżą jakieś narzędzia: - No warsztat - głośno myślisz.",
                    20, 150, white)
         pisak.pisz("wers4",
                    "- Warsztat i miejsce.. O kurwa! - przypominasz sobie pierwsze dni szkolenia i dziwnego kolesia",
@@ -9041,7 +9169,8 @@ def biblioteka_budynek():
         pisak.pisz("wers2", "Na drzwiach wejściowych wisi kartka: 'Biblioteka nieczynna z powodu remontu'",
                    20, 150, white)
         pisak.pisz("wers3", "'Przepraszamy i zapraszamy za 2 tygodnie'", 20, 180, white)
-        pisak.pisz("wers4", " Postanawiasz wrócić tu po remoncie, by dowiedzieć się czegoś więcej o Falklandach.", 20, 210, white)
+        pisak.pisz("wers4", " Postanawiasz wrócić tu po remoncie, by dowiedzieć się czegoś więcej o Falklandach.", 20,
+                   210, white)
 
         pygame.display.update()
         mainClock.tick()
@@ -9674,8 +9803,9 @@ def salawf_budynek():
             if q == "bar_2":
                 pisak.pisz("wers6", "*Ale.. chwila.. Jeden z mężczyzn szczególnie przykuwa Twoją uwagę.. hmm..",
                            20, 300, green)
-                pisak.pisz("wers7", "*Twarz jakby znajoma.. wykładowca? - Nieee. - Kursant? - Nie.. ale coś powoli świta"
-                                    " w głowie", 20, 330, green)
+                pisak.pisz("wers7",
+                           "*Twarz jakby znajoma.. wykładowca? - Nieee. - Kursant? - Nie.. ale coś powoli świta"
+                           " w głowie", 20, 330, green)
                 pisak.pisz("wers8", "*No jasne, poznajesz.. przecież to.. barman! Barman z CELI!", 20, 360, green)
 
         pygame.display.update()
@@ -9747,13 +9877,15 @@ def akademik_budynek_1():
         pisak.pisz("wers", "Akademik nr 1 - to miejsce znasz już jak własną kieszeń. Logiczne - masz tu"
                            " przecież pokój!", 20, 60, white)
         pisak.pisz("wers7", "W sali 101 pusto - dyżurny poszedł już do sztabu.", 20, 90, white)
-        pisak.pisz("wers8", "Sprawdzasz drzwi przeciwpożarowe - zamknięte. Na korytarzach pusto, cisza, spokój.", 20, 120, white)
+        pisak.pisz("wers8", "Sprawdzasz drzwi przeciwpożarowe - zamknięte. Na korytarzach pusto, cisza, spokój.", 20,
+                   120, white)
 
         screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
 
     return akademik_budynek_1_pkt
+
 
 # Akademik II
 
@@ -9818,12 +9950,14 @@ def akademik_budynek_2():
         pisak.pisz("wers", "Akademik nr 2 - Drugi z akademików na terenie szkoły.", 20, 60, white)
         pisak.pisz("wers1", "Szkoda, że nie macie tu pokoju - byłoby bliżej na stołówkę.", 20, 90, white)
         pisak.pisz("wers2", "Rozglądasz się ale.. nie ma tu nic ciekawego.", 20, 120, white)
-        pisak.pisz("wers3", "Sprawdzasz drzwi przeciwpożarowe - zamknięte. Na korytarzach pusto, cisza, spokój.", 20, 150, white)
+        pisak.pisz("wers3", "Sprawdzasz drzwi przeciwpożarowe - zamknięte. Na korytarzach pusto, cisza, spokój.", 20,
+                   150, white)
         screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
 
     return akademik_budynek_2_pkt
+
 
 # Akademik III
 
@@ -9896,12 +10030,14 @@ def akademik_budynek_3():
         pisak.pisz("wers4", "Zwykle w tym akademiku, mieszkają policjanci uczestniczący w kursach specjalistycznych.",
                    20, 180, white)
         pisak.pisz("wers5", "Teraz jest tu pusto, wszyscy wyjechali na weekend..", 20, 210, white)
-        pisak.pisz("wers6", "Rozglądasz się jeszcze chwilkę i wychodzisz na zewnątrz. Tu wszystko jest ok.", 20, 240, white)
+        pisak.pisz("wers6", "Rozglądasz się jeszcze chwilkę i wychodzisz na zewnątrz. Tu wszystko jest ok.", 20, 240,
+                   white)
         screen.blit(graph.rain, (0, 0))
         pygame.display.update()
         mainClock.tick()
 
     return akademik_budynek_3_pkt
+
 
 # Sztab
 
@@ -9994,6 +10130,7 @@ def sztab_budynek():
         mainClock.tick()
 
     return sztab_budynek_pkt
+
 
 # Stołówka
 
@@ -10414,7 +10551,7 @@ def info():
         srednio = screen.blit(graph.volNormal[0], (960, 570))
         glosno = screen.blit(graph.volHI[0], (982, 610))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
-        
+
         mx, my = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -10474,13 +10611,13 @@ def notatnik():
     running = True
     while running:
         click = False
-        
+
         screen.fill(black)
         screen.blit(graph.notatniczek, (0, 0))
         cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
         notatnik_x = screen.blit(graph.notatnikPistol, (20, 20))
         note_quest = screen.blit(graph.oststrona[0], (1150, 550))
-        
+
         mx, my = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -10521,9 +10658,10 @@ def notatnik():
 
         pisak.pisz("wers", "Najedź kursorem na notatki by przeczytać.", 20, 655, dyellow)
         pisak.pisz("wers", "Zapiski", 1160, 510, dyellow)
-                                   
+
         pygame.display.update()
         mainClock.tick(60)
+
 
 # PLECAK
 
@@ -10656,6 +10794,7 @@ def equip():
         screen.blit(graph.palec, (mx, my))
         pygame.display.update()
         mainClock.tick(60)
+
 
 # WYKAZ OCEN
 
