@@ -1,7 +1,6 @@
 import os.path
 import pygame
 
-    
 pygame.init()
 pygame.mixer.pre_init(44100, 16, 2, 4096)
 pygame.mixer.init()
@@ -17,7 +16,6 @@ pistol = [pygame.image.load(os.path.join(filepath, "data\\pics\\bron.png")).conv
           pygame.image.load(os.path.join(filepath, "data\\pics\\bron1.png")).convert()]
 nakladka_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\nakladka.png")).convert_alpha()
 
-
 # Intro kafle
 
 kafel = [pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel.png")).convert_alpha(),
@@ -27,49 +25,49 @@ kafel_2 = [pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel2.png"
 kafel_3 = [pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel3.png")).convert_alpha(),
            pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel3x.png")).convert_alpha()]
 kafel_4 = [pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel4.png")).convert_alpha(),
-          pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel4x.png")).convert_alpha()]
+           pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel4x.png")).convert_alpha()]
 kafel_5 = [pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel5.png")).convert_alpha(),
-          pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel5x.png")).convert_alpha()]
+           pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel5x.png")).convert_alpha()]
 kafel_6 = [pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel6.png")).convert_alpha(),
            pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel6x.png")).convert_alpha()]
 kafel_7 = [pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel7.png")).convert_alpha(),
-          pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel7x.png")).convert_alpha()]
+           pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel7x.png")).convert_alpha()]
 kafel_8 = [pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel8.png")).convert_alpha(),
-          pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel8x.png")).convert_alpha()]
+           pygame.image.load(os.path.join(filepath, "data\\introDev\\kafel8x.png")).convert_alpha()]
 
 # Animacja logo
 
 animated_Logo = [pygame.image.load(os.path.join(filepath, "data\\logo\\logo.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo1.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo2.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo3.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo4.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo5.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo6.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo7.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo8.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo9.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo10.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo11.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo12.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo13.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo14.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo15.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo16.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo17.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo18.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo19.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo20.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo21.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo22.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo23.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo24.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo25.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo26.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo27.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo28.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo29.png")),
-                pygame.image.load(os.path.join(filepath, "data\\logo\\logo30.png"))]
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo1.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo2.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo3.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo4.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo5.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo6.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo7.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo8.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo9.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo10.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo11.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo12.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo13.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo14.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo15.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo16.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo17.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo18.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo19.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo20.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo21.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo22.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo23.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo24.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo25.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo26.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo27.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo28.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo29.png")),
+                 pygame.image.load(os.path.join(filepath, "data\\logo\\logo30.png"))]
 
 # Nawigacja
 
@@ -180,6 +178,7 @@ fajki = [pygame.image.load(os.path.join(filepath, "data\\pics\\fajki.png")).conv
          pygame.image.load(os.path.join(filepath, "data\\pics\\fajki4.png")).convert_alpha()]
 latarka_ON = pygame.image.load(os.path.join(filepath, "data\\pics\\latarkaON.png")).convert()
 zaang_up = os.path.join(filepath, "data\\pics\\lvlup.png")
+portfel = pygame.image.load(os.path.join(filepath, "data\\pics\\portfel.png")).convert_alpha()
 
 # Grafiki scen
 wspol = pygame.image.load(os.path.join(filepath, "data\\sceny\\wspol.png")).convert()
@@ -227,16 +226,19 @@ brama_kod_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\brama_kod_
 falklandy_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_bg.png")).convert()
 sektor_falklandy_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_sektor_bg.png")).convert()
 sektor_falklandy_X_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_sektor_X_bg.png")).convert()
-sektor_falklandy_X_bg_light = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_sektor_X_bg_light.png")).convert()
+sektor_falklandy_X_bg_light = pygame.image.load(
+    os.path.join(filepath, "data\\sceny\\falklandy_sektor_X_bg_light.png")).convert()
 sektor_falklandy_drzwi_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_drzwi_bg.png")).convert()
 sektor_falklandy_klodka_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_klodka_bg.png")).convert()
-sektor_falklandy_sektor_g_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\falklandy_sektor_g.png")).convert()
+sektor_falklandy_sektor_g_bg = pygame.image.load(
+    os.path.join(filepath, "data\\sceny\\falklandy_sektor_g.png")).convert()
 trasa_falklandy_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\trasa_falklandy.png")).convert()
 teczka_osobowa = pygame.image.load(os.path.join(filepath, "data\\sceny\\teczka_osobowa.png")).convert()
 sklep_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\sklep.png")).convert()
 pamietnik_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\ksiazka_bg.png")).convert()
 warsztat_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\warsztat_bg.png")).convert()
 kontynuacja_bg = pygame.image.load(os.path.join(filepath, "data\\sceny\\kontynuacja_2.png")).convert()
+zapisky_bg = pygame.image.load(os.path.join(filepath, "data\\note\\zapisky.png")).convert()
 
 # Pojęcia + zdjęcia
 czarnuch = [pygame.image.load(os.path.join(filepath, "data\\pojecia\\czarnuch.png")).convert(),
@@ -292,6 +294,12 @@ notatnikRuch = pygame.image.load(os.path.join(filepath, "data\\note\\notatkiRuch
 zapiskiRuch = pygame.image.load(os.path.join(filepath, "data\\note\\noteRuch.png")).convert()
 notatnikWykr = pygame.image.load(os.path.join(filepath, "data\\note\\notatkiWykroczenia.png")).convert()
 zapiskiWykr = pygame.image.load(os.path.join(filepath, "data\\note\\noteWykr.png")).convert()
+oststrona = [pygame.image.load(os.path.join(filepath, "data\\note\\ostatniastr1.png")).convert(),
+             pygame.image.load(os.path.join(filepath, "data\\note\\ostatniastr2.png")).convert()]
+
+# Grafiki questów
+strona_tomek = [pygame.image.load(os.path.join(filepath, "data\\note\\stronatomek.png")).convert(),
+                pygame.image.load(os.path.join(filepath, "data\\note\\stronatomek1.png")).convert()]
 
 # Grafiki plecaka
 plecak = pygame.image.load(os.path.join(filepath, "data\\navi\\plecak.png")).convert()
@@ -440,7 +448,7 @@ volLow = [pygame.image.load(os.path.join(filepath, "data\\pics\\cicho.png")),
 volNormal = [pygame.image.load(os.path.join(filepath, "data\\pics\\srednio.png")),
              pygame.image.load(os.path.join(filepath, "data\\pics\\srednio1.png"))]
 volHI = [pygame.image.load(os.path.join(filepath, "data\\pics\\glosno.png")),
-        pygame.image.load(os.path.join(filepath, "data\\pics\\glosno1.png"))]
+         pygame.image.load(os.path.join(filepath, "data\\pics\\glosno1.png"))]
 
 # Stopnie służbowe
 post = pygame.image.load(os.path.join(filepath, "data\\stopnie\\post.png")).convert_alpha()
@@ -481,9 +489,11 @@ szkola = [pygame.image.load(os.path.join(filepath, "data\\navi\\szkola0.png")).c
           pygame.image.load(os.path.join(filepath, "data\\navi\\szkola.png")).convert_alpha(),
           pygame.image.load(os.path.join(filepath, "data\\navi\\szkola1.png")).convert_alpha()]
 
-sensivity_range = pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\sensivity_range.png")).convert_alpha()
-sensivity_point = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\sensivity_point.png")).convert_alpha(),
-                   pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\sensivity_point1.png")).convert_alpha()]
+sensivity_range = pygame.image.load(
+    os.path.join(filepath, "data\\pics\\falklandy_map\\sensivity_range.png")).convert_alpha()
+sensivity_point = [
+    pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\sensivity_point.png")).convert_alpha(),
+    pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\sensivity_point1.png")).convert_alpha()]
 
 zamek = [pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\zamek0.png")).convert_alpha(),
          pygame.image.load(os.path.join(filepath, "data\\pics\\falklandy_map\\zamek1.png")).convert_alpha(),
