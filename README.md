@@ -8,4 +8,4 @@ Z poziomu kodu, nie ma możliwości gry (brak plików dźwiękowych /sound/..)
 Jak powstaje gra?
 Możesz poczytac tutaj: https://policmajstergame.wordpress.com/
 
-[![N|Solid](https://policmajstergame.files.wordpress.com/2021/11/xad.png?resize=219%2C219)](https://github.com/policmajsterdev/game)
+[![N|Solid](https://policmajstergame.files.wordpress.com/2021/11/xad.png)](https://github.com/policmajsterdev/game)
