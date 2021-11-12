@@ -875,7 +875,7 @@ def scena3():
     text = dialogs.text_scena_3
     running = True
     while running:
-
+        poz_y = 30
         click = False
 
         screen.fill(black)
