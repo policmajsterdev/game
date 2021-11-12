@@ -11,6 +11,7 @@ import tk_box
 import db_save
 import delete_db
 import tx_notes
+import dialogs
 
 pygame.init()
 pygame.mixer.pre_init(44100, -16, 2, 512)
@@ -761,9 +762,11 @@ def objasnienie(imie_gracza):
 def scena1():
     db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
     db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+    text = dialogs.text_scena_1
     siren.play(-1)
     running = True
     while running:
+        poz_y = 30
         click = False
 
         screen.fill(black)
@@ -796,30 +799,11 @@ def scena1():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Pierwszy dzień w nowym środowisku - czujesz ekscytację! Jest trochę dziwnie ale wkońcu"
-                           " nałożyłeś(-aś) mundur.", 30, 150, white)
-        pisak.pisz("wers1", "Wychodzisz na pierwszy apel przed budynkiem akademika nr 1. Kręcisz się a z Tobą pozostałe"
-                            " 100 osób..", 30, 180, white)
-        pisak.pisz("wers2", "Obok usłyszałeś(-aś), że na mundur który obecnie nosisz, mówi się potocznie..",
-                   30, 210, white)
-        pisak.pisz("wers3", "Narazie nie wiesz czy będziesz w klasie czy w grupie.. Właściwie to nic nie wiesz..",
-                   30, 240, white)
-        pisak.pisz("wers4", "K**** - myślisz sobie. - Co ja tu będę robić 6 miesięcy. Stoisz w 3 osobowej"
-                            " 'niby grupie'", 30, 270, white)
-        pisak.pisz("wers5", "z osobami z Twojego pokoju. Robi się jakieś zamieszanie, ktoś zaczyna krzyczeć z tłumu"
-                            " - ktoś mówi, że to dowódca.", 30, 300, white)
-        pisak.pisz("wers6", "Jeszcze go nie widzisz ale wyraźniej słyszysz jak krzyczy - Zbiórka! W dwuszeregu"
-                            " zbiórka!", 30, 330, white)
-        pisak.pisz("wers7", "Stajesz w drugim rzędzie za wielkim, rosłym mężczyzną. W sumie jest dobrze, jesteś"
-                            " mniej widoczny(-a).", 30, 360, white)
-        pisak.pisz("wers8", "- Kolejno odlicz! - krzyknął dowódca", 30, 390, white)
-        pisak.pisz("wers9", "- 1, 2, 3, 4, 5 ,6 - i tak 10 razy bo ktoś się pomylił, ktoś spóźnił. Gdzie ja jestem?!"
-                            " - myślisz.", 30, 420, white)
-        pisak.pisz("wers10", "Po 15 minutach wkońcu idziecie na stołówkę - Nareszcie! Bo od wczorajszego obiadu nic"
-                             " nie jadłeś(-aś)", 30, 450, white)
-        pisak.pisz("wers11", "Uśmiech jednak szybko znika Ci z Twarzy.. bo kolejka ma chyba ze 100 metrów"
-                             " - wzdychasz głęboko.", 30, 480, white)
-        pisak.pisz("wers12", "**Możesz najechać myszką na słowa na niebieskim tle i podejrzeć co się tam"
+        for ver in text:
+            pisak.pisz("w", ver, 30, 120 + poz_y, white)
+            poz_y += 30
+
+        pisak.pisz("x", "**Możesz najechać myszką na słowa na niebieskim tle i podejrzeć co się tam"
                              " kryje.", 30, 580, dyellow)
 
         akademik_poj = screen.blit(graph.akademik[0], (510, 177))
@@ -840,8 +824,10 @@ def scena1():
 
 def scena2():
     db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+    text = dialogs.text_scena_2
     running = True
     while running:
+        poz_y = 30
         click = False
 
         screen.fill(black)
@@ -873,30 +859,9 @@ def scena2():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Po śniadaniu był dzień zapoznawczy - zapoznajesz się właściwie z nowym miejscem, "
-                           "sytuacją i ludźmi.", 30, 150, white)
-        pisak.pisz("wers1", "Nie będziesz w żadnej klasie czy grupie - Twoja grupa ma ok 20 osób i nazywa się"
-                            " 'plutonem'.", 30, 180, white)
-        pisak.pisz("wers2", "W ciągu dnia dowiedziałeś(-aś) się, że codziennie o 6 rano jest pobudka a po niej"
-                            " około 30 minut biegania,", 30, 210, white)
-        pisak.pisz("wers3", "skakania, pompek, rozciągania.. Dowódca kilkakrotnie zaznaczył, że taka pobudka"
-                            " nazywa się - 'zaprawą'.", 30, 240, white)
-        pisak.pisz("wers4", "Wyznaczyliście dowódce plutonu - szczupły, wysoki chłopak o sylwetce zgarbionego"
-                            " koszykarza - Jacka Wilczka.", 30, 270, white)
-        pisak.pisz("wers5", "Zapisałeś(-aś) sobie numer komórki Jacka w swoim telefonie, bo myślisz, że może"
-                            " Ci się kiedyś przyda.", 30, 300, white)
-        pisak.pisz("wers6", "Zresztą.. wszyscy zapisywali to i Ty - A jak jednak będzie do czegoś potrzebny?"
-                            " - zastanawiasz się.", 30, 330, white)
-        pisak.pisz("wers7", "Warunki jednak trochę Cię zaskakują: pokoje 4 osobowe, 1 ubikacja, brak telewizora,"
-                            " jedna mała szafeczka przy", 30, 360, white)
-        pisak.pisz("wers8", "małowygodnym łóżku z lekko dźwięcznymi sprężynami przy siadaniu, 1 szafa.. Gdzie"
-                            " pomieścić ubrania?", 30, 390, white)
-        pisak.pisz("wers9", "Masz ochotę na coś słodkiego ale nie można wyjść do sklepu, bo potrzebujesz przepustki"
-                            " - bez tego nie", 30, 420, white)
-        pisak.pisz("wers10", "możesz wyjść za teren szkoły. - Boże co tu robić?! - Nawet spacerować od tak sobie"
-                             " nie można, trzeba iść", 30, 450, white)
-        pisak.pisz("wers11", "w szeregu, maszerować jak w wojsku.. W myślach zaczynasz nudną rozkminę ale nagle"
-                             " ktoś wchodzi do pokoju.", 30, 480, white)
+        for ver in text:
+            pisak.pisz("w", ver, 30, 120 + poz_y, white)
+            poz_y += 30
 
         pygame.display.update()
         mainClock.tick()
@@ -907,8 +872,10 @@ def scena2():
 
 def scena3():
     db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+    text = dialogs.text_scena_3
     running = True
     while running:
+
         click = False
 
         screen.fill(black)
@@ -941,34 +908,9 @@ def scena3():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Do Twojego pokoju wchodzi pewny siebie gość, który dziarsko się wita i zaczyna"
-                           " rozmowę.", 30, 150, white)
-        pisak.pisz("wers1", "- No co tam? Jesteście nową kompanią z wczoraj? - nikt z was nie odpowiada a on"
-                            " kontynuuje.", 30, 180, white)
-        pisak.pisz("wers2", "- Korzystajcie z wolnego bo w następnym tygodniu zaczną się zaliczenia a za 2 tyg."
-                            " egzaminy.", 30, 210, white)
-        pisak.pisz("wers3", "Masz wrażenie, że gość wydaje się nadpobudliwy ale jego gadaniem zaczynasz lekko"
-                            " się stresować,", 30, 240, white)
-        pisak.pisz("wers4", "może nie tym, jak mówi ale co mówi.. - Egzaminy? - myślisz i po chwili zadajesz to"
-                            " samo pytanie głośno.", 30, 270, white)
-        pisak.pisz("wers5", "- No tak egzaminy zaliczeniowe przedmiotów, a co myśleliście, że egzaminy są dopiero"
-                            " po 6 miesiącach?", 30, 300, white)
-        pisak.pisz("wers6", "- No nie wiem - odpowiadasz, a chłopak kontynuuje - Tu takich egzaminów jest tyle,"
-                            " że będziecie mieli", 30, 330, white)
-        pisak.pisz("wers7", "po 3-4 w tygodniu, czasem 2-3 dziennie a jak nie zaliczysz to masz jeszcze egzaminy"
-                            " poprawkowe.", 30, 360, white)
-        pisak.pisz("wers8", "a jak tego poprawkowego nie zdasz to masz komisję, a u nas w tamtym miesiącu 2 osoby"
-                            " nie zaliczyły..", 30, 390, white)
-        pisak.pisz("wers9", "- Nie zaliczyły? - pytasz trochę bardziej przejęty(-a) - No tak i wyleciały z całego"
-                            " kursu.", 30, 420, white)
-        pisak.pisz("wers10", "- A jeden to strzelił sobie samobója.. świr.. kogo to przyjmują teraz.. ehh.."
-                             "- pokiwał głową i wyszedł.", 30, 450, white)
-        pisak.pisz("wers11", "- Co to był za koleś? - powiedział Tomek, który wstał z łóżka obok. - Nie wiem -"
-                             " odpowiedziała Anka,", 30, 480, white)
-        pisak.pisz("wers12", "odkładając swój telefon na łóżko. - A właśnie, skąd jesteście? - zapytała Iwona,"
-                             " 3 kompan pokoju.", 30, 510, white)
-        pisak.pisz("wers13", "** Wieczór minął miło, rozmawialiście do późna, pomyślałeś(-aś), że masz całkiem"
-                             " fajne osoby w pokoju.", 30, 540, white)
+        for ver in text:
+            pisak.pisz("w", ver, 30, 120 + poz_y, white)
+            poz_y += 30
 
         pygame.display.update()
         mainClock.tick()
@@ -980,8 +922,10 @@ def scena3():
 def scena4():
     db_save.update_exp_ang_dni("exp", "dane_konta", 2)
     db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 2)
+    text = dialogs.text_scena_4
     running = True
     while running:
+        poz_y = 30
         click = False
 
         screen.fill(black)
@@ -1021,33 +965,9 @@ def scena4():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "No w końcu! Dziś miałeś(-aś) bardzo ciekawe zajęcia na strzelnicy! Nie było jeszcze"
-                           " strzelania ale..", 30, 150, white)
-        pisak.pisz("wers1", "widziałeś(-aś) i trzymałeś(-aś) prawdziwą broń! Było dużo na temat zachowania się"
-                            " na strzelnicy", 30, 180, white)
-        pisak.pisz("wers2", "zasad i budowy broni. Często rozkładałeś(-aś) i składałeś(-aś) pistolet P99"
-                            " 'Walther'.", 30, 210, white)
-        pisak.pisz("wers3", "Na kolejnych zajęciach masz mieć sprawdzian, dlatego zrobiłeś(-aś) notatki."
-                            " (Sprawdź notatnik)", 30, 240, white)
-        pisak.pisz("wers4", "Po strzelnicy, było kilka godzin chodzenia po placu, chodziliście, maszerowaliście"
-                            " - nogi włażą w dupę.", 30, 270, white)
-        pisak.pisz("wers5", "Narazie jest spokojnie. I gdzie te egzaminy o których wspominał chłopak, który"
-                            " nawiedził Twój pokój?", 30, 300, white)
-        pisak.pisz("wers6", "- Oby tak dalej i do przodu - myślisz sobie - Z egzaminami jak będą, też sobie"
-                            " poradzę!.", 30, 330, white)
-        pisak.pisz("wers7", "Dzień - oprócz ciekawej strzelnicy - minał na zajęciach z musztry i oddawania"
-                            " honorów.", 30, 360, white)
-        pisak.pisz("wers8", "W rozpisce zajęć zobaczyłeś(-aś), że jeszcze przez 2 tygodnie będzie sporo"
-                            " maszerowania ale..", 30, 390, white)
-        pisak.pisz("wers9", "w następnym tygodniu są jakieś zajęcia z prawa karnego i wykroczeń - Hmm, zobaczymy"
-                            " o czym będą.", 30, 420, white)
-        pisak.pisz("wers10", "Od Tomka dowiadujesz się, że w weekend wszyscy mogą jechać do domu.",
-                   30, 450, white)
-        pisak.pisz("wers11", "- Spoko! W końcu mogę spotkać się ze znajomymi i poopowiadać jak to jest w"
-                             " szkole policyjnej.", 30, 480, white)
-        pisak.pisz("wers12", "Narazie jest fajnie, wkurzają tylko te poranne zaprawy, wczoraj rano było tylko"
-                             " 2'C a musieliście ", 30, 510, white)
-        pisak.pisz("wers13", "biegać po podwórku kilka okrążeń.. Ale to nic, może ciut schudnę? :)", 30, 540, white)
+        for ver in text:
+            pisak.pisz("w", ver, 30, 120 + poz_y, white)
+            poz_y += 30
 
         spluwa = screen.blit(graph.p99[0], (819, 211))
 
