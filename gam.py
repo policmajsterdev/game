@@ -984,10 +984,12 @@ def scena4():
 def scena5():
     db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 5)
     db_save.update_exp_ang_dni("exp", "dane_konta", 5)
+    text = dialogs.text_scena_5
     dane_konta = experience.aktualny_stan_konta()
     stan_portfela = round(dane_konta[7], 2)
     running = True
     while running:
+        poz_y = 30
         click = False
 
         screen.fill(black)
@@ -1029,28 +1031,10 @@ def scena5():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "No i po weekendzie. Najfajniejsze z weekendu to.. wyjazd na weekend, bo wolny czas"
-                           " tak szybko minął. ", 20, 150, white)
-        pisak.pisz("wers1", "Znowu poniedziałek, 5 dni maszerowania, zapraw i chodzenia wszędzie w 2-szeregu.. ",
-                   20, 180, white)
-        pisak.pisz("wers2", "Z zapowiedzianego sprawdzianu z zasad na strzelnicy - nic nie było. ", 20, 210, white)
-        pisak.pisz("wers3", "Prowadzący powiedział, że i tak nie ma gdzie przeprowadzić testu i zaufał nam,"
-                            " że umiemy.", 20, 240, white)
-        pisak.pisz("wers4", "Później były 2 godziny strzelania 'na sucho' - tj. bez pocisków. Obiad był słaby,"
-                            " jakieś dziwne mięso", 20, 270, white)
-        pisak.pisz("wers5", "Usłyszałeś(-aś) jak ktoś w kolejce powiedział, że dziś podają", 20, 300, white)
-        pisak.pisz("wers6", "Z ciekawszych rzeczy to fajne były zajęcia poznawcze - poznawaliśmy się nawzajem.",
-                   20, 330, white)
-        pisak.pisz("wers7", "Nie wiem kto to prowadził, czy to jakiś policjant czy psycholog, czy może jedno i"
-                            " drugie.", 20, 360, white)
-        pisak.pisz("wers8", "Poprostu każdy opowiadał o sobie, mogliśmy się przez to poznać, bo jeszcze wszyscy"
-                            " się nie znają.", 20, 390, white)
-        pisak.pisz("wers9", "Teraz tylko przebrać się z czarnucha w swoje ubranie - swoje tzw. 'cywilki' i można"
-                            " sobie odpocząć.", 20, 420, white)
-        pisak.pisz("wers10", "Tomek proponuje Ci żeby iść poćwiczyć, bo na terenie szkoły jest gdzieś siłownia.",
-                   20, 450, white)
-        pisak.pisz("wers11", "Swoją drogą to Tomek nie próżnuje jak Ty, tylko szuka ciekawszego zajęcia jak leżenie"
-                             " odłogiem w pokoju.", 20, 480, white)
+        for ver in text:
+            pisak.pisz("w", ver, 30, 120 + poz_y, white)
+            poz_y += 30
+
         pisak.pisz("wers12", "--> Idziesz z Tomkiem na siłownię ? (Koszt 60zł)", 20, 530, dyellow)
         pisak.pisz("wers2k", str(stan_portfela), 1135, 603, white)
 
@@ -1072,10 +1056,12 @@ def silownia():
     db_save.update_exp_ang_dni("exp", "dane_konta", 1)
     db_save.add_1_value("dane_ekwipunek", "usb")
     db_save.add_2_value("dane_quest_tomek", "silownia", "Przyszedł ze mną ale gdzieś poszedł..")
+    text = dialogs.text_silownia_1
     dane_konta = experience.aktualny_stan_konta()
     stan_portfela = round(dane_konta[7], 2)
     running = True
     while running:
+        poz_y = 30
         click = False
 
         screen.fill(black)
@@ -1110,34 +1096,10 @@ def silownia():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Ruszyłeś(-aś) dupę, choć można było spędzić czas w pokoju.", 30, 150, white)
-        pisak.pisz("wers1", "Siłownia to niewielki budynek, gdzieś na terenie szkoły, było ciemno i nie"
-                            " widziałeś(-aś) jaką", 30, 180, white)
-        pisak.pisz("wers2", "drogą prowadził Cię Tomek. W środku dziwny zapach, hmm wilgoć i coś jeszcze -"
-                            " ćwiczy kilkanaście osób.", 30, 210, white)
-        pisak.pisz("wers3", "Tomek na chwilę gdzieś wyszedł a Ty obierasz na cel jakąś wielofunkcyjną ławeczkę.",
-                   30, 240, white)
-        pisak.pisz("wers4", "Słyszysz jak, ktoś zwraca się do Ciebie po imieniu. Odwracasz się a na twarzy powoli"
-                            " maluje Ci się uśmiech.", 30, 270, white)
-        pisak.pisz("wers5", "- No co tam, i Ty tutaj? - No a jak!? - odpowiadasz zadowolony(-a). Nareszcie jakaś"
-                            " znajoma morda - myślisz.", 30, 300, white)
-        pisak.pisz("wers6", "Okazuje się, że spotykasz kolegę ze szkoły średniej, nie pamiętasz.. no właściwie"
-                            " nie znasz jego imienia", 30, 330, white)
-        pisak.pisz("wers7", "bo był w innej klasie ale kojarzysz go z widzenia bo często mieliście łączone zajęcia"
-                            " WF-u.", 30, 360, white)
-        pisak.pisz("wers8", "- Kurczę nie widziałem Cię wcześniej, ile czasu tutaj jesteś? - kontynuuje. -"
-                            " Od tygodnia - odpowiadasz.", 30, 390, white)
-        pisak.pisz("wers9", "- E to fajnie! Szkoda, że nie wcześniej bo mogliśmy razem dojeżdżać do szkoły."
-                            " Ja za 3 tygodnie", 30, 420, white)
-        pisak.pisz("wers10", "kończę już kurs. Odezwij się do mnie jutro dam Ci materiały do nauki, chyba"
-                             " mam też jakieś testy..", 30, 450, white)
-        pisak.pisz("wers11", "Zaje..fajnie! - myślisz sobie - Warto było iść na siłownię!. W międzyczasie"
-                             " przyszedł Tomek.", 30, 480, white)
-        pisak.pisz("wers12", "Twój kolega odchodząc puścił Ci oko i bezdźwięcznie powtórzył 'Odezwij się jutro'",
-                   30, 510, white)
-        pisak.pisz("wers13", "- To co wracamy? - zapytał Tomek. - No możemy wracać - odpowiadasz", 30, 540, white)
-        pisak.pisz("wers14", "Swoją drogą, to gdzie był Tomek? Przyszedł z Tobą a nie było go na siłowni.",
-                   30, 570, white)
+        for ver in text:
+            pisak.pisz("w", ver, 30, 120 + poz_y, white)
+            poz_y += 30
+
         pisak.pisz("wers2k", str(stan_portfela), 1135, 603, white)
 
         pygame.display.update()
