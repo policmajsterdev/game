@@ -2349,7 +2349,7 @@ def bar2():
     running = True
     dane_konta = experience.aktualny_stan_konta()
     stan_portfela = round(dane_konta[7], 2)
-    db_save.add_1_value("dane_quest_tomek", "bar")
+    db_save.add_2_value("dane_quest_tomek", "bar", "W 'CELI' wychodził z drzwi dla personelu")
     while running:
         click = False
 
