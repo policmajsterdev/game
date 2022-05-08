@@ -1113,8 +1113,10 @@ def scena_prog():
     siren.stop()
     silowniaOGG.stop()
     progOGG.play(-1)
+    text = dialogs.text_scena_prog
     running = True
     while running:
+        poz_y = 30
         click = False
 
         screen.fill(black)
@@ -1160,15 +1162,9 @@ def scena_prog():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "** Pamiętaj, że w tej grze, każda Twoja decyzja ma wpływ na dalszą fabułę.", 20, 330, white)
-        pisak.pisz("wers1", "Nie oznacza to, że zawsze musisz się zgadzać na to co Cię spotyka.", 20, 360, white)
-        pisak.pisz("wers2", "Jak w życiu - co byś nie zrobił i tak będzie dobrze.", 20, 390, white)
-        pisak.pisz("wers3", "Poboczne wątki wzbogacają fabułę o dodatkowe historie, które mogą być pomocne w"
-                            " późniejszym etapie gry.", 20, 420, white)
-        pisak.pisz("wers4", "Jako młody adept otrzymujesz od szefa kompanii plecak podoficerski tzw. elewkę.",
-                   20, 490, dyellow)
-        pisak.pisz("wers5", "W elewce będziesz posiadać ciekawe przedmioty, które mogą Ci się do czegoś przydać.",
-                   20, 520, dyellow)
+        for ver in text:
+            pisak.pisz("w", ver, 30, 320 + poz_y, white)
+            poz_y += 30
 
         pygame.display.update()
         mainClock.tick()
