@@ -1374,8 +1374,10 @@ def scena7():
 
 def scena8():
     db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+    text = dialogs.text_scena_8
     running = True
     while running:
+        poz_y = 30
         click = False
 
         screen.fill(black)
@@ -1421,29 +1423,9 @@ def scena8():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "W pokoju zastajecie Iwonę, lekko zmieszana stoi przy szafie, po czym siada na łóżku"
-                           " z telefonem.", 20, 150, white)
-        pisak.pisz("wers1", "- Iwona.. - zaczyna Anka - Słuchaj możemy Cię o coś zapytać?", 20, 180, white)
-        pisak.pisz("wers2", "- O co zapytać? - odpowiedziała zmęczonym głosem Iwona podnosząc delikatnie brwi.",
-                   20, 210, white)
-        pisak.pisz("wers3", "Nie chcesz stać jak kołek, dlatego walisz prosto z mostu.", 20, 240, white)
-        pisak.pisz("wers4", "- Wczoraj widziałem(-am) Cię na palarni z.. - Z Adamem? - dodała Iwona.", 20, 270, white)
-        pisak.pisz("wers5", "- Z wykładowcą - dokończyłeś(-aś). - No tak z Adamem, znam go. Znajomość to może nie"
-                            " jest ale poznałam go", 20, 300, white)
-        pisak.pisz("wers6", "w tamtym roku na kursie. - Na kursie?! - odpowiadasz razem z Anką. - No tak na kursie"
-                            " podstawowym.", 20, 330, white)
-        pisak.pisz("wers7", "- No dobrze, chyba muszę Wam coś wyjaśnić.. W międzyczasie przyszedł Tomek.",
-                   20, 360, white)
-        pisak.pisz("wers8", "Okazało się, że Iwona 1,5 roku temu musiała zakończyć kurs z powodów rodzinnych.",
-                   20, 390, white)
-        pisak.pisz("wers9", "Jej były, chorobliwie zazdrosny facet, nie mógł znieść, że jego kobieta może być"
-                            " policjantem.", 20, 420, white)
-        pisak.pisz("wers10", "Tak jej wjeżdżał na psychę podczas powrotów do domu, że zbierała się do kupy przez"
-                             " kolejne dni szkoły.", 20, 450, white)
-        pisak.pisz("wers11", "W końcu zrezygnowała i wróciła do matki. Teraz jest przekonana, że już się pozbierała,"
-                             " dlatego spróbowała ponownie.", 20, 480, white)
-        pisak.pisz("wers12", "Zrobiło Wam się żal koleżanki i trochę głupio. Masz wrażenie, że zmusiłes(-aś) ją"
-                             " do bolesnego wyznania.", 20, 510, white)
+        for ver in text:
+            pisak.pisz("w", ver, 30, 120 + poz_y, white)
+            poz_y += 30
 
         pygame.display.update()
         mainClock.tick(60)
