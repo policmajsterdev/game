@@ -1181,8 +1181,10 @@ def scena6():
     db_save.add_1_value("dane_notatki", "legitymowanie")
     dane_konta = experience.aktualny_stan_konta()
     stan_portfela = round(dane_konta[7], 2)
+    text = dialogs.text_scena_6
     running = True
     while running:
+        poz_y = 30
         click = False
 
         screen.fill(black)
@@ -1238,22 +1240,12 @@ def scena6():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Mijają kolejne dni, sporo zajęć, poranne zaprawy. Masz już dość kulek mocy.",
-                   20, 150, white)
-        pisak.pisz("wers1", "Dzisiaj były nowe zajęcia z legitymowania - czacha dymi ale zrobiłeś(-aś) notatki.",
-                   20, 180, white)
-        pisak.pisz("wers2", "Powoli ogarniasz osoby z Twojego plutonu - różni ludzie, w różnym wieku od 23 do 35 lat.",
-                   20, 210, white)
-        pisak.pisz("wers3", "Jest były piekarz, kierowca tira i nauczyciel. Jest też kilka młodych osób świeżo po"
-                            " studiach.", 20, 240, white)
-        pisak.pisz("wers4", "Ogólnie to nikt wcześniej się nie znał, bo każdy pochodzi z innego rejonu kraju ale..",
-                   20, 270, white)
-        pisak.pisz("wers5", "powoli dociera do Ciebie, że chyba jesteście podobni - to chyba ten sam cel - Policja.",
-                   20, 300, white)
-        pisak.pisz("wers6", "Po zajęciach Tomek znowu proponuje Ci siłownię.", 20, 330, white)
+        for ver in text:
+            pisak.pisz("w", ver, 20, 150 + poz_y, white)
+            poz_y += 30
+
         pisak.pisz("wers7", "--> Idziesz z Tomkiem na siłownię ? (Koszt 60zł)", 20, 530, dyellow)
         pisak.pisz("wers2k", str(stan_portfela), 1135, 603, white)
-
         pygame.display.update()
         mainClock.tick(60)
 
@@ -1268,8 +1260,10 @@ def silownia1():
     stan_portfela = round(dane_konta[7], 2)
     siren.stop()
     silowniaOGG.play(-1)
+    text = dialogs.text_silownia_2
     running = True
     while running:
+        poz_y = 30
         click = False
 
         screen.fill(black)
@@ -1304,13 +1298,11 @@ def silownia1():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Na siłowni ćwiczy kilkanaście osób.", 20, 150, white)
-        pisak.pisz("wers1", "Nie widzisz nikogo znajomego.", 20, 180, white)
-        pisak.pisz("wers2", "Tomek pobył z Tobą kilka minut i gdzieś się ulotnił.", 20, 210, white)
-        pisak.pisz("wers3", "Wrócił po 20 minutach.", 20, 240, white)
-        pisak.pisz("wers4", "Poćwiczyliście jeszcze 10 minut i wracacie razem do pokoju.", 20, 270, white)
-        pisak.pisz("wers2k", str(stan_portfela), 1135, 603, white)
+        for ver in text:
+            pisak.pisz("w", ver, 20, 150 + poz_y, white)
+            poz_y += 30
 
+        pisak.pisz("wers2k", str(stan_portfela), 1135, 603, white)
         pygame.display.update()
         mainClock.tick(60)
 
