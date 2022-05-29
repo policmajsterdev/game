@@ -1,1 +1,0 @@
-Folder na pliki save.

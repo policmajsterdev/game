@@ -803,8 +803,7 @@ def scena1():
             pisak.pisz("w", ver, 30, 120 + poz_y, white)
             poz_y += 30
 
-        pisak.pisz("x", "**Możesz najechać myszką na słowa na niebieskim tle i podejrzeć co się tam"
-                             " kryje.", 30, 580, dyellow)
+        pisak.pisz("x", "**Możesz najechać myszką na słowa na niebieskim tle i podejrzeć co się tam kryje.", 30, 580, dyellow)
 
         akademik_poj = screen.blit(graph.akademik[0], (510, 177))
         mundurx = screen.blit(graph.czarnuch[0], (885, 212))
@@ -1313,8 +1312,10 @@ def silownia1():
 def scena7():
     db_save.update_exp_ang_dni("exp", "dane_konta", 6)
     db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 6)
+    text = dialogs.text_scena_7
     running = True
     while running:
+        poz_y = 30
         click = False
 
         screen.fill(black)
@@ -1360,28 +1361,9 @@ def scena7():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Mijają kolejne dni.. Zajęcia trwają od 8 do 18 a po obiedzie i tak nic nie wchodzi"
-                           " do głowy.", 20, 150, white)
-        pisak.pisz("wers1", "Na obiad? Jak nie 'kulki mocy' to makaron z jakimś melepetum. Zamiast schudnąć przybywa"
-                            " Ci 5 kg.", 20, 180, white)
-        pisak.pisz("wers2", "Zaczynasz doceniać każą chwilę wolnego, którą wykorzystujesz na leżenie w łóżku.",
-                   20, 210, white)
-        pisak.pisz("wers3", "Po zajęciach próbujecie się uczyć w pokoju ale i tak kończy się na tym samym - na"
-                            " plotkowaniu.", 20, 240, white)
-        pisak.pisz("wers4", "Zaczynasz bardziej kumplować się z Anką, która pewnego dnia zadaje Ci nietypowe pytanie:",
-                   20, 270, white)
-        pisak.pisz("wers5", "- Słuchaj.. Ta Iwona z naszego pokoju nie wydaje Ci się dziwna? - Nie rozumiem?!"
-                            " - odpowiadasz.", 20, 300, white)
-        pisak.pisz("wers6", "- Wczoraj jak paliłam sobie na palarni po 20:00, to widziałam ją jak rozmawiała z"
-                            " jednym wykładowcą.", 20, 330, white)
-        pisak.pisz("wers7", "- No i co w tym dziwnego? - kontynuujesz - Przecież na palarniach nie obowiazują te"
-                            " meldowania itd.", 20, 360, white)
-        pisak.pisz("wers8", "- No tak - Anka scisza głos - ale rozmawiała z nim po imieniu, zna go, jestem na 100%"
-                            " pewna", 20, 390, white)
-        pisak.pisz("wers9", "Ty jednak nie wierzysz do końca w to co słyszysz, 'eee pewnie jest zazdrosna' ale po"
-                            " chwili odpowiadasz.", 20, 420, white)
-        pisak.pisz("wers10", "- No dobra, to jak przyjdziemy do pokoju to ją zapytamy wprost.", 20, 450, white)
-        pisak.pisz("wers11", "Wracacie razem do pokoju.", 20, 480, white)
+        for ver in text:
+            pisak.pisz("w", ver, 20, 150 + poz_y, white)
+            poz_y += 30
 
         pygame.display.update()
         mainClock.tick(60)
