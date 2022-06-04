@@ -1437,8 +1437,10 @@ def scena8():
 def scena9():
     db_save.update_exp_ang_dni("dni_sluzby", "dane_konta", 1)
     db_save.update_exp_ang_dni("exp", "dane_konta", 1)
+    text = dialogs.text_scena_9
     running = True
     while running:
+        poz_y = 30
         click = False
 
         screen.fill(black)
@@ -1484,30 +1486,9 @@ def scena9():
                 loadingSound.play()
                 akta_osobowe()
 
-        pisak.pisz("wers", "Kolejnego dnia Wasz pokój ma 'rejony' to tzw. sprzątanie wyznaczonego miejsca.",
-                   20, 150, white)
-        pisak.pisz("wers1", "Ogarniacie cały korytarz na I piętrze swojego akademika. Wiadra, szmaty, ścierki"
-                            " i do roboty!", 20, 180, white)
-        pisak.pisz("wers2", "Sprzątacie i narzekacie: po co, komu, a co tu nie ma sprzątaczek, itd.",
-                   20, 210, white)
-        pisak.pisz("wers3", "Jednak dociera do Was, że przecież jesteście skoszarowaną formacją mundurową.",
-                   20, 240, white)
-        pisak.pisz("wers4", "Iwona zasuwa i nie narzeka, Anka uwija się jak mucha w smole i przewodzi w"
-                            " narzekaniu.", 20, 270, white)
-        pisak.pisz("wers5", "Ty jedziesz na mopie a Tomek? Tomek-śmieszek podjudza Ankę, która jeszcze"
-                            " bardziej się nakręca", 20, 300, white)
-        pisak.pisz("wers6", "i co chwilę wymyśla powody dla których Wasza praca nie ma sensu.", 20, 330, white)
-        pisak.pisz("wers7", "Po skończonych rejonach korytarz lśni aż miło. Jesteście dumni z pracy którą"
-                            " wykonaliście ale..", 20, 360, white)
-        pisak.pisz("wers8", "to, że Wam się podoba to nic. Waszą robotę ma ocenić szef kompanii..", 20, 390, white)
-        pisak.pisz("wers9", "Po kilku minutach przyszedł szef. Szefem jest 32 letni, niewielki grubcio w stopniu"
-                            " sierżanta sztabowego.", 20, 420, white)
-        pisak.pisz("wers10", "Od 7 lat szefuje to na jednym to na drugim akademiku. Przeszedł się po całym korytarzu,"
-                             " kręcił nosem,", 20, 450, white)
-        pisak.pisz("wers11", "widać było, że średnio mu się podoba Wasza praca i już miał coś powiedzieć ale spojrzał"
-                             " na Iwonę, uśmiechnął się", 20, 480, white)
-        pisak.pisz("wers12", "i stwierdził, że w sumie to może być. - Uff pewnie poznał ją z poprzedniego kursu"
-                             " - pomyślałeś(-aś).", 20, 510, white)
+        for ver in text:
+            pisak.pisz("w", ver, 30, 120 + poz_y, white)
+            poz_y += 30
 
         pygame.display.update()
         mainClock.tick(60)
