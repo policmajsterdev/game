@@ -1,8 +1,8 @@
 import pygame
+from pygame.locals import *
 import sys
 import random
 import os.path
-from pygame.locals import *
 import pisak
 import graph
 import check_file_save
@@ -22,6 +22,8 @@ filepath = os.path.dirname(__file__)
 
 # Rozmiar_okna
 
+xw = 1
+xh = 1
 screen = pygame.display.set_mode((1280, 720))
 
 # Nazwa_okna_gry/Ikona
@@ -326,29 +328,29 @@ def wejsciedogry():
         screen.blit(graph.bg, (bg_x, 0))
         screen.blit(graph.bg, (bg_x2, 0))
         if starter != 29:
-            screen.blit(graph.animated_Logo[starter], (490, 430))
+            screen.blit(graph.animated_Logo[starter], (490 * xw, 430 * xh))
             starter += 1
-            if starter == 29:
-                starter = 0
+        if starter == 29:
+            starter = 0
 
-        button = screen.blit(graph.press_Enter[0], (450, 570))
-        button_x = screen.blit(graph.press_Option[0], (680, 570))
-        screen.blit(graph.kajdanki[0], (900, 500))
-        screen.blit(graph.pistol[0], (0, 500))
-        screen.blit(graph.nakladka_bg, (0, 0))
+        button = screen.blit(graph.press_Enter[0], (450 * xw, 570 * xh))
+        button_x = screen.blit(graph.press_Option[0], (680 * xw, 570 * xh))
+        screen.blit(graph.kajdanki[0], (900 * xw, 500 * xh))
+        screen.blit(graph.pistol[0], (0 * xw, 500 * xh))
+        screen.blit(graph.nakladka_bg, (0 * xw, 0 * xh))
 
         mx, my = pygame.mouse.get_pos()
 
         if button_x.collidepoint((mx, my)):
-            screen.blit(graph.press_Option[1], (680, 570))
-            screen.blit(graph.kajdanki[1], (900, 500))
+            screen.blit(graph.press_Option[1], (680 * xw, 570 * xh))
+            screen.blit(graph.kajdanki[1], (900 * xw, 500 * xh))
             if click:
                 loadingSound.play()
                 info()
 
         if button.collidepoint((mx, my)):
-            screen.blit(graph.press_Enter[1], (450, 570))
-            screen.blit(graph.pistol[1], (0, 500))
+            screen.blit(graph.press_Enter[1], (450 * xw, 570 * xh))
+            screen.blit(graph.pistol[1], (0 * xw, 500 * xh))
             if click:
                 loadingSoundDEV.play()
                 kontynuacja_gry()
@@ -10349,25 +10351,36 @@ def scena_prog_5():
 def info():
     running = True
     while running:
+        global screen, xw, xh
+        rozm = pygame.display.get_window_size()
         click = False
         screen.fill(black)
         screen.blit(graph.bgopcje, (0, 0))
-        screen.blit(graph.licencja, (20, 520))
-
+        screen.blit(graph.licencja, (20 * xw, 520 * xh))
         volume = pygame.mixer.music.get_volume()
-        if 0.2 < volume < 0.7:
-            screen.blit(graph.volPanel[1], (950, 300))
-        elif volume > 0.7:
-            screen.blit(graph.volPanel[2], (950, 300))
-        elif volume < 0.2:
-            screen.blit(graph.volPanel[0], (950, 300))
 
-        cicho = screen.blit(graph.volLow[0], (1000, 530))
-        srednio = screen.blit(graph.volNormal[0], (960, 570))
-        glosno = screen.blit(graph.volHI[0], (982, 610))
-        cofnij_x = screen.blit(graph.cofnij[0], (560, 640))
+        if 0.2 < volume < 0.7:
+            screen.blit(graph.volPanel[1], (950 * xw, 300 * xh))
+        elif volume > 0.7:
+            screen.blit(graph.volPanel[2], (950 * xw, 300* xh))
+        elif volume < 0.2:
+            screen.blit(graph.volPanel[0], (950 * xw, 300 * xh))
+
+        if rozm[0] == 1280:
+            screen.blit(graph.rozdz[0], (440 * xw, 500 * xh))
+        if rozm[0] == 1600:
+            screen.blit(graph.rozdz[1], (440 * xw, 500 * xh))
+
+
+        cicho = screen.blit(graph.volLow[0], (1000 * xw, 530 * xh))
+        srednio = screen.blit(graph.volNormal[0], (960 * xw, 570* xh))
+        glosno = screen.blit(graph.volHI[0], (982 * xw, 610 * xh))
+        cofnij_x = screen.blit(graph.cofnij[0], (120 * xw, 450 * xh))
+        rozm_1280 = screen.blit(graph.rozdz_box[0], (640 * xw, 530 * xh))
+        rozm_1600 = screen.blit(graph.rozdz_box[2], (640 * xw, 580 * xh))
 
         mx, my = pygame.mouse.get_pos()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -10377,41 +10390,54 @@ def info():
                     click = True
 
         if cicho.collidepoint((mx, my)):
-            screen.blit(graph.volLow[1], (1000, 530))
+            screen.blit(graph.volLow[1], (1000 * xw, 530 * xh))
             if click:
                 pisak.volume_low()
 
         if srednio.collidepoint((mx, my)):
-            screen.blit(graph.volNormal[1], (960, 570))
+            screen.blit(graph.volNormal[1], (960 * xw, 570 * xh))
             if click:
                 pisak.volume_normal()
 
         if glosno.collidepoint((mx, my)):
-            screen.blit(graph.volHI[1], (982, 610))
+            screen.blit(graph.volHI[1], (982 * xw, 610 * xh))
             if click:
                 pisak.volume_hi()
 
+        if rozm_1280.collidepoint((mx, my)):
+            screen.blit(graph.rozdz_box[1], (640 * xw, 530 * xh))
+            if click:
+                screen = pygame.display.set_mode((1280, 720))
+                xw = 1
+                xh = 1
+
+        if rozm_1600.collidepoint((mx, my)):
+            screen.blit(graph.rozdz_box[3], (640 * xw, 580 * xh))
+            if click:
+                screen = pygame.display.set_mode((1600, 900))
+                xw = 1.25
+                xh = 1.25
+
         if cofnij_x.collidepoint((mx, my)):
-            screen.blit(graph.cofnij[1], (560, 640))
+            screen.blit(graph.cofnij[1], (120 * xw, 450 * xh))
             if click:
                 loadingSound.play()
                 running = False
 
         pisak.pisz("wers2", "'Policmajster' to gra tekstowa z elementami grafiki, opowiadająca historię z"
-                            " Tobą w roli głównej.", 20, 150, white)
+                            " Tobą w roli głównej.", 20 * xw, 150 * xh, white)
         pisak.pisz("wers3", "Gra rozpoczyna się od momentu gdy decydujesz się wstąpić do Policji a po"
-                            " pomyślnym przejściu procedury doboru", 20, 180, white)
-        pisak.pisz("wers4", "zostajesz wysłany(-a) na kilkumiesięczne szkolenie do szkoły policyjnej.", 20, 210, white)
+                            " pomyślnym przejściu procedury doboru", 20 * xw, 180 * xh, white)
+        pisak.pisz("wers4", "zostajesz wysłany(-a) na kilkumiesięczne szkolenie do szkoły policyjnej.", 20 * xw, 210 * xh, white)
         pisak.pisz("wers5", "Możesz poprowadzić swoją karierę poprzez szkołę, egzaminy, następnie służbę jako "
-                            "prawdziwy policjant", 20, 240, white)
+                            "prawdziwy policjant", 20 * xw, 240 * xh, white)
         pisak.pisz("wers6", "i upragniony awans do Wydziału Dochodzeniowo-Śledczego, na jednym z miejscowych "
-                            "komisariatów.", 20, 270, white)
-        pisak.pisz("wers7", "Dochodzeniówka to 'sól' całej policji..", 20, 300, white)
+                            "komisariatów.", 20 * xw, 270 * xh, white)
+        pisak.pisz("wers7", "Dochodzeniówka to 'sól' całej policji..", 20 * xw, 300 * xh, white)
         pisak.pisz("wers8", "Dostajesz wiele spraw, tony papierologii, kwitów do wypełnienia - dzień jak co dzień.",
-                   20, 330, white)
-        pisak.pisz("wers9", "Pewnego dnia może dostaniesz niepozorną sprawę..", 20, 360, white)
-        pisak.pisz("wers11", "Zbieżność sytuacji - jeśli wystąpią - jest przypadkowa.", 20, 460, white)
-        pisak.pisz("wers12", "Gra wyświetla się domyślnie (poprawnie) w rozdzieczości 1280x720.", 20, 500, dyellow)
+                   20 * xw, 330 * xh, white)
+        pisak.pisz("wers9", "Pewnego dnia może dostaniesz niepozorną sprawę..", 20 * xw, 360 * xh, white)
+        pisak.pisz("wers11", "Zbieżność sytuacji - jeśli wystąpią - jest przypadkowa.", 20 * xw, 390 * xh, white)
 
         pygame.display.update()
         mainClock.tick(60)
@@ -10830,3 +10856,4 @@ def stary_pamietnik():
 
 
 intro_dev()
+

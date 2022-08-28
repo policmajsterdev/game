@@ -449,6 +449,12 @@ volNormal = [pygame.image.load(os.path.join(filepath, "data\\pics\\srednio.png")
              pygame.image.load(os.path.join(filepath, "data\\pics\\srednio1.png"))]
 volHI = [pygame.image.load(os.path.join(filepath, "data\\pics\\glosno.png")),
          pygame.image.load(os.path.join(filepath, "data\\pics\\glosno1.png"))]
+rozdz = [pygame.image.load(os.path.join(filepath, "data\\pics\\rozdz.png")),
+         pygame.image.load(os.path.join(filepath, "data\\pics\\rozdz1.png"))]
+rozdz_box = [pygame.image.load(os.path.join(filepath, "data\\pics\\1280p.png")),
+             pygame.image.load(os.path.join(filepath, "data\\pics\\1280p1.png")),
+             pygame.image.load(os.path.join(filepath, "data\\pics\\1600p.png")),
+             pygame.image.load(os.path.join(filepath, "data\\pics\\1600p1.png"))]
 
 # Stopnie służbowe
 post = pygame.image.load(os.path.join(filepath, "data\\stopnie\\post.png")).convert_alpha()
